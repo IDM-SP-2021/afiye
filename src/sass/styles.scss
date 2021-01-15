@@ -1,4 +1,5 @@
-$body-color: red;
+@use 'foundation/variables';
+@use 'foundation/mixins';
 
 body {
 	color: $body-color;

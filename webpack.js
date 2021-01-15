@@ -1,4 +1,6 @@
+const autoprefixer = require('autoprefixer')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const cssnano = require('cssnano')
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -26,13 +28,13 @@ if(!devMode) {
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css'
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'N4J_HOST': JSON.stringify(process.env.N4J_HOST),
-        'N4J_USER': JSON.stringify(process.env.N4J_USER),
-        'N4J_PASS': JSON.stringify(process.env.N4J_PASS)
-      }
-    })
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'N4J_HOST': JSON.stringify(process.env.N4J_HOST),
+    //     'N4J_USER': JSON.stringify(process.env.N4J_USER),
+    //     'N4J_PASS': JSON.stringify(process.env.N4J_PASS)
+    //   }
+    // })
   )
 } else {
   plugins.push(
@@ -56,9 +58,6 @@ module.exports = {
     filename: '[name].bundle.js',
     path: buildDir,
   },
-  resolve: {
-    extensions: ['.webpack.js', '.web.js', '.js', '.jsx']
-  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: buildDir,
@@ -70,11 +69,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader',
+          { loader: "css-loader", options: { url: false, importLoaders: 1 } },
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer(), cssnano()] }},
           'sass-loader',
         ],
       },
@@ -83,5 +82,12 @@ module.exports = {
         loader: 'file-loader?name=[name].[ext]'  // <-- retain original file name
     }
     ]
+  },
+  resolve: {
+    extensions: ['.webpack.js', '.web.js', '.js', '.jsx', '.scss'],
+    alias: {
+      // Provides ability to include node_modules with ~
+      '~': path.resolve(process.cwd(), 'src'),
+    },
   }
 };
