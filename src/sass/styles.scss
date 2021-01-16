@@ -1,6 +1,6 @@
-@use 'foundation/variables';
-@use 'foundation/mixins';
+@import './foundation/_variables';
+@import './foundation/_mixins';
 
 body {
-	color: $body-color;
+  color: $body-color;
 }
