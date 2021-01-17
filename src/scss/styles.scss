@@ -1,0 +1,8 @@
+@import "./foundation/_variables";
+@import "./foundation/_mixins";
+
+@import "./partials/_base";
+
+body {
+	color: $body-color;
+}
