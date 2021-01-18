@@ -9,7 +9,7 @@
   "scripts": {
     "start": "webpack serve --open --config webpack/webpack.dev.js",
     "build": "webpack --config webpack/webpack.prod.js",
-    "clean": "rimraf build"
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
