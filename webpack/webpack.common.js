@@ -35,5 +35,6 @@ module.exports = {
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
+    plugins.DotenvPlugin,
   ]
 };
