@@ -110,9 +110,15 @@ npm run build
 | `scss` variables, classes, etc. | Separate words with `-` | `.some-class` |
 | `js` variables, functions, etc. | Use camecase | `const submitMember` |
 
+Use two space indents in all code files. This can be configured in your editor.
+
 Preceed every `js` function with a comment describing its usage.
 
-Use two space indents in all code files. This can be configured in your editor.
+If `html` content will be dynamically added via `js` add a comment within the container element stating what will be added and by what function(s) to easily track.
+
+Do not include links or references to `css` or `js` files in `html` files as they will be dynically added at build time with hash naming to avoid cache issues.
+
+Any new `scss` partials must be included in `styles.scss` or it will not be compiled.
 
 **DO NOT** touch anything in the Webpack folder unless you explicitly know what you are doing or have a hankering for a headache. Trust me. You will break it and we will all be sad.
 
