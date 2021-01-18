@@ -1,5 +1,7 @@
 # afiye
 
+---
+
 ## Installation
 
 Fork this repository to your account.
@@ -8,13 +10,13 @@ Clone the forked repository to your device using a git GUI or the command line.
 
 Navigate to the repository on the command line
 
-```shell
+```bash
 cd path/to/repository
 ```
 
 Install project dependencies
 
-```shell
+```bash
 npm install
 ```
 
@@ -81,7 +83,9 @@ CREATE (Henderson:Family {fid: 'fbmqvTmHhcmPKQTKBWEdDiPVThhVbdDdmgpyriPWAwVIHaVr
 
 From the command line run the following command to open a development server. This will not generate any files on your system as they are saved into memory.
 
-```shell
+> **IMPORTANT:** Make sure the database is running in Neo4j Desktop
+
+```bash
 npm start
 ```
 
@@ -91,6 +95,57 @@ npm start
 
 From the command line run the following command to build the project. This will populate the `dist` directory with the browser ready project files.
 
-```shell
+```bash
 npm run build
 ```
+
+## Contribution Guidelines
+
+### Code Best Practices
+
+| Category | Description | Example |
+| -------- | ----------- | ------- |
+| File Naming | Use camelcase | `someFile.js` |
+| `.scss` partials | Prefix with `_` | `_buttons.scss` |
+| `scss` variables, classes, etc. | Separate words with `-` | `.some-class` |
+| `js` variables, functions, etc. | Use camecase | `const submitMember` |
+
+Preceed every `js` function with a comment describing its usage.
+
+Use two space indents in all code files. This can be configured in your editor.
+
+**DO NOT** touch anything in the Webpack folder unless you explicitly know what you are doing or have a hankering for a headache. Trust me. You will break it and we will all be sad.
+
+Anything that should be included in the build must be included in the `src` directory or a subdirectory therein.
+
+Please let Erik know if you are including a new file type in the build as this must be added to the build process.
+
+Currently supports:
+
+- HTML
+- JS
+- SCSS
+- PNG
+- JPEG
+- GIF
+
+### Pull Requests
+
+All edits must be made in a forked version of this repository and submitted via a Pull Request (PR). Each PR must request a minimum of one reviewer, preferably one working on the same or a similar topic to the contents of your PR.
+
+Prior to submitting a PR, ensure that your forked version has been synced with the latest version of the master repository to minimize merge conflicts. For information about syncing your repository please see the following:
+
+- [GitHub Desktop](https://stackoverflow.com/questions/46110615/how-to-sync-your-forked-repo-with-original-repo-in-github-desktop)
+- [Command Line](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+
+Every PR must be appropriately named. The title should reference the feature or bug being addressed by the changes. The description should provide an overview of changes and should be written in clear language that defines terms being used unless previously defined in project documentation.
+
+### Approvals
+
+Before a PR can be approved, reviewers must clone the changes to their machine and thoroughly test the build for any bugs. Any bugs should be reported in the review and the PR sent back to the author for correction before it can be merged into the master repository.
+
+If a build is unsuccessful, the PR will be rejected.
+
+If the code contains any errors or warnings per the project linting tools, the PR will be rejected.
+
+If the code does not adhere to the Code Best Practices outlined above, the PR will be rejected.
