@@ -6,7 +6,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
-  filename: './css/styles.bundle.css',
+  filename: './css/styles.[hash].bundle.css',
   chunkFilename: '[id].css'
 });
 

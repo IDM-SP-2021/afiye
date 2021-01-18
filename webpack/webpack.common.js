@@ -17,7 +17,7 @@ module.exports = {
     ]
   },
   output: {
-    filename: 'js/[name].bundle.js',
+    filename: 'js/[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../dist')
   },
   optimization: {
