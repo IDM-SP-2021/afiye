@@ -14,6 +14,7 @@ module.exports = {
       loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
+      loaders.FontLoader,
     ]
   },
   output: {

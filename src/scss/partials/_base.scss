@@ -1,3 +1,7 @@
 h1 {
 	color: $body-color;
+
+	&.top {
+		color: blue;
+	}
 }

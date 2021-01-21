@@ -39,8 +39,8 @@ const JSLoader = {
     loader: 'babel-loader',
     options: {
       presets: ['@babel/preset-env']
-    }
-  }
+    },
+  },
 };
 
 const FileLoader = {
@@ -56,10 +56,24 @@ const FileLoader = {
   ],
 };
 
+const FontLoader = {
+  test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        name: '[name].[ext]',
+        outputPath: 'fonts/'
+      },
+    },
+  ],
+};
+
 
 module.exports = {
   HTMLLoader: HTMLLoader,
   CSSLoader: CSSLoader,
   JSLoader: JSLoader,
   FileLoader: FileLoader,
+  FontLoader: FontLoader,
 };
