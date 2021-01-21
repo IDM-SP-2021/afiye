@@ -1,5 +1,4 @@
 //Colors
-
 //Grayscale
 $title-active: #14142B;
 $body: #4E4B66;
@@ -73,12 +72,46 @@ $body-color: $purple-default;
 //Fonts
 
 //Desktop
-@font-face { 
-font-family: Rubik;
-src: url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
-font-style: normal;
-font-weight: normal;
-font-size: 64px;
-line-height: 66px;
-}
-$desktop-large: 'Rubik', sans-serif, 64px;
+//Display
+$desktop-display-large: 64px ‘Rubik’, Arial, sans-serif;
+$desktop-display-medium: 48px ‘Rubik’, Arial, sans-serif;
+$desktop-display-small: 32px ‘Rubik’, Arial, sans-serif;
+
+$desktop-display-large-bold: 700 64px ‘Rubik’, Arial, sans-serif;
+$desktop-display-medium-bold: 700 48px ‘Rubik’, Arial, sans-serif;
+$desktop-display-small-bold: 700 32px ‘Rubik’, Arial, sans-serif;
+
+//Text
+$desktop-text-large: 24px ‘Rubik’, Arial, sans-serif;
+$desktop-text-medium: 18px ‘Rubik’, Arial, sans-serif;
+$desktop-text-small: 16px ‘Rubik’, Arial, sans-serif;
+$desktop-text-x-small: 10px ‘Rubik’, Arial, sans-serif;    
+
+$desktop-link-large: 500 24px ‘Rubik’, Arial, sans-serif;
+$desktop-link-medium: 500 18px ‘Rubik’, Arial, sans-serif;
+$desktop-link-small: 500 16px ‘Rubik’, Arial, sans-serif;
+$desktop-link-x-small: 500 14px ‘Rubik’, Arial, sans-serif; 
+
+
+
+//Mobile
+//Display
+$mobile-display-large: 48px ‘Rubik’, Arial, sans-serif;
+$mobile-display-medium: 32px ‘Rubik’, Arial, sans-serif;
+$mobile-display-small: 24px ‘Rubik’, Arial, sans-serif;
+
+$mobile-display-large-bold: 700 48px ‘Rubik’, Arial, sans-serif;
+$mobile-display-medium-bold: 700 32px ‘Rubik’, Arial, sans-serif;
+$mobile-display-small-bold: 700 24px ‘Rubik’, Arial, sans-serif;
+$mobile-display-x-small-bold: 700 18px ‘Rubik’, Arial, sans-serif;
+
+//Text
+$mobile-text-large: 20px ‘Rubik’, Arial, sans-serif;
+$mobile-text-medium: 16px ‘Rubik’, Arial, sans-serif;
+$mobile-text-small: 14px ‘Rubik’, Arial, sans-serif;
+$mobile-text-x-small: 13px ‘Rubik’, Arial, sans-serif;    
+
+$mobile-link-large: 500 20px ‘Rubik’, Arial, sans-serif;
+$mobile-link-medium: 500 16px ‘Rubik’, Arial, sans-serif;
+$mobile-link-small: 500 14px ‘Rubik’, Arial, sans-serif;
+$mobile-link-x-small: 500 13px ‘Rubik’, Arial, sans-serif; 
