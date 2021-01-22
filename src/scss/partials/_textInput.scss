@@ -1,43 +1,43 @@
 .input-container {
-    margin-bottom: 10px;
-    max-width: 450px;
+	margin-bottom: 10px;
+	max-width: 450px;
 }
 
 .input {
-    display: block;
-    border: 1.5px solid #EFF0F6;
-    border-radius: 5px;
-    padding: 8px;
-    width: 75%;
-    outline: none;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+	display: block;
+	border: 1.5px solid #eff0f6;
+	border-radius: 5px;
+	padding: 8px;
+	width: 75%;
+	outline: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
 }
 
 .mobile {
-    max-width: 50% !important;
+	max-width: 50% !important;
 }
 
-.input-success{
-    border: 1.5px solid green !important;
+.input-success {
+	border: 1.5px solid green !important;
 }
 
 .input-container[data-error] .input {
-    border-color: #c92432;
-    background: white;
-    color: black;
+	border-color: #c92432;
+	background: white;
+	color: black;
 }
 
 .input-container[data-error]::after {
-    content: attr(data-error);
-    font-size: 10px;
+	content: attr(data-error);
+	font-size: 10px;
 }
 
 input:disabled {
-    background: #EFF0F6;
-    border: 1.5px solid #A0A3BD;
+	background: #eff0f6;
+	border: 1.5px solid #a0a3bd;
 }
 
 // input::after {
@@ -46,25 +46,23 @@ input:disabled {
 //     content: "fire";
 // }
 
-input:focus::placeholder {
-    color: transparent
+input:focus {
+	border: 1.5px solid #5700b2;
 }
 
 input::placeholder {
-    color: #6E7191;
-    transition: color 0.3s ease;
+	color: #6e7191;
+	transition: color 0.3s ease;
 }
-       
-input:focus {
-    border: 1.5px solid #5700B2;
+
+input:focus::placeholder {
+	color: transparent;
 }
 
 input:hover {
-        border: 1.5px solid #922AFF;
-    }
+	border: 1.5px solid #922aff;
+}
 
-    .caption {
-        font-size: 10px;
-
-    }
-
+.caption {
+	font-size: 10px;
+}
