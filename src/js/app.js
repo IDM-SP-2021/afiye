@@ -1,5 +1,6 @@
 import '../scss/styles.scss';
-const $ = require('jquery');
+// const $ = require('jquery');
+import $ from 'jquery';
 import { customAlphabet } from 'nanoid';
 
 console.log('From app.js');

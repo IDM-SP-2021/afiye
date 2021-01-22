@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack'); // to access built-in plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const loaders = require('./loaders');
 const plugins = require('./plugins');
 
 module.exports = {
@@ -9,18 +8,11 @@ module.exports = {
     app: './src/js/app.js',
     neo4j: './src/js/neo4j.js'
   },
-  module: {
-    rules: [
-      loaders.CSSLoader,
-      loaders.JSLoader,
-      loaders.FileLoader,
-      loaders.FontLoader,
-    ]
-  },
   output: {
     filename: 'js/[name].[hash].bundle.js',
     path: path.resolve(__dirname, '../dist')
   },
+  target: 'web',
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -30,9 +22,9 @@ module.exports = {
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: './src/index.html'
+      template: './src/index.html',
+      excludeChunks: ['server']
     }),
-    plugins.CleanWebpackPlugin,
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
