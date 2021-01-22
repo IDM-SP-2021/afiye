@@ -2,6 +2,8 @@
 @import "./foundation/_mixins";
 
 @import "./partials/_base";
+@import "./partials/_cardStyle";
+@import "./partials/_textInput";
 
 body {
 	color: $body-color;
