@@ -8,6 +8,70 @@
 	<body>
 		<h1>afiye</h1>
 		<button id="init-DB">Initialize Database</button>
-		<p>testing hello</p>
+
+		<!-- Card Styles -->
+		<div class="card">
+			<img
+				style="border-radius: 5px"
+				src="https://picsum.photos/240/240?random=1"
+			/>
+			<p class="card" style="font-size: 24px">Album Name</p>
+			<p class="card" style="font-size: 16px">created by "First name"</p>
+		</div>
+
+		<!-- Input  -->
+		<div class="input-container" data-error="Error">
+			<input
+				class="input"
+				type="text"
+				name="fname"
+				placeholder="First Name"
+				value="Patrick"
+			/>
+		</div>
+
+		<div class="input-container">
+			<input class="input" type="text" name="fname" placeholder="First Name" />
+		</div>
+
+		<div class="input-container">
+			<input
+				class="input input-success"
+				type="text"
+				name="fname"
+				placeholder="First Name"
+			/>
+			<div
+				class="caption"
+				style="color: green; font-size: 12px; padding-top: 5px"
+			>
+				Success
+			</div>
+		</div>
+
+		<div class="input-container">
+			<input
+				class="input mobile"
+				type="text"
+				name="fname"
+				placeholder="First Name"
+			/>
+			<div
+				class="caption"
+				style="color: #a0a3bd; font-size: 12px; padding-top: 5px"
+			>
+				This is a caption
+			</div>
+		</div>
+
+		<div class="input-container">
+			<input
+				class="input"
+				type="text"
+				name="fname"
+				placeholder="First Name"
+				disabled
+			/>
+		</div>
 	</body>
 </html>
