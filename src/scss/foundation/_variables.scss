@@ -1,1 +1,117 @@
-$body-color: red;
+//Colors
+//Grayscale
+$title-active: #14142B;
+$body: #4E4B66;
+$label: #6E7191;
+$line: #D6D8E7;
+$input-background: #EFF0F7;
+$background: #F7F7FC;
+$off-white:#FCFCFC;
+
+//Orange 
+$orange-light: #FFDAB5;
+$orange-default: #FFBD7A;
+$orange-dark: #FF9933;
+
+//Green
+$green-light: #ADF9E5;
+$green-default: #63CFB3;
+$green-dark: #00B284;
+
+//Red
+$red-light: #FFDBD7;
+$red-default: #FFA399;
+$red-dark: #FF5643;
+
+//Blue
+$blue-light: #5168F5;
+$blue-default: #3249D0;
+$blue-dark: #1C2A7D;
+
+//Purple
+$purple-light: #B166FF;
+$purple-default: #922AFF;
+$purple-dark: #5700B2;
+
+//Gradient One
+$gradient-blue: #3249D0;
+$gradient-purple: #922BFF;
+$gradient-one: linear-gradient(114deg, $gradient-blue, $gradient-purple);
+
+//Gradient Two
+$gradient-two: linear-gradient(114deg, #929DE0 0%, #00B384 100%);
+
+//Main Purple
+$main-purple-light:#9643EF;
+$main-purple-default:#550EA1;
+$main-purple-dark:#32085E;
+
+//Main Blue
+$main-blue-light:#6E7EDE;
+$main-blue-default:#3249D0;
+$main-blue-dark:#182368;
+
+//Profile Colors
+$profile-pink:#FE66B8;
+$profile-magenta:#F83A74;
+$profile-red:#F42525;
+$profile-orange:#FF5722;
+$profile-yellow:#FFC52F;
+$profile-green:#1DB954;
+$profile-teal:#07A092;
+$profile-light-blue:#0AB4FF;
+$profile-dark-blue:#4169E1;
+$profile-purple:#922AFF;
+$profile-brown:#AE640D;
+$profile-gray:#6E7191;
+$profile-black:#1D1B2D;
+
+//Test
+$body-color: $purple-default;
+
+//Fonts
+
+//Desktop
+//Display
+$desktop-display-large: 64px ‘Rubik’, Arial, sans-serif;
+$desktop-display-medium: 48px ‘Rubik’, Arial, sans-serif;
+$desktop-display-small: 32px ‘Rubik’, Arial, sans-serif;
+
+$desktop-display-large-bold: 700 64px ‘Rubik’, Arial, sans-serif;
+$desktop-display-medium-bold: 700 48px ‘Rubik’, Arial, sans-serif;
+$desktop-display-small-bold: 700 32px ‘Rubik’, Arial, sans-serif;
+
+//Text
+$desktop-text-large: 24px ‘Rubik’, Arial, sans-serif;
+$desktop-text-medium: 18px ‘Rubik’, Arial, sans-serif;
+$desktop-text-small: 16px ‘Rubik’, Arial, sans-serif;
+$desktop-text-x-small: 10px ‘Rubik’, Arial, sans-serif;    
+
+$desktop-link-large: 500 24px ‘Rubik’, Arial, sans-serif;
+$desktop-link-medium: 500 18px ‘Rubik’, Arial, sans-serif;
+$desktop-link-small: 500 16px ‘Rubik’, Arial, sans-serif;
+$desktop-link-x-small: 500 14px ‘Rubik’, Arial, sans-serif; 
+
+
+
+//Mobile
+//Display
+$mobile-display-large: 48px ‘Rubik’, Arial, sans-serif;
+$mobile-display-medium: 32px ‘Rubik’, Arial, sans-serif;
+$mobile-display-small: 24px ‘Rubik’, Arial, sans-serif;
+
+$mobile-display-large-bold: 700 48px ‘Rubik’, Arial, sans-serif;
+$mobile-display-medium-bold: 700 32px ‘Rubik’, Arial, sans-serif;
+$mobile-display-small-bold: 700 24px ‘Rubik’, Arial, sans-serif;
+$mobile-display-x-small-bold: 700 18px ‘Rubik’, Arial, sans-serif;
+
+//Text
+$mobile-text-large: 20px ‘Rubik’, Arial, sans-serif;
+$mobile-text-medium: 16px ‘Rubik’, Arial, sans-serif;
+$mobile-text-small: 14px ‘Rubik’, Arial, sans-serif;
+$mobile-text-x-small: 13px ‘Rubik’, Arial, sans-serif;    
+
+$mobile-link-large: 500 20px ‘Rubik’, Arial, sans-serif;
+$mobile-link-medium: 500 16px ‘Rubik’, Arial, sans-serif;
+$mobile-link-small: 500 14px ‘Rubik’, Arial, sans-serif;
+$mobile-link-x-small: 500 13px ‘Rubik’, Arial, sans-serif; 
