@@ -25,7 +25,7 @@
 .avatar-circle {
 
     /* change outline color depending on user's choice */
-    border: 0.22em solid rgb(156, 57, 123);   
+    border: 0.22em solid $profile-red;   
     
      /* make sure the height, width are .375em larger than the profile image */
     height: 3.375em;

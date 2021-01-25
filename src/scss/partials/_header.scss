@@ -8,9 +8,9 @@
   }
 
   .header-title{
-	  font-family: Rubik;
-	  color: purple;
-	font-size: 24px;
+	  font-family: $desktop-text-large;
+	  color: $purple-default;
+	font-size: $desktop-text-large;
 	margin-left: .95em;
 	margin-top: .95em;
   }
