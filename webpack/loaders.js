@@ -3,32 +3,60 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const HTMLLoader = {
   test: /\.html$/i,
-  use: ['file-loader?name=[name].[ext]', 'extract-loader', 'html-loader'],
+  use: [
+    'file-loader?name=[name].[ext]',
+    'extract-loader',
+    {
+      loader: 'html-loader',
+      options: { minimize: true },
+    }
+  ],
 };
 
-const CSSLoader = {
+const CSSLoaderProd = {
   test: /\.s[ac]ss$/i,
   exclude: /node_modules/,
   use: [
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
-        publicPath: path.resolve(__dirname, '../dist/css/')
+        publicPath: path.resolve(__dirname, '../dist/css/'),
       }
     },
     {
       loader: 'css-loader',
-      options: {importLoaders: 1},
-    },
-    {
-      loader: 'postcss-loader',
       options: {
-        postcssOptions: {
-          config: path.resolve(__dirname, 'postcss.config.js'),
-        },
+        importLoaders: 1,
+        sourceMap: true,
       },
     },
-    'sass-loader',
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true,
+      }
+    },
+  ],
+};
+
+const CSSLoaderDev = {
+  test: /\.s[ac]ss$/i,
+  exclude: /node_modules/,
+  use: [
+    'style-loader',
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        sourceMap: true,
+      },
+    },
+    {
+      loader: 'sass-loader',
+      options: {
+        sourceMap: true,
+      }
+    },
   ],
 };
 
@@ -72,7 +100,8 @@ const FontLoader = {
 
 module.exports = {
   HTMLLoader: HTMLLoader,
-  CSSLoader: CSSLoader,
+  CSSLoaderProd: CSSLoaderProd,
+  CSSLoaderDev: CSSLoaderDev,
   JSLoader: JSLoader,
   FileLoader: FileLoader,
   FontLoader: FontLoader,

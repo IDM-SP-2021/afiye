@@ -86,7 +86,7 @@ From the command line run the following command to open a development server. Th
 > **IMPORTANT:** Make sure the database is running in Neo4j Desktop
 
 ```bash
-npm start
+npm run buildDev && npm start
 ```
 
 ## Test Build Application
@@ -96,7 +96,7 @@ npm start
 From the command line run the following command to build the project. This will populate the `dist` directory with the browser ready project files.
 
 ```bash
-npm run build
+npm run buildProd
 ```
 
 ## Contribution Guidelines

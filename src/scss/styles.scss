@@ -3,7 +3,13 @@
 @import "./foundation/_fonts";
 
 @import "./partials/_base";
+@import "./partials/_cardStyle";
+@import "./partials/_textInput";
+@import "./partials/_header";
+@import "./partials/_footer";
+@import "./partials/_avatars";
 
 body {
 	color: $body-color;
+	font: $desktop-display-large-bold;
 }
