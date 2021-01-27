@@ -1,0 +1,16 @@
+.header-box {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	height: 6.25em;
+  }
+
+  .header-title{
+	  font-family: $desktop-text-large;
+	  color: $purple-default;
+	font-size: $desktop-text-large;
+	margin-left: .95em;
+	margin-top: .95em;
+  }

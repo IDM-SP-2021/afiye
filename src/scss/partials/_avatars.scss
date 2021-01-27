@@ -1,0 +1,39 @@
+.avatar {
+    /* Use Avatar Profile Images Below*/
+    background-image: url('https://via.placeholder.com/150');
+    
+    /* square container for profile image size */
+    width: 3em;
+    height: 3em;
+
+    /* fills the container, keeps aspect ratio, crops to fit */
+    background-size: cover;
+
+    /* center the avatar image vertically and horizontally */
+    background-position: top center;
+    margin: .1875em auto;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+}
+
+
+
+.avatar-circle {
+
+    /* change outline color depending on user's choice */
+    border: 0.22em solid $profile-red;   
+    
+     /* make sure the height, width are .375em larger than the profile image */
+    height: 3.375em;
+    width: 3.375em;
+
+    /* make the red outline a circle */
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+}
