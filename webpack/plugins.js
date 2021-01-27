@@ -4,6 +4,7 @@ const _StyleLintPlugin = require('stylelint-webpack-plugin');
 const _ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
+const _CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
   filename: './css/[name].[hash].bundle.css',
@@ -27,10 +28,18 @@ const DotenvPlugin = new Dotenv({
   path: './.env'
 });
 
+const CopyWebpackPlugin = new _CopyWebpackPlugin([
+  {
+    from: path.resolve(__dirname, '../src/assets'),
+    to: path.resolve(__dirname, '../dist/assets')
+  },
+]);
+
 module.exports = {
   CleanWebpackPlugin: new CleanWebpackPlugin(),
   MiniCssExtractPlugin: MiniCssExtractPlugin,
   StyleLintPlugin: StyleLintPlugin,
   ESLintPlugin: ESLintPlugin,
   DotenvPlugin: DotenvPlugin,
+  CopyWebpackPlugin: CopyWebpackPlugin,
 };

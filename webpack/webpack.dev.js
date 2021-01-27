@@ -35,6 +35,7 @@ module.exports = {
       loaders.CSSLoaderDev,
       loaders.JSLoader,
       loaders.FileLoader,
+      loaders.IconLoader,
       loaders.FontLoader,
     ]
   },
@@ -57,5 +58,6 @@ module.exports = {
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
+    plugins.CopyWebpackPlugin,
   ]
 };

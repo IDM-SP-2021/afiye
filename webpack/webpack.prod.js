@@ -29,6 +29,7 @@ module.exports = {
       loaders.CSSLoaderProd,
       loaders.JSLoader,
       loaders.FileLoader,
+      loaders.IconLoader,
       loaders.FontLoader,
     ]
   },
