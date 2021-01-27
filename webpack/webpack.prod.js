@@ -29,6 +29,7 @@ module.exports = {
       loaders.CSSLoaderProd,
       loaders.JSLoader,
       loaders.FileLoader,
+      loaders.IconLoader,
       loaders.FontLoader,
     ]
   },
@@ -49,5 +50,6 @@ module.exports = {
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
+    // plugins.ImageMinimizerPlugin,
   ]
 };
