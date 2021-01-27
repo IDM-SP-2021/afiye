@@ -72,16 +72,36 @@ const JSLoader = {
 };
 
 const FileLoader = {
-  test: /\.(png|jpe?g|gif)$/i,
+  test: /\.(png|jpe?g|gif|svg)$/i,
+  include: [
+    path.resolve(__dirname, './assets')
+  ],
+  // exclude: [
+  //   path.resolve(__dirname, './assets/icons')
+  // ],
   use: [
     {
       loader: 'file-loader',
       options: {
-        outputPath: 'images',
-        publicPath: path.resolve(__dirname, '../dist/media')
+        outputPath: './assets/',
       },
     },
   ],
+};
+
+const IconLoader = {
+  test: /\.(svg)$/i,
+  include: [
+    path.resolve(__dirname, './assets/icons')
+  ],
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        outputPath: './assets/icons'
+      }
+    }
+  ]
 };
 
 const FontLoader = {
@@ -104,5 +124,6 @@ module.exports = {
   CSSLoaderDev: CSSLoaderDev,
   JSLoader: JSLoader,
   FileLoader: FileLoader,
+  IconLoader: IconLoader,
   FontLoader: FontLoader,
 };
