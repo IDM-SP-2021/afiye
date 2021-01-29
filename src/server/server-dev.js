@@ -1,34 +1,54 @@
-import path from 'path';
-import express from 'express';
-import webpack from 'webpack';
-import webpackDevMiddleware from 'webpack-dev-middleware';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import config from '../../webpack/webpack.dev.js';
+const path = require('path');
+const express = require('express');
+const router = express.Router();
+const app = express();
+const mongoose = require('mongoose');
+const expressEjsLayout = require('express-ejs-layouts');
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
 
-const app = express(),
-            DIST_DIR = __dirname,
-            HTML_FILE = path.join(DIST_DIR, '../index.html'),
-            compiler = webpack(config);
+require('dotenv').config();
+require('./config/passport')(passport);
 
-app.use(webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
+//mongoose
+mongoose.connect('mongodb://localhost/test',{useNewUrlParser: true, useUnifiedTopology : true})
+.then(() => console.log('connected,,'))
+.catch((err)=> console.log(err));
+
+//EJS
+app.set('view engine','ejs');
+app.use(expressEjsLayout);
+//BodyParser
+app.use(express.urlencoded({extended : false}));
+
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use(webpackHotMiddleware(compiler));
+// use flash
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
 
-app.get('*', (req, res, next) => {
-  compiler.outputFileSystem.readFile(HTML_FILE, (err, result) => {
-    if (err) {
-      return next(err);
-    }
-    res.set('content-type', 'text/html');
-    res.send(result);
-    res.end();
-  });
+  next();
 });
+
+// Layout
+app.set('layout', path.resolve(__dirname, '../views/layout'));
+
+//Routes
+app.use('/',require(path.resolve(__dirname, '../routes/index')));
+app.use('/users',require(path.resolve(__dirname, '../routes/users')));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`App listening to ${PORT}....`);
-  console.log('Press Ctrl+C to quit.');
+  console.log(`Server is listening on port ${PORT}`);
+  console.log(`Press CTRL + C to close...`);
 });
