@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const router = express.Router();
+// const router = express.Router();
 const app = express();
 const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts');
@@ -11,7 +11,7 @@ const passport = require('passport');
 require('dotenv').config();
 require('./config/passport')(passport);
 
-app.use(express.static(__dirname));
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})

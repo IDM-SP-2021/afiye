@@ -1,6 +1,5 @@
 const path = require('path');
-const webpack = require('webpack'); // to access built-in plugins
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const loaders = require('./loaders');
 const plugins = require('./plugins');
 const Dotenv = require('dotenv-webpack');
@@ -11,7 +10,7 @@ module.exports = {
   },
   output: {
     filename: 'js/[name].bundle.js',
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/public'),
     publicPath: '/',
   },
   target: 'web',
@@ -31,7 +30,7 @@ module.exports = {
   },
   module: {
     rules: [
-      loaders.CSSLoaderDev,
+      loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
       loaders.FontLoader,
@@ -39,11 +38,6 @@ module.exports = {
   },
   plugins: [
     new webpack.ProgressPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: './src/index.html',
-      excludeChunks: ['server']
-    }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new Dotenv(),

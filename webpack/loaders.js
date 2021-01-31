@@ -13,7 +13,7 @@ const HTMLLoader = {
   ],
 };
 
-const CSSLoaderProd = {
+const CSSLoader = {
   test: /\.s[ac]ss$/i,
   exclude: /node_modules/,
   use: [
@@ -23,27 +23,6 @@ const CSSLoaderProd = {
         publicPath: path.resolve(__dirname, '../dist/css/'),
       }
     },
-    {
-      loader: 'css-loader',
-      options: {
-        importLoaders: 1,
-        sourceMap: true,
-      },
-    },
-    {
-      loader: 'sass-loader',
-      options: {
-        sourceMap: true,
-      }
-    },
-  ],
-};
-
-const CSSLoaderDev = {
-  test: /\.s[ac]ss$/i,
-  exclude: /node_modules/,
-  use: [
-    'style-loader',
     {
       loader: 'css-loader',
       options: {
@@ -111,8 +90,7 @@ const ViewLoader = {
 
 module.exports = {
   HTMLLoader: HTMLLoader,
-  CSSLoaderProd: CSSLoaderProd,
-  CSSLoaderDev: CSSLoaderDev,
+  CSSLoader: CSSLoader,
   JSLoader: JSLoader,
   FileLoader: FileLoader,
   FontLoader: FontLoader,

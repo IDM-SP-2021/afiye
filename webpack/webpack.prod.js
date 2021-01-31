@@ -24,7 +24,7 @@ module.exports = {
   devtool: 'source-map',
   module: {
     rules: [
-      loaders.CSSLoaderProd,
+      loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
       loaders.FontLoader,
@@ -35,5 +35,6 @@ module.exports = {
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
+    plugins.CopyWebpackPlugin,
   ]
 };

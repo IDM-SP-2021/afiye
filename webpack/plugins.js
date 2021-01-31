@@ -29,14 +29,14 @@ const DotenvPlugin = new Dotenv({
 });
 
 const CopyWebpackPlugin = new _CopyWebpackPlugin([
-  {
-    from: path.resolve(__dirname, '../src/assets'),
-    to: path.resolve(__dirname, '../dist/assets')
-  },
+  // {
+  //   from: path.resolve(__dirname, '../src/assets'),
+  //   to: path.resolve(__dirname, '../dist/assets')
+  // },
   {
     from: path.resolve(__dirname, '../src/views'),
     to: path.resolve(__dirname, '../dist/views')
-  }
+  },
 ]);
 
 module.exports = {

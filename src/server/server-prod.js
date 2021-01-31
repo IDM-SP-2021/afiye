@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const router = express.Router();
+// const router = express.Router();
 const app = express();
 const mongoose = require('mongoose');
 const expressEjsLayout = require('express-ejs-layouts');
@@ -10,6 +10,8 @@ const passport = require('passport');
 
 require('dotenv').config();
 require('./config/passport')(passport);
+
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
@@ -44,8 +46,8 @@ app.use((req, res, next) => {
 app.set('layout', path.resolve(__dirname, '../views/layout'));
 
 //Routes
-app.use('/',require(path.resolve(__dirname, '../routes/index')));
-app.use('/users',require(path.resolve(__dirname, '../routes/users')));
+app.use('/', require('../routes/index'));
+app.use('/users',require('../routes/users'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
