@@ -7,7 +7,7 @@
     "defaults"
   ],
   "scripts": {
-    "start": "node ./dist/server.js",
+    "start": "node ./dist/server/main.js",
     "buildDev": "rm -rf dist && webpack --mode development --config webpack/webpack.server.js && webpack --config webpack/webpack.dev.js",
     "buildProd": "rm -rf dist && webpack --mode production --config webpack/webpack.server.js && webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist"

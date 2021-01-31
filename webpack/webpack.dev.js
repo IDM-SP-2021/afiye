@@ -7,11 +7,10 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
-    app: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/js/app.js'],
-    neo4j: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/js/neo4j.js']
+    app: './src/js/app.js',
   },
   output: {
-    filename: 'js/[name].[hash].bundle.js',
+    filename: 'js/[name].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/',
   },
@@ -35,7 +34,6 @@ module.exports = {
       loaders.CSSLoaderDev,
       loaders.JSLoader,
       loaders.FileLoader,
-      loaders.IconLoader,
       loaders.FontLoader,
     ]
   },
@@ -48,13 +46,7 @@ module.exports = {
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    // new webpack.DefinePlugin({
-    //   "process.env": dotenv.parsed
-    // }),
     new Dotenv(),
-    new webpack.EnvironmentPlugin({
-      'NEO4J_PASSWORD': 'abcde'
-    }),
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
