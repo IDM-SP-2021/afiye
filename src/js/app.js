@@ -1,27 +1,12 @@
 import '../scss/styles.scss';
 
-console.log('From app.js');
-// const $ = require('jquery');
-// import $ from 'jquery';
-// import { customAlphabet } from 'nanoid';
+import $ from 'jquery';
 
-// if (module['hot']) {
-//   module['hot'].accept();
-// }
+const requireAll = (r) => {
+  r.keys().forEach(r);
+};
+requireAll(require.context('../views/', true, /\.ejs$/));
 
-// console.log('From app.js');
-
-// const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 64);
-
-
-// const api = require('./neo4j.js');
-
-// $(function () {
-//   const initDB = $('#init-DB');
-//   initDB.on('click', () => {
-//     console.log('Initializing DB');
-
-//     let familyID = nanoid();
-//     api.initDB(familyID);
-//   });
-// });
+$(() => {
+  $('body').append('<p>Test</p>');
+});

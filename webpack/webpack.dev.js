@@ -6,7 +6,8 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: {
-    app: './src/js/app.js',
+    // app: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/js/app.js'],
+    app: './src/js/app.js'
   },
   output: {
     filename: 'js/[name].bundle.js',
@@ -25,25 +26,23 @@ module.exports = {
   },
   mode: 'development',
   devtool: 'source-map',
-  devServer: {
-    contentBase: path.join(__dirname, 'build')
-  },
   module: {
     rules: [
       loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
       loaders.FontLoader,
+      loaders.ViewLoader,
     ]
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new Dotenv(),
-    plugins.ESLintPlugin,
+    // plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
-    plugins.CopyWebpackPlugin,
+    // plugins.CopyWebpackPlugin,
   ]
 };

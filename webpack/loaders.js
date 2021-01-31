@@ -82,6 +82,8 @@ const ViewLoader = {
     {
       loader: 'file-loader',
       options: {
+        outputPath: '../',
+        context: path.resolve(__dirname, '../src'),
         name: '[path][name].[ext]'
       }
     }

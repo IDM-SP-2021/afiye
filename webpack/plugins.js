@@ -7,7 +7,7 @@ const Dotenv = require('dotenv-webpack');
 const _CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
-  filename: './css/[name].bundle.css',
+  filename: './css/[name].css',
   chunkFilename: './css/[id].css',
 });
 
@@ -33,10 +33,10 @@ const CopyWebpackPlugin = new _CopyWebpackPlugin([
   //   from: path.resolve(__dirname, '../src/assets'),
   //   to: path.resolve(__dirname, '../dist/assets')
   // },
-  {
-    from: path.resolve(__dirname, '../src/views'),
-    to: path.resolve(__dirname, '../dist/views')
-  },
+  // {
+  //   from: path.resolve(__dirname, '../src/views'),
+  //   to: path.resolve(__dirname, '../dist/views')
+  // },
 ]);
 
 module.exports = {
