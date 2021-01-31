@@ -1,0 +1,105 @@
+.button {
+    border-radius: .625rem;
+    color: $off-white;
+    font-size: $desktop-link-x-small;
+    width: 12.5rem;
+    height: 3.125rem;
+    border-width: 0;
+
+    outline: none;
+
+
+    &.primary {
+    background: $purple-default;
+
+        &:hover {
+            background: $purple-light;    
+        }
+
+        &:active {
+            background: $purple-dark;
+        }
+
+        &:disabled {
+            background: $input-background;
+            color: #A0A3BD;
+
+        }
+    }
+
+    &.secondary {
+        border: 1px solid $purple-default;
+        background: $off-white;
+        color: $purple-default;
+        
+            &:hover {
+                background: $purple-default;
+                color: $off-white;   
+            }
+    
+            &:active {
+                background: $purple-dark;
+                color: $off-white;
+            }
+    
+            &:disabled {
+                background: $input-background;
+                color: #A0A3BD;
+    
+            }
+        }
+
+    &.warning {
+        background: $red-dark;
+    
+            &:hover {
+                background: $red-default;    
+            }
+    
+            &:active {
+                background: #802B22;
+            }
+    
+            &:disabled {
+                background: $input-background;
+                color: #A0A3BD;
+    
+            }
+        }     
+
+    &.icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 1rem;
+        position: relative;
+
+        &::after {
+        position: absolute;
+        left: .25rem;
+        top: .25rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        }
+    }
+}
+
+@include tablet {
+    .button {
+    width: 15.625rem;
+    height: 3.75rem;
+    font-size: $desktop-link-small;
+
+        &.icon {
+        width: 3.375rem;
+        height: 3.375rem;
+        border-radius: 1.6875rem;
+    
+            &::after {
+            left: .9375rem;
+            top: .9375rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            }
+        }
+    }
+}
