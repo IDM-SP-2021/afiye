@@ -8,7 +8,6 @@ import flash from 'connect-flash';
 import passport from 'passport';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-// import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../../webpack/webpack.dev.js';
 
 require('dotenv').config();
@@ -20,8 +19,6 @@ const app = express();
 app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 }));
-
-// app.use(webpackHotMiddleware(compiler));
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
