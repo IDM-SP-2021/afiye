@@ -1,0 +1,39 @@
+// Promo Shit
+
+// Header 
+
+#header {
+    width: 100%;
+    height: 3.75rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    background-color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+}
+
+#logo {
+    font: $mobile-display-small-bold;
+    color: $purple-default;
+    text-align: center;
+}
+
+#menu {
+    position: absolute;
+    right: 0.875rem;
+}
+
+// Hero Section 
+
+#hero {
+    position: absolute;
+    top: -.000125rem;
+    z-index: -10;
+}
+
+#hero-button {
+    margin: 0 auto;
+}
