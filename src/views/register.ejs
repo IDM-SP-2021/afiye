@@ -1,8 +1,10 @@
+<%- include('./partials/front-header') %>
+
 <h1>Register</h1>
 
 <%- include ('./partials/messages') %>
 
-<form action="/users/register" method="post">
+<form action="/account/register" method="post">
 	<div>
 		<label for="name">Name</label>
 		<input
@@ -42,4 +44,4 @@
 	<button type="submit" class="btn btn-primary btn-block">Register</button>
 </form>
 
-<p>Have An Account? <a href="/users/login">Login</a></p>
+<p>Have An Account? <a href="/account/login">Login</a></p>

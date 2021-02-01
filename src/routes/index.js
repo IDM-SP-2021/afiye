@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 const router = express.Router();
-const {ensureAuthenticated} = require('../server/config/auth.js');
 
 // login page
 router.get('/', (req, res) => {
@@ -21,13 +20,22 @@ router.get('/register', (req, res) => {
   res.render(path.resolve(__dirname, '../views/register'), locals);
 });
 
-router.get('/feed', ensureAuthenticated, (req, res) => {
+// front matter press kit
+router.get('/press-kit', (req, res) => {
   let locals = {
-    title: 'Afiye - Memory Feed',
-    user: req.user,
+    title: 'Afiye - Press Kit',
   };
 
-  res.render(path.resolve(__dirname, '../views/feed'), locals);
+  res.render(path.resolve(__dirname, '../views/press-kit'), locals);
+});
+
+// front matter case study
+router.get('/case-study', (req, res) => {
+  let locals = {
+    title: 'Afiye - Case Study',
+  };
+
+  res.render(path.resolve(__dirname, '../views/case-study'), locals);
 });
 
 module.exports = router;

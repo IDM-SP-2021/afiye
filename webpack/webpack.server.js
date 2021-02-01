@@ -46,7 +46,7 @@ module.exports = (env, argv) => {
     name: 'configRoutes',
     entry: {
       index: path.join(__dirname, '../src/routes/index.js'),
-      users: path.join(__dirname, '../src/routes/users.js'),
+      account: path.join(__dirname, '../src/routes/account.js'),
     },
     output: {
       path: path.join(__dirname, '../dist/routes'),

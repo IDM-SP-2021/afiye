@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 const { render } = require('sass');
 const passport = require('passport');
+const {ensureAuthenticated} = require('../server/config/auth.js');
 
 // login handle
 router.get('/login', (req, res) => {
@@ -79,7 +80,7 @@ router.post('/register', (req, res) => {
                     .then((value)=>{
                       console.log(value);
                       req.flash('success_msg', 'You have now registered!');
-                      res.redirect('/users/login');
+                      res.redirect('/account/login');
                     })
                     .catch(value=> console.log(value));
                 }));
@@ -87,10 +88,11 @@ router.post('/register', (req, res) => {
     });
   }
 });
+
 router.post('/login', (req, res, next) => {
   passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/users/login',
+    successRedirect: '/account/feed',
+    failureRedirect: '/account/login',
     failureFlash: true,
   })(req, res, next);
 });
@@ -98,7 +100,47 @@ router.post('/login', (req, res, next) => {
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You\'ve successfully logged out');
-  res.redirect('/users/login');
+  res.redirect('/account/login');
+});
+
+// user feed
+router.get('/feed', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Memory Feed',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/feed'), locals);
+});
+
+// user tree
+router.get('/tree', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Family Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree'), locals);
+});
+
+// user profile
+router.get('/profile', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: `Afiye - ${req.user}'s Profile`,
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/profile'), locals);
+});
+
+// user settings
+router.get('/settings', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Account Settings',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings'), locals);
 });
 
 module.exports = router;
