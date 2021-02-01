@@ -24,11 +24,13 @@ Create a `.env` file in the main directory of the repository.
 
 ## Database Installation and Initialization
 
-### Neo4j Desktop
+### Neo4j
+
+#### Neo4j Desktop
 
 Download and install Neo4j Desktop for your OS from the [Neo4j Downloads page](https://neo4j.com/download/?ref=try-neo4j-lphttps://neo4j.com/download/?ref=try-neo4j-lp)
 
-### Database Initialization
+#### Database Initialization
 
 Open Neo4j Desktop.
 
@@ -79,14 +81,50 @@ CREATE (Henderson:Family {fid: 'fbmqvTmHhcmPKQTKBWEdDiPVThhVbdDdmgpyriPWAwVIHaVr
 
 *Optional:* Back in the main Neo4j Desktop window rename the project for organizational purposes by hovering over the name (default `Neo4j Primer Project`) in the center panel and clicking the edit icon.
 
+### MongoDB
+
+#### Install MongoDB
+
+Follow the [documentation from MongoDB](https://docs.mongodb.com/manual/administration/install-community/) to install database services on your operating system.
+
+#### Database Initialization
+
+Start the [mongo shell](https://docs.mongodb.com/manual/mongo/).
+
+From the command line:
+
+```bash
+mongo
+```
+
+Create a new database called `afiye`:
+
+```bash
+db afiye
+```
+
+Close the mongo shell with `ctrl + c`
+
+Add the following to your `.env` file:
+
+```none
+MONGO_HOST=mongodb://localhost/afiye
+```
+
 ## Run Application
 
 From the command line run the following command to open a development server. This will not generate any files on your system as they are saved into memory.
 
-> **IMPORTANT:** Make sure the database is running in Neo4j Desktop
+> **IMPORTANT:** Make sure all databases have been initialized and are running.
 
 ```bash
 npm run buildDev && npm start
+```
+
+If you recieve an error messsage stating that a process is already running on `port 8080` add a `PORT` variable to your `.env` file. Recommended configuration:
+
+```none
+PORT=3000
 ```
 
 ## Test Build Application
@@ -128,12 +166,17 @@ Please let Erik know if you are including a new file type in the build as this m
 
 Currently supports:
 
-- HTML
+- EJS
 - JS
 - SCSS
 - PNG
 - JPEG
 - GIF
+- SVG
+- WOFF
+- WOFF2
+- EOT
+- TTF
 
 ### Pull Requests
 
