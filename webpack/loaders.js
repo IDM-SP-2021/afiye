@@ -13,7 +13,7 @@ const HTMLLoader = {
   ],
 };
 
-const CSSLoaderProd = {
+const CSSLoader = {
   test: /\.s[ac]ss$/i,
   exclude: /node_modules/,
   use: [
@@ -28,27 +28,7 @@ const CSSLoaderProd = {
       options: {
         importLoaders: 1,
         sourceMap: true,
-      },
-    },
-    {
-      loader: 'sass-loader',
-      options: {
-        sourceMap: true,
-      }
-    },
-  ],
-};
-
-const CSSLoaderDev = {
-  test: /\.s[ac]ss$/i,
-  exclude: /node_modules/,
-  use: [
-    'style-loader',
-    {
-      loader: 'css-loader',
-      options: {
-        importLoaders: 1,
-        sourceMap: true,
+        url: false,
       },
     },
     {
@@ -72,36 +52,17 @@ const JSLoader = {
 };
 
 const FileLoader = {
-  test: /\.(png|jpe?g|gif|svg)$/i,
-  include: [
-    path.resolve(__dirname, './assets')
-  ],
-  // exclude: [
-  //   path.resolve(__dirname, './assets/icons')
-  // ],
+  test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+  // exclude: /fonts/,
   use: [
     {
       loader: 'file-loader',
       options: {
-        outputPath: './assets/',
-      },
+        context: path.resolve(__dirname, '../src'),
+        name: '[path][name].[ext]'
+      }
     },
   ],
-};
-
-const IconLoader = {
-  test: /\.(svg)$/i,
-  include: [
-    path.resolve(__dirname, './assets/icons')
-  ],
-  use: [
-    {
-      loader: 'file-loader',
-      options: {
-        outputPath: './assets/icons'
-      }
-    }
-  ]
 };
 
 const FontLoader = {
@@ -117,13 +78,25 @@ const FontLoader = {
   ],
 };
 
+const ViewLoader = {
+  test: /\.ejs$/,
+  use: [
+    {
+      loader: 'file-loader',
+      options: {
+        outputPath: '../',
+        context: path.resolve(__dirname, '../src'),
+        name: '[path][name].[ext]'
+      }
+    }
+  ]
+};
 
 module.exports = {
   HTMLLoader: HTMLLoader,
-  CSSLoaderProd: CSSLoaderProd,
-  CSSLoaderDev: CSSLoaderDev,
+  CSSLoader: CSSLoader,
   JSLoader: JSLoader,
   FileLoader: FileLoader,
-  IconLoader: IconLoader,
   FontLoader: FontLoader,
+  ViewLoader: ViewLoader,
 };
