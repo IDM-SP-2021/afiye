@@ -2,7 +2,6 @@ const path = require('path');
 const _MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const _StyleLintPlugin = require('stylelint-webpack-plugin');
 const _ESLintPlugin = require('eslint-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const _ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
@@ -50,7 +49,6 @@ const ImageMinPlugin = new _ImageMinimizerPlugin({
 });
 
 module.exports = {
-  CleanWebpackPlugin: new CleanWebpackPlugin(),
   MiniCssExtractPlugin: MiniCssExtractPlugin,
   StyleLintPlugin: StyleLintPlugin,
   ESLintPlugin: ESLintPlugin,

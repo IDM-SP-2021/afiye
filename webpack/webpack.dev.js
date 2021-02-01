@@ -36,12 +36,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.ProgressPlugin(),
+    // new webpack.ProgressPlugin(),
     // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new Dotenv(),
     // plugins.ESLintPlugin,
-    plugins.StyleLintPlugin,
+    // plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
   ]
 };
