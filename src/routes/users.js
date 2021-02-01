@@ -8,10 +8,18 @@ const passport = require('passport');
 
 // login handle
 router.get('/login', (req, res) => {
-  res.render(path.resolve(__dirname, '../views/login'));
+  let locals = {
+    title: 'Afiye - Account Login'
+  };
+
+  res.render(path.resolve(__dirname, '../views/login'), locals);
 });
 router.get('/register', (req, res) => {
-  res.render(path.resolve(__dirname, '../views/register'));
+  let locals = {
+    title: 'Afiye - Register Account'
+  };
+
+  res.render(path.resolve(__dirname, '../views/register'), locals);
 });
 
 // register handle
