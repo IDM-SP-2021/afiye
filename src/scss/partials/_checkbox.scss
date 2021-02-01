@@ -1,0 +1,146 @@
+$checkbox-size: 2.625em;
+
+.check-container {
+	height: 3em;
+	margin-bottom: 0.5em;
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	.checkbox {
+		position: absolute;
+		left: 0;
+		opacity: 0;
+
+		&:checked {
+			+ label {
+				cursor: pointer;
+				padding-left: 3em;
+				font-size: 1em;
+				line-height: 1.7;
+
+				// Box
+				&:before {
+					content: "";
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: $checkbox-size;
+					height: $checkbox-size;
+					border-radius: 0.3125em;
+					box-shadow: inset 0px 0px 0px 2px $purple-default;
+					background: $purple-default;
+				}
+
+				// Checkmark
+				&:after {
+					content: url("../assets/icons/tick-white.svg");
+					position: absolute;
+					// top: 0.4em;
+					// left: 0.4em;
+					width: $checkbox-size / 1.75;
+					height: $checkbox-size / 1.75;
+					top: ($checkbox-size - ($checkbox-size / 1.75)) / 2;
+					left: ($checkbox-size - ($checkbox-size / 1.75)) / 2;
+					border-radius: ($checkbox-size / 1.75) / 2;
+				}
+			}
+
+			&:hover {
+				+ label {
+					&:before {
+						box-shadow: inset 0 0 0 2px $purple-dark;
+					}
+				}
+			}
+
+			&:focus,
+			&:active {
+				+ label {
+					&:before {
+						box-shadow: inset 0 0 0 4px $purple-dark;
+						background: $purple-dark;
+					}
+				}
+			}
+		}
+
+		&:not(:checked) {
+			@extend :checked;
+
+			+ label {
+				// Box
+				&:before {
+					background: $background;
+				}
+
+				// Checkmark
+				&:after {
+					opacity: 0;
+				}
+			}
+
+			&:hover {
+				+ label {
+					// Box
+					&:before {
+						background: $input-background;
+					}
+				}
+			}
+
+			&:focus,
+			&:active {
+				+ label {
+					&:before {
+						background: $input-background;
+					}
+				}
+			}
+		}
+
+		&:disabled {
+			+ label {
+				color: $label;
+			}
+
+			&:checked {
+				+ label {
+					// Box
+					&:before {
+						background: $line;
+						box-shadow: unset;
+					}
+				}
+			}
+		}
+	}
+
+	.radio {
+		@extend .checkbox;
+
+		&:checked {
+			+ label {
+				// Circle
+				&:before {
+					border-radius: $checkbox-size / 2;
+				}
+
+				// Dot
+				&:after {
+					content: "";
+					background: #fff;
+				}
+			}
+		}
+
+		&:disabled {
+			+ label {
+				// Dot
+				&:after {
+					background: $input-background;
+				}
+			}
+		}
+	}
+}

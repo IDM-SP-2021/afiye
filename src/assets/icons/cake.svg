@@ -5,7 +5,7 @@
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard-4" transform="translate(-356.000000, -731.000000)" stroke="#333333" stroke-width="2">
+        <g id="Artboard-4" transform="translate(-356.000000, -731.000000)" stroke="#fcfcfc" stroke-width="2">
             <g id="288" transform="translate(356.000000, 731.000000)">
                 <path d="M21,8 L21,18.0044225 C21,18.5542648 20.6142426,19.2216766 20.1210938,19.4638672 C20.1210938,19.4638672 18,21 12,21 C6,21 3.87890625,19.4638672 3.87890625,19.4638672 C3.39349973,19.2076804 3,18.555163 3,18.0044225 L3,8" id="Cake" stroke-linecap="round" stroke-linejoin="round"></path>
                 <ellipse id="Top" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="8" rx="9" ry="3"></ellipse>

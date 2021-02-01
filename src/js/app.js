@@ -1,25 +1,18 @@
 import '../scss/styles.scss';
-// const $ = require('jquery');
+
 import $ from 'jquery';
-import { customAlphabet } from 'nanoid';
 
-if (module['hot']) {
-  module['hot'].accept();
-}
+const requireAll = (r) => {
+  r.keys().forEach(r);
+};
+requireAll(require.context('../views/', true, /\.ejs$/));
+requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
+requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
-console.log('From app.js');
+$(() => {
 
-const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 64);
-
-
-const api = require('./neo4j.js');
-
-$(function () {
-  const initDB = $('#init-DB');
-  initDB.on('click', () => {
-    console.log('Initializing DB');
-
-    let familyID = nanoid();
-    api.initDB(familyID);
-  });
 });
+
+if(typeof(module.hot) !== 'undefined') {
+  module.hot.accept(); // eslint-disable-line no-undef
+}
