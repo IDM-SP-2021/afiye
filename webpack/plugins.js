@@ -4,7 +4,8 @@ const _StyleLintPlugin = require('stylelint-webpack-plugin');
 const _ESLintPlugin = require('eslint-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
-const _CopyWebpackPlugin = require('copy-webpack-plugin');
+const _ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
   filename: './css/[name].css',
@@ -20,7 +21,7 @@ const ESLintPlugin = new _ESLintPlugin({
 
 const StyleLintPlugin = new _StyleLintPlugin({
   configFile: path.resolve(__dirname, '../stylelint.config.js'),
-  context: path.resolve(__dirname, '../src/scss'),
+  context: path.resolve(__dirname, '../'),
   files: '**/*.(s(c|a)ss|css)',
 });
 
@@ -28,16 +29,25 @@ const DotenvPlugin = new Dotenv({
   path: './.env'
 });
 
-const CopyWebpackPlugin = new _CopyWebpackPlugin([
-  // {
-  //   from: path.resolve(__dirname, '../src/assets'),
-  //   to: path.resolve(__dirname, '../dist/assets')
-  // },
-  // {
-  //   from: path.resolve(__dirname, '../src/views'),
-  //   to: path.resolve(__dirname, '../dist/views')
-  // },
-]);
+const ImageMinPlugin = new _ImageMinimizerPlugin({
+  minimizerOptions: {
+    plugins: [
+      ['gifsicle', { interlaced: true }],
+      ['jpegtran', { progressive: true }],
+      ['optipng', { optimizationLevel: 5 }],
+      [
+        'svgo',
+        {
+          plugins: [
+            {
+              removeViewBox: false,
+            },
+          ],
+        },
+      ],
+    ],
+  },
+});
 
 module.exports = {
   CleanWebpackPlugin: new CleanWebpackPlugin(),
@@ -45,5 +55,5 @@ module.exports = {
   StyleLintPlugin: StyleLintPlugin,
   ESLintPlugin: ESLintPlugin,
   DotenvPlugin: DotenvPlugin,
-  CopyWebpackPlugin: CopyWebpackPlugin,
+  ImageMinPlugin: ImageMinPlugin,
 };

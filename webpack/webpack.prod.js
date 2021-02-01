@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     filename: 'js/[name].bundle.js',
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../dist/public')
   },
   target: 'web',
   node: {
@@ -19,6 +19,7 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
     },
+    runtimeChunk: 'multiple',
   },
   mode: 'production',
   devtool: 'source-map',
@@ -27,7 +28,8 @@ module.exports = {
       loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
-      loaders.FontLoader,
+      // loaders.FontLoader,
+      loaders.ViewLoader,
     ]
   },
   plugins: [
@@ -35,6 +37,6 @@ module.exports = {
     plugins.ESLintPlugin,
     plugins.StyleLintPlugin,
     plugins.MiniCssExtractPlugin,
-    plugins.CopyWebpackPlugin,
+    plugins.ImageMinPlugin,
   ]
 };

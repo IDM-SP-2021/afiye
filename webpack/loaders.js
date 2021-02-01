@@ -28,6 +28,7 @@ const CSSLoader = {
       options: {
         importLoaders: 1,
         sourceMap: true,
+        url: false,
       },
     },
     {
@@ -51,8 +52,8 @@ const JSLoader = {
 };
 
 const FileLoader = {
-  test: /\.(png|jpe?g|gif|svg)$/i,
-  exclude: /fonts/,
+  test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+  // exclude: /fonts/,
   use: [
     {
       loader: 'file-loader',
