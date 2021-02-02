@@ -85,9 +85,17 @@ CREATE (Henderson:Family {fid: 'fbmqvTmHhcmPKQTKBWEdDiPVThhVbdDdmgpyriPWAwVIHaVr
 
 #### Install MongoDB
 
-Follow the [documentation from MongoDB](https://docs.mongodb.com/manual/administration/install-community/) to install database services on your operating system.
+##### MacOS
+
+Follow the instructions [here](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/). Installing via Homebrew will install all the required binaries for this project, particularly the `mongo shell`.
+
+##### Windows
+
+Download MongoDB Community Server using the `msi` package option from the [Mongo Download Center](https://www.mongodb.com/try/download/community?tck=docs_server).
 
 #### Database Initialization
+
+##### MacOS
 
 Start the [mongo shell](https://docs.mongodb.com/manual/mongo/).
 
@@ -104,6 +112,16 @@ db afiye
 ```
 
 Close the mongo shell with `ctrl + c`
+
+##### Windows
+
+Open MongoDB Compass.
+
+On the *New Connection* panel press *CONNECT* **without typing anything in the 'Paste your connection string..' box** this will connect you to the default localhost environment `localhost:27017`.
+
+Next, at the top of the main panel press *CREATE DATABASE* with the 'Database Name' set to 'afiye' and the 'Collection Name' set to 'users'.
+
+##### All OS
 
 Add the following to your `.env` file:
 
