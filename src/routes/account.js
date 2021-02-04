@@ -50,7 +50,8 @@ router.post('/register', (req, res) => {
       name: name,
       email: email,
       password: password,
-      password2: password2
+      password2: password2,
+      title: 'Afiye - Register Account',
     });
   } else {
     // validation passed
