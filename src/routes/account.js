@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const { render } = require('sass');
 const passport = require('passport');
 const {ensureAuthenticated} = require('../server/config/auth.js');
+const api = require('../server/neo4j.js');
 
 // login handle
 router.get('/login', (req, res) => {
@@ -114,12 +115,14 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/feed'), locals);
 });
 
-// user tree
 router.get('/tree', ensureAuthenticated, (req, res) => {
   let locals = {
     title: 'Afiye - Family Tree',
     user: req.user,
   };
+
+  console.log('Family member information');
+  api.getData();
 
   res.render(path.resolve(__dirname, '../views/tree'), locals);
 });

@@ -7,7 +7,7 @@
     "defaults"
   ],
   "scripts": {
-    "start": "node ./dist/server/main.js",
+    "start": "node ./dist/server/server.js",
     "buildDev": "rm -rf dist && webpack --mode development --config webpack/webpack.server.js && webpack --config webpack/webpack.dev.js",
     "buildProd": "rm -rf dist && webpack --mode production --config webpack/webpack.server.js && webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist"
@@ -38,8 +38,7 @@
     "jquery": "^3.5.1",
     "jsonfile": "^6.1.0",
     "mongoose": "^5.11.14",
-    "mysql": "^2.18.1",
-    "neo4j-driver": "^1.7.7",
+    "neo4j-driver": "^4.2.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   },
