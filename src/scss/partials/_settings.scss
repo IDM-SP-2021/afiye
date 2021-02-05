@@ -1,0 +1,11 @@
+.mobile-text-medium { 
+    font: $mobile-text-medium;
+    color: black;
+}
+hr.solid {
+    border-top: 1px solid;
+    color: $purple-dark;
+    opacity: 0.08;
+    width: 320px;
+    left: 30px;
+  }
