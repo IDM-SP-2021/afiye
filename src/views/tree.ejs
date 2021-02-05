@@ -3,3 +3,9 @@
 <h1>Tree</h1>
 
 <p>Welcome <%= user.name %></p>
+
+<ul>
+	<% family.forEach((member) => { %>
+	<li><%= member.fName %></li>
+	<% }); %>
+</ul>

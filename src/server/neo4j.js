@@ -5,15 +5,15 @@ let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J
 const getData = () => {
   let session = driver.session();
 
-  session.run(
+  return session.run(
     'MATCH (p:Person) \
      RETURN p'
   )
   .then(results => {
     let members = [];
 
-    results.records.forEach(res => {
-      const member = res.get('p'),
+    results.records.forEach(result => {
+      const member = result.get('p'),
             id = member.identity.low,
             fName = member.properties.fname,
             lName = member.properties.lname,
@@ -21,11 +21,8 @@ const getData = () => {
             gender = member.properties.gender;
 
       members.push({id, fName, lName, birthday, gender});
-      // console.log(res.get('p'));
     });
-
-    // return members;
-    console.log(members);
+    return members;
   })
   .catch(err => {
     throw err;
