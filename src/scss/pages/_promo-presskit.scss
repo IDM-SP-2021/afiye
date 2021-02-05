@@ -1,0 +1,145 @@
+// Header 
+
+#press-kit-container {
+    margin: 0;
+    padding: 0;
+
+    p {
+        font: $mobile-text-small;
+    }
+
+    #logo {
+        font: $mobile-display-small-bold;
+        color: $purple-default;
+        text-align: center;
+    }
+
+    #menu {
+        position: absolute;
+        right: 0.875rem;
+    }
+
+    // Hero Section 
+
+    #hero {
+        position: absolute;
+        top: -.000125rem;
+        z-index: -10;
+        margin: 0 -.875rem;
+    }
+
+    #presskit-heading {
+        h1 {
+            font: $mobile-display-large-bold;
+            color: white;
+            margin: 0 auto;
+            text-align: center;
+            
+            position: relative;
+            top: 3rem;
+        }
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+        }
+
+        .promo-text {
+            text-align: right;
+            position: absolute;
+            right: 1rem;
+            top: 17.5rem;
+        }
+    }
+
+
+    // About
+
+    #about {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 20rem;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+    }
+
+    // Brand Guide
+
+    #brand-guide {
+        margin-top: 6rem;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+        #download-brand-eps, #download-brand-pdf {
+            margin: .5rem auto;
+            display: block;
+        }
+    }
+
+    // Media Gallery
+
+    #media-gallery {
+        margin-top: 6rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+        #download-media-zip {
+            margin: .5rem auto;
+            display: block;
+        }
+    }
+
+    #faux-carousel {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    // Footer
+
+    footer {
+        width: 100%;
+        display: absolute;
+        bottom: 0;
+    }
+
+    #copyright {
+        font: $promo-heading-bold-mobile;
+        text-align: left;
+        background: $gradient-one;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            
+    }
+}

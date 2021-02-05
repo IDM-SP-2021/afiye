@@ -38,4 +38,13 @@ router.get('/case-study', (req, res) => {
   res.render(path.resolve(__dirname, '../views/case-study'), locals);
 });
 
+//front matter team page
+router.get('/team', (req, res) => {
+  let locals = {
+    title: 'Afiye - Meet the Team'
+  }
+
+  res.render(path.resolve(__dirname, '../views/team'), locals);
+});
+
 module.exports = router;
