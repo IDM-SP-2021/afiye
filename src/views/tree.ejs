@@ -4,8 +4,8 @@
 
 <p>Welcome <%= user.name %></p>
 
-<ul>
-	<% family.forEach((member) => { %>
-	<li><%= member.fName %></li>
-	<% }); %>
-</ul>
+<script type="text/javascript">
+	const data = <%- JSON.stringify(data) %>;
+</script>
+<script src="../js/tree.bundle.js"></script>
+<script src="../js/runtime~tree.bundle.js"></script>

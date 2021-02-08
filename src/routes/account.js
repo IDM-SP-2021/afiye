@@ -115,54 +115,18 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/feed'), locals);
 });
 
-// user family tree
-// router.get('/tree', ensureAuthenticated, (req, res) => {
-//   let locals = {
-//     title: 'Afiye - Family Tree',
-//     user: req.user,
-//   };
-
-//   console.log('Family member information');
-//   api
-//     .getData()
-//     .then(members => {
-//       console.log('Before append:');
-//       console.log(locals);
-//       locals.family = members;
-//       console.log('After append:');
-//       console.log(locals);
-//       return locals;
-//     })
-//     .then(
-//       console.log('Before render:'),
-//       console.log(locals),
-//       res.render(path.resolve(__dirname, '../views/tree'), locals)
-//     );
-// });
-
-// router.get('/tree', ensureAuthenticated, (req, res, next) => {
-//   req.family = api.getData().then((result) => { return result; });
-//   console.log(req.family);
-//   next();
-// }, (req, res) => {
-//   let locals = {
-//     title: 'Afiye - Family Tree',
-//     user: req.user,
-//     family: req.family,
-//   };
-
-//   console.log(locals);
-
-//   res.render(path.resolve(__dirname, '../views/tree'), locals);
-// });
-
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData()
     .then((result) => {
       let locals = {
         title: 'Afiye - Family Tree',
         user: req.user,
-        family: result,
+        data: {
+          user: {
+            name: req.user.name
+          },
+          graph: result
+        }
       };
 
       console.log(locals);
