@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <style>
+
+/* IMPORTANT, PLEASE READ
+  THE STYLING BELOW IS FOR THIS PAGE SPECIFICLY
+  DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
+*/
+  #avatar {
+    /* Use Avatar Profile Images Below*/
+    background-image: url('https://via.placeholder.com/150');
+    
+    /* square container for profile image size */
+    width: 7.8em;
+    height: 7.8em;
+
+    /* fills the container, keeps aspect ratio, crops to fit */
+    background-size: cover;
+
+    /* center the avatar image vertically and horizontally */
+    background-position: top center;
+    margin: .1875em auto;
+
+    /* round the edges to a circle with border radius 1/2 container size */
+    border-radius: 50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+    position: relative;
+
+}
+
+.avatar-circle {
+
+    /* change outline color depending on user's choice */
+    border: 0.22em solid rgb(156, 57, 123);   
+    
+     /* make sure the height, width are .375em larger than the profile image */
+    height: 8.175em;
+    width: 8.175em;
+
+    /* make the red outline a circle */
+    border-radius:50%;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+
+    position: fixed;
+    top: 5.5em;
+    left: 1.5em;
+
+}
+
+
+@media only screen and (min-width: 769px) {
+	.avatar-circle {
+		top: 7.5em
+	}
+
+
+}
+
+
+div.divider {
+  height: 1px;
+  width: 50vw;
+  margin-left: 20vw;
+  background-color: #324ad04d;
+  display:block;
+  position: fixed;
+  /* use to reposition on page */
+  margin-top: 50px;
+}
+
+.user-name{
+	margin-left: 48vw;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: -115px;
+	position: fixed;
+	text-align: center;
+}
+
+.button{
+	margin-left: 48vw;
+	margin-top: -65px;
+	width: fit-content;
+	white-space: nowrap;
+	position: fixed;
+	text-align: center;
+}
+
+.center{
+	margin-left: .5em;
+}
+
+.birth{
+	margin-left: 48vw;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: -15px;
+	position: fixed;
+}
+
+.birthdate{
+	margin-left: 48vw;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: 12px;
+	position: fixed;
+}
+
+.location{
+	margin-left: 72vw;
+	width: fit-content;
+	white-space: nowrap;
+	position: fixed;
+	margin-top: -15px;
+}
+
+.state{
+	margin-left: 72vw;
+	width: fit-content;
+	white-space: nowrap;
+	position: fixed;
+	margin-top: 12px;
+}
+
+
+.edit-profile{
+	margin-left: 8vw;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: 12px;
+	position: fixed;
+}
+
+.recent{
+	margin-left: .25em;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: 4em;
+	position: fixed;
+}
+
+.about{
+	margin-left: 8em;
+	width: fit-content;
+	white-space: nowrap;
+	margin-top: 4em;
+	position: fixed;
+}
+
+.family-section{
+	width: 343px;
+	height: 145px;
+	margin-top: 7em;
+	margin-left: -.75em;
+}
+
+.family-avatars{
+	width: 248px;
+	height: 94px;
+
+}
+
+.albums-section{
+	width: 343px;
+	height: 248px;
+	margin-top: 0em;
+	margin-left: -.75em;
+}
+
+
+.album-thumbs{
+	width: 343px;
+	height: 146px;
+}
+
+.view-all{
+	margin-left: 17em;
+	margin-top: -2em;
+	display: block;
+}
+
+
+
+        </style>
+        
+        <title>afiye | Profile</title>
+	</head>
+	<body>
+
+        <div class="header-box">
+            <p class="header-title">afiye</p>
+    
+            <p class="feed-nav-top">Feed</p>
+    
+            <p class="tree-nav-top">Tree</p>
+            
+            <p class="settings-nav-top">Settings</p>
+        </div>
+    
+        <div class="footer-box">
+            <p class="footer-title">© afiye 2020</p>
+        </div>
+        
+    
+    <div class="bottom-nav">
+    
+    <p class="feed-nav">Feed</p>
+    
+    <p class="tree-nav">Tree</p>
+    
+    <p class="profile-nav">Profile</p>
+    
+    <p class="settings-nav">Settings</p>
+    
+    </div>
+
+    <div class="avatar-circle">
+        <div id="avatar"></div>
+
+		<div class="user-name">
+        <p>Jessica Monroe</p>
+		</div>
+
+		<div class="button">
+		<a href="#" class="center">View in Tree</a>
+		</div>
+		
+		<p class="birth">Birth date</p>
+		<p class="birthdate">15 Apr 93'</p>
+
+		<p class="location">Lives in</p>
+		<p class="state">PA</p>
+		
+		<a href='#'class="edit-profile">Edit profile</a>
+
+		<div class="divider"></div>
+
+		<a href='#' class="recent">Recent Activity</a>
+		<a href='#' class="about">About</a>
+
+		<div class="family-section">
+			<p>Immediate Family</p>
+			<div class="family-avatars"></div>
+		</div>
+
+		<div class="albums-section">
+			<p>Your Shared Albums</p>
+			<a href='#' class="view-all">View all ></a>
+			<div class="album-thumbs"></div>
+		</div>
+
+		<div class="albums-section">
+			<p>Activity</p>
+			<div class="album-thumbs"></div>
+		</div>
+
+		<div class="albums-section">
+			<p>Your Tagged Memories</p>
+			<a href='#' class="view-all">View all ></a>
+			<div class="album-thumbs"></div>
+		</div>
+
+
+	</body>
+</html>
