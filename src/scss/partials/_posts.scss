@@ -1,0 +1,145 @@
+
+// container for creating posts
+.create-new-post {
+    padding-bottom: 2rem;
+    margin: 0 auto;
+    display: flex;
+    width: 400px;
+    padding-top: 7rem;
+}
+
+// Image + Username and title for creating posts
+.imgname {
+    display: flex;
+    width: 300px;
+    // margin: 0 auto;
+}
+
+div.imgname div:last-child {
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+div.imgname div:last-child h2 {
+    padding: 0;
+    margin: 0;
+}
+
+.buttons {
+    // float: right;
+    // width: 68px;
+    margin-left: 32px;
+    margin-top: 15px;
+}
+
+.afiye-posts {
+    padding-bottom: 2rem;
+    // width: 100vw;
+    margin: 0 auto;
+}
+
+.user-info {
+    display: flex;
+    width: 400px;
+    margin: 0 auto;
+}
+
+div.timestamp {
+    margin-top: 36px;
+    margin-left: 77px;
+    font-size: 13px;
+}
+
+.post-container {
+    width: 100vw;
+    margin: auto;
+}
+
+div.img {
+    padding-top: 1rem;
+    // width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+// Avatar icon
+
+.story-trial {
+    width:100px;
+    overflow:hidden;
+  }
+
+  .story-trial img {
+    width: 70px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -100;
+    margin: 15px;
+  }
+
+  .story-trial svg {
+    fill:none;
+    stroke:#8a3ab8;
+    stroke-width:3px;
+   }
+
+   .story {
+    width:70px;
+    overflow:hidden;
+  }
+
+  .story img {
+    width: 48px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: -100;
+    margin: 11px;
+  }
+
+  .story svg {
+    fill:none;
+    stroke:#8a3ab8;
+    stroke-width:3px;
+   }
+
+
+@media only screen and (min-width: 377px) {
+
+.post-container, .user-info, .img {
+    width: 600px;
+
+   }
+
+.create-new-post {
+    width: 600px;
+
+}
+
+.imgname {
+    display: flex;
+    width: 475px;
+}
+}
+
+@media only screen and (min-width: 769px) {
+
+    .post-container, .user-info, .img {
+        width: 700px;
+    
+       }
+    
+    .create-new-post {
+        width: 700px;
+    
+    }
+    
+    .imgname {
+        display: flex;
+        width: 475px;
+    }
+
+    .buttons {
+        display: flex;
+    }
+
+}
