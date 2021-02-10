@@ -1,9 +1,32 @@
-<header>
-	<nav>
-		<a href="/">Home</a>
-		<a href="/press-kit">Press Kit</a>
-		<a href="/case-study">Case Study</a>
-		<a href="/account/register">Register</a>
-		<a href="/account/login">Login</a>
-	</nav>
+<header class="front-header">
+	<div class="header-box">
+		<h2 class="header-title">afiye</h2>
+		<div class="nav-toggle">
+			<input type="checkbox" id="nav-toggler" />
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<nav class="header-nav">
+			<span class="nav-link <% if (title === 'Afiye') { %>active<% } %>"
+				><a href="/">Home</a></span
+			>
+			<span
+				class="nav-link <% if (title === 'Afiye - Press Kit') { %>active<% } %>"
+				><a href="/press-kit">Press Kit</a></span
+			>
+			<span
+				class="nav-link <% if (title === 'Afiye - Case Study') { %>active<% } %>"
+				><a href="/case-study">Case Study</a></span
+			>
+			<span
+				class="nav-link <% if (title === 'Afiye - Register Account') { %>active<% } %>"
+				><a href="/account/register">Register</a></span
+			>
+			<span
+				class="nav-link <% if (title === 'Afiye - Account Login') { %>active<% } %>"
+				><a href="/account/login">Login</a></span
+			>
+		</nav>
+	</div>
 </header>

@@ -1,9 +1,25 @@
 <header>
-	<nav>
-		<a href="/account/feed">Feed</a>
-		<a href="/account/tree">Tree</a>
-		<a href="/account/profile">Profile</a>
-		<a href="/account/settings">Settings</a>
-		<a href="/account/logout">Logout</a>
-	</nav>
+	<div class="header-box">
+		<h2 class="header-title">afiye</h2>
+		<nav class="header-nav">
+			<span
+				class="nav-link <% if (title === 'Afiye - Memory Feed') { %>active<% } %>"
+			>
+				<a href="/account/feed">Feed</a>
+			</span>
+			<span
+				class="nav-link <% if (title === 'Afiye - Family Tree') { %>active<% } %>"
+				><a href="/account/tree">Tree</a></span
+			>
+			<span
+				class="nav-link <% if (title === `Afiye - ${user.name}'s Profile`) { %>active<% } %>"
+				><a href="/account/profile">Profile</a></span
+			>
+			<span
+				class="nav-link <% if (title === 'Afiye - Account Settings') { %>active<% } %>"
+				><a href="/account/settings">Settings</a></span
+			>
+			<span class="nav-link"><a href="/account/logout">Logout</a></span>
+		</nav>
+	</div>
 </header>

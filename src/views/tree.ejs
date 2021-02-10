@@ -1,8 +1,17 @@
-<%- include('./partials/user-header') %>
+<div class="full-height">
+	<%- include('./partials/user-header') %>
+	<div id="family-container">
+		<div id="inner-container">
+			<input type="search" name="family-search" id="family-search" />
+			<h2>Family Members</h2>
+			<div id="family-list"></div>
+		</div>
+	</div>
 
-<h1>Tree</h1>
+	<div id="graph"></div>
 
-<p>Welcome <%= user.name %></p>
+	<%- include('./partials/user-mobile-nav') %>
+</div>
 
 <script type="text/javascript">
 	const data = <%- JSON.stringify(data) %>;

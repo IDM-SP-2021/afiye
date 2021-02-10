@@ -141,7 +141,7 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
 // user profile
 router.get('/profile', ensureAuthenticated, (req, res) => {
   let locals = {
-    title: `Afiye - ${req.user}'s Profile`,
+    title: `Afiye - ${req.user.name}'s Profile`,
     user: req.user,
   };
 
