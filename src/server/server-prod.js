@@ -1,21 +1,21 @@
-const path = require('path');
-const express = require('express');
-// const router = express.Router();
-const app = express();
-const mongoose = require('mongoose');
-const expressEjsLayout = require('express-ejs-layouts');
-const session = require('express-session');
-const flash = require('connect-flash');
-const passport = require('passport');
+import path from 'path';
+import express from 'express';
+import mongoose from 'mongoose';
+import expressEjsLayout from 'express-ejs-layouts';
+import session from 'express-session';
+import flash from 'connect-flash';
+import passport from 'passport';
 
 require('dotenv').config();
 require('./config/passport')(passport);
+
+const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../public')));
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
-.then(() => console.log('connected,,'))
+.then(() => console.log('connected to mongoDB..'))
 .catch((err)=> console.log(err));
 
 //EJS
