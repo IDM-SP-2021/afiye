@@ -56,3 +56,9 @@
 		}
 	}
 }
+
+@include desktop {
+	#mobile-nav-container {
+		display: none;
+	}
+}

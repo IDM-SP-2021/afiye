@@ -1,13 +1,12 @@
 <header class="front-header">
-	<div class="header-box">
+	<nav class="header-nav">
 		<h2 class="header-title">afiye</h2>
-		<div class="nav-toggle">
-			<input type="checkbox" id="nav-toggler" />
+		<div class="nav-toggle" id="mobile-nav">
 			<span></span>
 			<span></span>
 			<span></span>
 		</div>
-		<nav class="header-nav">
+		<div class="nav-link-group">
 			<span class="nav-link <% if (title === 'Afiye') { %>active<% } %>"
 				><a href="/">Home</a></span
 			>
@@ -27,6 +26,6 @@
 				class="nav-link <% if (title === 'Afiye - Account Login') { %>active<% } %>"
 				><a href="/account/login">Login</a></span
 			>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </header>
