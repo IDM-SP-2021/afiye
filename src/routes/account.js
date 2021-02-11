@@ -113,6 +113,16 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/feed'), locals);
 });
 
+// user post
+router.get('/post', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Post',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/post'), locals);
+});
+
 // user tree
 router.get('/tree', ensureAuthenticated, (req, res) => {
   let locals = {

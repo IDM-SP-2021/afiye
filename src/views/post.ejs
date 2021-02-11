@@ -1,0 +1,106 @@
+<%- include('./partials/user-header') %>
+
+<!-- <h1>Feed</h1>
+
+<p>Welcome <%= user.name %></p> -->
+
+<div class="header-box">
+    <p class="header-title">afiye</p>
+    <p class="feed-nav-top">Feed</p>
+    <p class="tree-nav-top">Tree</p>
+    <p class="settings-nav-top">Settings</p>
+</div>
+
+<div class="post-container" style="padding-top: 4rem;">
+
+    <div class="afiye-posts"> 
+        <!-- header for user's name and timestamp -->
+        <div class="user-info">
+
+            <!-- profile img -->
+            <div class="imgname">
+
+                <div class="story">
+                    <img src="https://picsum.photos/45/45?random=1" alt="">
+                    <svg viewbox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40"/>
+                    </svg>
+                </div>
+
+                <!-- username -->            
+                <div>
+                    <h2>Paul Monroe</h2>
+                    <span> Cousin </span>
+                </div>
+
+            </div>
+
+            <!-- timestamp -->
+            <div class="timestamp" style="float: right;">
+                <img style="padding-bottom: 10px;" src="../assets/icons/more-01.svg" alt="more">                
+                <span> 3m</span>
+            </div>
+
+        </div>
+
+        <Div>
+            <P>This is a short description</P>
+        </Div>
+
+        <!-- Actual post -->
+       
+        <div class="img">
+            <img style="border-radius: 5px;" src="https://picsum.photos/400/250?random=1"/>
+        </div>
+
+        <!-- Tagged users -->
+        
+        <h2>
+            Tagged users
+        </h2>
+
+        <div class="tagged-users" style="display: flex;">
+            <div class="story">
+                <img src="https://picsum.photos/45/45?random=1" alt="">
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40"/>
+                </svg>
+                <p>Jack</p>
+
+            </div>
+
+            <div class="story">
+                <img src="https://picsum.photos/45/45?random=1" alt="">
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40"/>
+                </svg>
+
+                <p>Jack</p>
+            </div>
+
+            <div class="story">
+                <img src="https://picsum.photos/45/45?random=1" alt="">
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40"/>
+                </svg>
+
+                <p>Jack</p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<div class="footer-box">
+    <p class="footer-title">© afiye 2020</p>
+</div>
+
+<div class="bottom-nav">
+        <p class="feed-nav">Feed</p>
+        <p class="tree-nav">Tree</p>
+        <p class="profile-nav">Profile</p>
+        <p class="settings-nav">Settings</p>
+</div>

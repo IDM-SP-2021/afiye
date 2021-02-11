@@ -23,7 +23,14 @@ div.imgname div:last-child {
 div.imgname div:last-child h2 {
     padding: 0;
     margin: 0;
+    font-weight: 400;
 }
+
+div.imgname div:last-child span {
+    font-weight: 400;
+    font-size: 12px;
+}
+
 
 .buttons {
     // float: right;
@@ -107,6 +114,7 @@ div.img {
 
 .post-container, .user-info, .img {
     width: 600px;
+    padding-top: 2rem;
 
    }
 
@@ -119,12 +127,22 @@ div.img {
     display: flex;
     width: 475px;
 }
+
+.buttons {
+    display: flex;
+    margin-left: 60px !important;
+}
+
+.timestamp {
+    margin-left: 206px;
+}
 }
 
 @media only screen and (min-width: 769px) {
 
     .post-container, .user-info, .img {
         width: 700px;
+        padding-top: 3rem;
     
        }
     
@@ -140,6 +158,11 @@ div.img {
 
     .buttons {
         display: flex;
+        margin-left: 160px !important;
+    }
+
+    .timestamp {
+        margin-left: 212px !important; 
     }
 
 }
