@@ -2,7 +2,6 @@
 
 #index-container {
     margin: 0;
-    padding: 0;
 
     // Text
 
@@ -15,23 +14,28 @@
 
 
     // Hero Section 
-
     #hero {
-        position: absolute;
-        top: -.000125rem;
-        z-index: -10;
-        margin: 0 -.875rem;
-    }
+        padding: 1.5rem 0;
+        position: relative;
 
-    #hero-button {
-        display: block;
-        margin: -.5rem auto;
+        #hero-blob {
+            position: absolute;
+            top: -.000125rem;
+            z-index: -10;
+            margin: 0 -.875rem;
+        }
+    
+        #hero-button {
+            display: block;
+            margin: -.5rem auto;
+        }
+    
+        #placeholder-hero {
+            display: block;
+            margin: 0 auto;
+        }
     }
-
-    #placeholder-hero {
-        display: block;
-        margin: 1.5rem auto;
-    }
+    
 
     // About Section
 

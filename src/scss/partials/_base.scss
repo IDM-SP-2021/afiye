@@ -4,17 +4,16 @@
 	font-family: $font-family;
 }
 
-body {
-	padding: 0 .875rem;
-	margin: 0;
-}
-
 html,
 body {
 	height: 100%;
 	margin: 0;
 	color: $body;
 	overflow-x: hidden;
+}
+
+main {
+	padding: 0 0.875rem;
 }
 
 h1 {

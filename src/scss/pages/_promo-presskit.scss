@@ -2,7 +2,6 @@
 
 #press-kit-container {
     margin: 0;
-    padding: 0;
 
     p {
         font: $mobile-text-small;
@@ -21,14 +20,11 @@
 
     // Hero Section 
 
-    #hero {
-        position: absolute;
-        top: -.000125rem;
-        z-index: -10;
-        margin: 0 -.875rem;
-    }
+    
 
     #presskit-heading {
+        position: relative;
+
         h1 {
             font: $mobile-display-large-bold;
             color: white;
@@ -37,6 +33,12 @@
             
             position: relative;
             top: 3rem;
+        }
+
+        #hero {
+            position: absolute;
+            top: -.000125rem;
+            z-index: -10;
         }
 
         .promo-heading {
