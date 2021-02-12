@@ -1,0 +1,215 @@
+// Promo Shit
+
+#index-container {
+    margin: 0;
+
+    // Text
+
+    p {
+        font: $mobile-text-small;
+    }
+
+
+    // Header 
+
+
+    // Hero Section 
+    #hero {
+        padding: 1.5rem 0;
+        position: relative;
+
+        #hero-blob {
+            position: absolute;
+            top: -.000125rem;
+            z-index: -10;
+            margin: 0 -.875rem;
+        }
+    
+        #hero-button {
+            display: block;
+            margin: -.5rem auto;
+        }
+    
+        #placeholder-hero {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+    
+
+    // About Section
+
+    #about {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 6rem;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+    }
+
+    // Key Features
+
+    #keyfeatures {
+        margin-top: 12.5rem;
+        position: relative;
+        color: white;
+
+        .promo-heading {
+            font: $promo-heading-bold-mobile;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        .feature-container {
+            display: flex;
+            justify-content: space-between;
+
+            &:not(:last-of-type) {
+                margin-bottom: 5.25rem;
+            }
+        }
+    }
+
+    .promo-text {
+        width: 11.5rem;
+    }
+
+    #keyfeatures-blob {
+        margin: 0 -.875rem;
+        z-index: -10;
+        position: absolute;
+        top: -5rem;
+    }
+
+    // Case Study
+
+    #case-study-blob {
+        margin: 0 -.875rem;
+        z-index: -10;
+        position: absolute;
+        top: -10rem;
+    }
+
+    #case-study-button {
+        margin-top: 2rem;
+    }
+
+    #case-study {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20rem;
+        position: relative;
+        text-align: center;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+    }
+
+    //Meet the Team
+
+    #meet-team-button {
+        margin-top: 2rem;
+    }
+
+    #meet-team {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10rem;
+        text-align: center;
+        width: 100%;
+
+        .promo-heading {
+            font: $promo-heading-mobile;
+            background: $gradient-two;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: rgba(0, 0, 0, 0.09);
+            text-transform: uppercase;
+    }
+    }
+
+    #team-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-content: space-between;
+        flex-wrap: wrap;
+        width: 90%;
+        gap: 1rem;
+    }
+
+    // Contract Book
+
+    #contract-book-button {
+        margin-top: 2rem;
+    }
+
+    #contract-book-blob {
+        margin: 0 -.875rem;
+        z-index: -10;
+        position: absolute;
+        // top: -20rem;
+        bottom: 0;
+    }
+
+    #contract-book {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15rem;
+        text-align: center;
+        width: 100%;
+        // position: relative;
+        color: white;
+
+        .promo-heading {
+            font: $promo-heading-bold-mobile;
+            text-transform: uppercase;
+            color: white;
+            margin-top: 3rem;
+        }
+    }
+
+    #team-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-content: space-between;
+        flex-wrap: wrap;
+        width: 90%;
+        gap: 1rem;
+    }
+
+    // Footer
+
+    footer {
+        width: 100%;
+        display: absolute;
+        bottom: 0;
+    }
+
+    #copyright {
+        font: $promo-heading-bold-mobile;
+        color: white;
+        text-align: left;
+    }
+}

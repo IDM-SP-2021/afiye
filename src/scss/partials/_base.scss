@@ -12,6 +12,10 @@ body {
 	overflow-x: hidden;
 }
 
+main {
+	padding: 0 0.875rem;
+}
+
 h1 {
 	color: blue;
 	font: $desktop-display-large-bold;
