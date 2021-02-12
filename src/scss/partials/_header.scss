@@ -140,10 +140,24 @@ header {
 	}
 }
 
+@include tablet {
+	$header-height: 4.6875em;
+
+	header {
+		.header-nav {
+			height: $header-height;
+		}
+	}
+}
+
 @include desktop {
+	$header-height: 6.25em;
+
 	header {
 		.header-nav {
 			display: grid;
+			height: $header-height;
+
 			.nav-toggle {
 				display: none;
 			}

@@ -10,7 +10,7 @@ requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {
-  console.log('Hello from app');
+  console.log('Hello from !');
 
   $('.nav-toggle').on('click', () => {
     $('.nav-link-group').toggleClass('mobile-nav');
