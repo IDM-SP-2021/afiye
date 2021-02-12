@@ -7,8 +7,8 @@ const _ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 
 const MiniCssExtractPlugin = new _MiniCssExtractPlugin({
-  filename: './css/[name].css',
-  chunkFilename: './css/[id].css',
+  filename: './css/app.css',
+  chunkFilename: './css/app.css',
 });
 
 
