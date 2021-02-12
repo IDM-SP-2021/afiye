@@ -29,16 +29,24 @@ module.exports = (env, argv) => {
     name: 'configServer',
     entry: {
       server: SERVER_PATH,
-      auth: path.join(__dirname, '../src/server/config/auth.js'),
-      passport: path.join(__dirname, '../src/server/config/passport.js'),
+      neo4j: path.join(__dirname, '../src/server/neo4j.js'),
     },
     output: {
       path: path.join(__dirname, '../dist/server'),
       publicPath: '/',
-      // filename: '[name].js',
-      filename: (chunkData) => {
-        return chunkData.chunk.name == 'server' ? 'main.js' : 'config/[name].js';
-      },
+      filename: '[name].js',
+    }
+  });
+
+  let configServerConfigs = Object.assign({}, config, {
+    name: 'configServerConfigs',
+    entry: {
+      auth: path.join(__dirname, '../src/server/config/auth.js'),
+      passport: path.join(__dirname, '../src/server/config/passport.js'),
+    },
+    output: {
+      path: path.join(__dirname, '../dist/server/config'),
+      filename: '[name].js',
     }
   });
 
@@ -55,5 +63,5 @@ module.exports = (env, argv) => {
     }
   });
 
-  return [configServer, configRoutes];
+  return [configServer, configServerConfigs, configRoutes];
 };

@@ -8,3 +8,26 @@ body {
 	padding: 0 .875rem;
 	margin: 0;
 }
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	color: $body;
+	overflow-x: hidden;
+}
+
+h1 {
+	color: blue;
+	font: $desktop-display-large-bold;
+}
+
+a {
+	color: $purple-default;
+	text-decoration: none;
+}
+
+#graph {
+	width: 100%;
+	background-color: red;
+}
