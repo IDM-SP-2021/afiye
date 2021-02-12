@@ -22,7 +22,7 @@ app.use(webpackDevMiddleware(compiler, {
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
-.then(() => console.log('connected,,'))
+.then(() => console.log('connected to mongoDB..'))
 .catch((err)=> console.log(err));
 
 // Set path to load static files

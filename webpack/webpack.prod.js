@@ -6,10 +6,12 @@ const plugins = require('./plugins');
 module.exports = {
   entry: {
     app: './src/js/app.js',
+    tree: './src/js/tree.js'
   },
   output: {
     filename: 'js/[name].bundle.js',
-    path: path.resolve(__dirname, '../dist/public')
+    path: path.resolve(__dirname, '../dist/public'),
+    publicPath: '/'
   },
   target: 'web',
   node: {
@@ -28,7 +30,6 @@ module.exports = {
       loaders.CSSLoader,
       loaders.JSLoader,
       loaders.FileLoader,
-      // loaders.FontLoader,
       loaders.ViewLoader,
     ]
   },

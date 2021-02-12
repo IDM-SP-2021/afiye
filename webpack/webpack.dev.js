@@ -7,7 +7,8 @@ const Dotenv = require('dotenv-webpack');
 module.exports = {
   entry: {
     // app: ['webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000', './src/js/app.js'],
-    app: './src/js/app.js'
+    app: './src/js/app.js',
+    tree: './src/js/tree.js'
   },
   output: {
     filename: 'js/[name].bundle.js',
