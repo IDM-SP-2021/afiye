@@ -131,8 +131,6 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
         }
       };
 
-      console.log(locals.data.graph);
-
       res.render(path.resolve(__dirname, '../views/tree'), locals);
     });
 });
