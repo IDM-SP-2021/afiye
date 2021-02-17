@@ -4,14 +4,14 @@
     padding-bottom: 2rem;
     margin: 0 auto;
     display: flex;
-    width: 400px;
-    padding-top: 7rem;
+    width: 100vw;
+    padding-top: 2rem;
 }
 
 // Image + Username and title for creating posts
 .imgname {
     display: flex;
-    width: 300px;
+    width: 250px;
     // margin: 0 auto;
 }
 
@@ -47,8 +47,9 @@ div.imgname div:last-child span {
 
 .user-info {
     display: flex;
-    width: 400px;
+    width: 100vw;
     margin: 0 auto;
+    // padding-top: 3rem;
 }
 
 div.timestamp {
@@ -60,6 +61,11 @@ div.timestamp {
 .post-container {
     width: 100vw;
     margin: auto;
+}
+
+.description {
+    margin: 0 auto;
+    max-width: 377px;
 }
 
 div.img {
@@ -93,13 +99,14 @@ div.img {
    .story {
     width:70px;
     overflow:hidden;
+    height: 64px;
   }
 
   .story img {
     width: 48px;
     border-radius: 50%;
-    position: absolute;
-    z-index: -100;
+    // position: absolute;
+    // z-index: -100;
     margin: 11px;
   }
 
@@ -107,25 +114,47 @@ div.img {
     fill:none;
     stroke:#8a3ab8;
     stroke-width:3px;
+    position: relative;
+    top: -115%;
+    z-index: -1000;
    }
+
+   .footer-box {
+    display: none;
+}
+
+#mobile-nav-container .mobile-nav {
+    background: white;
+    z-index: 5000000;
+}
 
 
 @media only screen and (min-width: 377px) {
 
-.post-container, .user-info, .img {
-    width: 600px;
-    padding-top: 2rem;
+    .description {
+        margin: 0 auto;
+        max-width: 377px;
+    }
+
+.post-container, .img {
+    min-width: 266px;
+    padding-top: 1rem;
 
    }
 
+   .user-info {
+       width: 377px;
+       padding-top: 1rem;
+   }
+
 .create-new-post {
-    width: 600px;
+    width: 377px;
 
 }
 
 .imgname {
     display: flex;
-    width: 475px;
+    min-width: 250px;
 }
 
 .buttons {
@@ -133,21 +162,33 @@ div.img {
     margin-left: 60px !important;
 }
 
-.timestamp {
-    margin-left: 206px;
+.footer-box {
+    display: none;
 }
+
+// div.timestamp {
+//     margin-left: 54px !important;
+// }
 }
 
 @media only screen and (min-width: 769px) {
 
+    .description {
+        margin: 0 auto;
+        max-width: 700px;
+    }
     .post-container, .user-info, .img {
-        width: 700px;
-        padding-top: 3rem;
+        width: 700px !important;
+        // padding-top: 3rem;
     
+       }
+
+       .user-info {
+           width: 700px !important;
        }
     
     .create-new-post {
-        width: 700px;
+        width: 700px !important;
     
     }
     
@@ -165,4 +206,15 @@ div.img {
         margin-left: 212px !important; 
     }
 
+    .footer-box {
+        display: none;
+    }
+
+}
+
+@media only screen and (min-width: 1024px) {
+
+    .footer-box {
+        display: block;
+    }
 }

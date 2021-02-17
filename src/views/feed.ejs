@@ -4,12 +4,6 @@
 
 <p>Welcome <%= user.name %></p> -->
 
-<div class="header-box">
-    <p class="header-title">afiye</p>
-    <p class="feed-nav-top">Feed</p>
-    <p class="tree-nav-top">Tree</p>
-    <p class="settings-nav-top">Settings</p>
-</div>
 
 <div class="create-new-post">
     <!-- profile img -->
@@ -167,10 +161,13 @@
 <div class="footer-box">
     <p class="footer-title">© afiye 2020</p>
 </div>
-
+<!-- 
 <div class="bottom-nav">
         <p class="feed-nav">Feed</p>
         <p class="tree-nav">Tree</p>
         <p class="profile-nav">Profile</p>
         <p class="settings-nav">Settings</p>
-</div>
+</div> -->
+<!-- <p>Welcome <%= user.name %></p> -->
+
+<%- include('./partials/user-mobile-nav') %>

@@ -1,222 +1,179 @@
-.header-box {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 999;
+$header-height: 3.75em;
+
+header {
 	width: 100%;
-	height: 6.25em;
-  }
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	background-color: $off-white;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 
-  .header-title{
-	  font-family: $desktop-text-large;
-	  color: $purple-default;
-	font-size: $desktop-text-large;
-	margin-left: .95em;
-	margin-top: .95em;
-  }
+	.header-nav {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
+		align-items: center;
+		height: $header-height;
+		overflow: hidden;
 
-
-  .footer-box {
-	position: fixed;
-bottom: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 45px;
-background: #550EA1;
-text-align: left;
-  }
-
-  .footer-title{
-	  font-family: Rubik;
-
-	  color: #ffffff;
-	font-size: 24px;
-	margin-left: 15px;
-	margin-top: 10px;
-  }
-
-
-  /* (phone screens, 376px and down) */
-  @media only screen and (max-width: 376px) {
-	.header-box {
-	  height: 60px;
-	  background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-		text-align: center;
+		.header-title {
+			font: $mobile-display-small-bold;
+			margin: 0 1.5em;
 		}
 
-		.feed-nav{
-			position: fixed;
-			margin-left: 14%;
-			margin-top: 3.7em;
+		.nav-link-group {
+			display: none;
+
+			.nav-link {
+				padding: 1em;
+
+				&:first-child {
+					margin-top: 3em;
+				}
+
+				a {
+					color: $body;
+					font: $mobile-link-medium;
+					display: inline-block;
+
+					&:hover {
+						color: $purple-dark;
+					}
+				}
+
+				&.active {
+					border-bottom: 2px solid $purple-default;
+
+					a {
+						color: $purple-default;
+					}
+				}
+			}
 		}
+	}
 
-		.tree-nav{
-			position: fixed;
-			margin-left: 35%;
-			margin-top: 3.7em;
-		}
-
-		.profile-nav{
-			position: fixed;
-			margin-left: 55%;
-			margin-top: 3.7em;
-		}
-
-		.settings-nav{
-			position: fixed;
-			margin-left: 75%;
-			margin-top: 3.7em;
-		}
-
-		.feed-nav-top{
-		  display: none;
-		}
-
-		.tree-nav-top{
-		  display: none;
-		}
-
-		.settings-nav-top{
-		  display: none;
-		}
-
-		.footer-title{
-  display: none;
-}
-
-.footer-box{
-  display: none;
-}
-
-.bottom-nav{
-		  background: #FFFFFF;
-		  box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
-		  position: fixed;
-bottom: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 97px;
-		}
-
-  } 
-  
-  /* (tablet screens, 377px and up) */
-  @media only screen and (min-width: 377px) {
-	.header-box {
-	  height: 60px;
-	  background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-		text-align: center;
-		}
-
-		.bottom-nav{
-		  background: #FFFFFF;
-		  box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
-		  position: fixed;
-bottom: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 97px;
-		}
-
-		.feed-nav{
-			position: fixed;
-			margin-left: 20%;
-			margin-top: 3.7em;
-		}
-
-		.tree-nav{
-			position: fixed;
-			margin-left: 38%;
-			margin-top: 3.7em;
-		}
-
-		.profile-nav{
-			position: fixed;
-			margin-left: 55%;
-			margin-top: 3.7em;
-		}
-
-		.settings-nav{
-			position: fixed;
-			margin-left: 72%;
-			margin-top: 3.7em;
-		}
-
-
-		.feed-nav-top{
-		  display: none;
-		}
-
-		.tree-nav-top{
-		  display: none;
-		}
-
-		.settings-nav-top{
-		  display: none;
-		}
-
-
-		.footer-title{
-  display: none;
-}
-
-.footer-box{
-  display: none;
-}
-
-
-  } 
-  
-  /* desktop screens (laptops/desktops, 769px and up) */
-  @media only screen and (min-width: 769px) {
-	.header-box {
-	  height: 100px;
-	  background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-		text-align: left;
-
-		}
-
-.header-title{
-  margin-top: 35px;
-}
-
-
-	  .feed-nav-top{
-			position: fixed;
-			margin-left: 70%;
-			margin-top: -2.5em;
+	&.front-header {
+		.nav-toggle {
+			justify-self: end;
+			margin-right: 1.5em;
 			display: block;
+
+			&:hover {
+				cursor: pointer;
+			}
+
+			span {
+				display: block;
+				width: 1.5625em;
+				height: 0.1875em;
+				background-color: $purple-default;
+				margin: 0.3125em auto;
+				transition: all 0.3s ease-in-out;
+				border-radius: 3px;
+			}
+
+			&.is-active {
+				span {
+					&:first-child {
+						transform: translateY(0.5em) rotate(45deg);
+					}
+
+					&:nth-child(2) {
+						opacity: 0;
+					}
+
+					&:nth-child(3) {
+						transform: translateY(-0.5em) rotate(-45deg);
+					}
+				}
+			}
 		}
 
-		.tree-nav-top{
+		.nav-link-group {
+			display: flex;
+			flex-direction: column;
 			position: fixed;
-			margin-left: 78%;
-			margin-top: -2.5em;
-			display: block;
-		}
+			justify-content: start;
+			top: 3.75em;
+			right: 0;
+			background-color: $background;
+			width: 90%;
+			max-width: 31.25em;
+			height: calc(100vh - 3.75em);
+			transform: translate(101%);
+			text-align: left;
+			overflow: hidden;
+			transition: transform 0.3s ease-in-out;
+			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+			padding: 0 2em;
 
-		.settings-nav-top{
-			position: fixed;
-			margin-left: 86%;
-			margin-top: -2.5em;
-			display: block;
-		}
+			.nav-link {
+				padding: 1em;
 
-.bottom-nav{
-		  display: none;
-		}
+				&:first-child {
+					margin-top: 3em;
+				}
 
-.footer-title{
-  display: block;
+				a {
+					color: $body;
+					font: $mobile-link-medium;
+					display: inline-block;
+
+					&:hover {
+						color: $purple-dark;
+					}
+				}
+
+				&.active {
+					border-bottom: 2px solid $purple-default;
+
+					a {
+						color: $purple-default;
+					}
+				}
+			}
+
+			&.mobile-nav {
+				transform: translate(0%) !important;
+			}
+		}
+	}
 }
-.footer-box{
-  display: block;
-}
 
-  } 
+@include desktop {
+	header {
+		.header-nav {
+			display: grid;
+			.nav-toggle {
+				display: none;
+			}
+
+			.nav-link-group {
+				display: flex;
+				flex-direction: row;
+				background: none;
+				justify-self: end;
+				order: 2;
+				position: static;
+				transform: none;
+				width: auto;
+				max-width: unset;
+				height: auto;
+				margin-right: 1.5em;
+				box-shadow: unset;
+
+				.nav-link {
+					padding: 0.5em 0.75em;
+					margin: 0 0.5em;
+
+					&:first-child {
+						margin-top: 0;
+					}
+
+					a {
+						font: $desktop-text-medium !important;
+					}
+				}
+			}
+		}
+	}
+}
