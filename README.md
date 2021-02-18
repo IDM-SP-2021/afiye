@@ -107,6 +107,20 @@ Add the following to your `.env` file:
 MONGO_HOST=mongodb://localhost/afiye
 ```
 
+## Mail Services Initialization
+
+Add the following variables to your `.env` file. These are required to get your local version of this project running. Otherwise you will not be able to setup test user accounts. If you are directly working on Afiye, please contact project members for variable values, otherwise substitute with values for your application.
+
+*Note:* For `MAIL_DOMAIN` for local development set the PORT portion of the variable to the aaplication port. See **Run Application** below for more information.
+
+```none
+MAIL_SERVICE_HOST=***********
+MAIL_SERVICE_PORT=***********
+MAIL_USER=***********
+MAIL_PASS=***********
+MAIL_DOMAIN=http://localhost:PORT
+```
+
 ## Run Application
 
 From the command line run the following command to open a development server. This will not generate any files on your system as they are saved into memory.
