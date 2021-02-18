@@ -2,6 +2,7 @@
 
 #index-container {
 	margin: 0;
+	overflow-y: hidden;
 
 	// Text
 
@@ -175,7 +176,7 @@
 		margin-top: 15rem;
 		text-align: center;
 		width: 100%;
-		// position: relative;
+		position: relative;
 		color: white;
 
 		.promo-heading {
@@ -199,4 +200,178 @@
 		color: white;
 		text-align: left;
 	}
+}
+
+@include tablet {
+
+	#index-container {
+
+			p {
+		font: $desktop-text-medium;
+	}
+
+		#hero {
+
+			#hero-blob {
+					width: 61.25rem;
+					top: -20rem;
+					left: -6rem;
+				}
+
+			#placeholder-hero {
+				width: 38rem;
+				margin-top: 5rem;
+			}
+			
+			#hero-button {
+				margin-top: 1.5rem;
+			}
+		}
+
+		#about {
+
+			justify-content: center;
+			gap: 3rem;
+			align-items: center;
+
+			.promo-text {
+				width: 18rem;
+				
+			}
+
+			#about-img {
+				width: 17.9375rem;
+			}
+
+			.promo-heading {
+				font: $desktop-text-small;
+				margin-bottom: 1.5rem;
+			}		
+		}
+		
+		#keyfeatures {
+
+			margin-top: 12rem;
+
+			.feature-container {
+				justify-content: center;
+				gap: 3.5rem;
+				align-items: center;
+				margin-top: 5.625rem;
+				
+				&:first-child {
+					padding-top: 12rem;
+				}
+			}
+
+			.promo-text {
+				width: 16.6875rem;
+			}
+
+			#keyfeatures-blob {
+				width: 50rem;
+				margin: 0 auto;
+			}
+
+			.keyfeature-img {
+				width: 15.8125rem;
+			}
+
+			#promo-heading {
+				font: $mobile-link-medium;
+			}
+		}
+
+		#case-study {
+
+			#case-study-blob {
+				margin: 0 -0.875rem;
+				top: 0rem;
+				width: 50rem;
+			}
+
+			#case-study-img {
+				width: 37.1875rem;
+				padding-top: 25rem;
+			}
+
+			.promo-text {
+				margin: 2rem auto;
+				width: 25.3125rem;
+
+				#case-study-button {
+					margin: 4rem auto 0;
+				}
+			}
+
+			.promo-heading {
+				font: $mobile-text-medium;
+			}
+			
+		}
+
+		#meet-team {
+
+			margin-top: 20rem;
+
+			.promo-heading {
+				font: $mobile-text-medium;
+			}
+
+			.promo-text {
+				margin: 2rem auto;
+				width: 25.3125rem;
+			}
+
+			.member-img {
+				width: 8.75rem;
+			}
+
+			#team-container {
+				width: 80%;
+			}
+
+			#meet-team-button {
+				margin-top: 4rem;
+			}
+		}
+
+		#contract-book {
+
+			
+
+			#contract-book-blob {
+				width: 48rem;
+				top: -20rem;
+			}
+
+			#contract-img {
+				width: 17.9375rem;
+			}
+
+			.promo-text {
+				margin: 2rem auto;
+				width: 25.3125rem;
+			}
+
+			#promo-heading {
+				font: $mobile-link-medium;
+			}
+
+			#contract-book-button {
+				margin: 4rem auto 0; 
+			}
+		}
+
+		footer {
+
+			overflow-y: hidden;
+
+			#copyright {
+				font: $mobile-link-large;
+			}	
+		}
+
+	}
+
 }
