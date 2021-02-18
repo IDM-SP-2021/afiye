@@ -22,7 +22,7 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 //mongoose
-mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
+mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true, useFindAndModify: false,})
 .then(() => console.log('connected to mongoDB..'))
 .catch((err)=> console.log(err));
 
