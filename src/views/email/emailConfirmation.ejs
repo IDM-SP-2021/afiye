@@ -13,13 +13,11 @@
 			Please confirm your email to complete your account registration at the
 			link below
 		</p>
-		<a href="https://www.afiye.io/verify/<%- uid %>-<%- token %>"
-			>Confirm your account</a
-		>
+		<a href="<%- verifyLink %> ">Confirm your account</a>
 		<p>
 			If the link does not work, copy and paste the following url into your
 			browser's address bar:<br />
-			https://www.afiye.io/verify/<%- uid %>-<%- token %>
+			<%- verifyLink %>
 		</p>
 	</body>
 </html>

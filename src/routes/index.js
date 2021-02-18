@@ -144,7 +144,15 @@ router.post('/register', (req, res) => {
     User.findOne({email: email}).exec((err, user) => {
       if (user) {
         errors.push({msg: 'Email is already registered'});
-        render(res, errors, firstName, lastName, email, password, password2);
+        res.render(path.resolve(__dirname, '../views/register'), {
+          errors: errors,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+          password2: password2,
+          title: 'Afiye - Register Account',
+        });
       } else {
         const uid = nanoid(); // db identifier for user
         const valToken = nanoid(); // email validation token
@@ -180,7 +188,7 @@ router.post('/register', (req, res) => {
           }
         ));
 
-        ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, uid: uid, token: valToken }, (err, data) => {
+        ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
           if (err) {
             console.log(err);
           } else {
@@ -190,7 +198,6 @@ router.post('/register', (req, res) => {
               subject: 'Afiye - Confirm Your Account',
               html: data
             };
-            console.log("html data =========================>", mainOptions.html);
             transporter.sendMail(mainOptions, (err, info) => {
               if (err) {
                 console.log(err);
