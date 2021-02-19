@@ -128,6 +128,23 @@ div.img {
     z-index: 5000000;
 }
 
+.avatars {
+    grid-area: avatar;
+    display: flex;
+}
+
+.title-tag-users {
+    grid-area: title;
+}
+
+.tagged-users {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "title"
+                         "avatar";
+}
+
 
 @media only screen and (min-width: 377px) {
 
@@ -137,7 +154,7 @@ div.img {
     }
 
 .post-container, .img {
-    min-width: 266px;
+    width: 377px;
     padding-top: 1rem;
 
    }
@@ -218,3 +235,4 @@ div.img {
         display: block;
     }
 }
+

@@ -11,6 +11,8 @@
     <p class="settings-nav-top">Settings</p>
 </div> -->
 
+
+
 <div class="post-container" style="padding-top: 4rem;">
 
     <div class="afiye-posts"> 
@@ -37,7 +39,7 @@
 
             <!-- timestamp -->
             <div class="timestamp" style="float: right;">
-                <img style="padding-bottom: 10px;" src="../assets/icons/more-01.svg" alt="more">                
+                <a href="/account/modal"><img style="padding-bottom: 10px;" src="../assets/icons/more-01.svg" alt="more"> </a>               
                 <span> 3m</span>
             </div>
 
@@ -57,35 +59,41 @@
         
 
 
-        <div class="tagged-users" style="display: flex;">
-            <h2>
-                Tagged users
-            </h2>
-            <div class="story">
-                <img src="https://picsum.photos/45/45?random=1" alt="">
-                <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40"/>
-                </svg>
-                <p>Jack</p>
+        <div class="tagged-users" style="display: grid;">
 
+            <div class="title-tag-users">
+                <h2>
+                    Tagged users
+                </h2>
             </div>
 
-            <div class="story">
-                <img src="https://picsum.photos/45/45?random=1" alt="">
-                <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40"/>
-                </svg>
+            <div class="avatars">
+                <div class="story">
+                    <img src="https://picsum.photos/45/45?random=1" alt="">
+                    <svg viewbox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40"/>
+                    </svg>
+                    <p>Jack</p>
 
-                <p>Jack</p>
-            </div>
+                </div>
 
-            <div class="story">
-                <img src="https://picsum.photos/45/45?random=1" alt="">
-                <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40"/>
-                </svg>
+                <div class="story">
+                    <img src="https://picsum.photos/45/45?random=1" alt="">
+                    <svg viewbox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40"/>
+                    </svg>
 
-                <p>Jack</p>
+                    <p>Jack</p>
+                </div>
+
+                <div class="story">
+                    <img src="https://picsum.photos/45/45?random=1" alt="">
+                    <svg viewbox="0 0 100 100">
+                        <circle cx="50" cy="50" r="40"/>
+                    </svg>
+
+                    <p>Jack</p>
+                </div>
             </div>
 
         </div>
@@ -94,7 +102,7 @@
 
 
 </div>
-
+<%- include('./partials/user-mobile-nav') %>
 <div class="footer-box">
     <p class="footer-title">© afiye 2020</p>
 </div>
