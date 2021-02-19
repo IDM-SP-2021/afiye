@@ -3,7 +3,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
-const { render } = require('sass');
 const passport = require('passport');
 const { Token } = require('../models/token.js');
 const { customAlphabet } = require('nanoid');
@@ -24,47 +23,13 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// * Example email structure
-// router.get('/test', (req, res) => {
-//   ejs.renderFile(__dirname + '/../views/email/test.ejs', {name: 'Ben'}, (err, data) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       let mainOptions = {
-//         from: '"noreply" <noreply@afiye.io>',
-//         to: "sutramkire@gmail.com",
-//         subject: 'Pretty!',
-//         html: data
-//       };
-//       console.log("html data =========================>", mainOptions.html);
-//       transporter.sendMail(mainOptions, (err, info) => {
-//         if (err) {
-//           console.log(err);
-//         } else {
-//           console.log('Message sent: ' + info.response);
-//         }
-//       });
-//     }
-//   });
-//   res.end();
-// });
-
-// * login page
+// * home page
 router.get('/', (req, res) => {
   let locals = {
     title: 'Afiye'
   };
 
   res.render(path.resolve(__dirname, '../views/index'), locals);
-});
-
-// * register page
-router.get('/register', (req, res) => {
-  let locals = {
-    title: 'Afiye - Register Account'
-  };
-
-  res.render(path.resolve(__dirname, '../views/register'), locals);
 });
 
 // * front matter press kit
@@ -94,7 +59,7 @@ router.get('/team', (req, res) => {
   res.render(path.resolve(__dirname, '../views/team'), locals);
 });
 
-// login handle
+// * login page
 router.get('/login', (req, res) => {
   let locals = {
     title: 'Afiye - Account Login'
@@ -102,15 +67,17 @@ router.get('/login', (req, res) => {
 
   res.render(path.resolve(__dirname, '../views/login'), locals);
 });
+
+// * register page
 router.get('/register', (req, res) => {
   let locals = {
-    title: 'Afiye - Register Account'
+    title: 'Afiye - Sign Up'
   };
 
   res.render(path.resolve(__dirname, '../views/register'), locals);
 });
 
-// register handle
+// * register handle
 router.post('/register', (req, res) => {
   const {firstName, lastName, email, password, password2} = req.body;
   let errors = [];
@@ -137,7 +104,7 @@ router.post('/register', (req, res) => {
       email: email,
       password: password,
       password2: password2,
-      title: 'Afiye - Register Account',
+      title: 'Afiye - Sign Up',
     });
   } else {
     // validation passed
@@ -151,7 +118,7 @@ router.post('/register', (req, res) => {
           email: email,
           password: password,
           password2: password2,
-          title: 'Afiye - Register Account',
+          title: 'Afiye - Sign Up',
         });
       } else {
         const uid = nanoid(); // db identifier for user
@@ -209,10 +176,97 @@ router.post('/register', (req, res) => {
         });
 
         req.flash('success_msg', 'Check your email for a confimation message from us! Make sure to check your spam folder too');
-        res.redirect('/login');
+        res.redirect(`/register/confirmation-${uid}`);
       }
     });
   }
+});
+
+// * Redirect page from successful sign up
+router.get('/register/confirmation-:uid', (req, res) => {
+  const uid = req.params.uid;
+  const title = 'Afiye - Sign Up';
+  let errors = [];
+
+  User.findOne({ uid: uid }).exec((err, user) => {
+    if (!user) {
+      errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
+      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+        title: title,
+        uid: uid,
+        errors: errors,
+      });
+    } else {
+      const firstName = user.firstName;
+      const email = user.email;
+      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+        title: title,
+        uid: uid,
+        firstName: firstName,
+        email: email,
+      });
+    }
+  });
+});
+
+// * Resend registration verification from confirmation page
+router.post('/register/confirmation-:uid', (req,res) => {
+  const uid = req.params.uid;
+  const title = 'Afiye - Sign Up';
+  let errors = [];
+
+  User.findOne({ uid: uid }).exec((err, user) => {
+    if (!user) {
+      errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
+      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+        title: title,
+        uid: uid,
+        errors: errors,
+      });
+    } else {
+      const firstName = user.firstName;
+      const email = user.email;
+      Token.findOne({ uid: uid }).exec((err, token) => {
+        if(!token) {
+          errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
+          res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+            title: title,
+            uid: uid,
+            errors: errors,
+          });
+        } else {
+          const valToken = token.token;
+          ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
+            if (err) {
+              console.log(err);
+            } else {
+              let mainOptions = {
+                from: '"noreply" <noreply@afiye.io>',
+                to: email,
+                subject: 'Afiye - Confirm Your Account',
+                html: data
+              };
+              transporter.sendMail(mainOptions, (err, info) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log('Message sent: ' + info.response);
+                }
+              });
+            }
+          });
+
+          res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+            title: title,
+            uid: uid,
+            firstName: firstName,
+            email: email,
+            success_msg: 'Account confirmation message resent!'
+          });
+        }
+      });
+    }
+  });
 });
 
 router.post('/login', (req, res, next) => {

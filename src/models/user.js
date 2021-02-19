@@ -24,6 +24,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: 'Pending'
   },
+  node: {
+    type: Boolean,
+    default: false
+  },
   date: {
     type: Date,
     default: Date.now
