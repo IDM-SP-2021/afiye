@@ -24,8 +24,8 @@ const getData = (user) => {
           prefName = person.properties.prefName,
           lastName = person.properties.lastName,
           gender = person.properties.gender,
-          birthday = person.properties.birthday,
-          member = {id, firstName, prefName, lastName, gender, birthday},
+          birthdate = person.properties.birthdate,
+          member = {id, firstName, prefName, lastName, gender, birthdate},
           relType = res.get('rel_type'),
           source = res.get('src_id'),
           target = res.get('tar_id');
@@ -57,7 +57,7 @@ const getData = (user) => {
 };
 
 const initFamily = (person) => {
-  let query = `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}), (${person.uid}:Person {uid: '${person.uid}', firstName: '${person.firstName}', prefName: '${person.prefName}', lastName: '${person.lastName}', birthdate: '${person.birthdate}', gender: '${person.gender}', location: '${person.location}', profileColor: '${person.profileColor}', created:${Date.now()}}), (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid}) RETURN *`;
+  let query = `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}), (${person.uid}:Person {uid: '${person.uid}', fid: '${person.fid}', firstName: '${person.firstName}', prefName: '${person.prefName}', lastName: '${person.lastName}', birthdate: '${person.birthdate}', gender: '${person.gender}', location: '${person.location}', profileColor: '${person.profileColor}', created:${Date.now()}}), (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid}) RETURN *`;
   console.log(person);
   console.log(query);
 
