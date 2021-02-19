@@ -101,9 +101,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
 
 });
 
-<<<<<<< HEAD
-// * user family tree
-=======
 // user post
 router.get('/post', ensureAuthenticated, (req, res) => {
   let locals = {
@@ -166,7 +163,6 @@ router.get('/createprofile', ensureAuthenticated, (req, res) => {
 });
 
 // user tree
->>>>>>> upstream/main
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
     .then((result) => {
