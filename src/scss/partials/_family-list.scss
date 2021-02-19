@@ -1,0 +1,62 @@
+#family-container {
+	background: $background;
+	position: absolute;
+	width: 100%;
+	top: 3.75em;
+	border-radius: 0 0 0.875em 0.875em;
+
+	#container-toggle {
+		padding: 0.875em;
+		cursor: pointer;
+
+		.bar {
+			display: block;
+			height: 0.5em;
+			width: 2em;
+			background: $placeholder;
+			margin: 0 auto;
+			border-radius: 0.25em;
+		}
+	}
+
+	#inner-container {
+		height: 0;
+		overflow: hidden;
+
+		&.open {
+			height: auto;
+			padding: 1.875em 1.25em 0.5em;
+		}
+
+		input {
+			width: 100%;
+		}
+
+		h2 {
+			font: $mobile-display-small-bold;
+		}
+	}
+}
+
+@include tablet {
+	#family-container {
+		top: 4.6875em;
+	}
+}
+
+@include desktop {
+	#family-container {
+		position: static;
+		width: 30em;
+
+		#container-toggle {
+			display: none;
+		}
+
+		#inner-container {
+			height: auto;
+			overflow: scroll;
+			padding: 1.875em 1em;
+		}
+	}
+}

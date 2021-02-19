@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 const { render } = require('sass');
 const passport = require('passport');
 const {ensureAuthenticated} = require('../server/config/auth.js');
+
 const api = require('../server/neo4j.js');
+
 
 // login handle
 router.get('/login', (req, res) => {
@@ -139,8 +141,6 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
           graph: result
         }
       };
-
-      console.log(locals);
 
       res.render(path.resolve(__dirname, '../views/tree'), locals);
     });

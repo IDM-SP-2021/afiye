@@ -7,6 +7,7 @@ header {
 	top: 0;
 	background-color: $off-white;
 	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+	z-index: 50;
 
 	.header-nav {
 		display: grid;
@@ -139,10 +140,24 @@ header {
 	}
 }
 
+@include tablet {
+	$header-height: 4.6875em;
+
+	header {
+		.header-nav {
+			height: $header-height;
+		}
+	}
+}
+
 @include desktop {
+	$header-height: 6.25em;
+
 	header {
 		.header-nav {
 			display: grid;
+			height: $header-height;
+
 			.nav-toggle {
 				display: none;
 			}

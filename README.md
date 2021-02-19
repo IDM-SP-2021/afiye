@@ -45,12 +45,12 @@ From the version drop down select `4.2.2`. At time of writing, this is the lates
 
 Create and start the database.
 
-Make sure the database is selected in the list and select the the details tab. Copy the Bolt port, by default this is `https://localhost:7687`.
+Make sure the database is selected in the list and select the the details tab. Copy the Bolt port, by default this is `bolt://localhost:7687`.
 
 Add the following variables to your `.env` file.
 
 ```none
-N4J_HOST=https://localhost:7687
+N4J_HOST=bolt://localhost:7687
 N4J_USER=neo4j
 N4J_PASS=abcde
 ```
