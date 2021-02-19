@@ -151,11 +151,132 @@ router.get('/profile', ensureAuthenticated, (req, res) => {
 // user settings
 router.get('/settings', ensureAuthenticated, (req, res) => {
   let locals = {
-    title: 'Afiye - Account Settings',
+    title: 'Afiye - Settings',
     user: req.user,
   };
 
   res.render(path.resolve(__dirname, '../views/settings'), locals);
+});
+
+// user settings
+router.get('/settings-account', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Account Settings',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-account'), locals);
+});
+
+// user settings
+router.get('/settings-account-change-password', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Change Password',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-account-change-password'), locals);
+});
+
+// user settings
+router.get('/settings-account-leave-tree', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Leave Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-account-leave-tree'), locals);
+});
+
+router.get('/settings-account-deactivate', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Deactivate Account',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-account-deactivate'), locals);
+});
+
+router.get('/settings-privacy', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Privacy Settings',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-privacy'), locals);
+});
+
+router.get('/settings-accessibility', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Accessibility Options',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-accessibility'), locals);
+});
+
+
+router.get('/settings-email', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Email Notifications',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-email'), locals);
+});
+
+router.get('/tree-tutorial-1', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 1',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-1'), locals);
+});
+
+router.get('/tree-tutorial-2', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 2',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-2'), locals);
+});
+
+router.get('/tree-tutorial-3', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 3',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-3'), locals);
+});
+
+router.get('/tree-tutorial-4', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 4',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-4'), locals);
+});
+
+router.get('/tree-tutorial-5', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 5',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-5'), locals);
+});
+
+router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tree Tutorial 6',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/tree-tutorial-6'), locals);
 });
 
 module.exports = router;
