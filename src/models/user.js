@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  fid: {
+    type: String,
+    default: 'Pending'
+  },
   status: {
     type: String,
     default: 'Pending'

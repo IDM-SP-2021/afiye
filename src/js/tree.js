@@ -81,12 +81,12 @@ const renderGraph = (data) => {
         .attr('cy', d => y(d[2]));
 
       node.append('text')
-        .text(d => `${d.fname} ${d.lname}`)
+        .text(d => `${d.firstName} ${d.lastName}`)
         .style('fill', '#4e4b66');
 
       node.append('title')
         .text(d => {
-          return `${d.fname} ${d.lname}`;
+          return `${d.firstName} ${d.lastName}`;
         });
 
       simulation.on('tick', () => {
