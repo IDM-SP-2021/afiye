@@ -1,14 +1,26 @@
+
 .input-container {
 	margin-bottom: 10px;
-	max-width: 450px;
+	max-width: 430px;
 }
 
-.input {
+.input-container span {
+	padding-left: 10px;
+	font-size: 10px;
+	font-family: $mobile-text-small;
+}
+
+.mobile {
+	max-width: 325px !important
+;
+}
+input {
 	display: block;
 	border: 1.5px solid #eff0f6;
 	border-radius: 5px;
 	padding: 8px;
-	width: 75%;
+	margin-bottom: 10px;
+	width: 430px;
 	outline: none;
 	-webkit-appearance: none;
 	-ms-appearance: none;
@@ -16,9 +28,67 @@
 	appearance: none;
 }
 
-.mobile {
-	max-width: 50% !important;
+// Left Icon
+
+.inputLeftIcon input[type="text"] {
+	padding-left: 30px;
 }
+
+.inputLeftIcon input[placeholder="First Name"] {
+	padding-left: 30px;
+}
+
+// .inputLeftIcon {
+// 	position: relative;
+// }
+
+// .inputLeftIcon i {
+// 	position: absolute;
+// 	left: 0;
+// 	padding: 9px 8px;
+// 	color: #aaa;
+// 	transition: 0.3s;
+// 	font-size: 15px;
+// }
+
+// Right Icon
+
+// .inputRightIcon input[type="text"] {
+// 	padding-left: 30px;
+// }
+
+.inputRightIcon {
+	position: relative;
+	width: 430px;
+}
+
+.inputRightIcon i {
+	position: absolute;
+	left: 95%;
+	padding: 9px 8px;
+	color: #aaa;
+	transition: 0.3s;
+	font-size: 15px;
+} 
+
+
+.inputLeftIcon {
+	position: relative;
+	width: 430px;
+}
+
+.inputLeftIcon i {
+	position: absolute;
+	left: 0%;
+	padding: 9px 8px;
+	color: #aaa;
+	transition: 0.3s;
+	font-size: 15px;
+} 
+
+// .mobile {
+// 	max-width: 50% !important;
+// }
 
 .input-success {
 	border: 1.5px solid green !important;
@@ -63,6 +133,10 @@ input:hover {
 	border: 1.5px solid #922aff;
 }
 
-.caption {
+.success-caption {
+	font-size: 10px;
+}
+
+.error-caption {
 	font-size: 10px;
 }

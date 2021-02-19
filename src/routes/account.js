@@ -117,6 +117,68 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/feed'), locals);
 });
 
+// user post
+router.get('/post', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Post',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/post'), locals);
+});
+
+// modal
+// user post
+router.get('/modal', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tagged',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/modal'), locals);
+});
+
+// welcome
+router.get('/welcome', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tagged',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/welcome'), locals);
+});
+
+// Choosing between making or joining a tree
+router.get('/choice', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tagged',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/choice'), locals);
+});
+
+// making a tree
+router.get('/makingtree', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tagged',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/makingtree'), locals);
+});
+
+// create a profile
+router.get('/createprofile', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Tagged',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/createprofile'), locals);
+});
+
+// user tree
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData()
     .then((result) => {
