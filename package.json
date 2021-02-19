@@ -7,7 +7,7 @@
     "defaults"
   ],
   "scripts": {
-    "start": "node ./dist/server/main.js",
+    "start": "node ./dist/server/server.js",
     "buildDev": "rm -rf dist && webpack --mode development --config webpack/webpack.server.js && webpack --config webpack/webpack.dev.js",
     "buildProd": "rm -rf dist && webpack --mode production --config webpack/webpack.server.js && webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist"
@@ -28,7 +28,7 @@
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
-    "d3": "^6.3.1",
+    "d3": "^6.2.0",
     "d3-force": "^2.1.1",
     "d3-zoom": "^2.0.0",
     "ejs": "^3.1.5",
@@ -37,9 +37,9 @@
     "express-session": "^1.17.1",
     "jquery": "^3.5.1",
     "jsonfile": "^6.1.0",
+    "lodash": "^4.17.20",
     "mongoose": "^5.11.14",
-    "mysql": "^2.18.1",
-    "neo4j-driver": "^1.7.7",
+    "neo4j-driver": "^4.2.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   },

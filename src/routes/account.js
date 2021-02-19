@@ -7,6 +7,9 @@ const { render } = require('sass');
 const passport = require('passport');
 const {ensureAuthenticated} = require('../server/config/auth.js');
 
+const api = require('../server/neo4j.js');
+
+
 // login handle
 router.get('/login', (req, res) => {
   let locals = {
@@ -114,20 +117,31 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/feed'), locals);
 });
 
-// user tree
 router.get('/tree', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Family Tree',
-    user: req.user,
-  };
+  api.getData()
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Family Tree',
+        user: req.user,
+        data: {
+          user: {
+            name: req.user.name
+          },
+          graph: result
+        }
+      };
 
-  res.render(path.resolve(__dirname, '../views/tree'), locals);
+      res.render(path.resolve(__dirname, '../views/tree'), locals);
+    });
 });
+
+
+
 
 // user profile
 router.get('/profile', ensureAuthenticated, (req, res) => {
   let locals = {
-    title: `Afiye - ${req.user}'s Profile`,
+    title: `Afiye - ${req.user.name}'s Profile`,
     user: req.user,
   };
 

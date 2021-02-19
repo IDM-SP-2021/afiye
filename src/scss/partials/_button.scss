@@ -1,10 +1,14 @@
 .button {
     border-radius: .625rem;
     color: $off-white;
-    font-size: $desktop-link-x-small;
+    font: $desktop-link-x-small;
     width: 12.5rem;
     height: 3.125rem;
     border-width: 0;
+    text-decoration: none;
+    text-align: center;
+    padding: 1.125rem;
+    display: block;
 
     outline: none;
 

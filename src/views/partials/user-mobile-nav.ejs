@@ -1,0 +1,95 @@
+<div id="mobile-nav-container">
+	<nav class="mobile-nav">
+		<span
+			class="nav-link <% if (title === 'Afiye - Memory Feed') { %>active<% } %>"
+		>
+			<a href="/account/feed">
+				<span class="icon">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+						<g
+							stroke="#fcfcfc"
+							stroke-width="2"
+							fill="none"
+							fill-rule="evenodd"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M1 11l11-9 11 9" />
+							<path
+								d="M3 10v10.017c0 .55.438.997 1.003.997h4.994A.997.997 0 0010 20.009v-5.004c0-.555.443-1.005 1.01-1.005h1.98A1 1 0 0114 15.005v5.004a.997.997 0 001.003 1.005h4.994A1 1 0 0021 20.017V10"
+							/>
+						</g>
+					</svg>
+				</span>
+				<p>Feed</p>
+			</a>
+		</span>
+		<span
+			class="nav-link <% if (title === 'Afiye - Family Tree') { %>active<% } %>"
+		>
+			<a href="/account/tree">
+				<span class="icon">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+						<g
+							stroke="#fcfcfc"
+							stroke-width="2"
+							fill="none"
+							fill-rule="evenodd"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path d="M1 11l11-9 11 9" />
+							<path
+								d="M3 10v10.017c0 .55.438.997 1.003.997h4.994A.997.997 0 0010 20.009v-5.004c0-.555.443-1.005 1.01-1.005h1.98A1 1 0 0114 15.005v5.004a.997.997 0 001.003 1.005h4.994A1 1 0 0021 20.017V10"
+							/>
+						</g>
+					</svg>
+				</span>
+				<p>Tree</p>
+			</a>
+		</span>
+		<span
+			class="nav-link <% if (title === `Afiye - ${user.name}'s Profile`) { %>active<% } %>"
+		>
+			<a href="/account/profile">
+				<span class="icon">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+						<g
+							stroke="#fcfcfc"
+							stroke-width="2"
+							fill="none"
+							fill-rule="evenodd"
+						>
+							<path
+								d="M2 21s-.5-5 5-5h10.006c5.494 0 5 5 5 5"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<circle cx="12" cy="8" r="5" />
+						</g>
+					</svg>
+				</span>
+				<p>Profile</p>
+			</a>
+		</span>
+		<span
+			class="nav-link <% if (title === 'Afiye - Account Settings') { %>active<% } %>"
+		>
+			<a href="/account/settings">
+				<span class="icon">
+					<svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M7.209 4.38A8.948 8.948 0 0110 3.223V2a1 1 0 011.01-1h1.98c.558 0 1.01.444 1.01 1v1.223a8.948 8.948 0 012.791 1.157l.866-.865a1 1 0 011.42.006l1.402 1.401c.394.394.4 1.028.006 1.421l-.865.866c.533.845.929 1.786 1.157 2.791H22a1 1 0 011 1.01v1.98c0 .558-.444 1.01-1 1.01h-1.223a8.948 8.948 0 01-1.157 2.791l.865.866a1 1 0 01-.006 1.42l-1.401 1.402c-.394.394-1.028.4-1.421.006l-.866-.865A8.948 8.948 0 0114 20.777V22a1 1 0 01-1.01 1h-1.98c-.558 0-1.01-.444-1.01-1v-1.223a8.948 8.948 0 01-2.791-1.157l-.866.865a1 1 0 01-1.42-.006L3.52 19.078a1.002 1.002 0 01-.006-1.421l.865-.866A8.948 8.948 0 013.223 14H2a1 1 0 01-1-1.01v-1.98c0-.558.444-1.01 1-1.01h1.223A8.948 8.948 0 014.38 7.209l-.865-.866a1 1 0 01.006-1.42L4.922 3.52a1.002 1.002 0 011.421-.006l.866.865zM12 16a4 4 0 100-8 4 4 0 000 8z"
+							stroke="#fcfcfc"
+							stroke-width="2"
+							fill="none"
+							fill-rule="evenodd"
+							stroke-linejoin="round"
+						/>
+					</svg>
+				</span>
+				<p>Settings</p>
+			</a>
+		</span>
+	</nav>
+</div>
