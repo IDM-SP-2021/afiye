@@ -121,7 +121,7 @@ router.post('/register', (req, res) => {
           title: 'Afiye - Sign Up',
         });
       } else {
-        const uid = nanoid(); // db identifier for user
+        const uid = 'u' + nanoid(); // db identifier for user
         const valToken = nanoid(); // email validation token
         // create email validation token in tokens collection
         const newToken = new Token({

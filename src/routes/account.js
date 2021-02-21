@@ -39,7 +39,7 @@ router.get('/welcome-make', ensureAuthenticated, (req, res) => {
 router.post('/welcome-make', ensureAuthenticated, (req, res) => {
   const { prefName, birthdate, gender, location, profileColor } = req.body;
   const user = req.user;
-  const fid = nanoid();
+  const fid = 'f' + nanoid();
   let errors = [];
 
   User.findOneAndUpdate({uid: user.uid},{fid: fid, node: true},{new: true}).exec((err, user) => {
