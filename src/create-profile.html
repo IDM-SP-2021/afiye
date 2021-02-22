@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rubik">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+
+        <style>
+
+html{
+	min-height: 850px;
+}
+
+.header-box {
+      position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100px;
+    }
+
+    .header-title{
+        font-family: Rubik;
+		font-weight: bold;
+
+        color: purple;
+      font-size: 24px;
+      margin-left: 15px;
+      margin-top: 15px;
+    }
+
+
+    .footer-box {
+      position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 45px;
+  background: #550EA1;
+text-align: left;
+    }
+
+    .footer-title{
+        font-family: Rubik;
+
+        color: #ffffff;
+      font-size: 24px;
+      margin-left: 15px;
+      margin-top: 10px;
+    }
+
+
+    /* (phone screens, 376px and down) */
+    @media only screen and (max-width: 376px) {
+      .header-box {
+        height: 60px;
+        background: #FFFFFF;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+          text-align: center;
+          }
+
+          .feed-nav{
+              position: fixed;
+              margin-left: 14%;
+          }
+
+          .tree-nav{
+              position: fixed;
+              margin-left: 35%;
+          }
+
+          .profile-nav{
+              position: fixed;
+              margin-left: 55%;
+          }
+
+          .settings-nav{
+              position: fixed;
+              margin-left: 75%;
+          }
+
+		  .feed-nav-top{
+            display: none;
+          }
+
+          .tree-nav-top{
+            display: none;
+          }
+
+          .settings-nav-top{
+            display: none;
+          }
+
+          .footer-title{
+    display: none;
+}
+
+.footer-box{
+    display: none;
+}
+
+
+
+    } 
+    
+    /* (tablet screens, 377px and up) */
+    @media only screen and (min-width: 377px) {
+      .header-box {
+        height: 60px;
+        background: #FFFFFF;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+          text-align: center;
+          }
+
+          .bottom-nav{
+            background: #FFFFFF;
+            box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
+            position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 97px;
+  font-family: Rubik;
+          }
+
+          .feed-nav{
+              position: fixed;
+              margin-left: 20%;
+              margin-top: 3.7em;
+          }
+
+          .tree-nav{
+              position: fixed;
+              margin-left: 38%;
+              margin-top: 3.7em;
+          }
+
+          .profile-nav{
+              position: fixed;
+              margin-left: 55%;
+              margin-top: 3.7em;
+          }
+
+          .settings-nav{
+              position: fixed;
+              margin-left: 72%;
+              margin-top: 3.7em;
+          }
+
+
+          .feed-nav-top{
+            display: none;
+          }
+
+          .tree-nav-top{
+            display: none;
+          }
+
+          .settings-nav-top{
+            display: none;
+          }
+
+
+          .footer-title{
+    display: none;
+}
+
+.footer-box{
+    display: none;
+}
+
+
+    } 
+    
+    /* desktop screens (laptops/desktops, 769px and up) */
+    @media only screen and (min-width: 769px) {
+      .header-box {
+        height: 100px;
+        background: #FFFFFF;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+          text-align: left;
+
+          }
+
+.header-title{
+    margin-top: 35px;
+}
+
+
+        .feed-nav-top{
+              position: fixed;
+              margin-left: 70%;
+              margin-top: -2.5em;
+              display: block;
+          }
+
+          .tree-nav-top{
+              position: fixed;
+              margin-left: 78%;
+              margin-top: -2.5em;
+              display: block;
+          }
+
+          .settings-nav-top{
+              position: fixed;
+              margin-left: 86%;
+              margin-top: -2.5em;
+              display: block;
+          }
+
+.bottom-nav{
+            display: none;
+          }
+
+.footer-title{
+    display: block;
+}
+.footer-box{
+    display: block;
+}
+
+    } 
+
+
+/* IMPORTANT, PLEASE READ
+  THE STYLING BELOW IS FOR THIS PAGE SPECIFICLY
+  DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
+*/
+
+
+
+
+
+.profile-section{
+	width: 343px;
+	height: 145px;
+	margin-top: 4em;
+	margin-left: .5em;
+}
+
+.new-avatar{
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
+
+  background-color: #A0A3BD;
+}
+
+.profile-name{
+font-family: Rubik;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: 32px;
+letter-spacing: 0px;
+text-align: center;
+
+margin-bottom: -6px;
+color: #A0A3BD;
+}
+
+.profile-name-info{
+  font-family: Poppins;
+font-size: 11px;
+font-style: normal;
+font-weight: 500;
+line-height: 17px;
+letter-spacing: 0.75px;
+text-align: center;
+
+color: #000000;
+;
+}
+
+
+.profile-create{
+	font-family: Rubik;
+	font-weight: bold;
+	font-size: 24px;
+	top: 1em;
+  text-align: center;
+  position: relative;
+}
+
+
+
+.albums-section{
+	width: 343px;
+	height: 248px;
+	margin-top: 0em;
+	margin-left: -.75em;
+}
+
+
+.album-thumbs{
+	width: 343px;
+	height: 146px;
+}
+
+.view-all{
+	margin-left: 17em;
+	margin-top: -2em;
+}
+
+
+
+
+
+.location{
+	width: 343px;
+	height: 55px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 20px;
+}
+
+
+
+.location-text{
+font-family: Rubik;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: left;
+
+margin-top: 12px;
+margin-left: 15px;
+color: #A0A3BD;
+}
+
+
+
+
+.birthdate{
+	width: 343px;
+	height: 55px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 54px;
+}
+
+
+
+.birthdate-text{
+font-family: Rubik;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: left;
+
+margin-top: 12px;
+margin-left: 15px;
+color: #A0A3BD;
+}
+
+
+.add-album{
+font-family: Rubik;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 26px;
+letter-spacing: 0px;
+text-align: left;
+margin-top: 15px;
+}
+
+.album-addition{
+	width: 146px;
+	height: 146px;
+	background-color: #EFF0F7;
+	border-radius: 10px;
+}
+
+#plus{
+	width: 40px;
+	height: 40px;
+	position: relative;
+	display: block;
+    margin: auto;
+	top: 48px;
+}
+
+
+.button{
+	background-color: #922AFF;
+	border-radius: 10px;
+	width: 221px;
+	height: 55px;
+
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+}
+
+.button-text{
+	color: white;
+	text-align: center;
+	text-decoration: none;
+
+	position: relative;
+	display: block;
+font-family: Rubik;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px;
+letter-spacing: 0px;
+margin-left: auto;
+	margin-right: auto;
+top: 15px;
+}
+
+        </style>
+        
+        <title>afiye | Create A Profile</title>
+	</head>
+	<body>
+
+        <div class="header-box">
+            <p class="header-title">afiye</p>
+    
+            <p class="feed-nav-top">Feed</p>
+    
+            <p class="tree-nav-top">Tree</p>
+            
+            <p class="settings-nav-top">Settings</p>
+        </div>
+    
+        <div class="footer-box">
+            <p class="footer-title">© afiye 2020</p>
+        </div>
+        
+    
+    <div class="bottom-nav">
+    
+    <p class="feed-nav">Feed</p>
+    
+    <p class="tree-nav">Tree</p>
+    
+    <p class="profile-nav">Profile</p>
+    
+    <p class="settings-nav">Settings</p>
+    
+    </div>
+
+  
+
+		<div class="profile-section">
+			<p class="profile-create">Create a Profile</p>
+			
+      <div class="new-avatar"></div>
+
+
+      <p class="profile-name">Tracy Doe</p>
+      <p class="profile-name-info">This is how your name will appear</p>
+
+
+
+			<div class="birthdate">
+        <p class="birthdate-text">Birthdate</p>
+    </div>
+    
+
+    <div class="location">
+      <p class="location-text">Location (Optional)</p>
+  </div>
+
+
+
+			<div class="button">
+			<a href="#" class="button-text">Save</a>
+			</div>
+
+		</div>
+
+
+
+		
+
+	</body>
+</html>
