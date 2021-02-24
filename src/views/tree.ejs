@@ -1,19 +1,21 @@
 <div class="full-height">
 	<%- include('./partials/user-header') %>
 
-	<div id="graph" class="full-height-content"></div>
+	<div id="graph-container" class="full-height-content">
+		<div id="graph"></div>
+		<a href="/account/tree-tutorial-1"
+			><button
+				type="submit"
+				class="button primary"
+				style="position: absolute; left: 85px; top: 140px"
+			>
+				Tutorial
+			</button>
+		</a>
 
-	<a href="/account/tree-tutorial-1"
-		><button
-			type="submit"
-			class="button primary"
-			style="position: absolute; left: 85px; top: 140px"
-		>
-			Tutorial
-		</button>
-	</a>
+		<button id="add-user" class="button primary icon plus"></button>
+	</div>
 
-	<button id="add-user" class="button primary icon plus"></button>
 	<div id="family-container">
 		<div id="inner-container">
 			<input
