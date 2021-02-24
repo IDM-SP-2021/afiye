@@ -5,13 +5,14 @@ import expressEjsLayout from 'express-ejs-layouts';
 import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
+import compression from 'compression';
 
 require('dotenv').config();
 require('./config/passport')(passport);
 
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, '../public')));
+app.use(express.static(path.resolve(__dirname, '../public')), compression());
 
 //mongoose
 mongoose.connect(process.env.MONGO_HOST,
