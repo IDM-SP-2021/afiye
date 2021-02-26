@@ -18,7 +18,7 @@
 @include desktop {
   #graph-container {
     height: calc(100% - 6.25em);
-    width: auto;
+    width: calc(100% - 30em);
     order: 2;
   }
 }
