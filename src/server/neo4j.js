@@ -4,6 +4,24 @@ const _ = require('lodash');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
+// submit generic query
+const submitQuery = (query) => {
+  let session = driver.session();
+
+  return session
+    .run(query)
+    .then(() => {
+      console.log('Query successfully submitted');
+    })
+    .catch(err =>{
+      throw err;
+    })
+    .finally(() => {
+      return session.close();
+    });
+};
+
+// GET /tree
 const getData = (user) => {
   let session = driver.session();
 
@@ -42,10 +60,7 @@ const getData = (user) => {
       if (!_.some(rels, link) && link.relType !== null && link.target !== null) {
         rels.push(link);
       }
-      // rels.push({source, target, relType});
     });
-    console.log(nodes);
-    console.log(rels);
     return {nodes, links: rels};
   })
   .catch(err => {
@@ -56,15 +71,63 @@ const getData = (user) => {
   });
 };
 
-const initFamily = (person) => {
-  let query = `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}), (${person.uid}:Person {uid: '${person.uid}', fid: '${person.fid}', firstName: '${person.firstName}', prefName: '${person.prefName}', lastName: '${person.lastName}', birthdate: '${person.birthdate}', gender: '${person.gender}', location: '${person.location}', profileColor: '${person.profileColor}', created:${Date.now()}}), (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid}) RETURN *`;
-  console.log(person);
-  console.log(query);
+// GET /add-member
+const getFamily = (user) => {
+  let session = driver.session();
 
+  return session.run(
+    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+    RETURN p`
+  )
+  .then(results => {
+    let family = [];
+
+    results.records.forEach(res => {
+      let person = res.get('p'),
+          id = person.identity.low.toString(),
+          props = person.properties,
+          firstName = props.firstName,
+          prefName = props.prefName,
+          lastName = props.lastName,
+          gender = props.gender,
+          birthdate = props.birthdate,
+          member = {id, firstName, prefName, lastName, gender, birthdate};
+
+      family.push(member);
+    });
+
+    return family;
+  })
+  .catch(err => {
+    throw err;
+  })
+  .finally(() => {
+    return session.close();
+  });
+};
+
+// POST /welcome-make
+const initFamily = (person) => {
   let session = driver.session();
 
   return session
-    .run(query)
+    .run(
+      `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
+      (${person.uid}:Person {
+        uid: '${person.uid}',
+        fid: '${person.fid}',
+        firstName: '${person.firstName}',
+        prefName: '${person.prefName}',
+        lastName: '${person.lastName}',
+        birthdate: '${person.birthdate}',
+        gender: '${person.gender}',
+        location: '${person.location}',
+        profileColor: '${person.profileColor}',
+        created:${Date.now()}
+      }),
+      (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
+      RETURN *`
+    )
     .catch(err => {
       throw err;
     })
@@ -73,7 +136,160 @@ const initFamily = (person) => {
     });
 };
 
+// Simplify multi-step relationship path to a one step relationship
+const simplifyPath = (path) => {
+  let simplified =
+      (path == 'childspouse') ||
+      (path == 'siblingchild')
+        ? 'child' // Source is Son, Daughter, or Child to End
+
+    : (path == 'spouseparent') ||
+      (path == 'parentsibling')
+        ? 'parent' // Source is Father, Mother, or Parent to End
+
+    : (path == 'childparent') ||
+      (path == 'siblingsibling')
+        ? 'sibling' // Source is Brother, Sister, or Sibling to End
+
+    : (path == 'childchild') ||
+      (path == 'niblingchild') ||
+      (path == 'siblinggrandchild')
+        ? 'grandchild' // Source is Grandson, Granddaughter, or Grandchild to End
+
+    : (path == 'parentparent') ||
+      (path == 'parentparsib') ||
+      (path == 'grandparentsibling')
+        ? 'grandparent' // Source is Grandfather, Grandmother, or Grandparent to End
+
+    : (path == 'spousesibling') ||
+      (path == 'siblingspouse') ||
+      (path == 'spousesiblingspouse')
+        ? 'siblinginlaw' // Source is the Brother-in-Law, Sister-in-Law, or Sibling-in-Law to End
+
+    : (path == 'spousechild') ||
+      (path == 'siblinginlawchild')
+        ? 'childinlaw' // Source is Son-in-Law, Daughter-in-Law, or Child-in-Law to End
+
+    : (path == 'parentspouse') ||
+      (path == 'parentsiblinginlaw')
+        ? 'parentinlaw' // Source is Father-in-Law, Mother-in-Law, or Parent-in-Law to End
+
+    : (path == 'siblingparent') ||
+      (path == 'spousesiblingparent') ||
+      (path == 'siblingspouseparent') ||
+      (path == 'siblinginlawparent') ||
+      (path == 'parsibsibling')
+        ? 'parsib' // Source is Uncle, Aunt, or Parsib to End
+
+    : (path == 'childsibling') ||
+      (path == 'childsiblingspouse') ||
+      (path == 'childspousesibling') ||
+      (path == 'childsiblinginlaw') ||
+      (path == 'siblingnibling')
+        ? 'nibling' // Source is Nephew, Niece, or Nibling to End
+
+    : (path == 'childsiblingparent') ||
+      (path == 'childparsib') ||
+      (path == 'niblingparent') ||
+      (path == 'siblingcousin')
+        ? 'cousin'
+
+    : 'Unknown Relationship'; // Relationship type is not defined for current path
+
+  return simplified;
+};
+
+// POST /account/add-member
+const addMember = (person) => {
+  let { uid, fid, firstName, prefName, lastName, birthdate, gender, location, profileColor, relation, relReciprocal, related } = person;
+  related = Number(related, 10);
+
+  let session = driver.session();
+
+  return session
+    .run(
+      `CREATE (${uid}:Person {
+        uid: '${uid}',
+        fid: '${fid}',
+        firstName: '${firstName}',
+        prefName: '${prefName}',
+        lastName: '${lastName}',
+        birthdate: '${birthdate}',
+        gender: '${gender}',
+        location: '${location}',
+        profileColor: '${profileColor}',
+        created:${Date.now()}
+      })
+      WITH ${uid}
+      MATCH (t:Person) WHERE ID(t)= ${related}
+      MATCH (f:Family {fid: '${fid}'})
+      MERGE (${uid})-[:RELATED {relation: '${relation}'}]->(t)
+      MERGE (${uid})<-[:RELATED {relation: '${relReciprocal}'}]-(t)
+      MERGE (${uid})-[:MEMBER {created: ${Date.now()}}]->(f)
+      WITH f
+      MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${fid}'})
+      WITH collect(p) AS nodes
+      MATCH (n:Person {uid: '${uid}'})
+      UNWIND nodes AS m
+      WITH * WHERE id(n) <> id(m)
+      MATCH path = allShortestPaths( (n)-[*..10]->(m) )
+      MATCH revPath = allShortestPaths( (m)-[*..10]->(n) )
+      RETURN nodes, n.uid AS start, relationships(path) AS relationship, m.uid AS end, relationships(revPath) AS revRelationship`
+    )
+    .then(results => {
+      let directRelation = [];
+      let members = results.records[0].get('nodes');
+
+      results.records.forEach(res => {
+        let relationPath = [],
+            relReciprocalPath = [];
+        const start = res.get('start'),
+              end = res.get('end'),
+              rel = res.get('relationship'),
+              relRec = res.get('revRelationship');
+
+        rel.forEach(r => {
+          relationPath.push(r.properties.relation);
+        });
+
+
+        if (relationPath.length > 1) {
+          const directPath = simplifyPath(relationPath.join('')),
+                s = start,
+                t = end;
+          directRelation.push({s, directPath, t});
+        }
+
+        relRec.forEach(r => {
+          relReciprocalPath.push(r.properties.relation);
+        });
+
+        if (relReciprocalPath.length > 1) {
+          const directPath = simplifyPath(relReciprocalPath.join('')),
+                s = end,
+                t = start;
+          directRelation.push({s, directPath, t});
+        }
+
+      });
+
+
+      return [{members, directRelation}];
+    })
+    .catch(err => {
+      throw err;
+    })
+    .finally(() => {
+      return session.close();
+    });
+};
+
+
+
 module.exports = {
+  submitQuery: submitQuery,
   getData: getData,
+  getFamily: getFamily,
   initFamily: initFamily,
+  addMember: addMember,
 };

@@ -8,6 +8,10 @@ $(function() {
     console.log('toggled');
     $('#inner-container').toggleClass('open');
   });
+
+  $('#add-user').on('click', () => {
+    console.log('add user');
+  });
 });
 
 const renderGraph = (data) => {
