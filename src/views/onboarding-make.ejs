@@ -1,0 +1,164 @@
+<main>
+	<h1>Create a Profile</h1>
+
+	<form id="profile-setup" action="/account/welcome-make" method="post">
+		<h2 id="full-name"><%- user.firstName %> <%- user.lastName %></h2>
+		<p>This is how your name will appear to your family</p>
+		<div class="input-container">
+			<label for="pref-firstName">Preferred first name (optional)</label>
+			<input
+				type="text"
+				name="prefName"
+				class="input"
+				placeholder="Preferred first name (optional)"
+			/>
+		</div>
+		<div class="input-container">
+			<label for="Gender">Gender</label>
+			<select name="gender" id="gender">
+				<option value="F">Female</option>
+				<option value="M">Male</option>
+				<option value="N">Non-Binary</option>
+			</select>
+		</div>
+		<div class="input-container">
+			<label for="birthdate">Birthdate</label>
+			<input
+				type="date"
+				name="birthdate"
+				class="input"
+				placeholder="Birthdate"
+			/>
+		</div>
+		<div class="input-container">
+			<label for="location">Location (optional)</label>
+			<input
+				type="text"
+				name="location"
+				class="input"
+				placeholder="Location (optional)"
+			/>
+		</div>
+		<fieldset id="profile-color-select">
+			<legend>Select a profile color</legend>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-pink"
+					value="color-pink"
+				/>
+				<label for="color-pink"><span>Pink</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-magenta"
+					value="color-magenta"
+				/>
+				<label for="color-magenta"><span>Magenta</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-red"
+					value="color-red"
+				/>
+				<label for="color-red"><span>Red</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-orange"
+					value="color-orange"
+				/>
+				<label for="color-orange"><span>Orange</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-yellow"
+					value="color-yellow"
+				/>
+				<label for="color-yellow"><span>Yellow</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-green"
+					value="color-green"
+				/>
+				<label for="color-green"><span>Green</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-teal"
+					value="color-teal"
+				/>
+				<label for="color-teal"><span>Teal</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-light-blue"
+					value="color-light-blue"
+				/>
+				<label for="color-light-blue"><span>Light Blue</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-dark-blue"
+					value="color-dark-blue"
+				/>
+				<label for="color-dark-blue"><span>Dark Blue</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-purple"
+					value="color-purple"
+				/>
+				<label for="color-purple"><span>Purple</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-brown"
+					value="color-brown"
+				/>
+				<label for="color-brown"><span>Brown</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-gray"
+					value="color-gray"
+				/>
+				<label for="color-gray"><span>Gray</span></label>
+			</div>
+			<div class="check-container">
+				<input
+					type="radio"
+					name="profileColor"
+					id="color-black"
+					value="color-black"
+				/>
+				<label for="color-black"><span>Black</span></label>
+			</div>
+		</fieldset>
+		<input class="button primary" type="submit" value="Save" disabled />
+	</form>
+</main>

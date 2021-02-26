@@ -12,6 +12,10 @@ module.exports = function(passport) {
             return done(null, false, {message: 'that email is not registered'});
           }
 
+          if (user.status !== 'Active') {
+            return done(null, false, {message: 'That account has not been verified'});
+          }
+
           // match password
           bcrypt.compare(password, user.password, (err, isMatch) => {
             if (err) {
