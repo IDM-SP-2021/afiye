@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Welcome to Afiye <%- name %>!</title>
+	</head>
+	<body>
+		<h1>Welcome to Afiye <%- name %>!</h1>
+		<p>We are excited to have you join us.</p>
+		<p>
+			Please confirm your email to complete your account registration at the
+			link below
+		</p>
+		<a href="<%- verifyLink %> ">Confirm your account</a>
+		<p>
+			If the link does not work, copy and paste the following url into your
+			browser's address bar:<br />
+			<%- verifyLink %>
+		</p>
+	</body>
+</html>

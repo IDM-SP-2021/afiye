@@ -43,10 +43,11 @@ const renderGraph = (data) => {
         });
       });
 
+      console.log(data.nodes);
       console.log(data.links);
 
       const simulation = d3.forceSimulation(data.nodes)
-        .force('link', d3.forceLink().distance(250).id(d => d.id))
+        .force('link', d3.forceLink(data.links).distance(250).id(d => d.id))
         .force('charge', d3.forceManyBody().strength(-1000))
         .force('center', d3.forceCenter(width / 2, height /2));
 
@@ -80,12 +81,12 @@ const renderGraph = (data) => {
         .attr('cy', d => y(d[2]));
 
       node.append('text')
-        .text(d => `${d.fname} ${d.lname}`)
+        .text(d => `${d.firstName} ${d.lastName}`)
         .style('fill', '#4e4b66');
 
       node.append('title')
         .text(d => {
-          return `${d.fname} ${d.lname}`;
+          return `${d.firstName} ${d.lastName}`;
         });
 
       simulation.on('tick', () => {

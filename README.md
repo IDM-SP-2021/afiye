@@ -45,39 +45,17 @@ From the version drop down select `4.2.2`. At time of writing, this is the lates
 
 Create and start the database.
 
-Make sure the database is selected in the list and select the the details tab. Copy the Bolt port, by default this is `https://localhost:7687`.
+Make sure the database is selected in the list and select the the details tab. Copy the Bolt port, by default this is `bolt://localhost:7687`.
 
 Add the following variables to your `.env` file.
 
 ```none
-N4J_HOST=https://localhost:7687
+N4J_HOST=bolt://localhost:7687
 N4J_USER=neo4j
 N4J_PASS=abcde
 ```
 
 *Notes:* `N4J_HOST` will be whatever is listed in the details panel in Neo4j Desktop. `N4J_USER` defaults to `neo4j` and should not be changed. `N4J_PASS` will be whatever you set it to during the database setup.
-
-Open the database in Neo4j Browser (this is the default behavior of the blue open button in Neo4j Desktop).
-
-Run the following Cypher query in the query box (top box that has the text `neo4j$` in it) to load the database with the starting data:
-
-```cypher
-CREATE (Henderson:Family {fid: 'fbmqvTmHhcmPKQTKBWEdDiPVThhVbdDdmgpyriPWAwVIHaVrnuMIFLvbeTFoqUay'}),
-(Jack:Person {fname: 'Jack', lname: 'Henderson', gender: 'M', birthday: '07-23-1978'}),
-(Jill:Person {fname: 'Jill', lname: 'Henderson', gender: 'F', birthday: '02-01-1979'}),
-(Abigail:Person {fname:'Abigail', lname: 'Henderson', pname:'Abby', gender: 'F', birthday: '11-30-2002'}),
-(Jane:Person {fname:'Jane', lname: 'Henderson', gender:'F', birthday:'04-18-2004'}),
-(Jack)-[:MEMBER]->(Henderson),
-(Jill)-[:MEMBER]->(Henderson),
-(Abigail)-[:MEMBER]->(Henderson),
-(Jane)-[:MEMBER]->(Henderson),
-(Jack)-[:RELATED {relation:'spouse'}]->(Jill),(Jack)<-[:RELATED {relation:'spouse'}]-(Jill),
-(Jack)-[:RELATED {relation:'parent'}]->(Abigail),(Jack)<-[:RELATED {relation:'child'}]-(Abigail),
-(Jack)-[:RELATED {relation:'parent'}]->(Jane),(Jack)<-[:RELATED {relation:'child'}]-(Jane),
-(Jill)-[:RELATED {relation:'parent'}]->(Abigail),(Jill)<-[:RELATED {relation:'child'}]-(Abigail),
-(Jill)-[:RELATED {relation:'parent'}]->(Jane),(Jill)<-[:RELATED {relation:'child'}]-(Jane),
-(Abigail)-[:RELATED {relation:'sibling'}]->(Jane),(Abigail)<-[:RELATED {relation:'sibling'}]-(Jane)
-```
 
 *Optional:* Back in the main Neo4j Desktop window rename the project for organizational purposes by hovering over the name (default `Neo4j Primer Project`) in the center panel and clicking the edit icon.
 
@@ -127,6 +105,20 @@ Add the following to your `.env` file:
 
 ```none
 MONGO_HOST=mongodb://localhost/afiye
+```
+
+## Mail Services Initialization
+
+Add the following variables to your `.env` file. These are required to get your local version of this project running. Otherwise you will not be able to setup test user accounts. If you are directly working on Afiye, please contact project members for variable values, otherwise substitute with values for your application.
+
+*Note:* For `MAIL_DOMAIN` for local development set the PORT portion of the variable to the aaplication port. See **Run Application** below for more information.
+
+```none
+MAIL_SERVICE_HOST=***********
+MAIL_SERVICE_PORT=***********
+MAIL_USER=***********
+MAIL_PASS=***********
+MAIL_DOMAIN=http://localhost:PORT
 ```
 
 ## Run Application
