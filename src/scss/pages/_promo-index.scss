@@ -40,7 +40,8 @@
 	#about {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: center;
+		gap: 2rem;
 		margin-top: 6rem;
 
 		.promo-heading {
@@ -68,7 +69,8 @@
 
 		.feature-container {
 			display: flex;
-			justify-content: space-between;
+			justify-content: center;
+			gap: 2rem;
 
 			&:not(:last-of-type) {
 				margin-bottom: 5.25rem;
