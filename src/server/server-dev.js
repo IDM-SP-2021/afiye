@@ -7,6 +7,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
 import webpack from 'webpack';
+// import nodemailer from 'nodemailer';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import config from '../../webpack/webpack.dev.js';
 
@@ -21,7 +22,13 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 
 //mongoose
-mongoose.connect(process.env.MONGO_HOST,{useNewUrlParser: true, useUnifiedTopology : true})
+mongoose.connect(process.env.MONGO_HOST,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology : true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
 .then(() => console.log('connected to mongoDB..'))
 .catch((err)=> console.log(err));
 
@@ -58,9 +65,10 @@ app.set('layout', path.resolve(__dirname, '../views/layout'));
 //Routes
 app.use('/', require('../routes/index'));
 app.use('/account',require('../routes/account'));
+// app.use('/email',require('../routes/email'));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  console.log(`Server is lisotening on port ${PORT}`);
   console.log(`Press CTRL + C to close...`);
 });
