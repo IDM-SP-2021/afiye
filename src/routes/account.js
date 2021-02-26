@@ -63,14 +63,8 @@ router.post('/welcome-make', ensureAuthenticated, (req, res) => {
         profileColor: profileColor
       };
 
-      // let locals = {
-      //   title: 'Afiye - Making a Tree',
-      //   user: req.user
-      // };
-
       api.initFamily(person);
 
-      // res.render(path.resolve(__dirname, '../views/onboarding-make'), locals);
       res.redirect('/account/feed');
     }
   });
@@ -320,6 +314,97 @@ router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/tree-tutorial-6'), locals);
+});
+
+router.get('/add-member', ensureAuthenticated, (req, res) => {
+  api.getFamily(req.user)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Add Family Member',
+        user: req.user,
+        data: {
+          family: result,
+        }
+      };
+
+      res.render(path.resolve(__dirname, '../views/add-member'), locals);
+    });
+});
+
+router.post('/add-member', ensureAuthenticated, (req, res) => {
+  const { firstName, prefName, lastName, birthdate, gender, relation, related, location, profileColor } = req.body;
+  let errors = [];
+  let relReciprocal = (relation === 'child')    ? 'parent'
+                    : (relation === 'parent')   ? 'child'
+                    : (relation === 'sibling')  ? 'sibling'
+                    : (relation === 'spouse')   ? 'spouse'
+                    : 'Unknown';
+
+  // check if relationship is valid and has a recipricol path
+  if (relReciprocal === 'Unknown') {
+    errors.push({msg: 'Please select a relationhip to a current family member'});
+  }
+
+  if (errors.length > 0) {
+    api.getFamily(req.user)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Add Family Member',
+        user: req.user,
+        data: {
+          family: result,
+        }
+      };
+
+      res.render(path.resolve(__dirname, '../views/add-member'), locals);
+    });
+  } else {
+    const uid = 'u' + nanoid(); // db identifier for user
+    const person = {
+      uid: uid,
+      fid: req.user.fid,
+      firstName: firstName,
+      prefName: prefName,
+      lastName: lastName,
+      birthdate: birthdate,
+      gender: gender,
+      location: location,
+      profileColor: profileColor,
+      relation: relation,
+      relReciprocal: relReciprocal,
+      related: related,
+    };
+
+    api.addMember(person)
+      .then(results => {
+        if (Object.keys(results[0].directRelation).length >= 1) {
+          let match = '';
+          let merge = '';
+
+          // Find all members of a family
+          results[0].members.forEach(member => {
+            const m = member.properties.uid;
+
+            match += `MATCH (${m}:Person {uid: '${m}'}) `;
+          });
+
+          results[0].directRelation.forEach(relation => {
+            const s = relation.s,
+                  r = relation.directPath,
+                  t = relation.t;
+
+            merge += `MERGE (${s})-[:RELATED {relation: '${r}'}]->(${t}) `;
+          });
+
+          const query = match + merge + 'RETURN *';
+
+          api.submitQuery(query);
+          res.redirect('/account/tree');
+        } else {
+          res.redirect('/account/tree');
+        }
+      });
+  }
 });
 
 module.exports = router;
