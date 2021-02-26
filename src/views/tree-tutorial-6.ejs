@@ -1,32 +1,38 @@
 <%- include('./partials/user-header') %>
-
-<svg height="100" width="100" style="position: absolute; left: 80px; top: 15px; opacity: 0.4;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
-  <svg height="100" width="100" style="position: absolute; left: 100px; top: 15px; opacity: 0.4;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
-  <svg height="100" width="100" style="position: absolute; left: 120px; top: 15px;opacity: 0.4;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
-  <svg height="100" width="100" style="position: absolute; left: 140px; top: 15px; opacity: 0.4;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
-  <svg height="100" width="100" style="position: absolute; left: 160px; top: 15px;opacity: 0.4;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
-  <svg height="100" width="100" style="position: absolute; left: 180px; top: 15px;">
-    <circle cx="50" cy="50" r="4" fill="#5700B3"/>
-  </svg>
+<%- include('./partials/user-mobile-nav') %>
 
 
-<h2 class="header-title-mobile" style="position: absolute; left:115px; top:80px;">Send a Code</h2>
-<p class="mobile-text-small" style="position: absolute; top:150px; left:32px; padding-right: 20px;" > 
+<div class="breadcrumbs">
+    <svg height="10" width="10" style="float: left; margin: 0 10px 0 45px; opacity: 0.4;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+      <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+      <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+      <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+      <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+      <svg height="10" width="10" style="float: left; margin: 0 10px 0 0;">
+        <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+      </svg>
+    </div>
+
+<div style="margin: 0 auto; text-align: center;">
+<h2 class="header-title-mobile" style="text-align: center;">Send a Code</h2>
+<p class="mobile-text-small" style="text-align:center; margin: 0 auto; padding: 10px 40px;" > 
     Some profiles in your family tree may still be empty!  You can help get your family members into your tree.
 </p>
-<h2 class="header-title-mobile" style="position: absolute; left:130px; top:220px;">### ###</h2>
-<p class="mobile-text-small" style="position: absolute; top:300px; left:32px; padding-right: 20px;"> 
+<h2 class="header-title-mobile" style="margin: 40px auto; text-align: center;">### ###</h2>
+<p class="mobile-text-small" style="text-align:center; margin: 0 auto; padding: 10px 40px;"> 
     Select an empty profile to generate and send an invite code to them to join!
 </p>
-
-<a href="/account/tree"><button class="button primary" :disabled style="position: absolute; left: 88px; top: 570px;"> Finish </button></a>
+</div>
+<div style="height:70px; margin-top: 120px;">
+<a href="/account/tree"><button class="button primary" :disabled style="margin: 0 auto; width: 90%;"> Finish </button></a>
+</div>
