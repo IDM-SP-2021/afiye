@@ -140,3 +140,24 @@ input:hover {
 .error-caption {
 	font-size: 10px;
 }
+
+input[type="radio"] {
+    display: block;
+    border: 1.5px solid #eff0f6;
+    border-radius: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 88px !important;
+    height: 88px !important;
+    background-image: url(../assets/imgs/maketree.png);
+    background-repeat: no-repeat;
+    outline: none;
+}
+
+input[type="radio"]:hover {
+	border: 1.5px solid #922aff;
+}
+
+// #j-tree input[type="radio"] {
+// 	background-image: url(../assets/imgs/jointree.png) !important;
+// }

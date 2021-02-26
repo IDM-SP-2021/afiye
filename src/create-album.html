@@ -25,10 +25,10 @@ html{
     .header-title{
         font-family: Rubik;
 		font-weight: bold;
-
+      position: absolute;
         color: purple;
       font-size: 24px;
-      margin-left: 15px;
+      margin-left: 45vw;
       margin-top: 15px;
     }
 
@@ -175,7 +175,195 @@ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 }
 
 
+.memory-create{
+font-family: Rubik;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: 34px;
+letter-spacing: 0px;
+text-align: left;
+
+margin-left: 84px;
+
+}
+
+
+
+
+#tag{
+	margin-left: -2px;
+	margin-top: 4px;
+	height: 20px;
+	width: 20px;
+}
+
+.memory-section{
+	width: 600px;
+	height: 145px;
+	margin-top: 4em;
+margin-left: 84px;
+}
+
+
+.album{
+	width: 343px;
+	height: 55px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 24px;
+  margin-left: 0px;
+}
+
+.tag-circle{
+	width: 28px;
+	height:28px;
+	background-color: #922aff;
+	border-radius: 50%;
+	text-align: center;
+	left: 325px;
+	margin-top: -3em;
+	position: absolute;
+}
+
+
+.desc{
+	width: 343px;
+	height: 126px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 60px;
+}
+
+#edit{
+  position: absolute;
+  margin-top: -45px;
+  margin-left: 305px;
+}
+
+.memory-create{
+	font-family: Rubik;
+	font-weight: bold;
+	font-size: 24px;
+	margin-top: 4em;
+
+  margin-left: 0px;
+}
+
+.memory-upload{
+	width: 343px;
+	height: 132px;
+	background-color: #eff0f6;
+	border-radius: 10px;
+  margin-top: 50px;
+}
+
+#upload{
+	display: block;
+	position: absolute;
+margin-left: 140.5px;
+margin-top: 20px;
+width: 62px;
+height: 62px;
+}
+
+.button{
+	background-color: #922AFF;
+	border-radius: 10px;
+	width: 221px;
+	height: 55px;
+
+	margin-left: 60px;
+	margin-top: 20px;
+}
+
     } 
+
+    @media only screen and (min-width: 767px) {
+    .album{
+	width: 600px;
+	height: 55px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 24px;
+  margin-left: 74px;
+}
+
+.tag-circle{
+	width: 28px;
+	height:28px;
+	background-color: #922aff;
+	border-radius: 50%;
+	text-align: center;
+	left: 650px;
+	margin-top: -3em;
+	position: absolute;
+}
+
+.desc{
+	width: 600px;
+	height: 126px;
+	background-color: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #C4C4C4;
+	box-sizing: border-box;
+	margin-top: 60px;
+  margin-left: 74px;
+}
+
+#edit{
+  position: absolute;
+  margin-top: -45px;
+  margin-left: 565px;
+}
+
+.memory-create{
+	font-family: Rubik;
+	font-weight: bold;
+	font-size: 24px;
+	margin-top: 4em;
+
+  margin-left: 74px;
+}
+
+.memory-upload{
+	width: 600px;
+	height: 132px;
+	background-color: #eff0f6;
+	border-radius: 10px;
+  margin-top: 50px;
+
+  margin-left: 74px;
+}
+
+
+#upload{
+	display: block;
+	position: absolute;
+margin-left: 270px;
+margin-top: 20px;
+width: 62px;
+height: 62px;
+}
+
+
+.button{
+	background-color: #922AFF;
+	border-radius: 10px;
+	width: 221px;
+	height: 55px;
+
+	margin-left: 260px;
+	margin-top: 20px;
+}
+
+    }
     
     /* desktop screens (laptops/desktops, 769px and up) */
     @media only screen and (min-width: 769px) {
@@ -188,7 +376,13 @@ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
           }
 
 .header-title{
-    margin-top: 35px;
+  font-family: Rubik;
+		font-weight: bold;
+
+        color: purple;
+      font-size: 24px;
+      margin-left: 15px;
+      margin-top: 15px;
 }
 
 
@@ -237,26 +431,15 @@ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 
 
 .memory-section{
-	width: 343px;
+	width: 600px;
 	height: 145px;
 	margin-top: 4em;
 	margin-left: .5em;
 }
 
-.memory-create{
-	font-family: Rubik;
-	font-weight: bold;
-	font-size: 24px;
-	margin-top: 4em;
-}
 
-.memory-upload{
-	width: 343px;
-	height: 132px;
-	background-color: #eff0f6;
-	border-radius: 10px;
-  margin-top: 50px;
-}
+
+
 
 .albums-section{
 	width: 343px;
@@ -276,16 +459,7 @@ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 	margin-top: -2em;
 }
 
-.tag-circle{
-	width: 28px;
-	height:28px;
-	background-color: #922aff;
-	border-radius: 50%;
-	text-align: center;
-	left: 20.5em;
-	margin-top: -3em;
-	position: absolute;
-}
+
 
 #tag{
 	margin-left: -2px;
@@ -294,14 +468,7 @@ box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 	width: 20px;
 }
 
-#upload{
-	display: block;
-	position: absolute;
-margin-left: 140.5px;
-margin-top: 20px;
-width: 62px;
-height: 62px;
-}
+
 
 .upload-font1{
 	font-family: Poppins;
@@ -322,15 +489,6 @@ height: 62px;
 }
 
 
-.desc{
-	width: 343px;
-	height: 126px;
-	background-color: #ffffff;
-	border-radius: 10px;
-	border: 1px solid #C4C4C4;
-	box-sizing: border-box;
-	margin-top: 60px;
-}
 
 .desc-title{
   font-family: Rubik;
@@ -362,22 +520,10 @@ margin-left: 15px;
 color: #000000;
 }
 
-#edit{
-  position: absolute;
-  margin-top: -45px;
-  margin-left: 305px;
-}
 
 
-.album{
-	width: 343px;
-	height: 55px;
-	background-color: #ffffff;
-	border-radius: 10px;
-	border: 1px solid #C4C4C4;
-	box-sizing: border-box;
-	margin-top: 24px;
-}
+
+
 
 .album-title{
   font-family: Rubik;
@@ -438,16 +584,7 @@ margin-top: 15px;
 }
 
 
-.button{
-	background-color: #922AFF;
-	border-radius: 10px;
-	width: 221px;
-	height: 55px;
 
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 20px;
-}
 
 .button-text{
 	color: white;
