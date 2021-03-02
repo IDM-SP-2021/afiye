@@ -126,6 +126,16 @@ router.get('/welcome', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/welcome'), locals);
 });
 
+// profile-color
+router.get('/pcok', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Profile color',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/pcok'), locals);
+});
+
 // Choosing between making or joining a tree
 router.get('/choice', ensureAuthenticated, (req, res) => {
   let locals = {
@@ -134,6 +144,46 @@ router.get('/choice', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/choice'), locals);
+});
+
+// joining tree
+router.get('/joiningtree', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Join Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/joiningtree'), locals);
+});
+
+// input code
+router.get('/inputcode', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Join Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/inputcode'), locals);
+});
+
+// claim profile
+router.get('/claimprofile', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Join Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/claimprofile'), locals);
+});
+
+// claim profile 2
+router.get('/claimprofile-2', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Join Tree',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/claimprofile-2'), locals);
 });
 
 // making a tree

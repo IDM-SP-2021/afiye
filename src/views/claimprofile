@@ -1,0 +1,19 @@
+<div class="container">
+    <section class="image">
+        <h2 id="h2-ob1">Input Code</h2>
+
+        <div class="input-container" style="margin: 0 auto; padding-bottom: 2rem;">
+			<input
+				class="input mobile"
+				type="number"
+				name="fname"
+				placeholder="•••••••"
+                style="    margin: 0 auto;"
+			/>
+		</div>
+
+    </section>
+    
+
+    <a href="/account/claimprofile" class="button primary">Next</a>
+</div>
