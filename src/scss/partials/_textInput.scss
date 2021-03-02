@@ -158,6 +158,11 @@ input[type="radio"]:hover {
 	border: 1.5px solid #922aff;
 }
 
+
+input[type="radio"]:checked {
+	border: 1.5px solid #922aff;
+}
+
 // #j-tree input[type="radio"] {
 // 	background-image: url(../assets/imgs/jointree.png) !important;
 // }
