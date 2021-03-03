@@ -9,7 +9,11 @@ const { customAlphabet } = require('nanoid');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const cloudinary = require('../server/config/cloudinary');
-const upload = require('../server/config/multer');
+const streamifier = require('streamifier');
+// const upload = require('../server/config/multer');
+const multer = require('multer');
+const fileUpload = multer();
+
 
 require('dotenv').config();
 
@@ -338,18 +342,28 @@ router.get('/test', (req, res) => {
   });
 });
 
-router.post('/test', upload.single('image'), (req, res) => {
-  const { test } = req.body;
-  console.log(test.path);
-  // Upload to cloudinary
-  const result = cloudinary.uploader.upload('/Users/erikmartus/Downloads/HappyIslandDesigner_1593898112363.png',
-    function(err, result) {console.log(result, err);});
-    // .then(() => {
-    //   res.send(result.secure_url);
-    // })
-    // .catch(err => {
-    //   throw err;
-    // });
+router.post('/test', fileUpload.single('image'), (req, res, next) => {
+  let streamUpload = (req) => {
+    return new Promise((resolve, reject) => {
+      let stream = cloudinary.uploader.upload_stream(
+        (error, result) => {
+          if (result) {
+            resolve(result);
+          } else {
+            reject(error);
+          }
+        }
+      );
+
+      streamifier.createReadStream(req.file.buffer).pipe(stream);
+    });
+  };
+  async function upload(req) {
+    let result = await streamUpload(req);
+    console.log(result);
+  }
+
+  upload(req);
 });
 
 module.exports = router;

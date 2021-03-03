@@ -7,7 +7,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
 import webpack from 'webpack';
-// import nodemailer from 'nodemailer';
+import bodyParser from 'body-parser';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import config from '../../webpack/webpack.dev.js';
 
@@ -66,6 +66,10 @@ app.set('layout', path.resolve(__dirname, '../views/layout'));
 app.use('/', require('../routes/index'));
 app.use('/account',require('../routes/account'));
 // app.use('/email',require('../routes/email'));
+
+// body parser config
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
