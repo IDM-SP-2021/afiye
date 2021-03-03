@@ -8,6 +8,8 @@ const { Token } = require('../models/token.js');
 const { customAlphabet } = require('nanoid');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
+const cloudinary = require('../server/config/cloudinary');
+const upload = require('../server/config/multer');
 
 require('dotenv').config();
 
@@ -328,6 +330,26 @@ router.get('/verify/:uid-:token', (req, res) => {
       }
     });
   }
+});
+
+router.get('/test', (req, res) => {
+  res.render(path.resolve(__dirname, '../views/test'), {
+    title: 'upload test',
+  });
+});
+
+router.post('/test', upload.single('image'), (req, res) => {
+  const { test } = req.body;
+  console.log(test.path);
+  // Upload to cloudinary
+  const result = cloudinary.uploader.upload('/Users/erikmartus/Downloads/HappyIslandDesigner_1593898112363.png',
+    function(err, result) {console.log(result, err);});
+    // .then(() => {
+    //   res.send(result.secure_url);
+    // })
+    // .catch(err => {
+    //   throw err;
+    // });
 });
 
 module.exports = router;
