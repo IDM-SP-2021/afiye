@@ -6,6 +6,10 @@ const User = require('../models/user.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
 const api = require('../server/neo4j.js');
+const cloudinary = require('../server/config/cloudinary');
+const streamifier = require('streamifier');
+const multer = require('multer');
+const fileUpload = multer();
 
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
@@ -381,7 +385,7 @@ router.get('/add-member', ensureAuthenticated, (req, res) => {
     });
 });
 
-router.post('/add-member', ensureAuthenticated, (req, res) => {
+router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
   const { firstName, prefName, lastName, birthdate, gender, relation, related, location, profileColor } = req.body;
   let errors = [];
   let relReciprocal = (relation === 'child')    ? 'parent'
@@ -410,49 +414,79 @@ router.post('/add-member', ensureAuthenticated, (req, res) => {
     });
   } else {
     const uid = 'u' + nanoid(); // db identifier for user
-    const person = {
-      uid: uid,
-      fid: req.user.fid,
-      firstName: firstName,
-      prefName: prefName,
-      lastName: lastName,
-      birthdate: birthdate,
-      gender: gender,
-      location: location,
-      profileColor: profileColor,
-      relation: relation,
-      relReciprocal: relReciprocal,
-      related: related,
+    let avatarUrl;
+
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${uid}`
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
     };
 
-    api.addMember(person)
-      .then(results => {
-        if (Object.keys(results[0].directRelation).length >= 1) {
-          let match = '';
-          let merge = '';
+    const upload = async (req) => {
+      let result = await streamUpload(req);
+      avatarUrl = result.secure_url;
+    };
 
-          // Find all members of a family
-          results[0].members.forEach(member => {
-            const m = member.properties.uid;
+    upload(req)
+      .then(() => {
+        const person = {
+          uid: uid,
+          fid: req.user.fid,
+          firstName: firstName,
+          prefName: prefName,
+          lastName: lastName,
+          birthdate: birthdate,
+          gender: gender,
+          location: location,
+          profileColor: profileColor,
+          relation: relation,
+          relReciprocal: relReciprocal,
+          related: related,
+          avatar: avatarUrl
+        };
 
-            match += `MATCH (${m}:Person {uid: '${m}'}) `;
+        api.addMember(person)
+          .then(results => {
+            if (Object.keys(results[0].directRelation).length >= 1) {
+              let match = '';
+              let merge = '';
+
+              // Find all members of a family
+              results[0].members.forEach(member => {
+                const m = member.properties.uid;
+
+                match += `MATCH (${m}:Person {uid: '${m}'}) `;
+              });
+
+              results[0].directRelation.forEach(relation => {
+                const s = relation.s,
+                      r = relation.directPath,
+                      t = relation.t;
+
+                merge += `MERGE (${s})-[:RELATED {relation: '${r}'}]->(${t}) `;
+              });
+
+              const query = match + merge + 'RETURN *';
+
+              api.submitQuery(query);
+              res.redirect('/account/tree');
+            } else {
+              res.redirect('/account/tree');
+            }
           });
-
-          results[0].directRelation.forEach(relation => {
-            const s = relation.s,
-                  r = relation.directPath,
-                  t = relation.t;
-
-            merge += `MERGE (${s})-[:RELATED {relation: '${r}'}]->(${t}) `;
-          });
-
-          const query = match + merge + 'RETURN *';
-
-          api.submitQuery(query);
-          res.redirect('/account/tree');
-        } else {
-          res.redirect('/account/tree');
-        }
       });
   }
 });

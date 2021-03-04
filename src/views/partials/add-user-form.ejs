@@ -4,7 +4,9 @@
   <% if (title === 'Afiye - Making a Tree') { %>/account/welcome-make<% } else if (title === 'Afiye - Add Family Member') { %>/account/add-member<% } %>
 "
   method="post"
+  enctype="multipart/form-data"
 >
+  <button id="open-profile"><img src="" alt="" srcset="" /></button>
   <h2 id="full-name">
     <% if (title === 'Afiye - Making a Tree') { %> <%- user.firstName %> <%-
     user.lastName %> <% } else if (title === 'Afiye - Add Family Member') { %>
@@ -12,9 +14,9 @@
     <% } %>
   </h2>
   <% if (title === 'Afiye - Making a Tree') { %>
-  <p>This is how your name will appear to your family</p>
+    <p>This is how your name will appear to your family</p>
   <% } else if (title === 'Afiye - Add Family Member') { %>
-  <p>This is how their name will appear to your family</p>
+    <p>This is how their name will appear to your family</p>
   <% } %> <% if (title === 'Afiye - Add Family Member') { %>
   <div class="input-container">
     <label for="firstName">First name</label>
@@ -107,125 +109,48 @@
   </div>
   <fieldset id="profile-color-select">
     <legend>Select a profile color</legend>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-pink"
-        value="color-pink"
-        required
-      />
-      <label for="color-pink"><span>Pink</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-magenta"
-        value="color-magenta"
-      />
-      <label for="color-magenta"><span>Magenta</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-red"
-        value="color-red"
-      />
-      <label for="color-red"><span>Red</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-orange"
-        value="color-orange"
-      />
-      <label for="color-orange"><span>Orange</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-yellow"
-        value="color-yellow"
-      />
-      <label for="color-yellow"><span>Yellow</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-green"
-        value="color-green"
-      />
-      <label for="color-green"><span>Green</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-teal"
-        value="color-teal"
-      />
-      <label for="color-teal"><span>Teal</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-light-blue"
-        value="color-light-blue"
-      />
-      <label for="color-light-blue"><span>Light Blue</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-dark-blue"
-        value="color-dark-blue"
-      />
-      <label for="color-dark-blue"><span>Dark Blue</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-purple"
-        value="color-purple"
-      />
-      <label for="color-purple"><span>Purple</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-brown"
-        value="color-brown"
-      />
-      <label for="color-brown"><span>Brown</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-gray"
-        value="color-gray"
-      />
-      <label for="color-gray"><span>Gray</span></label>
-    </div>
-    <div class="check-container">
-      <input
-        type="radio"
-        name="profileColor"
-        id="color-black"
-        value="color-black"
-      />
-      <label for="color-black"><span>Black</span></label>
-    </div>
+    <% 
+    let colorOptions = { 
+      'pink': 'fe66b8',
+      'magenta': 'f83a74',
+      'red': 'f42525',
+      'orange': 'ff5722',
+      'yellow': 'ffc52f',
+      'green': '1db954',
+      'teal': '07a092',
+      'light-blue': '0ab4ff',
+      'dark-blue': '4169e1',
+      'purple': '922aff',
+      'brown': 'ae640d',
+      'gray': '6e7191',
+      'black': '1d1b2d',
+    }
+    
+    for (const property in colorOptions) {
+      %>
+        <div class="check-container">
+          <input type="radio" name="profileColor" id="color-<%- property %>" value="<%- colorOptions[property] %>">
+          <label for="color-<%- property %>"><span><%- colorOptions %></span></label>
+        </div>
+      <%
+    }
+    %>
   </fieldset>
+  <div id="profile-upload" class="modal hidden">
+    <div class="modal-inner">
+      <button class="button primary icon cross"></button>
+      <div class="file-input upload">
+        <input
+          type="file"
+          name="profile"
+          id="profile"
+          accept="image/jpeg image/png"
+        />
+        <label for="profile">Upload</label>
+      </div>
+      <p>Please upload a picture for your profile</p>
+    </div>
+  </div>
   <input
     class="button primary"
     type="submit"

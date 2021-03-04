@@ -201,7 +201,7 @@ const simplifyPath = (path) => {
 
 // POST /account/add-member
 const addMember = (person) => {
-  let { uid, fid, firstName, prefName, lastName, birthdate, gender, location, profileColor, relation, relReciprocal, related } = person;
+  let { uid, fid, firstName, prefName, lastName, birthdate, gender, location, profileColor, relation, relReciprocal, related, avatar } = person;
   related = Number(related, 10);
 
   let session = driver.session();
@@ -218,6 +218,7 @@ const addMember = (person) => {
         gender: '${gender}',
         location: '${location}',
         profileColor: '${profileColor}',
+        avatar: '${avatar}',
         created:${Date.now()}
       })
       WITH ${uid}

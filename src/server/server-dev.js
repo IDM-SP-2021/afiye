@@ -38,6 +38,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 //EJS
 app.set('view engine','ejs');
 app.use(expressEjsLayout);
+
 //BodyParser
 app.use(express.urlencoded({extended : false}));
 

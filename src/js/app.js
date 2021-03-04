@@ -20,7 +20,40 @@ $(() => {
   $('input[name=mode]').on('click', () => {
     $('#mode-select input[type=submit]').removeAttr('disabled');
   });
+
+  // node creation form
+  $('#open-profile').on('click', (event) => {
+    event.preventDefault();
+    $('#profile-upload').removeClass('hidden');
+  });
+  $('#profile').on('change', () => {
+    readURL($('#profile'), $('#open-profile img'));
+  });
+  $('input[name=profileColor]').on('change', () => {
+    let color = $('input[name=profileColor]:checked').prop('value');
+    $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
+  });
+
+  // modals
+  $('.modal-inner button.cross').on('click', (event) => {
+    event.preventDefault();
+    $('.modal-inner button.cross').parent().parent().addClass('hidden');
+  });
 });
+
+const readURL = (input, element) => {
+  console.log(input.prop('files')[0]);
+  if (input.prop('files') && input.prop('files')[0]) {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      console.log(e.target.result);
+      element.attr('src', e.target.result);
+    };
+
+    reader.readAsDataURL(input.prop('files')[0]);
+  }
+};
 
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef

@@ -8,12 +8,6 @@ const { Token } = require('../models/token.js');
 const { customAlphabet } = require('nanoid');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
-const cloudinary = require('../server/config/cloudinary');
-const streamifier = require('streamifier');
-// const upload = require('../server/config/multer');
-const multer = require('multer');
-const fileUpload = multer();
-
 
 require('dotenv').config();
 
@@ -334,36 +328,6 @@ router.get('/verify/:uid-:token', (req, res) => {
       }
     });
   }
-});
-
-router.get('/test', (req, res) => {
-  res.render(path.resolve(__dirname, '../views/test'), {
-    title: 'upload test',
-  });
-});
-
-router.post('/test', fileUpload.single('image'), (req, res, next) => {
-  let streamUpload = (req) => {
-    return new Promise((resolve, reject) => {
-      let stream = cloudinary.uploader.upload_stream(
-        (error, result) => {
-          if (result) {
-            resolve(result);
-          } else {
-            reject(error);
-          }
-        }
-      );
-
-      streamifier.createReadStream(req.file.buffer).pipe(stream);
-    });
-  };
-  async function upload(req) {
-    let result = await streamUpload(req);
-    console.log(result);
-  }
-
-  upload(req);
 });
 
 module.exports = router;
