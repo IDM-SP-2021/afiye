@@ -26,6 +26,7 @@ const renderGraph = (data) => {
     .attr('text-anchor', 'middle');
 
   const container = svg.append('g'),
+        // defs = svg.append('defs'),
         linksGr = container.append('g'),
         nodesGr = container.append('g'),
         // nodesTxGr = container.append('g'),
@@ -65,7 +66,7 @@ const renderGraph = (data) => {
           .attr('class', d => d.relType);
 
       const node = nodesGr
-          .attr('stroke-width', 1.5)
+          .attr('stroke-width', 5)
         .selectAll('g')
         .data(data.nodes)
         .join('g')
@@ -80,13 +81,20 @@ const renderGraph = (data) => {
         })
         .attr('r', 40)
         .attr('stroke', '#0ab4ff')
-        .attr('fill', '#f7f7fc')
-        .attr('cx', d => x(d[1]))
-        .attr('cy', d => y(d[2]));
+        .attr('fill', '#000');
+        // .attr('cx', d => x(d[1]))
+        // .attr('cy', d => y(d[2]));
 
-      node.append('text')
-        .text(d => `${d.firstName} ${d.lastName}`)
-        .style('fill', '#4e4b66');
+      node.append('image')
+        .attr('xlink:href', d => d.avatar)
+        // .attr('x', 0)
+        // .attr('y', 0)
+        .attr('width', 80)
+        .attr('height', 80);
+
+      // node.append('text')
+      //   .text(d => `${d.firstName} ${d.lastName}`)
+      //   .style('fill', '#4e4b66');
 
       node.append('title')
         .text(d => {
@@ -106,6 +114,11 @@ const renderGraph = (data) => {
             .attr('cy', d => d.y);
 
         node
+          .selectAll('image')
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y);
+
+        node
           .selectAll('clipPath')
             .attr('dx', d => d.x)
             .attr('dy', d => d.y);
@@ -113,13 +126,13 @@ const renderGraph = (data) => {
         node
           .selectAll('text')
             .attr('dx', d => d.x)
-            .attr('dy', d => d.y);
+            .attr('dy', d => d.y + 10);
     });
 
     let transform;
 
     const zoom = d3.zoom()
-      .scaleExtent([.1, 4])
+      .scaleExtent([.5, 2])
       .on('zoom', e => {
         container.attr('transform', (transform = e.transform)); // eslint-disable-line
       });
