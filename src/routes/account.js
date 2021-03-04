@@ -436,8 +436,12 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
     };
 
     const upload = async (req) => {
-      let result = await streamUpload(req);
-      avatarUrl = result.secure_url;
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
     };
 
     upload(req)
@@ -457,6 +461,8 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           related: related,
           avatar: avatarUrl
         };
+
+        console.log(person);
 
         api.addMember(person)
           .then(results => {

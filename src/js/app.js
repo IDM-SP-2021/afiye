@@ -10,35 +10,45 @@ requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {
-  // Front nav mobile toggle
-  $('.nav-toggle').on('click', () => {
-    $('.nav-link-group').toggleClass('mobile-nav');
-    $('.nav-toggle').toggleClass('is-active');
-  });
+});
 
-  // Onboarding
-  $('input[name=mode]').on('click', () => {
-    $('#mode-select input[type=submit]').removeAttr('disabled');
-  });
+// Front nav mobile toggle
+$('.nav-toggle').on('click', () => {
+  $('.nav-link-group').toggleClass('mobile-nav');
+  $('.nav-toggle').toggleClass('is-active');
+});
 
-  // node creation form
-  $('#open-profile').on('click', (event) => {
+// Onboarding
+$('input[name=mode]').on('click', () => {
+  $('#mode-select input[type=submit]').removeAttr('disabled');
+});
+
+
+// modals
+$('.modal-inner button.cross').on('click', (event) => {
+  event.preventDefault();
+  $('.modal-inner button.cross').parent().parent().addClass('hidden');
+});
+
+// node creation form
+$('#open-profile').on('click', (event) => { // open profile upload modal
+  event.preventDefault();
+  $('#profile-upload').removeClass('hidden');
+});
+$('#profile').on('change', () => { // get profile image upload
+  readURL($('#profile'), $('#open-profile img'));
+});
+$('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
+  let color = $('input[name=profileColor]:checked').prop('value');
+  $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
+});
+$('#profile-setup input[type="submit"]').on('click', (event) => {
+  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned')) {
     event.preventDefault();
-    $('#profile-upload').removeClass('hidden');
-  });
-  $('#profile').on('change', () => {
-    readURL($('#profile'), $('#open-profile img'));
-  });
-  $('input[name=profileColor]').on('change', () => {
-    let color = $('input[name=profileColor]:checked').prop('value');
-    $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
-  });
-
-  // modals
-  $('.modal-inner button.cross').on('click', (event) => {
-    event.preventDefault();
-    $('.modal-inner button.cross').parent().parent().addClass('hidden');
-  });
+    console.log('missing profile');
+    $('#open-profile').after('<p>Hey you forgot to add a profile picture! If you don\'t have one you can skip this for now!</p>');
+    $('#profile-setup input[type="submit"]').addClass('warned');
+  }
 });
 
 const readURL = (input, element) => {
