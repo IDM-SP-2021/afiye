@@ -55,21 +55,56 @@ router.post('/welcome-make', ensureAuthenticated, (req, res) => {
         user: req.user
       });
     } else {
-      const person = {
-        uid: user.uid,
-        fid: fid,
-        firstName: user.firstName,
-        prefName: prefName,
-        lastName: user.lastName,
-        birthdate: birthdate,
-        gender: gender,
-        location: location,
-        profileColor: profileColor
-      };
+      let avatarUrl;
 
-      api.initFamily(person);
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${uid}`
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
 
-      res.redirect('/account/feed');
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const upload = async (req) => {
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
+    };
+
+    upload(req)
+      .then(() => {
+        const person = {
+          uid: user.uid,
+          fid: fid,
+          firstName: user.firstName,
+          prefName: prefName,
+          lastName: user.lastName,
+          birthdate: birthdate,
+          gender: gender,
+          location: location,
+          profileColor: `#${profileColor}`,
+          avatar: avatarUrl,
+          claimed: true,
+        };
+
+        api.initFamily(person);
+
+        res.redirect('/account/feed');
+      });
     }
   });
 });
@@ -455,11 +490,12 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           birthdate: birthdate,
           gender: gender,
           location: location,
-          profileColor: profileColor,
+          profileColor: `#${profileColor}`,
           relation: relation,
           relReciprocal: relReciprocal,
           related: related,
-          avatar: avatarUrl
+          avatar: avatarUrl,
+          claimed: false,
         };
 
         console.log(person);
