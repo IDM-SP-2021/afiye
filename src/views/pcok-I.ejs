@@ -1,9 +1,17 @@
 <%- include('./partials/user-header') %>
 
 <div class="container">
-    <section class="image">
-        <h2 id="h2-ob1">Pick a Profile Color</h2>
-        <img src="../assets/imgs/profileimg.png" alt="" style="padding-bottom: 2rem;">
+    <div style="    height: 270px; position: fixed; z-index: -2000; background: linear-gradient(0deg, rgba(50,73,208,0) 0%, rgba(146,42,255,1) 100%); width: 150%; top: 9%;">
+    </div>
+    <section class="image" style="padding-top: 0rem;">
+        <!-- <h2 id="h2-ob1">Pick a Profile Color</h2> -->
+        <div class="profile-circle" style="width: 100%; overflow: hidden; height: 100%; margin: 0 auto;">
+        <img src="../assets/imgs/profileimg.png" alt="" style="padding-bottom: 2rem; z-index: 100; margin: 0 auto; left: 32%; top: 13.65%; display: absolure;
+        position: absolute;">
+        <svg viewbox="0 0 100 100" style="fill: none; stroke: #8a3ab8; stroke-width: 2px; position: relative; z-index: -1000; top: -12px; left: -6px; width: 45%;">
+            <circle cx="50" cy="50" r="40" style="top: 223%; width: 10px;"/>
+        </svg>
+    </div>
         <div class="input-container" style="margin: 0 auto; padding-bottom: 2rem;">
             <!-- <input
                 class="input mobile"
@@ -140,7 +148,7 @@
                 <label for="color-black"><span>Black</span></label>
             </div>
         </fieldset>
-        <a href="/account/pcok-I" class="button primary">Save</a>
+        <a href="/account/jt-done" class="button primary">Save</a>
 
     </section>
     <%- include('./partials/user-mobile-nav') %>
