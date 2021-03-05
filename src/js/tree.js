@@ -26,7 +26,7 @@ const renderGraph = (data) => {
     .attr('text-anchor', 'middle');
 
   const container = svg.append('g'),
-        // defs = svg.append('defs'),
+        defs = svg.append('defs'),
         linksGr = container.append('g'),
         nodesGr = container.append('g'),
         // nodesTxGr = container.append('g'),
@@ -66,10 +66,12 @@ const renderGraph = (data) => {
           .attr('class', d => d.relType);
 
       const node = nodesGr
-          .attr('stroke-width', 5)
+          .attr('stroke-width', 10)
         .selectAll('g')
         .data(data.nodes)
         .join('g')
+          .attr('class', 'node')
+          .call(drag(simulation))
           .attr('cx', d => x(d[1]))
           .attr('cy', d => y(d[2]))
           .call(drag(simulation));
@@ -80,26 +82,51 @@ const renderGraph = (data) => {
           return d.nodeUid;
         })
         .attr('r', 40)
-        .attr('stroke', '#0ab4ff')
-        .attr('fill', '#000');
-        // .attr('cx', d => x(d[1]))
-        // .attr('cy', d => y(d[2]));
+        .attr('stroke', d => {
+          let color = d.profileColor;
+          let strokeColor =
+              (color === 'color-pink') ? '#fe66b8'
+            : (color === 'color-magenta') ? '#f83a74'
+            : (color === 'color-red') ? '#f42525'
+            : (color === 'color-orange') ? '#ff5722'
+            : (color === 'color-yellow') ? '#ffc52f'
+            : (color === 'color-green') ? '#1db954'
+            : (color === 'color-teal') ? '#07a092'
+            : (color === 'color-light-blue') ? '#0ab4ff'
+            : (color === 'color-dark-blue') ? '#4169e1'
+            : (color === 'color-purple') ? '#922aff'
+            : (color === 'color-brown') ? '#ae640d'
+            : (color === 'color-gray') ? '#6e7191'
+            : (color === 'color-black') ? '#1d1b2d'
+            : color;
+          return strokeColor;
+        })
+        .attr('fill', '#000')
+        .attr('cx', d => x(d[1]))
+        .attr('cy', d => y(d[2]));
 
       node.append('image')
-        .attr('xlink:href', d => d.avatar)
-        // .attr('x', 0)
-        // .attr('y', 0)
+        .attr('xlink:href', d => {
+          let image = !d.avatar ? '../assets/icons/user.svg' : d.avatar;
+          return image;
+        })
         .attr('width', 80)
-        .attr('height', 80);
+        .attr('height', 80)
+        .attr('x', 0)
+        .attr('y', 0);
 
-      // node.append('text')
-      //   .text(d => `${d.firstName} ${d.lastName}`)
-      //   .style('fill', '#4e4b66');
+      node.append('text')
+        .text(d => `${d.firstName} ${d.lastName}`)
+        .attr('class', 'node-text');
 
       node.append('title')
         .text(d => {
           return `${d.firstName} ${d.lastName}`;
         });
+
+      node.on('click', (d, i) => {
+        console.log(`redirect to /account/profile/${i.fid}-${i.uid}`);
+      });
 
       simulation.on('tick', () => {
         link
@@ -115,8 +142,8 @@ const renderGraph = (data) => {
 
         node
           .selectAll('image')
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y);
+            .attr('x', d => d.x - 40)
+            .attr('y', d => d.y - 40);
 
         node
           .selectAll('clipPath')
@@ -126,7 +153,7 @@ const renderGraph = (data) => {
         node
           .selectAll('text')
             .attr('dx', d => d.x)
-            .attr('dy', d => d.y + 10);
+            .attr('dy', d => d.y + 65);
     });
 
     let transform;
