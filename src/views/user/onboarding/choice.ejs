@@ -1,0 +1,42 @@
+<%- include('../../partials/user-header') %>
+
+<div class="container">
+  <section class="image">
+    <img src="../assets/imgs/mktree-1.png" alt="" />
+  </section>
+
+  <h2 id="h2-ob1">Are you...</h2>
+
+  <section class="choices">
+    <div class="making">
+      <input
+        id="mk-tree"
+        type="radio"
+        name="mode"
+        id="make-a-tree"
+        value="make-a-tree"
+      />
+      <label for="make-a-tree">Making a tree</label>
+    </div>
+
+    <div class="joining">
+      <input
+        id="j-tree"
+        type="radio"
+        name="mode"
+        id="join-a-tree"
+        value="join-a-tree"
+        style="background-image: url(../assets/imgs/jointree.png) !important"
+      />
+      <label for="make-a-tree">Making a tree</label>
+      <!-- <img src="../assets/imgs/jointree.png" alt="">
+            <P>Joining a tree</P> -->
+    </div>
+  </section>
+  <a href="/account/makingtree" class="button primary">Next</a>
+</div>
+
+<%- include('../../partials/user-mobile-nav') %>
+<div class="footer-box">
+  <p class="footer-title">© afiye 2020</p>
+</div>

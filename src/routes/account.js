@@ -18,7 +18,7 @@ router.get('/welcome', ensureAuthenticated, (req, res) => {
     user: req.user
   };
 
-  res.render(path.resolve(__dirname, '../views/onboarding'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding'), locals);
 });
 
 router.post('/welcome', ensureAuthenticated, (req, res) => {
@@ -37,7 +37,7 @@ router.get('/welcome-make', ensureAuthenticated, (req, res) => {
     user: req.user
   };
 
-  res.render(path.resolve(__dirname, '../views/onboarding-make'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
 });
 
 router.post('/welcome-make', ensureAuthenticated, (req, res) => {
@@ -49,7 +49,7 @@ router.post('/welcome-make', ensureAuthenticated, (req, res) => {
   User.findOneAndUpdate({uid: user.uid},{fid: fid, node: true},{new: true}).exec((err, user) => {
     if (!user) {
       errors.push({msg: 'We ran into a problem locating your account. Refresh the page or re-register for an account if the problem persists.'});
-      res.render(path.resolve(__dirname, '../views/onboarding-make'), {
+      res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), {
         errors: errors,
         title: 'Afiye - Making a Tree',
         user: req.user
@@ -116,7 +116,7 @@ router.get('/welcome-join', ensureAuthenticated, (req, res) => {
     user: req.user
   };
 
-  res.render(path.resolve(__dirname, '../views/onboarding-join'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-join'), locals);
 });
 
 // * user feed
@@ -129,7 +129,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   if (req.user.node === false) {
     res.redirect('/account/welcome');
   } else {
-    res.render(path.resolve(__dirname, '../views/feed'), locals);
+    res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
   }
 
 });
@@ -141,7 +141,7 @@ router.get('/post', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/post'), locals);
+  res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
 });
 
 // modal
@@ -152,7 +152,7 @@ router.get('/modal', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/modal'), locals);
+  res.render(path.resolve(__dirname, '../views/partials/modal'), locals);
 });
 
 // welcome
@@ -162,7 +162,7 @@ router.get('/welcome', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/welcome'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/welcome'), locals);
 });
 
 // profile-color
@@ -172,7 +172,7 @@ router.get('/pcok', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/pcok'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/pcok'), locals);
 });
 
 // Choosing between making or joining a tree
@@ -182,7 +182,7 @@ router.get('/choice', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/choice'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/choice'), locals);
 });
 
 // joining tree
@@ -192,7 +192,7 @@ router.get('/joiningtree', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/joiningtree'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/joiningtree'), locals);
 });
 
 // input code
@@ -202,7 +202,7 @@ router.get('/inputcode', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/inputcode'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/inputcode'), locals);
 });
 
 // claim profile
@@ -212,7 +212,7 @@ router.get('/claimprofile', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/claimprofile'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile'), locals);
 });
 
 // claim profile 2
@@ -222,7 +222,7 @@ router.get('/claimprofile-2', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/claimprofile-2'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile-2'), locals);
 });
 
 // making a tree
@@ -232,7 +232,7 @@ router.get('/makingtree', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/makingtree'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/makingtree'), locals);
 });
 
 // create a profile
@@ -242,7 +242,7 @@ router.get('/createprofile', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/createprofile'), locals);
+  res.render(path.resolve(__dirname, '../views/user/onboarding/createprofile'), locals);
 });
 
 // user tree
@@ -260,7 +260,7 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/tree'), locals);
+      res.render(path.resolve(__dirname, '../views/user/tree/tree'), locals);
     });
 });
 
@@ -271,7 +271,7 @@ router.get('/profile', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/profile'), locals);
+  res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
 });
 
 // * user settings
@@ -281,7 +281,7 @@ router.get('/settings', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings'), locals);
 });
 
 // user settings
@@ -291,7 +291,7 @@ router.get('/settings-account', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-account'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-account'), locals);
 });
 
 // user settings
@@ -301,7 +301,7 @@ router.get('/settings-account-change-password', ensureAuthenticated, (req, res) 
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-account-change-password'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), locals);
 });
 
 // user settings
@@ -311,7 +311,7 @@ router.get('/settings-account-leave-tree', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-account-leave-tree'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-leave-tree'), locals);
 });
 
 router.get('/settings-account-deactivate', ensureAuthenticated, (req, res) => {
@@ -320,7 +320,7 @@ router.get('/settings-account-deactivate', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-account-deactivate'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-deactivate'), locals);
 });
 
 router.get('/settings-privacy', ensureAuthenticated, (req, res) => {
@@ -329,7 +329,7 @@ router.get('/settings-privacy', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-privacy'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-privacy'), locals);
 });
 
 router.get('/settings-accessibility', ensureAuthenticated, (req, res) => {
@@ -338,7 +338,7 @@ router.get('/settings-accessibility', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-accessibility'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-accessibility'), locals);
 });
 
 
@@ -348,7 +348,7 @@ router.get('/settings-email', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/settings-email'), locals);
+  res.render(path.resolve(__dirname, '../views/user/settings/settings-email'), locals);
 });
 
 router.get('/tree-tutorial-1', ensureAuthenticated, (req, res) => {
@@ -357,7 +357,7 @@ router.get('/tree-tutorial-1', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-1'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-1'), locals);
 });
 
 router.get('/tree-tutorial-2', ensureAuthenticated, (req, res) => {
@@ -366,7 +366,7 @@ router.get('/tree-tutorial-2', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-2'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-2'), locals);
 });
 
 router.get('/tree-tutorial-3', ensureAuthenticated, (req, res) => {
@@ -375,7 +375,7 @@ router.get('/tree-tutorial-3', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-3'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-3'), locals);
 });
 
 router.get('/tree-tutorial-4', ensureAuthenticated, (req, res) => {
@@ -384,7 +384,7 @@ router.get('/tree-tutorial-4', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-4'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-4'), locals);
 });
 
 router.get('/tree-tutorial-5', ensureAuthenticated, (req, res) => {
@@ -393,7 +393,7 @@ router.get('/tree-tutorial-5', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-5'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-5'), locals);
 });
 
 router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
@@ -402,7 +402,7 @@ router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/tree-tutorial-6'), locals);
+  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-6'), locals);
 });
 
 router.get('/add-member', ensureAuthenticated, (req, res) => {
@@ -416,7 +416,7 @@ router.get('/add-member', ensureAuthenticated, (req, res) => {
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
     });
 });
 
@@ -445,7 +445,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
     });
   } else {
     const uid = 'u' + nanoid(); // db identifier for user
