@@ -26,7 +26,7 @@ const renderGraph = (data) => {
     .attr('text-anchor', 'middle');
 
   const container = svg.append('g'),
-        defs = svg.append('defs'),
+        // defs = svg.append('defs'),
         linksGr = container.append('g'),
         nodesGr = container.append('g'),
         // nodesTxGr = container.append('g'),

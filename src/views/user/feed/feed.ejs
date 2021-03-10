@@ -27,7 +27,11 @@
         <!-- buttons -->
         <div class="buttons">
             <button class="button primary icon accessibility"></button>
-            <button class="button primary icon upload"></button>
+            <a
+              href="/account/add-post"
+              id="add-post"
+              class="button primary icon upload"
+            ></a>
         </div>
     </div>
 
@@ -161,13 +165,5 @@
 <div class="footer-box">
     <p class="footer-title">© afiye 2020</p>
 </div>
-<!-- 
-<div class="bottom-nav">
-        <p class="feed-nav">Feed</p>
-        <p class="tree-nav">Tree</p>
-        <p class="profile-nav">Profile</p>
-        <p class="settings-nav">Settings</p>
-</div> -->
-<!-- <p>Welcome <%= user.name %></p> -->
 
 <%- include('../../partials/user-mobile-nav') %>

@@ -1,6 +1,7 @@
 import '../scss/styles.scss';
 
 import $ from 'jquery';
+import _ from 'lodash';
 
 const requireAll = (r) => {
   r.keys().forEach(r);
@@ -10,6 +11,9 @@ requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {
+  if ($('main').hasClass('pageType-addPost')) {
+    familyList(data.family); //eslint-disable-line
+  }
 });
 
 // Front nav mobile toggle
@@ -36,7 +40,7 @@ $('#open-profile').on('click', (event) => { // open profile upload modal
   $('#profile-upload').removeClass('hidden');
 });
 $('#profile').on('change', () => { // get profile image upload
-  readURL($('#profile'), $('#open-profile img'));
+  readURL($('#profile'), $('#open-profile'));
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
   let color = $('input[name=profileColor]:checked').prop('value');
@@ -51,18 +55,40 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
   }
 });
 
+// Memory creation form
+$('#open-tag').on('click', (event) => {
+  event.preventDefault();
+  $('#tag-family').removeClass('hidden');
+});
+$('#post-media-upload').on('change', () => {
+  readURL($('#post-media-upload'), $('#post-media-preview'));
+});
+
+// Append image preview to page element
 const readURL = (input, element) => {
-  console.log(input.prop('files')[0]);
   if (input.prop('files') && input.prop('files')[0]) {
-    let reader = new FileReader();
+    for (let i = 0; i < input.prop('files').length; i++) {
+      let reader = new FileReader();
 
-    reader.onload = (e) => {
-      console.log(e.target.result);
-      element.attr('src', e.target.result);
-    };
+      reader.onload = (e) => {
+        $($.parseHTML('<img>')).attr('src', e.target.result).appendTo(element);
+      };
 
-    reader.readAsDataURL(input.prop('files')[0]);
+      reader.readAsDataURL(input.prop('files')[i]);
+    }
+
   }
+};
+
+// Generate list of family members
+const familyList = (family) => {
+  console.log(family);
+  // const container = $('#memberList');
+  let ordered = _.sortBy(family, 'firstName');
+  console.log(ordered);
+  family.forEach(member => {
+   console.log(member);
+  });
 };
 
 if(typeof(module.hot) !== 'undefined') {

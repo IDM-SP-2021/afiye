@@ -61,7 +61,7 @@ router.post('/welcome-make', ensureAuthenticated, (req, res) => {
       return new Promise((resolve, reject) => {
         let stream = cloudinary.uploader.upload_stream(
           {
-            folder: `uploads/${req.user.fid}/${uid}`
+            folder: `uploads/${req.user.fid}/${req.user.uid}`
           },
           (error, result) => {
             if (result) {
@@ -142,6 +142,28 @@ router.get('/post', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
+});
+
+// create post
+router.get('/add-post', ensureAuthenticated, (req, res) => {
+  api.getFamily(req.user)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Create Post',
+        user: req.user,
+        data: {
+          family: result,
+        }
+      };
+
+      res.render(path.resolve(__dirname, '../views/user/feed/add-post'), locals);
+    });
+});
+
+router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-upload'), (req, res) => {
+  console.log(req.body.description);
+  console.log(req.files);
+  res.redirect('/account/add-post');
 });
 
 // modal
@@ -262,6 +284,122 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
 
       res.render(path.resolve(__dirname, '../views/user/tree/tree'), locals);
     });
+});
+
+router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
+  const { firstName, prefName, lastName, birthdate, gender, relation, related, location, profileColor } = req.body;
+  let errors = [];
+  let relReciprocal = (relation === 'child')    ? 'parent'
+                    : (relation === 'parent')   ? 'child'
+                    : (relation === 'sibling')  ? 'sibling'
+                    : (relation === 'spouse')   ? 'spouse'
+                    : 'Unknown';
+
+  // check if relationship is valid and has a recipricol path
+  if (relReciprocal === 'Unknown') {
+    errors.push({msg: 'Please select a relationhip to a current family member'});
+  }
+
+  if (errors.length > 0) {
+    api.getFamily(req.user)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Add Family Member',
+        user: req.user,
+        data: {
+          family: result,
+        }
+      };
+
+      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+    });
+  } else {
+    const uid = 'u' + nanoid(); // db identifier for user
+    let avatarUrl;
+
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${uid}`,
+            eager: [
+              {quality: 'auto'}
+            ]
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const upload = async (req) => {
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
+    };
+
+    upload(req)
+      .then(() => {
+        const person = {
+          uid: uid,
+          fid: req.user.fid,
+          firstName: firstName,
+          prefName: prefName,
+          lastName: lastName,
+          birthdate: birthdate,
+          gender: gender,
+          location: location,
+          profileColor: `#${profileColor}`,
+          relation: relation,
+          relReciprocal: relReciprocal,
+          related: related,
+          avatar: avatarUrl,
+          claimed: false,
+        };
+
+        console.log(person);
+
+        api.addMember(person)
+          .then(results => {
+            if (Object.keys(results[0].directRelation).length >= 1) {
+              let match = '';
+              let merge = '';
+
+              // Find all members of a family
+              results[0].members.forEach(member => {
+                const m = member.properties.uid;
+
+                match += `MATCH (${m}:Person {uid: '${m}'}) `;
+              });
+
+              results[0].directRelation.forEach(relation => {
+                const s = relation.s,
+                      r = relation.directPath,
+                      t = relation.t;
+
+                merge += `MERGE (${s})-[:RELATED {relation: '${r}'}]->(${t}) `;
+              });
+
+              const query = match + merge + 'RETURN *';
+
+              api.submitQuery(query);
+              res.redirect('/account/tree');
+            } else {
+              res.redirect('/account/tree');
+            }
+          });
+      });
+  }
 });
 
 // * user profile
@@ -418,119 +556,6 @@ router.get('/add-member', ensureAuthenticated, (req, res) => {
 
       res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
     });
-});
-
-router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
-  const { firstName, prefName, lastName, birthdate, gender, relation, related, location, profileColor } = req.body;
-  let errors = [];
-  let relReciprocal = (relation === 'child')    ? 'parent'
-                    : (relation === 'parent')   ? 'child'
-                    : (relation === 'sibling')  ? 'sibling'
-                    : (relation === 'spouse')   ? 'spouse'
-                    : 'Unknown';
-
-  // check if relationship is valid and has a recipricol path
-  if (relReciprocal === 'Unknown') {
-    errors.push({msg: 'Please select a relationhip to a current family member'});
-  }
-
-  if (errors.length > 0) {
-    api.getFamily(req.user)
-    .then((result) => {
-      let locals = {
-        title: 'Afiye - Add Family Member',
-        user: req.user,
-        data: {
-          family: result,
-        }
-      };
-
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
-    });
-  } else {
-    const uid = 'u' + nanoid(); // db identifier for user
-    let avatarUrl;
-
-    let streamUpload = (req) => {
-      return new Promise((resolve, reject) => {
-        let stream = cloudinary.uploader.upload_stream(
-          {
-            folder: `uploads/${req.user.fid}/${uid}`
-          },
-          (error, result) => {
-            if (result) {
-              resolve(result);
-            } else {
-              reject(error);
-            }
-          }
-        );
-
-        streamifier.createReadStream(req.file.buffer).pipe(stream);
-      });
-    };
-
-    const upload = async (req) => {
-      if (!req.file) {
-        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
-      } else {
-        let result = await streamUpload(req);
-        avatarUrl = result.secure_url;
-      }
-    };
-
-    upload(req)
-      .then(() => {
-        const person = {
-          uid: uid,
-          fid: req.user.fid,
-          firstName: firstName,
-          prefName: prefName,
-          lastName: lastName,
-          birthdate: birthdate,
-          gender: gender,
-          location: location,
-          profileColor: `#${profileColor}`,
-          relation: relation,
-          relReciprocal: relReciprocal,
-          related: related,
-          avatar: avatarUrl,
-          claimed: false,
-        };
-
-        console.log(person);
-
-        api.addMember(person)
-          .then(results => {
-            if (Object.keys(results[0].directRelation).length >= 1) {
-              let match = '';
-              let merge = '';
-
-              // Find all members of a family
-              results[0].members.forEach(member => {
-                const m = member.properties.uid;
-
-                match += `MATCH (${m}:Person {uid: '${m}'}) `;
-              });
-
-              results[0].directRelation.forEach(relation => {
-                const s = relation.s,
-                      r = relation.directPath,
-                      t = relation.t;
-
-                merge += `MERGE (${s})-[:RELATED {relation: '${r}'}]->(${t}) `;
-              });
-
-              const query = match + merge + 'RETURN *';
-
-              api.submitQuery(query);
-              res.redirect('/account/tree');
-            } else {
-              res.redirect('/account/tree');
-            }
-          });
-      });
-  }
 });
 
 module.exports = router;
