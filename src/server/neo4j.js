@@ -87,15 +87,25 @@ const getFamily = (user) => {
     let family = [];
 
     results.records.forEach(res => {
+
       let person = res.get('p'),
           id = person.identity.low.toString(),
           props = person.properties,
+          uid = props.uid,
+          fid = props.fid,
           firstName = props.firstName,
           prefName = props.prefName,
           lastName = props.lastName,
           gender = props.gender,
           birthdate = props.birthdate,
-          member = {id, firstName, prefName, lastName, gender, birthdate};
+          avatar = props.avatar,
+          profileColor = props.profileColor;
+
+      if (avatar === undefined) {
+        avatar = '../assets/icons/user.svg';
+      }
+
+      let member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
 
       family.push(member);
     });

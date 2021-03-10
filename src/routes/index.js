@@ -81,6 +81,7 @@ router.get('/register', (req, res) => {
 router.post('/register', (req, res) => {
   const {firstName, lastName, email, password, password2} = req.body;
   let errors = [];
+  let em = email.toLowerCase();
 
   if (!firstName || !lastName || !email || !password || !password2) {
     errors.push({msg: 'Please fill in all fields'});
@@ -108,14 +109,14 @@ router.post('/register', (req, res) => {
     });
   } else {
     // validation passed
-    User.findOne({email: email}).exec((err, user) => {
+    User.findOne({email: em}).exec((err, user) => {
       if (user) {
         errors.push({msg: 'Email is already registered'});
         res.render(path.resolve(__dirname, '../views/front/register'), {
           errors: errors,
           firstName: firstName,
           lastName: lastName,
-          email: email,
+          email: em,
           password: password,
           password2: password2,
           title: 'Afiye - Sign Up',
@@ -131,12 +132,11 @@ router.post('/register', (req, res) => {
 
         newToken.save()
           .catch(value => console.log(value));
-
         // create user document in users collection
         const newUser = new User({
           firstName: firstName,
           lastName: lastName,
-          email: email,
+          email: em,
           uid: uid,
           password: password
         });
