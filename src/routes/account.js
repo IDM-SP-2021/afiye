@@ -117,7 +117,7 @@ router.get('/welcome-join', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-join'), locals);
-});
+});ß
 
 // * user feed
 router.get('/feed', ensureAuthenticated, (req, res) => {
@@ -161,7 +161,7 @@ router.get('/add-post', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-upload'), (req, res) => {
-  console.log(req.body.description);
+  console.log(req.body);
   console.log(req.files);
   res.redirect('/account/add-post');
 });
