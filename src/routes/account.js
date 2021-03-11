@@ -206,6 +206,26 @@ router.get('/createprofile', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/createprofile'), locals);
 });
 
+// create profile-circle
+router.get('/pcok-I', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Profile-circle',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/pcok-I'), locals);
+});
+
+// join tree done
+router.get('/jt-done', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Profile-circle',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/jt-done'), locals);
+});
+
 // user tree
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
