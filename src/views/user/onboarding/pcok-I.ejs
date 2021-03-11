@@ -1,0 +1,157 @@
+<%- include('./partials/user-header') %>
+
+<div class="container">
+    <div style="    height: 270px; position: fixed; z-index: -2000; background: linear-gradient(0deg, rgba(50,73,208,0) 0%, rgba(146,42,255,1) 100%); width: 150%; top: 9%;">
+    </div>
+    <section class="image" style="padding-top: 0rem;">
+        <!-- <h2 id="h2-ob1">Pick a Profile Color</h2> -->
+        <div class="profile-circle" style="width: 100%; overflow: hidden; height: 100%; margin: 0 auto;">
+        <img src="../assets/imgs/profileimg.png" alt="" style="padding-bottom: 2rem; z-index: 100; margin: 0 auto; left: 32%; top: 13.65%; display: absolure;
+        position: absolute;">
+        <svg viewbox="0 0 100 100" style="fill: none; stroke: #8a3ab8; stroke-width: 2px; position: relative; z-index: -1000; top: -12px; left: -6px; width: 45%;">
+            <circle cx="50" cy="50" r="40" style="top: 223%; width: 10px;"/>
+        </svg>
+    </div>
+        <div class="input-container" style="margin: 0 auto; padding-bottom: 2rem;">
+            <!-- <input
+                class="input mobile"
+                type="text"
+                name="fname"
+                placeholder="Tracy Doe"
+                style="    margin: 0 auto;"
+            /> -->
+            <div
+                class="caption"
+                style="color: #a0a3bd; font-size: 12px; padding-top: 5px"
+            >
+            This is how your profile will appear on the tree
+            </div>
+        </div>
+
+        <fieldset id="profile-color-select" style="margin: 0 AUTO;">
+            <legend>Select a profile color</legend>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-pink"
+                    value="color-pink"
+                />
+                <label for="color-pink"><span>Pink</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-magenta"
+                    value="color-magenta"
+                />
+                <label for="color-magenta"><span>Magenta</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-red"
+                    value="color-red"
+                />
+                <label for="color-red"><span>Red</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-orange"
+                    value="color-orange"
+                />
+                <label for="color-orange"><span>Orange</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-yellow"
+                    value="color-yellow"
+                />
+                <label for="color-yellow"><span>Yellow</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-green"
+                    value="color-green"
+                />
+                <label for="color-green"><span>Green</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-teal"
+                    value="color-teal"
+                />
+                <label for="color-teal"><span>Teal</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-light-blue"
+                    value="color-light-blue"
+                />
+                <label for="color-light-blue"><span>Light Blue</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-dark-blue"
+                    value="color-dark-blue"
+                />
+                <label for="color-dark-blue"><span>Dark Blue</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-purple"
+                    value="color-purple"
+                />
+                <label for="color-purple"><span>Purple</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-brown"
+                    value="color-brown"
+                />
+                <label for="color-brown"><span>Brown</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-gray"
+                    value="color-gray"
+                />
+                <label for="color-gray"><span>Gray</span></label>
+            </div>
+            <div class="check-container">
+                <input
+                    type="radio"
+                    name="profileColor"
+                    id="color-black"
+                    value="color-black"
+                />
+                <label for="color-black"><span>Black</span></label>
+            </div>
+        </fieldset>
+        <a href="/account/jt-done" class="button primary">Save</a>
+
+    </section>
+    <%- include('./partials/user-mobile-nav') %>
+<div class="footer-box">
+    <p class="footer-title">© afiye 2020</p>
+</div>

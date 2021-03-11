@@ -1,27 +1,39 @@
-<%- include('../../partials/user-header') %> <%-
-include('../../partials/user-mobile-nav') %>
+<%- include('./partials/user-header') %> <%-
+include('./partials/user-mobile-nav') %>
 
 <div class="header">
-  <h2 class="header-title-mobile">Account Settings</h2>
+  <h1 class="header-title-mobile">Account Settings</h1>
 </div>
 <div class="section">
-  <p class="mobile-text-medium heading">Change Password</p>
-  <a href="/account/settings-account-change-password">
-    <button type="submit" class="button icon next">></button>
-  </a>
-  <hr class="solid" />
+  <div class="left">
+    <p class="mobile-text-medium heading">Change Password</p>
+  </div>
+  <div class="right">
+    <a href="/account/settings-account-change-password">
+      <button type="submit" class="button icon next">></button>
+    </a>
+  </div>
 </div>
+<hr class="solid" />
 <div class="section">
-  <p class="mobile-text-medium heading">Leave Tree</p>
-  <a href="/account/settings-account-leave-tree"
-    ><button type="submit" class="button icon next">></button>
-  </a>
-  <hr class="solid" />
+  <div class="left">
+    <p class="mobile-text-medium heading">Leave Tree</p>
+  </div>
+  <div class="right">
+    <a href="/account/settings-account-leave-tree"
+      ><button type="submit" class="button icon next">></button>
+    </a>
+  </div>
 </div>
+<hr class="solid" />
 <div class="section">
-  <p class="mobile-text-medium heading">Deactivate Account</p>
-  <a href="/account/settings-account-deactivate">
-    <button type="submit" class="button icon next">></button>
-  </a>
-  <hr class="solid" />
+  <div class="left">
+    <p class="mobile-text-medium heading">Deactivate Account</p>
+  </div>
+  <div class="right">
+    <a href="/account/settings-account-deactivate">
+      <button type="submit" class="button icon next">></button>
+    </a>
+  </div>
 </div>
+<hr class="solid" />
