@@ -4,7 +4,7 @@
     <!-- profile img -->
     <div class="imgname">
       <div class="story">
-        <img src="<%- post.ownerData.avatar %> " alt="" />
+        <img src="<%= post.ownerData.avatar %>" alt="" />
         <svg viewbox="0 0 100 100">
           <circle cx="50" cy="50" r="40" />
         </svg>
@@ -13,8 +13,8 @@
       <!-- username -->
       <div>
         <h2>
-          <% if (post.ownerData.prefName !== '') { %><%- post.ownerData.prefName
-          %><% } else { %><%- post.ownerData.firstName %><% } %> <%-
+          <% if (post.ownerData.prefName !== '') { %><%= post.ownerData.prefName
+          %><% } else { %><%= post.ownerData.firstName %><% } %> <%=
           post.ownerData.lastName %>
         </h2>
         <span> TBD </span>
@@ -33,14 +33,15 @@
   </div>
 
   <!-- Post images -->
-  <a href="/account/post">
+  <a href="/account/post-<%= post.post.family %>-<%= post.post.pid %>">
     <div class="img">
       <!-- <img
         style="border-radius: 5px"
         src="https://picsum.photos/400/250?random=1"
       /> -->
       <% post.post.media.forEach(media => { %>
-      <img class="post-media" src="<%- media %>" <% }) % /> />
+      <img class="post-media" src="<%- media %>" />
+      <% }) %>
     </div>
   </a>
 </div>
