@@ -113,7 +113,7 @@ const familyList = (family, option) => {
     $($.parseHTML(`<div id='m-${member.uid}' class='member'></div>`)).appendTo($('#memberList'));
     if (option === 'check') {
       $($.parseHTML(`<div class="check-container">
-                      <input class="checkbox" type="checkbox" name="tagged-family" id="option-${member.uid}" value="${member.uid}" />
+                      <input class="checkbox" type="checkbox" name="tagged_family" id="option-${member.uid}" value="${member.uid}" />
                       <label for="option-${member.uid}">${name} ${member.lastName}</label>
                     </div>`)).appendTo(`#memberList #m-${member.uid}`);
 

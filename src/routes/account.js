@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {ensureAuthenticated} = require('../server/config/auth.js');
 const User = require('../models/user.js');
+const Post = require('../models/post.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
 const api = require('../server/neo4j.js');
@@ -10,6 +11,28 @@ const cloudinary = require('../server/config/cloudinary');
 const streamifier = require('streamifier');
 const multer = require('multer');
 const fileUpload = multer();
+
+function upload(file, folder) {
+  return new Promise((resolve, reject) => {
+    let stream = cloudinary.uploader.upload_stream(
+      {
+        folder: `uploads/${folder}`,
+        eager: [
+          {quality: '60'}
+        ]
+      },
+      (error, result) => {
+        if (result) {
+          return resolve(result);
+        } else {
+          reject(error);
+        }
+      }
+    );
+
+    streamifier.createReadStream(file.buffer).pipe(stream);
+  });
+}
 
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
@@ -117,7 +140,7 @@ router.get('/welcome-join', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-join'), locals);
-});ß
+});
 
 // * user feed
 router.get('/feed', ensureAuthenticated, (req, res) => {
@@ -160,10 +183,42 @@ router.get('/add-post', ensureAuthenticated, (req, res) => {
     });
 });
 
-router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-upload'), (req, res) => {
-  console.log(req.body);
-  console.log(req.files);
-  res.redirect('/account/add-post');
+router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-upload'), async (req, res) => {
+  const { title, description, tagged_family} = req.body;
+  const pid = 'p' + nanoid();
+
+  const files = req.files;
+
+  try {
+    let urls = [];
+    let multiple = async (path) => await upload(path, `${req.user.fid}/${pid}`);
+    for (const file of files) {
+      const newPath = await multiple(file);
+      urls.push(newPath.secure_url);
+    }
+    if (urls) {
+      console.log('media:', urls);
+      let newPost = new Post({
+        owner: req.user.uid,
+        family: req.user.fid,
+        pid,
+        title,
+        description,
+        media: urls,
+        tagged: tagged_family
+      });
+      await newPost.save()
+        .then(saved => {
+          console.log(newPost);
+          return res.redirect('/account/feed');
+        }).catch(error => {
+          return res.json(error);
+        });
+    }
+  } catch (e) {
+    console.log('err :', e);
+    return e;
+  }
 });
 
 // modal
