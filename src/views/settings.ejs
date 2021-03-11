@@ -1,15 +1,42 @@
 <%- include('./partials/user-header') %>
+<%- include('./partials/user-mobile-nav') %>
 
-<h2 class="header-title-mobile" style="position: absolute; left:30px; top:50px;">Settings</h2>
-<p class="mobile-text-medium" style="position: absolute; left:65px; top:130px;"> Account Settings </p>
-<a href="/account/settings-account"><button type="submit" class="button icon" style="position: absolute; left:320px; top:140px;"> > </button> </a>
-<hr class ="solid" style="position: absolute; top:180px"> 
-<p class="mobile-text-medium" style="position: absolute; left:65px; top:200px;"> Privacy Settings </p>
-<a href="/account/settings-privacy"><button type="submit" class="button icon" style="position: absolute; left:320px; top:210px;"> > </button> </a>
-<hr class ="solid" style="position: absolute; top:250px">
-<p class="mobile-text-medium" style="position: absolute; left:65px; top:270px;"> Accessibility Options </p>
-<a href="/account/settings-accessibility"><button type="submit" class="button icon" style="position: absolute; left:320px; top:280px;"> > </button> </a>
-<hr class ="solid" style="position: absolute; top:320px">
-<p class="mobile-text-medium" style="position: absolute; left:65px; top:340px;"> Email Notifications </p>
-<a href="/account/settings-email"><button type="submit" class="button icon" style="position: absolute; left:320px; top:350px;"> > </button> </a>
-<hr class ="solid" style="position: absolute; top:390px">
+<div class="header">
+<h1 class="header-title-mobile">Settings</h1>
+</div>
+<div class="section">
+    <div class="left">
+    <p class="mobile-text-medium heading"> Account Settings </p>
+    </div>
+    <div class="right">
+    <a href="/account/settings-account"><button type="submit" class="button icon next"> > </button> </a>
+    </div>
+</div>
+<hr class="solid"> 
+<div class="section">
+    <div class="left">
+    <p class="mobile-text-medium heading"> Privacy Settings </p>
+    </div>
+    <div class="right">
+    <a href="/account/settings-privacy"><button type="submit" class="button icon next"> > </button> </a>
+    </div>
+</div>
+<hr class ="solid">
+<div class="section">
+    <div class="left">
+    <p class="mobile-text-medium heading"> Accessibility Options </p>
+    </div>
+    <div class="right">
+    <a href="/account/settings-accessibility"><button type="submit" class="button icon next"> > </button> </a>
+    </div>
+</div>
+<hr class ="solid">
+<div class="section">
+    <div class="left">
+    <p class="mobile-text-medium heading"> Email Notifications </p>
+    </div>
+    <div class="right">
+    <a href="/account/settings-email"><button type="submit" class="button icon next"> > </button> </a>
+    </div>
+</div>
+<hr class ="solid">
