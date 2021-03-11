@@ -120,6 +120,43 @@ const getFamily = (user) => {
   });
 };
 
+const getNode = (node) => {
+  let session = driver.session();
+
+  return session
+    .run(
+      `MATCH (p:Person {uid:'${node}'}) RETURN p`
+    )
+    .then(results => {
+      let result;
+
+      results.records.forEach(res => {
+        let node = res.get('p'),
+            id = node.identity.low.toString(),
+            props = node.properties,
+            uid = props.uid,
+            fid = props.fid,
+            firstName = props.firstName,
+            prefName = props.prefName,
+            lastName = props.lastName,
+            gender = props.gender,
+            birthdate = props.birthdate,
+            avatar = props.avatar,
+            profileColor = props.profileColor,
+            person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
+        result = person;
+      });
+      console.log(result);
+      return result;
+    })
+    .catch(err => {
+      throw err;
+    })
+    .finally(() => {
+      return session.close();
+    });
+};
+
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
@@ -310,4 +347,5 @@ module.exports = {
   getFamily: getFamily,
   initFamily: initFamily,
   addMember: addMember,
+  getNode: getNode,
 };

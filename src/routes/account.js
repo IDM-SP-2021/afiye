@@ -176,13 +176,32 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
 });
 
 // user post
-router.get('/post', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Post',
-    user: req.user,
-  };
+router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
+  let postFamily = req.params.family,
+      postId = req.params.pid;
 
-  res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
+  console.log('postFamily ', postFamily);
+  console.log('post id ', postId);
+
+  Post.findOne({ family: postFamily, pid: postId}).exec((err, post) => {
+    if (!post) {
+      res.redirect('/account/feed');
+    } else {
+      api.getNode(post.owner)
+        .then((result) => {
+          let locals = {
+            title: 'Afiye - Post',
+            user: req.user,
+            data: {
+              postOwner: result,
+              post
+            }
+          };
+
+          res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
+        });
+    }
+  });
 });
 
 // create post
