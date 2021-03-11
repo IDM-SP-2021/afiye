@@ -1,0 +1,46 @@
+<div class="afiye-posts">
+  <!-- header for user's name and timestamp -->
+  <div class="user-info">
+    <!-- profile img -->
+    <div class="imgname">
+      <div class="story">
+        <img src="<%- post.ownerData.avatar %> " alt="" />
+        <svg viewbox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" />
+        </svg>
+      </div>
+
+      <!-- username -->
+      <div>
+        <h2>
+          <% if (post.ownerData.prefName !== '') { %><%- post.ownerData.prefName
+          %><% } else { %><%- post.ownerData.firstName %><% } %> <%-
+          post.ownerData.lastName %>
+        </h2>
+        <span> TBD </span>
+      </div>
+    </div>
+
+    <!-- timestamp -->
+    <div class="timestamp" style="float: right">
+      <img
+        style="padding-bottom: 10px"
+        src="../assets/icons/more-01.svg"
+        alt="more"
+      />
+      <span><%- post.timeDiff %>s</span>
+    </div>
+  </div>
+
+  <!-- Post images -->
+  <a href="/account/post">
+    <div class="img">
+      <!-- <img
+        style="border-radius: 5px"
+        src="https://picsum.photos/400/250?random=1"
+      /> -->
+      <% post.post.media.forEach(media => { %>
+      <img class="post-media" src="<%- media %>" <% }) % /> />
+    </div>
+  </a>
+</div>

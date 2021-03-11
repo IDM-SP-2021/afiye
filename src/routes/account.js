@@ -11,6 +11,7 @@ const cloudinary = require('../server/config/cloudinary');
 const streamifier = require('streamifier');
 const multer = require('multer');
 const fileUpload = multer();
+const _ = require('lodash');
 
 function upload(file, folder) {
   return new Promise((resolve, reject) => {
@@ -144,17 +145,34 @@ router.get('/welcome-join', ensureAuthenticated, (req, res) => {
 
 // * user feed
 router.get('/feed', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Memory Feed',
-    user: req.user,
-  };
-
+  // check if user node has been created
   if (req.user.node === false) {
     res.redirect('/account/welcome');
   } else {
-    res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
+    Post.find({family: req.user.fid}).exec((err, posts) => {
+      api.getFamily(req.user)
+        .then((result) => {
+          let postData = [];
+          posts.forEach(post => {
+            const ownerData = _.find(result, {'uid': post.owner});
+            const start = post.date;
+            const millis = Date.now() - start;
+            let timeDiff = Math.floor(millis/1000);
+            postData.push({ownerData, timeDiff, post});
+          });
+          console.log(postData);
+          let locals = {
+            title: 'Afiye - Memory Feed',
+            user: req.user,
+            data: {
+              family: result,
+              postData
+            }
+          };
+          res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
+        });
+    });
   }
-
 });
 
 // user post
@@ -208,7 +226,7 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
         tagged: tagged_family
       });
       await newPost.save()
-        .then(saved => {
+        .then(() => {
           console.log(newPost);
           return res.redirect('/account/feed');
         }).catch(error => {
@@ -340,6 +358,22 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
       res.render(path.resolve(__dirname, '../views/user/tree/tree'), locals);
     });
 });
+
+router.get('/add-member', ensureAuthenticated, (req, res) => {
+  api.getFamily(req.user)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Add Family Member',
+        user: req.user,
+        data: {
+          family: result,
+        }
+      };
+
+      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+    });
+});
+
 
 router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
   const { firstName, prefName, lastName, birthdate, gender, relation, related, location, profileColor } = req.body;
@@ -596,21 +630,6 @@ router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-6'), locals);
-});
-
-router.get('/add-member', ensureAuthenticated, (req, res) => {
-  api.getFamily(req.user)
-    .then((result) => {
-      let locals = {
-        title: 'Afiye - Add Family Member',
-        user: req.user,
-        data: {
-          family: result,
-        }
-      };
-
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
-    });
 });
 
 module.exports = router;
