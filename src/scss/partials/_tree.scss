@@ -1,11 +1,16 @@
-.ellipse{
-    background: #B166FF;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
+#tree-tutorial {
+  position: absolute;
+  top: 1.5em;
+  right: 1.5em;
 }
-.breadcrumbs { 
-    margin: 20px auto;
-    height: 25px;
-    width: 200px;
+.ellipse {
+  background: #b166ff;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+}
+.breadcrumbs {
+  margin: 40px auto 20px;
+  height: 25px;
+  width: 200px;
 }
