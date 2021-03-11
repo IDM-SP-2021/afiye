@@ -1,371 +1,179 @@
-    /* (phone screens, 376px and down) */
-    @media only screen and (max-width: 376px) {
-      .header-box {
-        height: 60px;
-        background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-          text-align: center;
-          }
-
-          .feed-nav{
-              position: fixed;
-              margin-left: 14%;
-          }
-
-          .tree-nav{
-              position: fixed;
-              margin-left: 35%;
-          }
-
-          .profile-nav{
-              position: fixed;
-              margin-left: 55%;
-          }
-
-          .settings-nav{
-              position: fixed;
-              margin-left: 75%;
-          }
-
-		  .feed-nav-top{
-            display: none;
-          }
-
-          .tree-nav-top{
-            display: none;
-          }
-
-          .settings-nav-top{
-            display: none;
-          }
-
-          .footer-title{
-    display: none;
+.memory-section {
+  width: 343px;
+  height: 145px;
+  margin-top: 4em;
+  margin-left: 0.5em;
 }
 
-.footer-box{
-    display: none;
+.memory-create {
+  font-weight: bold;
+  font-size: 24px;
+  margin-top: 4em;
 }
 
-
-
-    } 
-    
-    /* (tablet screens, 377px and up) */
-    @media only screen and (min-width: 377px) {
-      .header-box {
-        height: 60px;
-        background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-          text-align: center;
-          }
-
-          .bottom-nav{
-            background: #FFFFFF;
-            box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
-            position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-  height: 97px;
-  font-family: Rubik;
-          }
-
-          .feed-nav{
-              position: fixed;
-              margin-left: 20%;
-              margin-top: 3.7em;
-          }
-
-          .tree-nav{
-              position: fixed;
-              margin-left: 38%;
-              margin-top: 3.7em;
-          }
-
-          .profile-nav{
-              position: fixed;
-              margin-left: 55%;
-              margin-top: 3.7em;
-          }
-
-          .settings-nav{
-              position: fixed;
-              margin-left: 72%;
-              margin-top: 3.7em;
-          }
-
-
-          .feed-nav-top{
-            display: none;
-          }
-
-          .tree-nav-top{
-            display: none;
-          }
-
-          .settings-nav-top{
-            display: none;
-          }
-
-
-          .footer-title{
-    display: none;
+.memory-upload {
+  width: 343px;
+  height: 132px;
+  background-color: #eff0f6;
+  border-radius: 10px;
 }
 
-.footer-box{
-    display: none;
+.albums-section {
+  width: 343px;
+  height: 248px;
+  margin-top: 0em;
+  margin-left: -0.75em;
 }
 
-
-    } 
-    
-    /* desktop screens (laptops/desktops, 769px and up) */
-    @media only screen and (min-width: 769px) {
-      .header-box {
-        height: 100px;
-        background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-          text-align: left;
-
-          }
-
-.header-title{
-    margin-top: 35px;
+.album-thumbs {
+  width: 343px;
+  height: 146px;
 }
 
-
-        .feed-nav-top{
-              position: fixed;
-              margin-left: 70%;
-              margin-top: -2.5em;
-              display: block;
-          }
-
-          .tree-nav-top{
-              position: fixed;
-              margin-left: 78%;
-              margin-top: -2.5em;
-              display: block;
-          }
-
-          .settings-nav-top{
-              position: fixed;
-              margin-left: 86%;
-              margin-top: -2.5em;
-              display: block;
-          }
-
-.bottom-nav{
-            display: none;
-          }
-
-.footer-title{
-    display: block;
-}
-.footer-box{
-    display: block;
+.view-all {
+  margin-left: 17em;
+  margin-top: -2em;
 }
 
-    } 
-
-
-/* IMPORTANT, PLEASE READ
-  THE STYLING BELOW IS FOR THIS PAGE SPECIFICLY
-  DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
-*/
-
-
-
-
-
-.memory-section{
-	width: 343px;
-	height: 145px;
-	margin-top: 4em;
-	margin-left: .5em;
+.tag-circle {
+  width: 28px;
+  height: 28px;
+  background-color: #922aff;
+  border-radius: 50%;
+  text-align: center;
+  left: 20.5em;
+  margin-top: -3em;
+  position: fixed;
 }
 
-.memory-create{
-	font-family: Rubik;
-	font-weight: bold;
-	font-size: 24px;
-	margin-top: 4em;
+#tag {
+  margin-left: -2px;
+  margin-top: 4px;
+  height: 20px;
+  width: 20px;
 }
 
-.memory-upload{
-	width: 343px;
-	height: 132px;
-	background-color: #eff0f6;
-	border-radius: 10px;
+#upload {
+  display: block;
+  position: fixed;
+  margin-left: 140.5px;
+  margin-top: 20px;
+  width: 62px;
+  height: 62px;
 }
 
-.albums-section{
-	width: 343px;
-	height: 248px;
-	margin-top: 0em;
-	margin-left: -.75em;
+.upload-font1 {
+  font-size: 10px;
+  color: #000000;
+  text-align: center;
+  position: relative;
+  top: 9em;
 }
 
-
-.album-thumbs{
-	width: 343px;
-	height: 146px;
+.upload-font2 {
+  font-size: 10px;
+  color: #828282;
+  text-align: center;
+  position: relative;
+  top: 8em;
 }
 
-.view-all{
-	margin-left: 17em;
-	margin-top: -2em;
+.desc {
+  width: 343px;
+  height: 84px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #c4c4c4;
+  box-sizing: border-box;
+  margin-top: 24px;
 }
 
-.tag-circle{
-	width: 28px;
-	height:28px;
-	background-color: #922aff;
-	border-radius: 50%;
-	text-align: center;
-	left: 20.5em;
-	margin-top: -3em;
-	position: fixed;
+.desc-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
+
+  margin-top: 5px;
+  margin-left: 15px;
+  color: #a0a3bd;
 }
 
-#tag{
-	margin-left: -2px;
-	margin-top: 4px;
-	height: 20px;
-	width: 20px;
+.add-album {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-top: 15px;
 }
 
-#upload{
-	display: block;
-	position: fixed;
-margin-left: 140.5px;
-margin-top: 20px;
-width: 62px;
-height: 62px;
+.album-addition {
+  width: 146px;
+  height: 146px;
+  background-color: #eff0f7;
+  border-radius: 10px;
 }
 
-.upload-font1{
-	font-family: Poppins;
-	font-size: 10px;
-	color: #000000;
-	text-align: center;
-	position: relative;
-	top: 9em;
+#plus {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: block;
+  margin: auto;
+  top: 48px;
 }
 
-.upload-font2{
-	font-family: Poppins;
-	font-size: 10px;
-	color: #828282;
-	text-align: center;
-	position: relative;
-	top: 8em;
+// .album-tag {
+// }
+
+.button {
+  background-color: #922aff;
+  border-radius: 10px;
+  width: 221px;
+  height: 55px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
 }
 
+.button-text {
+  color: white;
+  text-align: center;
+  text-decoration: none;
 
-.desc{
-	width: 343px;
-	height: 84px;
-	background-color: #ffffff;
-	border-radius: 10px;
-	border: 1px solid #C4C4C4;
-	box-sizing: border-box;
-	margin-top: 24px;
+  position: relative;
+  display: block;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15px;
 }
 
-.desc-text{
-font-family: Rubik;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 28px;
-letter-spacing: 0px;
-text-align: left;
+.gray-out {
+  z-index: 8000;
 
-margin-top: 5px;
-margin-left: 15px;
-color: #A0A3BD;
-}
-
-
-.add-album{
-font-family: Rubik;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 26px;
-letter-spacing: 0px;
-text-align: left;
-margin-top: 15px;
-}
-
-.album-addition{
-	width: 146px;
-	height: 146px;
-	background-color: #EFF0F7;
-	border-radius: 10px;
-}
-
-#plus{
-	width: 40px;
-	height: 40px;
-	position: relative;
-	display: block;
-    margin: auto;
-	top: 48px;
-}
-
-.album-tag{
-
-}
-
-.button{
-	background-color: #922AFF;
-	border-radius: 10px;
-	width: 221px;
-	height: 55px;
-
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 70px;
-}
-
-.button-text{
-	color: white;
-	text-align: center;
-	text-decoration: none;
-
-	position: relative;
-	display: block;
-font-family: Rubik;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0px;
-margin-left: auto;
-	margin-right: auto;
-top: 15px;
-}
-
-.gray-out{
-z-index: 8000;
-
-  background-color: #6E7191;
+  background-color: #6e7191;
   opacity: 0.8;
-  position:absolute;
-  top:0px;
-  right:0px;
-  bottom:0px;
-  left:0px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }
 
-.popup{
+.popup {
   z-index: 9000;
   background-color: #ffffff;
-  position:absolute;
+  position: absolute;
   width: 328px;
   height: 480px;
   left: 24px;
@@ -374,35 +182,29 @@ z-index: 8000;
   border-radius: 10px;
 }
 
-.popup-title{
+.popup-title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-align: left;
 
-font-family: Rubik;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: 32px;
-letter-spacing: 0px;
-text-align: left;
-
-margin-left: 28px;
+  margin-left: 28px;
 }
 
-.popup-subtitle{
-
-font-family: Rubik;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: 24px;
-letter-spacing: 0px;
-text-align: center;
-color: #6E7191;
-margin-top: -16px;
-
+.popup-subtitle {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: #6e7191;
+  margin-top: -16px;
 }
 
-
-#exit{
+#exit {
   z-index: 9000;
 
   height: 20px;
@@ -411,10 +213,10 @@ margin-top: -16px;
   margin-left: 5.5px;
 }
 
-.exit-circle{
+.exit-circle {
   z-index: 9000;
 
-  background-color: #922AFF;
+  background-color: #922aff;
   border-radius: 50%;
   height: 32px;
   width: 32px;
@@ -424,15 +226,15 @@ margin-top: -16px;
   margin-left: 17.75em;
 }
 
-.popup-button{
-z-index: 9000;
+.popup-button {
+  z-index: 9000;
 
-	background-color: #922AFF;
-	border-radius: 10px;
-	width: 221px;
-	height: 55px;
+  background-color: #922aff;
+  border-radius: 10px;
+  width: 221px;
+  height: 55px;
 
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 315px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 315px;
 }
