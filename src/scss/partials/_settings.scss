@@ -6,8 +6,8 @@ hr.solid {
     border-top: 1px solid;
     color: $purple-dark;
     opacity: 0.08;
-    width: 320px;
-    left: 30px;
+    margin: 0 30px;
+    padding: 0 20px;
   }
 .mobile-text-small { 
     font: $mobile-text-small;
@@ -81,4 +81,54 @@ hr.solid {
   
   .slider.round:before {
     border-radius: 50%;
+  }
+
+  .header {
+    margin: 40px 0 0 50px;
+    display: block;
+  }
+
+  .next { 
+    float: right;
+    margin: 0 30px 10px 0;
+  }
+
+  .section { 
+    margin: 0 35px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 90px;
+    align-items: center;
+  }
+  .privacy-section { 
+    margin: 0 50px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    height: 50px;
+    align-items: center;
+  }
+  .section > .left { 
+    flex: 2 0 20px;
+    justify-content: flex-start;
+  }
+  .section > .right { 
+    justify-content: flex-end;
+    flex: 1 0 20px;
+    margin-top: 5px;
+  }
+  .privacy-section > .left { 
+    flex: 2 0 20px;
+    justify-content: flex-start;
+  }
+  .privacy-section > .right { 
+    justify-content: flex-end;
+    margin-top: 5px;
+  }
+  .heading { 
+    margin-left: 16px;
+    width: 200px;
   }

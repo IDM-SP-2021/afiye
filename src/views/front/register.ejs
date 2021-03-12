@@ -1,0 +1,63 @@
+<%- include('../partials/front-header') %>
+
+<main>
+  <h1>Sign Up</h1>
+
+  <%- include ('../partials/messages') %>
+
+  <form action="/register" method="post">
+    <div class="input-container">
+      <label for="name">First Name</label>
+      <input
+        class="input"
+        type="name"
+        name="firstName"
+        placeholder="Enter Name"
+        value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+      />
+    </div>
+    <div class="input-container">
+      <label for="name">Last Name</label>
+      <input
+        class="input"
+        type="name"
+        name="lastName"
+        placeholder="Enter Name"
+        value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
+      />
+    </div>
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input
+        class="input"
+        type="email"
+        name="email"
+        placeholder="Enter Email"
+        value="<%= typeof email != 'undefined' ? email : '' %>"
+      />
+    </div>
+    <div class="input-container">
+      <label for="password">Password</label>
+      <input
+        class="input"
+        type="password"
+        name="password"
+        placeholder="Create Password"
+        value="<%= typeof password != 'undefined' ? password : '' %>"
+      />
+    </div>
+    <div class="input-container">
+      <label for="password2">Confirm Password</label>
+      <input
+        class="input"
+        type="password"
+        name="password2"
+        placeholder="Confirm Password"
+        value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+      />
+    </div>
+    <button type="submit" class="button primary">Register</button>
+  </form>
+
+  <p>Already have an account? <a href="/login">Login</a></p>
+</main>

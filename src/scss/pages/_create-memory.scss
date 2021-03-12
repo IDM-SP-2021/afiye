@@ -1,0 +1,249 @@
+@media only screen and (min-width: 343px) {
+  .memory-section {
+    width: 343px;
+    height: 145px;
+    margin-top: 4em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tag-circle {
+    width: 28px;
+    height: 28px;
+    background-color: #922aff;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 19.5em;
+    margin-top: -3em;
+    position: absolute;
+  }
+
+  .add-album {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0px;
+    text-align: left;
+    margin-top: 15px;
+  }
+
+  .memory-upload {
+    width: 343px;
+    height: 132px;
+    background-color: #eff0f6;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .memory-create {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 4em;
+    margin-left: -5em;
+    text-align: center;
+  }
+
+  #upload {
+    display: block;
+    position: absolute;
+    margin-left: 140.5px;
+    margin-top: 20px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .desc {
+    width: 343px;
+    height: 84px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+    margin-top: 24px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .memory-section {
+    width: 691px;
+    height: 145px;
+    margin-top: 5em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tag-circle {
+    width: 28px;
+    height: 28px;
+    background-color: #922aff;
+    border-radius: 50%;
+    text-align: center;
+    margin-left: 41em;
+    margin-top: -3em;
+    position: relative;
+  }
+
+  .add-album {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 26px;
+    letter-spacing: 0px;
+    text-align: center;
+    margin-top: 15px;
+    margin-left: -12em;
+  }
+
+  .memory-upload {
+    width: 691px;
+    height: 132px;
+    background-color: #eff0f6;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .memory-create {
+    font-weight: bold;
+    font-size: 24px;
+    margin-top: 4em;
+    margin-left: -19em;
+    text-align: center;
+  }
+
+  #upload {
+    display: block;
+    position: absolute;
+    margin-left: 315px;
+    margin-top: 20px;
+    width: 62px;
+    height: 62px;
+  }
+
+  .desc {
+    width: 691px;
+    height: 84px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+    margin-top: 24px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  // .add-album {
+  //   font-size: 14px;
+  //   font-style: normal;
+  //   font-weight: 500;
+  //   line-height: 26px;
+  //   letter-spacing: 0px;
+  //   text-align: left;
+  //   margin-top: 15px;
+  //   margin-left: 0px;
+  // }
+}
+
+.albums-section {
+  width: 343px;
+  height: 248px;
+  margin-top: 0em;
+  margin-left: -0.75em;
+}
+
+.album-thumbs {
+  width: 343px;
+  height: 146px;
+}
+
+.view-all {
+  margin-left: 17em;
+  margin-top: -2em;
+}
+
+#tag {
+  margin-left: -2px;
+  margin-top: 4px;
+  height: 20px;
+  width: 20px;
+}
+
+.upload-font1 {
+  font-size: 10px;
+  color: #000000;
+  text-align: center;
+  position: relative;
+  top: 9em;
+}
+
+.upload-font2 {
+  font-size: 10px;
+  color: #828282;
+  text-align: center;
+  position: relative;
+  top: 8em;
+}
+
+.desc-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
+
+  margin-top: 5px;
+  margin-left: 15px;
+  color: #a0a3bd;
+}
+
+.album-addition {
+  width: 146px;
+  height: 146px;
+  background-color: #eff0f7;
+  border-radius: 10px;
+}
+
+#plus {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  display: block;
+  margin: auto;
+  top: 48px;
+}
+
+// .album-tag {
+// }
+
+.button {
+  background-color: #922aff;
+  border-radius: 10px;
+  width: 221px;
+  height: 55px;
+
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 70px;
+}
+
+.button-text {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+
+  position: relative;
+  display: block;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  top: 15px;
+}

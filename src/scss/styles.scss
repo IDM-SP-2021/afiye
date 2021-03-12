@@ -4,7 +4,6 @@
 @import "./foundation/_fonts";
 @import "./foundation/_icons";
 
-
 @import "./partials/_base";
 @import "./partials/_button";
 @import "./partials/_checkbox";
@@ -20,9 +19,18 @@
 @import "./partials/_posts";
 @import "./partials/_search";
 @import "./partials/_onboarding";
+@import "./partials/_graph";
+@import "./partials/_tree";
+@import "./partials/_modal";
+@import "./partials/_memberList";
 
 @import "./pages/_promo-index";
 @import "./pages/_promo-presskit";
 @import "./pages/_promo-team";
 @import "./pages/_onboarding";
 @import "./pages/promo-case-study";
+@import "./pages/_family-confirm";
+@import "./pages/_create-album";
+@import "./pages/_create-memory";
+@import "./pages/_create-profile";
+@import "./pages/_create-memory-tag";
