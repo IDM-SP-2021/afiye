@@ -1,243 +1,250 @@
-#full-name {
-  padding: 0 1.5em 0.5em;
-  border-bottom: 2px solid $body;
-  display: inline-block;
+#profile-setup {
+  #full-name {
+    padding: 0 1.5em 0.5em;
+    border-bottom: 2px solid $body;
+    display: inline-block;
 
-  + p {
-    margin-top: 0;
-    margin-bottom: 2em;
+    + p {
+      margin-top: 0;
+      margin-bottom: 2em;
+    }
   }
-}
 
-#profile-color-select {
-  border: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 16.625em;
-  margin: 1em 0;
+  .input-container {
+    margin: 0 auto 2rem;
+  }
 
-  .check-container {
-    position: relative;
+  #profile-color-select {
+    border: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 16.625em;
+    margin: 1em auto;
 
-    input[type="radio"] {
-      position: absolute;
-      left: 0;
-      opacity: 0;
+    .check-container {
+      position: relative;
 
-      &:not(:checked) {
-        + label {
-          width: 3em;
+      input[type="radio"] {
+        position: absolute;
+        left: 0;
+        opacity: 0;
 
-          span {
-            visibility: hidden;
-          }
-
-          &:before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
+        &:not(:checked) {
+          + label {
             width: 3em;
-            height: 3em;
-            border-radius: 1.5em;
-          }
 
-          &:after {
-            content: "";
-            position: absolute;
-            width: 2.25em;
-            height: 2.25em;
-            top: 0.375em;
-            left: 0.375em;
-            border-radius: 1.125em;
-            background: $input-background;
-          }
-
-          &[for="color-pink"] {
-            &:after {
-              background: $profile-pink;
+            span {
+              visibility: hidden;
             }
-          }
 
-          &[for="color-magenta"] {
-            &:after {
-              background: $profile-magenta;
+            &:before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 3em;
+              height: 3em;
+              border-radius: 1.5em;
             }
-          }
 
-          &[for="color-red"] {
             &:after {
-              background: $profile-red;
+              content: "";
+              position: absolute;
+              width: 2.25em;
+              height: 2.25em;
+              top: 0.375em;
+              left: 0.375em;
+              border-radius: 1.125em;
+              background: $input-background;
             }
-          }
 
-          &[for="color-orange"] {
-            &:after {
-              background: $profile-orange;
+            &[for="color-pink"] {
+              &:after {
+                background: $profile-pink;
+              }
             }
-          }
 
-          &[for="color-yellow"] {
-            &:after {
-              background: $profile-yellow;
+            &[for="color-magenta"] {
+              &:after {
+                background: $profile-magenta;
+              }
             }
-          }
 
-          &[for="color-green"] {
-            &:after {
-              background: $profile-green;
+            &[for="color-red"] {
+              &:after {
+                background: $profile-red;
+              }
             }
-          }
 
-          &[for="color-teal"] {
-            &:after {
-              background: $profile-teal;
+            &[for="color-orange"] {
+              &:after {
+                background: $profile-orange;
+              }
             }
-          }
 
-          &[for="color-light-blue"] {
-            &:after {
-              background: $profile-light-blue;
+            &[for="color-yellow"] {
+              &:after {
+                background: $profile-yellow;
+              }
             }
-          }
 
-          &[for="color-dark-blue"] {
-            &:after {
-              background: $profile-dark-blue;
+            &[for="color-green"] {
+              &:after {
+                background: $profile-green;
+              }
             }
-          }
 
-          &[for="color-purple"] {
-            &:after {
-              background: $profile-purple;
+            &[for="color-teal"] {
+              &:after {
+                background: $profile-teal;
+              }
             }
-          }
 
-          &[for="color-brown"] {
-            &:after {
-              background: $profile-brown;
+            &[for="color-light-blue"] {
+              &:after {
+                background: $profile-light-blue;
+              }
             }
-          }
 
-          &[for="color-gray"] {
-            &:after {
-              background: $profile-gray;
+            &[for="color-dark-blue"] {
+              &:after {
+                background: $profile-dark-blue;
+              }
             }
-          }
 
-          &[for="color-black"] {
-            &:after {
-              background: $profile-black;
+            &[for="color-purple"] {
+              &:after {
+                background: $profile-purple;
+              }
+            }
+
+            &[for="color-brown"] {
+              &:after {
+                background: $profile-brown;
+              }
+            }
+
+            &[for="color-gray"] {
+              &:after {
+                background: $profile-gray;
+              }
+            }
+
+            &[for="color-black"] {
+              &:after {
+                background: $profile-black;
+              }
             }
           }
         }
-      }
 
-      &:checked {
-        @extend :not(:checked);
+        &:checked {
+          @extend :not(:checked);
 
-        + label {
-          &[for="color-pink"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-pink;
+          + label {
+            &[for="color-pink"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-pink;
+              }
             }
-          }
 
-          &[for="color-magenta"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-magenta;
+            &[for="color-magenta"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-magenta;
+              }
             }
-          }
 
-          &[for="color-red"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-red;
+            &[for="color-red"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-red;
+              }
             }
-          }
 
-          &[for="color-orange"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-orange;
+            &[for="color-orange"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-orange;
+              }
             }
-          }
 
-          &[for="color-yellow"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-yellow;
+            &[for="color-yellow"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-yellow;
+              }
             }
-          }
 
-          &[for="color-green"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-green;
+            &[for="color-green"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-green;
+              }
             }
-          }
 
-          &[for="color-teal"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-teal;
+            &[for="color-teal"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-teal;
+              }
             }
-          }
 
-          &[for="color-light-blue"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-light-blue;
+            &[for="color-light-blue"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-light-blue;
+              }
             }
-          }
 
-          &[for="color-dark-blue"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-dark-blue;
+            &[for="color-dark-blue"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-dark-blue;
+              }
             }
-          }
 
-          &[for="color-purple"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-purple;
+            &[for="color-purple"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-purple;
+              }
             }
-          }
 
-          &[for="color-brown"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-brown;
+            &[for="color-brown"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-brown;
+              }
             }
-          }
 
-          &[for="color-gray"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-gray;
+            &[for="color-gray"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-gray;
+              }
             }
-          }
 
-          &[for="color-black"] {
-            &:before {
-              box-shadow: inset 0 0 0 3px $profile-black;
+            &[for="color-black"] {
+              &:before {
+                box-shadow: inset 0 0 0 3px $profile-black;
+              }
             }
           }
         }
       }
     }
   }
-}
 
-button#open-profile {
-  display: block;
-  width: 7.75em;
-  height: 7.75em;
-  padding: 0;
-  background: center / 50% no-repeat url("../assets/icons/user.svg");
-  background-color: $placeholder;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  overflow: hidden;
-
-  img {
+  button#open-profile {
     display: block;
-    width: 100%;
-    // height: 100%;
-    border: 0;
-    outline: 0;
+    width: 7.75em;
+    height: 7.75em;
+    padding: 0;
+    margin: 0 auto 2rem;
+    background: center / 50% no-repeat url("../assets/icons/user.svg");
+    background-color: $placeholder;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      // height: 100%;
+      border: 0;
+      outline: 0;
+    }
   }
 }

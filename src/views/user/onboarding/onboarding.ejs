@@ -1,37 +1,32 @@
-<%- include('../../partials/user-header') %>
+<main class="container">
+  <section class="image">
+    <img src="../assets/imgs/mktree-1.png" alt="" />
+  </section>
 
+  <h2 id="h2-ob1">Are you...</h2>
 
-<main>
-	<h2 id="h2-ob1">Welcome to afiye.</h1>
-
-	<form id="mode-select" action="/account/welcome" method="post">
-		<h2>Are you...</h2>
-		<div class="check-container">
-			<input
-				class="radio"
-				type="radio"
-				name="mode"
-				id="make-a-tree"
-				value="make-a-tree"
-			/>
-			<label for="make-a-tree">Making a Tree</label>
-		</div>
-		<div class="check-container" title="Feature coming soon">
-			<input
-				class="radio"
-				type="radio"
-				name="mode"
-				id="join-a-tree"
-				value="join-a-treek"
-				disabled
-			/>
-			<label for="make-a-tree">Joining a Tree</label>
-		</div>
-		<input class="button primary" type="submit" value="Next" disabled />
-	</form>
+  <form id="mode-select" action="/account/welcome" method="post">
+    <section class="choices">
+      <div class="making">
+        <input type="radio" name="mode" id="make-a-tree" value="make-a-tree" />
+        <label for="make-a-tree">Making a Tree</label>
+      </div>
+      <div class="joining" title="Feature coming soon">
+        <input
+          type="radio"
+          name="mode"
+          id="join-a-tree"
+          value="join-a-tree"
+          style="background-image: url(../assets/imgs/jointree.png) !important"
+          disabled
+        />
+        <label for="make-a-tree">Joining a Tree</label>
+      </div>
+    </section>
+    <input class="button primary" type="submit" value="Next" disabled />
+  </form>
 </main>
 
-<%- include('../../partials/user-mobile-nav') %>
 <div class="footer-box">
-    <p class="footer-title">© afiye 2020</p>
+  <p class="footer-title">© afiye 2020</p>
 </div>

@@ -160,7 +160,7 @@ const getNode = (node) => {
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
-
+  console.log(person);
   return session
     .run(
       `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
@@ -174,7 +174,7 @@ const initFamily = (person) => {
         gender: '${person.gender}',
         location: '${person.location}',
         profileColor: '${person.profileColor}',
-        avatar: '${person.avatar},
+        avatar: '${person.avatar}',
         claimed: ${person.claimed},
         created:${Date.now()}
       }),

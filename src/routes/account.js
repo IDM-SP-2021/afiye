@@ -13,6 +13,7 @@ const multer = require('multer');
 const fileUpload = multer();
 const _ = require('lodash');
 
+// Upload to Cloudinar
 function upload(file, folder) {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
@@ -33,6 +34,13 @@ function upload(file, folder) {
 
     streamifier.createReadStream(file.buffer).pipe(stream);
   });
+}
+
+// Calculate rounded time distance
+function timeDiff(start) {
+  const millis = Date.now() - start;
+  let diff = Math.floor(millis/1000);
+  return diff;
 }
 
 // * user onboarding
@@ -61,10 +69,11 @@ router.get('/welcome-make', ensureAuthenticated, (req, res) => {
     user: req.user
   };
 
+  // res.render(path.resolve(__dirname, '../views/user/onboarding/createprofile'), locals);
   res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
 });
 
-router.post('/welcome-make', ensureAuthenticated, (req, res) => {
+router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
   const { prefName, birthdate, gender, location, profileColor } = req.body;
   const user = req.user;
   const fid = 'f' + nanoid();
@@ -155,12 +164,9 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           let postData = [];
           posts.forEach(post => {
             const ownerData = _.find(result, {'uid': post.owner});
-            const start = post.date;
-            const millis = Date.now() - start;
-            let timeDiff = Math.floor(millis/1000);
-            postData.push({ownerData, timeDiff, post});
+            let timeStamp = timeDiff(post.date);
+            postData.push({ownerData, timeStamp, post});
           });
-          console.log(postData);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
@@ -189,15 +195,17 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
     } else {
       api.getNode(post.owner)
         .then((result) => {
+          let timeStamp = timeDiff(post.date);
           let locals = {
             title: 'Afiye - Post',
             user: req.user,
             data: {
               postOwner: result,
+              timeStamp,
               post
             }
           };
-
+          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }
@@ -287,16 +295,6 @@ router.get('/pcok', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/onboarding/pcok'), locals);
-});
-
-// Choosing between making or joining a tree
-router.get('/choice', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tagged',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/onboarding/choice'), locals);
 });
 
 // joining tree
