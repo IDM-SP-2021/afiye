@@ -266,6 +266,29 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
   }
 });
 
+router.get('/add-album', ensureAuthenticated, (req, res) => {
+  Post.find({family: req.user.fid, owner: req.user.fid}).exec((err, posts) => {
+    api.getFamily(req.user)
+      .then((result) => {
+        let postData = [];
+        posts.forEach(post => {
+          const ownerData = _.find(result, {'uid': post.owner});
+            let timeStamp = timeDiff(post.date);
+            postData.push({ownerData, timeStamp, post});
+        });
+        let locals = {
+          title: 'Afiye - Create Album',
+          user: req.user,
+          data: {
+            family: result,
+            postData
+          }
+        };
+        res.render(path.resolve(__dirname, '../views/user/feed/add-album'), locals);
+      });
+  });
+});
+
 // modal
 // user post
 router.get('/modal', ensureAuthenticated, (req, res) => {
