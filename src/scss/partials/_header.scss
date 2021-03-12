@@ -119,6 +119,7 @@ header {
 			transition: transform 0.3s ease-in-out;
 			box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
 			padding: 0 2em;
+			z-index: 100;
 
 			.nav-link {
 				padding: 1em;

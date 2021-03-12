@@ -330,4 +330,12 @@ router.get('/verify/:uid-:token', (req, res) => {
   }
 });
 
+router.get('/downloads/:file-:ext', (req, res) => {
+  let file = req.params.file,
+      ext = req.params.ext,
+      path = `../assets/downloads/${file}.${ext}`;
+
+  res.download(__dirname, path);
+});
+
 module.exports = router;
