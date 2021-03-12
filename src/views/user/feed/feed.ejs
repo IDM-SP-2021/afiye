@@ -19,13 +19,12 @@
         </div>
 
         <!-- buttons -->
-        <div class="buttons">
-            <button class="button primary icon accessibility"></button>
-            <a
-              href="/account/add-post"
-              id="add-post"
-              class="button primary icon upload"
-            ></a>
+        <div id="add-post-control" class="buttons">
+            <button class="button primary icon plus"></button>
+            <div id="add-options" class="hidden">
+              <a href="/account/add-post" id="add-post" class="add-option">Create a New Memory</a>
+              <a href="/account/add-album" id="add-post" class="add-option">Creaet a New Album</a>
+            </div>
         </div>
     </div>
 
@@ -34,7 +33,7 @@
 
 <div class="post-container">
   <% if (data.postData.length === 0) { %>
-    <div id="no-posts">
+    <div id="no-posts" class="afiye-posts">
       <h2>Hmm... It doesn't look like you or your family have shared any memories yet.
       </h2>
       <a href="/account/add-post">Create a memory and share it with your family!</a>

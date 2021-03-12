@@ -27,6 +27,10 @@ $('input[name=mode]').on('click', () => {
   $('#mode-select input[type=submit]').removeAttr('disabled');
 });
 
+// Feed
+$('#add-post-control .button').on('click', () => {
+  $('#add-options').toggleClass('hidden');
+});
 
 // modals
 $('.modal-inner button.cross').on('click', (event) => {
