@@ -111,3 +111,5 @@ dist/
 
 # VS Code
 .vscode/
+
+*.lnk
