@@ -1,0 +1,49 @@
+<%- include('../../partials/user-header') %>
+<div class="create-new-post">
+    <!-- profile img -->
+        <div class="imgname">
+
+            <div class="story">
+                <img src="https://picsum.photos/45/45?random=1" alt="">
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40"/>
+                </svg>
+            </div>
+
+            <!-- username -->
+            <div>
+                <h2 style="margin: 0; font-weight: 400;"><%- user.firstName %> <%- user.lastName %> </h2>
+                <span style="font-size: 12px; font-weight: 400;">That's you!</span>
+            </div>
+
+        </div>
+
+        <!-- buttons -->
+        <div class="buttons">
+            <button class="button primary icon accessibility"></button>
+            <a
+              href="/account/add-post"
+              id="add-post"
+              class="button primary icon upload"
+            ></a>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="post-container">
+  <% if (data.postData.length === 0) { %>
+    <div id="no-posts">
+      <h2>Hmm... It doesn't look like you or your family have shared any memories yet.
+      </h2>
+      <a href="/account/add-post">Create a memory and share it with your family!</a>
+    </div>
+  <% } else { data.postData.forEach(post => { %>
+  <%- include('../../partials/feed-post', {post: post}) %>
+  <% })} %>
+</div>
+<div class="footer-box">
+    <p class="footer-title">© afiye 2020</p>
+</div>
+<%- include('../../partials/user-mobile-nav') %>

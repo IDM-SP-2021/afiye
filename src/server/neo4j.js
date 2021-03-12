@@ -38,12 +38,16 @@ const getData = (user) => {
     results.records.forEach(res => {
       let person = res.get('p'),
           id = person.identity.low.toString(),
+          uid = person.properties.uid,
+          fid = person.properties.fid,
           firstName = person.properties.firstName,
           prefName = person.properties.prefName,
           lastName = person.properties.lastName,
           gender = person.properties.gender,
           birthdate = person.properties.birthdate,
-          member = {id, firstName, prefName, lastName, gender, birthdate},
+          avatar = person.properties.avatar,
+          profileColor = person.properties.profileColor,
+          member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor},
           relType = res.get('rel_type'),
           source = res.get('src_id'),
           target = res.get('tar_id');
@@ -83,15 +87,25 @@ const getFamily = (user) => {
     let family = [];
 
     results.records.forEach(res => {
+
       let person = res.get('p'),
           id = person.identity.low.toString(),
           props = person.properties,
+          uid = props.uid,
+          fid = props.fid,
           firstName = props.firstName,
           prefName = props.prefName,
           lastName = props.lastName,
           gender = props.gender,
           birthdate = props.birthdate,
-          member = {id, firstName, prefName, lastName, gender, birthdate};
+          avatar = props.avatar,
+          profileColor = props.profileColor;
+
+      if (avatar === undefined) {
+        avatar = '../assets/icons/user.svg';
+      }
+
+      let member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
 
       family.push(member);
     });
@@ -106,10 +120,47 @@ const getFamily = (user) => {
   });
 };
 
+const getNode = (node) => {
+  let session = driver.session();
+
+  return session
+    .run(
+      `MATCH (p:Person {uid:'${node}'}) RETURN p`
+    )
+    .then(results => {
+      let result;
+
+      results.records.forEach(res => {
+        let node = res.get('p'),
+            id = node.identity.low.toString(),
+            props = node.properties,
+            uid = props.uid,
+            fid = props.fid,
+            firstName = props.firstName,
+            prefName = props.prefName,
+            lastName = props.lastName,
+            gender = props.gender,
+            birthdate = props.birthdate,
+            avatar = props.avatar,
+            profileColor = props.profileColor,
+            person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
+        result = person;
+      });
+      console.log(result);
+      return result;
+    })
+    .catch(err => {
+      throw err;
+    })
+    .finally(() => {
+      return session.close();
+    });
+};
+
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
-
+  console.log(person);
   return session
     .run(
       `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
@@ -123,6 +174,8 @@ const initFamily = (person) => {
         gender: '${person.gender}',
         location: '${person.location}',
         profileColor: '${person.profileColor}',
+        avatar: '${person.avatar}',
+        claimed: ${person.claimed},
         created:${Date.now()}
       }),
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
@@ -201,7 +254,7 @@ const simplifyPath = (path) => {
 
 // POST /account/add-member
 const addMember = (person) => {
-  let { uid, fid, firstName, prefName, lastName, birthdate, gender, location, profileColor, relation, relReciprocal, related } = person;
+  let { uid, fid, firstName, prefName, lastName, birthdate, gender, location, profileColor, relation, relReciprocal, related, avatar, claimed } = person;
   related = Number(related, 10);
 
   let session = driver.session();
@@ -218,6 +271,8 @@ const addMember = (person) => {
         gender: '${gender}',
         location: '${location}',
         profileColor: '${profileColor}',
+        avatar: '${avatar}',
+        claimed: ${claimed},
         created:${Date.now()}
       })
       WITH ${uid}
@@ -292,4 +347,5 @@ module.exports = {
   getFamily: getFamily,
   initFamily: initFamily,
   addMember: addMember,
+  getNode: getNode,
 };

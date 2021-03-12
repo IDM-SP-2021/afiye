@@ -1,0 +1,46 @@
+<div class="full-height">
+  <%- include('../../partials/user-header') %>
+
+  <div id="graph-container" class="full-height-content">
+    <div id="graph"></div>
+    <a href="/account/tree-tutorial-1" id="tree-tutorial" class="button primary"
+      >Tutorial
+    </a>
+
+    <a
+      href="/account/add-member"
+      id="add-member"
+      class="button primary icon plus"
+    ></a>
+  </div>
+
+  <div id="family-container">
+    <div id="inner-container">
+      <input
+        class="input"
+        id="family-search"
+        type="search"
+        name="family-search"
+        placeholder="Search"
+      />
+      <h2>Family Members</h2>
+      <div id="family-list">
+        <ul>
+          <% data.graph.nodes.forEach(member => { %>
+          <li><%- member.firstName %> <%- member.lastName %></li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+    <div id="container-toggle"><span class="bar"></span></div>
+  </div>
+
+  <%- include('../../partials/user-mobile-nav') %>
+</div>
+
+<script type="text/javascript">
+  const data = <%- JSON.stringify(data) %>;
+</script>
+<script src="../js/tree.bundle.js"></script>
+<script src="../js/runtime~tree.bundle.js"></script>
+<script src="../js/vendors~tree.bundle.js"></script>
