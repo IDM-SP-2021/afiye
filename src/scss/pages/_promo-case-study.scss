@@ -1,0 +1,44 @@
+#caseStudy-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+        #caseStudy-header {
+            text-align: center;
+        }
+
+        #comingsoon-img {
+            width: 23rem;
+        }
+}
+
+@include tablet {
+
+    #caseStudy-container {
+    
+            #caseStudy-header {
+                font: $desktop-display-medium-bold;
+            }
+    
+            #comingsoon-img {
+                width: 44rem;
+            }
+    }    
+}
+
+@include desktop {
+
+    #caseStudy-container {
+        flex-direction: row;
+        justify-content: center;
+        gap: 10rem;
+    
+        #caseStudy-header {
+            font: $desktop-display-large-bold;
+        }
+
+        #comingsoon-img {
+            width: 52.75rem;
+        }
+} 
+}

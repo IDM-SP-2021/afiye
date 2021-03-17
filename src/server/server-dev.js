@@ -7,7 +7,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
 import webpack from 'webpack';
-// import nodemailer from 'nodemailer';
+import bodyParser from 'body-parser';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import config from '../../webpack/webpack.dev.js';
 
@@ -21,7 +21,7 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 }));
 
-//mongoose
+// mongoose
 mongoose.connect(process.env.MONGO_HOST,
   {
     useNewUrlParser: true,
@@ -38,6 +38,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 //EJS
 app.set('view engine','ejs');
 app.use(expressEjsLayout);
+
 //BodyParser
 app.use(express.urlencoded({extended : false}));
 
@@ -66,6 +67,10 @@ app.set('layout', path.resolve(__dirname, '../views/layout'));
 app.use('/', require('../routes/index'));
 app.use('/account',require('../routes/account'));
 // app.use('/email',require('../routes/email'));
+
+// body parser config
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

@@ -10,6 +10,7 @@ body {
   margin: 0;
   color: $body;
   overflow-x: hidden;
+  background: #f0f0f0;
 }
 
 main {
@@ -28,4 +29,12 @@ a {
 
 .center-header{
   text-align: center;
+.hidden {
+  visibility: hidden;
+}
+
+.caption {
+  color: $placeholder;
+  font: $mobile-text-x-small;
+  padding-top: 5px;
 }
