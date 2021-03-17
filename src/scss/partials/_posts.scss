@@ -194,13 +194,6 @@ div.imgmore .img3 img {
   width: 100%;
   height: 100%;
 }
-// .post-container, {
-//     // width: 377px;
-//     // padding-top: 1rem;
-
-//    }
-
-// .img {}
 
 div.img img {
   width: 95%;
@@ -209,9 +202,69 @@ div.img img {
   border-radius: 10px;
 }
 
-// div.timestamp {
-//     margin-left: 54px !important;
-// }
+#user-posts {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  padding: 0 .5rem;
+
+  .post-option {
+    width: 10rem;
+    margin: 0 .5rem;
+    position: relative;
+
+    label {
+      cursor: pointer;
+      height: 100%;
+      display: inline-block;
+      border-radius: 10px;
+      transition: background-color .1s ease-in-out, color .1s ease-in-out;
+
+      .post-img {
+        width: 10rem;
+        height: 10rem;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .post-title {
+        font: $mobile-text-medium;
+        color: $title-active;
+        margin: .5rem;
+        transition: inherit;
+      }
+
+      p {
+        font: $mobile-text-small;
+        margin: 0 .5rem .5rem;
+      }
+    }
+
+    input[type="checkbox"] {
+      height: 1px;
+      width: 1px;
+      opacity: 0;
+      position: absolute;
+
+      &:hover {
+        + label {
+          background-color: $input-background;
+        }
+      }
+
+      &:checked {
+        + label {
+          background-color: $purple-default;
+          color: #fff !important;
+
+          .post-title {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+}
 
 @include tablet {
   .description {

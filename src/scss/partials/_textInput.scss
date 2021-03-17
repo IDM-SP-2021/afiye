@@ -13,6 +13,7 @@
   max-width: 325px !important
 ;
 }
+
 input {
   display: block;
   border: 1.5px solid #eff0f6;
@@ -26,6 +27,10 @@ input {
   -ms-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+textarea {
+  @extend input;
 }
 
 // Left Icon

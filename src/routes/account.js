@@ -4,6 +4,7 @@ const router = express.Router();
 const {ensureAuthenticated} = require('../server/config/auth.js');
 const User = require('../models/user.js');
 const Post = require('../models/post.js');
+const Album = require('../models/album.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
 const api = require('../server/neo4j.js');
@@ -38,9 +39,34 @@ function upload(file, folder) {
 
 // Calculate rounded time distance
 function timeDiff(start) {
-  const millis = Date.now() - start;
-  let diff = Math.floor(millis/1000);
-  return diff;
+  const sec = 1000,
+        min = sec*60,
+        hr = min*60,
+        day = hr*24,
+        mn = day*30,
+        yr = day*365;
+  let dMillis = Date.now() - start,
+      dSec = dMillis/sec,
+      dMin = dMillis/min,
+      dHr = dMillis/hr,
+      dDay = dMillis/day,
+      dMn = dMillis/mn,
+      dYr = dMillis/yr;
+  if (dYr > 1) {
+    return Math.floor(dYr) + ' year';
+  } else if (dMn > 1) {
+    return Math.floor(dMn) + ' month';
+  } else if (dDay > 1) {
+    return Math.floor(dDay) + ' day';
+  } else if (dHr > 1) {
+    return Math.floor(dHr) + ' hour';
+  } else if (dMin > 1) {
+    return Math.floor(dMin) + ' minute';
+  } else if (dSec > 1) {
+    return Math.floor(dSec) + ' second';
+  } else {
+    return 'Just Now';
+  }
 }
 
 // * user onboarding
@@ -216,11 +242,13 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
 router.get('/add-post', ensureAuthenticated, (req, res) => {
   api.getFamily(req.user)
     .then((result) => {
+      let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+
       let locals = {
         title: 'Afiye - Create Post',
         user: req.user,
         data: {
-          family: result,
+          family: familyMembers,
         }
       };
 
@@ -267,7 +295,7 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
 });
 
 router.get('/add-album', ensureAuthenticated, (req, res) => {
-  Post.find({family: req.user.fid, owner: req.user.fid}).exec((err, posts) => {
+  Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
     api.getFamily(req.user)
       .then((result) => {
         let postData = [];
@@ -276,15 +304,47 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
             let timeStamp = timeDiff(post.date);
             postData.push({ownerData, timeStamp, post});
         });
+
+        let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+
         let locals = {
           title: 'Afiye - Create Album',
           user: req.user,
           data: {
-            family: result,
+            family: familyMembers,
             postData
           }
         };
         res.render(path.resolve(__dirname, '../views/user/feed/add-album'), locals);
+      });
+  });
+});
+
+router.post('/add-album', ensureAuthenticated, (req, res) => {
+  console.log(req.body);
+  const {title, description, posts, tagged_family} = req.body;
+  const alid = 'al' + nanoid();
+
+  Post.findOne({family: req.user.fid, pid: posts[0]}).exec((err, post) => {
+    let newAlbum = new Album({
+      owner: req.user.uid,
+      family: req.user.fid,
+      alid,
+      title,
+      description,
+      cover: post.media[0],
+      posts,
+      tagged: tagged_family,
+    });
+
+    console.log(newAlbum);
+
+    newAlbum.save()
+      .then(() => {
+        console.log(newAlbum);
+        return res.redirect('/account/feed');
+      }).catch(error => {
+        return res.json(error);
       });
   });
 });
