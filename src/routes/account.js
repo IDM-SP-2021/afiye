@@ -222,9 +222,6 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
   let postFamily = req.params.family,
       postId = req.params.pid;
 
-  console.log('postFamily ', postFamily);
-  console.log('post id ', postId);
-
   Post.findOne({ family: postFamily, pid: postId}).exec((err, post) => {
     if (!post) {
       res.redirect('/account/feed');
@@ -302,6 +299,50 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
     console.log('err :', e);
     return e;
   }
+});
+
+router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
+  let albumFamily = req.params.family,
+      albumId = req.params.alid;
+
+  Album.findOne({ family: albumFamily, alid: albumId }).exec((err, album) => {
+    if(!album) {
+      res.redirect('/account/feed');
+    } else {
+      Post.find({
+        'pid': { $in: album.posts }
+      }).exec((err, posts) => {
+        api.getFamily(req.user)
+          .then((result) => {
+            let postData = [];
+
+            const ownerData = _.find(result, {'uid': album.owner}),
+                  timeStamp = timeDiff(album.date),
+                  albumData = {ownerData, timeStamp, album};
+
+            posts.forEach(item => {
+              const ownerData = _.find(result, {'uid': item.owner}),
+                    timeStamp = timeDiff(item.date),
+                    itemType = 'memory';
+              postData.push({ownerData, timeStamp, itemType, item});
+            });
+
+            let locals = {
+              title: 'Afiye - Album',
+              user: req.user,
+              data: {
+                family: result,
+                albumData,
+                postData
+              }
+            };
+            console.log('Album: ', locals.data.albumData);
+            console.log('Posts: ', locals.data.postData);
+            res.render(path.resolve(__dirname, '../views/user/feed/album'), locals);
+          });
+      });
+    }
+  });
 });
 
 router.get('/add-album', ensureAuthenticated, (req, res) => {

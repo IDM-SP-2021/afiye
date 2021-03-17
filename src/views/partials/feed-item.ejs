@@ -37,7 +37,15 @@
     <h3><%- item.item.title %></h3>
   </div>
 
-  <% if (item.itemType === 'memory') { %>
+  <% if (item.itemType === 'album') { %>
+  <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
+    <div class="post-media">
+      <div class="media-item">
+        <img src="<%- item.item.cover %>" />
+      </div>
+    </div>
+  </a>
+  <% } else { %>
   <!-- Post images -->
   <a href="/account/post-<%= item.item.family %>-<%= item.item.pid %>">
     <% if (item.item.media.length === 1 ) { %>
@@ -60,14 +68,6 @@
       <% } %>
     </div>
     <% } %>
-  </a>
-  <% } else { %>
-  <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
-    <div class="post-media">
-      <div class="media-item">
-        <img src="<%- item.item.cover %>" />
-      </div>
-    </div>
   </a>
   <% } %>
 </div>
