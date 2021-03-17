@@ -2,6 +2,7 @@
 
 #press-kit-container {
     margin: 0;
+    padding: 0;
 
     p {
         font: $mobile-text-small;
@@ -39,6 +40,7 @@
             position: absolute;
             top: -.000125rem;
             z-index: -10;
+        
         }
 
         .promo-heading {
@@ -143,5 +145,17 @@
             -webkit-background-clip: text;
             color: rgba(0, 0, 0, 0.09);
             
+    }
+}
+
+@include tablet {
+
+    #presskit-heading {
+
+        #hero {
+            width: 100%;
+            margin: 0 auto;
+            top: -10rem;
+        }
     }
 }
