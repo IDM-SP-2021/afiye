@@ -32,14 +32,14 @@
 
 
 <div class="post-container">
-  <% if (data.postData.length === 0) { %>
+  <% if (data.posts.length === 0) { %>
     <div id="no-posts" class="afiye-posts">
       <h2>Hmm... It doesn't look like you or your family have shared any memories yet.
       </h2>
       <a href="/account/add-post">Create a memory and share it with your family!</a>
     </div>
-  <% } else { data.postData.forEach(post => { %>
-  <%- include('../../partials/feed-post', {post: post}) %>
+  <% } else { data.posts.forEach(item => { %>
+    <%- include('../../partials/feed-item', {item: item}) %>
   <% })} %>
 </div>
 <div class="footer-box">

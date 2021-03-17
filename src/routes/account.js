@@ -184,21 +184,31 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
   if (req.user.node === false) {
     res.redirect('/account/welcome');
   } else {
-    Post.find({family: req.user.fid}).exec((err, posts) => {
-      api.getFamily(req.user)
-        .then((result) => {
-          let postData = [];
-          posts.forEach(post => {
-            const ownerData = _.find(result, {'uid': post.owner});
-            let timeStamp = timeDiff(post.date);
-            postData.push({ownerData, timeStamp, post});
+    let postData = [];
+    api.getFamily(req.user)
+      .then((result) => {
+        Post.find({family: req.user.fid}).exec((err, posts) => {
+          posts.forEach(item => {
+            const ownerData = _.find(result, {'uid': item.owner}),
+                  timeStamp = timeDiff(item.date),
+                  itemType = 'memory';
+            postData.push({ownerData, timeStamp, itemType, item});
           });
+        });
+        Album.find({family: req.user.fid}).exec((err, albums) => {
+          albums.forEach(item => {
+            const ownerData = _.find(result, {'uid': item.owner}),
+                  timeStamp = timeDiff(item.date),
+                  itemType = 'album';
+            postData.push({ownerData, timeStamp, itemType, item});
+          });
+          let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
             data: {
               family: result,
-              postData
+              posts: sorted
             }
           };
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);

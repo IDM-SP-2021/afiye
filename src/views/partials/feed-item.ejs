@@ -4,7 +4,7 @@
     <!-- profile img -->
     <div class="imgname">
       <div class="story">
-        <img src="<%= post.ownerData.avatar %>" alt="" />
+        <img src="<%= item.ownerData.avatar %>" alt="" />
         <svg viewbox="0 0 100 100">
           <circle cx="50" cy="50" r="40" />
         </svg>
@@ -13,9 +13,10 @@
       <!-- username -->
       <div>
         <h2>
-          <% if (post.ownerData.prefName !== '') { %><%= post.ownerData.prefName
-          %><% } else { %><%= post.ownerData.firstName %><% } %> <%=
-          post.ownerData.lastName %>
+          <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
+          %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
+          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase()
+          + item.itemType.slice(1) %>
         </h2>
         <span> TBD </span>
       </div>
@@ -28,20 +29,24 @@
         src="../assets/icons/more-01.svg"
         alt="more"
       />
-      <span><%- post.timeStamp %>s</span>
+      <span><%- item.timeStamp %></span>
     </div>
   </div>
 
+  <% if (item.itemType === 'memory') { %>
   <!-- Post images -->
-  <a href="/account/post-<%= post.post.family %>-<%= post.post.pid %>">
+  <a href="/account/post-<%= item.item.family %>-<%= item.item.pid %>">
     <div class="img">
-      <!-- <img
-        style="border-radius: 5px"
-        src="https://picsum.photos/400/250?random=1"
-      /> -->
-      <% post.post.media.forEach(media => { %>
+      <% item.item.media.forEach(media => { %>
       <img class="post-media" src="<%- media %>" />
       <% }) %>
     </div>
   </a>
+  <% } else { %>
+  <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
+    <div class="img">
+      <img class="album-cover" src="<%- item.item.cover %>" />
+    </div>
+  </a>
+  <% } %>
 </div>
