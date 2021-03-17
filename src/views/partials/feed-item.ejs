@@ -33,19 +33,40 @@
     </div>
   </div>
 
+  <div class="post-title">
+    <h3><%- item.item.title %></h3>
+  </div>
+
   <% if (item.itemType === 'memory') { %>
   <!-- Post images -->
   <a href="/account/post-<%= item.item.family %>-<%= item.item.pid %>">
-    <div class="img">
-      <% item.item.media.forEach(media => { %>
-      <img class="post-media" src="<%- media %>" />
-      <% }) %>
+    <% if (item.item.media.length === 1 ) { %>
+    <div class="post-media">
+      <div class="media-item">
+        <img src="<%- item.item.media[0] %>" />
+      </div>
     </div>
+    <% } else { %>
+    <div class="post-media multi">
+      <% for (i = 0; i < 3 && i < item.item.media.length; i++) { %>
+      <div class="media-item">
+        <img src="<%- item.item.media[i] %> " />
+        <% if (i === 2 && item.item.media.length > 3) { %>
+        <div class="media-overlay">
+          <p>+<%- item.item.media.length - 3 %></p>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
   </a>
   <% } else { %>
   <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
-    <div class="img">
-      <img class="album-cover" src="<%- item.item.cover %>" />
+    <div class="post-media">
+      <div class="media-item">
+        <img src="<%- item.item.cover %>" />
+      </div>
     </div>
   </a>
   <% } %>
