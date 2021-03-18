@@ -1,142 +1,306 @@
 .accessibility {
-    &:after {
-        content: url('../assets/icons/accessibility.svg');
-    }
+  &:after {
+    content: url("../assets/icons/accessibility.svg");
+  }
+
+  &.purple {
+    filter: hue-rotate(269deg) saturate(1) brightness(1);
+  }
 }
 
 .cake {
-    &:after {
-        content: url('../assets/icons/cake.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/cake.svg");
+  }
 }
 
 .cross {
-    &:after {
-        content: url('../assets/icons/cross.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/cross.svg");
+  }
 }
 
-
 .delete {
-    &:after {
-        content: url('../assets/icons/delete.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/delete.svg");
+  }
 }
 
 .edit {
-    &:after {
-        content: url('../assets/icons/edit.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/edit.svg");
+  }
 }
 
 .graduation-cap {
-    &:after {
-        content: url('../assets/icons/graduation-cap.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/graduation-cap.svg");
+  }
 }
 
 .help {
-    &:after {
-        content: url('../assets/icons/help.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/help.svg");
+  }
 }
 
 .home {
-    &:after {
-        content: url('../assets/icons/home.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/home.svg");
+  }
 }
 
 .lock-round {
-    &:after {
-        content: url('../assets/icons/lock-round.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/lock-round.svg");
+  }
 }
 
 .mail-open {
-    &:after {
-        content: url('../assets/icons/mail-open.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/mail-open.svg");
+  }
 }
 
 .mail {
-    &:after {
-        content: url('../assets/icons/mail.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/mail.svg");
+  }
 }
 
 .map-pin {
-    &:after {
-        content: url('../assets/icons/map-pin.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/map-pin.svg");
+  }
 }
 
 .more-h {
-    &:after {
-        content: url('../assets/icons/more-h.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/more-h.svg");
+  }
 }
 
 .pause {
-    &:after {
-        content: url('../assets/icons/pause.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/pause.svg");
+  }
 }
 
 .play {
-    &:after {
-        content: url('../assets/icons/play.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/play.svg");
+  }
 }
 
 .plus {
-    &:after {
-        content: url('../assets/icons/plus.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/plus.svg");
+  }
 }
 
 .search {
-    &:after {
-        content: url('../assets/icons/search.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/search.svg");
+  }
 }
 
 .settings {
-    &:after {
-        content: url('../assets/icons/settings.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/settings.svg");
+  }
 }
 
 .tag {
-    &:after {
-        content: url('../assets/icons/tag.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/tag.svg");
+  }
 }
 
 .tick-white {
-    &:after {
-        content: url('../assets/icons/tick-white.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/tick-white.svg");
+  }
 }
 
 .tick {
-    &:after {
-        content: url('../assets/icons/tick.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/tick.svg");
+  }
 }
 
 .upload {
-    &:after {
-        content: url('../assets/icons/upload.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/upload.svg");
+  }
 }
 
 .user {
-    &:after {
-        content: url('../assets/icons/user.svg');
-    }
+  @extend .accessibility;
+
+  &:after {
+    content: url("../assets/icons/user.svg");
+  }
 }
 
+// Icon font
+i.icon {
+  font-family: $icon-font;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
 
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
+  &.icon-accessibility:before {
+    // usage: <i class="icon icon-accessibility"></i>
+    content: "\e900";
+  }
+  &.icon-arrow:before {
+    // usage: <i class="icon icon-arrow"></i>
+    content: "\e901";
+  }
+  &.icon-cake:before {
+    // usage: <i class="icon icon-cake"></i>
+    content: "\e902";
+  }
+  &.icon-calendar-light:before {
+    // usage: <i class="icon icon-calendar-light"></i>
+    content: "\e903";
+  }
+  &.icon-cross:before {
+    // usage: <i class="icon icon-cross"></i>
+    content: "\e904";
+  }
+  &.icon-delete:before {
+    // usage: <i class="icon icon-delete"></i>
+    content: "\e905";
+  }
+  &.icon-edit:before {
+    // usage: <i class="icon icon-edit"></i>
+    content: "\e906";
+  }
+  &.icon-graduation-cap:before {
+    // usage: <i class="icon icon-graduation-cap"></i>
+    content: "\e907";
+  }
+  &.icon-help:before {
+    // usage: <i class="icon icon-help"></i>
+    content: "\e908";
+  }
+  &.icon-home:before {
+    // usage: <i class="icon icon-home"></i>
+    content: "\e909";
+  }
+  &.icon-lock-round:before {
+    // usage: <i class="icon icon-lock-round"></i>
+    content: "\e90a";
+  }
+  &.icon-mail-open:before {
+    // usage: <i class="icon icon-mail-open"></i>
+    content: "\e90b";
+  }
+  &.icon-mail:before {
+    // usage: <i class="icon icon-mail"></i>
+    content: "\e90c";
+  }
+  &.icon-map-pin:before {
+    // usage: <i class="icon icon-map-pin"></i>
+    content: "\e90d";
+  }
+  &.icon-menu:before {
+    // usage: <i class="icon icon-menu"></i>
+    content: "\e90e";
+  }
+  &.icon-more-h:before {
+    // usage: <i class="icon icon-more-h"></i>
+    content: "\e90f";
+  }
+  &.icon-pause:before {
+    // usage: <i class="icon icon-pause"></i>
+    content: "\e910";
+  }
+  &.icon-play:before {
+    // usage: <i class="icon icon-play"></i>
+    content: "\e911";
+  }
+  &.icon-plus:before {
+    // usage: <i class="icon icon-plus"></i>
+    content: "\e912";
+  }
+  &.icon-search:before {
+    // usage: <i class="icon icon-search"></i>
+    content: "\e913";
+  }
+  &.icon-settings:before {
+    // usage: <i class="icon icon-settings"></i>
+    content: "\e914";
+  }
+  &.icon-tag:before {
+    // usage: <i class="icon icon-tag"></i>
+    content: "\e915";
+  }
+  &.icon-tick:before {
+    // usage: <i class="icon icon-tick"></i>
+    content: "\e916";
+  }
+  &.icon-upload:before {
+    // usage: <i class="icon icon-upload"></i>
+    content: "\e917";
+  }
+  &.icon-user:before {
+    // usage: <i class="icon icon-user"></i>
+    content: "\e918";
+  }
+}
 
+.icon-edit:before {
+  // usage: <i class="icon icon-edit"></i>
+  content: "\e906";
+}
