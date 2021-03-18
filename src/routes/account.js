@@ -619,7 +619,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           birthdate: birthdate,
           gender: gender,
           location: location,
-          profileColor: `#${profileColor}`,
+          profileColor: profileColor,
           relation: relation,
           relReciprocal: relReciprocal,
           related: related,
@@ -663,13 +663,51 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
 });
 
 // * user profile
-router.get('/profile', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: `Afiye - ${req.user.name}'s Profile`,
-    user: req.user,
-  };
+router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
+  let member = req.params.uid;
+  api.getFamily(req.user, member)
+    .then((result) => {
+      console.log('Family: ', result);
+      let profile = _.find(result.family, {uid: member}),
+          postData = [],
+          immRels = ['parent', 'child', 'sibling', 'spouse'],
+          immFamily = _.filter(result.relationships, rel => _.indexOf(immRels, rel.relType) !== -1); // filter relationships by immRels array
 
-  res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
+      immFamily = _.uniqBy(immFamily, 'uid'); // clear duplicates
+
+      Post.find({owner: member}).exec((err, posts) => {
+        posts.forEach(item => {
+          const ownerData = profile,
+                timeStamp = timeDiff(item.date),
+                itemType = 'memory';
+          postData.push({ownerData, timeStamp, itemType, item});
+        });
+
+      });
+      Album.find({owner: member}).exec((err, albums) => {
+        albums.forEach(item => {
+          const ownerData = profile,
+                timeStamp = timeDiff(item.date),
+                itemType = 'album';
+          postData.push({ownerData, timeStamp, itemType, item});
+        });
+
+        let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse(); // sort post data by most recently modified
+
+        let locals = {
+          title: `Afiye - ${req.user.name}'s Profile`,
+          user: req.user,
+          data: {
+            profile,
+            family: result.family,
+            immFamily,
+            posts: sorted,
+          }
+        };
+
+        res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
+      });
+    });
 });
 
 // * user settings

@@ -76,15 +76,22 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user) => {
+const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
   let session = driver.session();
+  let query;
+  if (per) {
+    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+            MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(m) \
+            RETURN p, u, r.relation AS rel, m`;
+  } else {
+    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+            RETURN p`;
+  }
 
-  return session.run(
-    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-    RETURN p`
-  )
+  return session.run(query)
   .then(results => {
     let family = [];
+    let relationships = []; // only populated if a user id is specified
 
     results.records.forEach(res => {
 
@@ -108,9 +115,37 @@ const getFamily = (user) => {
       let member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
 
       family.push(member);
-    });
 
-    return family;
+      if (per) {
+        let person = res.get('m'),
+            id = person.identity.low.toString(),
+            props = person.properties,
+            uid = props.uid,
+            fid = props.fid,
+            firstName = props.firstName,
+            prefName = props.prefName,
+            lastName = props.lastName,
+            gender = props.gender,
+            birthdate = props.birthdate,
+            avatar = props.avatar,
+            claimed = props.claimed,
+            profileColor = props.profileColor,
+            relType = res.get('rel');
+
+        if (avatar === undefined) {
+          avatar = '../assets/icons/user.svg';
+        }
+
+        let relation = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
+
+        relationships.push(relation);
+      }
+    });
+    if (per) {
+      return {family, relationships};
+    } else {
+      return family;
+    }
   })
   .catch(err => {
     throw err;
