@@ -1,0 +1,65 @@
+<%- include('../../partials/user-header') %>
+
+<div class="album-container" style="padding-top: 4rem">
+  <div class="afiye-posts">
+    <div class="user-info">
+      <div class="imgname">
+        <div class="story">
+          <img src="<%- data.albumData.ownerData.avatar %>" alt="" />
+          <svg viewbox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="description">
+        <h2>
+          <% if (data.albumData.ownerData.prefName !== '') { %><%=
+          data.albumData.ownerData.prefName %><% } else { %><%=
+          data.albumData.ownerData.firstName %><% } %> <%=
+          data.albumData.ownerData.lastName %>
+        </h2>
+        <span> TBD </span>
+      </div>
+
+      <div class="timestap" style="float: right">
+        <a href="/account/modal"
+          ><img
+            style="padding-bottom: 10px"
+            src="../assets/icons/more-01.svg"
+            alt="more"
+          />
+        </a>
+        <span><%- data.albumData.timeStamp %></span>
+      </div>
+    </div>
+
+    <div>
+      <h2><%- data.albumData.album.title %></h2>
+    </div>
+    <div>
+      <p><%- data.albumData.album.description %></p>
+    </div>
+  </div>
+</div>
+<div class="post-container">
+  <% data.postData.forEach(item => { %> <%- include('../../partials/feed-item',
+  {item: item}) %> <% }) %>
+</div>
+<div class="tagged-users" style="display: grid">
+  <div class="title-tag-users">
+    <h2>Tagged Family</h2>
+  </div>
+
+  <% if (data.post.tagged.length > 0) { %>
+  <div class="avatars">
+    <% data.post.tagged.forEach(person => { %>
+    <div class="story">
+      <p><%- person %></p>
+    </div>
+    <% }) %>
+  </div>
+  <% } else { %>
+  <p>No one is tagged in this memory.</p>
+  <% } %>
+</div>

@@ -1,5 +1,5 @@
 <%- include('../../partials/user-header') %>
-<div class="create-new-post">
+<div id="top" class="create-new-post">
     <!-- profile img -->
         <div class="imgname">
 
@@ -19,13 +19,12 @@
         </div>
 
         <!-- buttons -->
-        <div class="buttons">
-            <button class="button primary icon accessibility"></button>
-            <a
-              href="/account/add-post"
-              id="add-post"
-              class="button primary icon upload"
-            ></a>
+        <div id="add-post-control" class="buttons">
+            <button class="button primary icon plus"></button>
+            <div id="add-options" class="hidden">
+              <a href="/account/add-post" id="add-post" class="add-option">Create a New Memory</a>
+              <a href="/account/add-album" id="add-post" class="add-option">Create a New Album</a>
+            </div>
         </div>
     </div>
 
@@ -33,15 +32,18 @@
 
 
 <div class="post-container">
-  <% if (data.postData.length === 0) { %>
-    <div id="no-posts">
+  <% if (data.posts.length === 0) { %>
+    <div id="no-posts" class="afiye-posts">
       <h2>Hmm... It doesn't look like you or your family have shared any memories yet.
       </h2>
       <a href="/account/add-post">Create a memory and share it with your family!</a>
     </div>
-  <% } else { data.postData.forEach(post => { %>
-  <%- include('../../partials/feed-post', {post: post}) %>
-  <% })} %>
+  <% } else { %>
+    <% data.posts.forEach(item => { %>
+    <%- include('../../partials/feed-item', {item: item}) %>
+    <% }) %>
+    <p>You've reached the end of your family's memories. <a href="#top">Back to the top!</a></p>
+  <% } %>
 </div>
 <div class="footer-box">
     <p class="footer-title">© afiye 2020</p>

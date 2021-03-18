@@ -1,0 +1,73 @@
+<div class="afiye-posts">
+  <!-- header for user's name and timestamp -->
+  <div class="user-info">
+    <!-- profile img -->
+    <div class="imgname">
+      <div class="story">
+        <img src="<%= item.ownerData.avatar %>" alt="" />
+        <svg viewbox="0 0 100 100">
+          <circle cx="50" cy="50" r="40" />
+        </svg>
+      </div>
+
+      <!-- username -->
+      <div>
+        <h2>
+          <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
+          %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
+          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase()
+          + item.itemType.slice(1) %>
+        </h2>
+        <span> TBD </span>
+      </div>
+    </div>
+
+    <!-- timestamp -->
+    <div class="timestamp" style="float: right">
+      <img
+        style="padding-bottom: 10px"
+        src="../assets/icons/more-01.svg"
+        alt="more"
+      />
+      <span><%- item.timeStamp %></span>
+    </div>
+  </div>
+
+  <div class="post-title">
+    <h3><%- item.item.title %></h3>
+  </div>
+
+  <% if (item.itemType === 'album') { %>
+  <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
+    <div class="post-media">
+      <div class="media-item">
+        <img src="<%- item.item.cover %>" />
+      </div>
+    </div>
+  </a>
+  <% } else { %>
+  <!-- Post images -->
+  <a href="/account/post-<%= item.item.family %>-<%= item.item.pid %>">
+    <% if (item.item.media.length === 1 ) { %>
+    <div class="post-media">
+      <div class="media-item">
+        <img src="<%- item.item.media[0] %>" />
+      </div>
+    </div>
+    <% } else { %>
+    <div class="post-media multi">
+      <% for (i = 0; i < 3 && i < item.item.media.length; i++) { %>
+      <div class="media-item">
+        <img src="<%- item.item.media[i] %> " />
+        <% if (i === 2 && item.item.media.length > 3) { %>
+        <div class="media-overlay">
+          <p>+<%- item.item.media.length - 3 %></p>
+        </div>
+        <% } %>
+      </div>
+      <% } %>
+    </div>
+    <% } %>
+  </a>
+  <% } %>
+</div>

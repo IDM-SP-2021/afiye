@@ -3,9 +3,10 @@
   padding-bottom: 1rem;
   margin: 0 auto;
   display: flex;
-  width: 100vw;
+  justify-content: space-between;
+  width: 377px;
   padding-top: 1rem;
-  background: white;
+  background: #fff;
 }
 
 // Image + Username and title for creating posts
@@ -32,11 +33,20 @@ div.imgname div:last-child span {
   color: #6e7191;
 }
 
-.buttons {
-  // float: right;
-  // width: 68px;
-  margin-left: 46px;
-  margin-top: 15px;
+#add-post-control {
+  display: flex;
+  position: relative;
+
+  #add-options {
+    position: absolute;
+    right: 0;
+    bottom: -2rem;
+    width: 11rem;
+    z-index: 20;
+    background: $off-white;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+  }
 }
 
 .afiye-posts {
@@ -48,13 +58,6 @@ div.imgname div:last-child span {
   /* border-radius: 24px; */
   width: 377px;
   background-color: white;
-}
-
-.user-info {
-  display: flex;
-  width: 100vw;
-  margin: 0 auto;
-  // padding-top: 3rem;
 }
 
 div.timestamp {
@@ -131,15 +134,6 @@ div.img {
   // z-index: -1000;
 }
 
-.footer-box {
-  display: none;
-}
-
-#mobile-nav-container .mobile-nav {
-  background: white;
-  z-index: 5000000;
-}
-
 .avatars {
   grid-area: avatar;
   display: flex;
@@ -158,100 +152,136 @@ div.img {
     "avatar";
 }
 
-.imgmore {
-  display: grid;
-  padding: 10px;
-  padding-top: 1rem;
-  margin: 0 auto;
-  text-align: center;
-  grid-template-columns: 156.5px 188.5px;
-  grid-template-rows: 100px 100px;
-  grid-template-areas:
-    "one two"
-    "one three";
-  column-gap: 10px;
-  row-gap: 10px;
-  width: 377px;
-}
-
-.imgmore .img1 {
-  grid-area: one;
-}
-
-.imgmore .img2 {
-  grid-area: two;
-}
-
-.imgmore .img3 {
-  grid-area: three;
-}
-
-div.imgmore .img1 img {
+.post-media {
   width: 100%;
-  height: 100%;
-}
+  height: 13rem;
 
-div.imgmore .img2 img {
-  width: 100%;
-  height: 100%;
-}
-
-div.imgmore .img3 img {
-  width: 100%;
-  height: 100%;
-}
-
-@media only screen and (min-width: 377px) {
-  .description {
-    margin: 0 auto;
-    max-width: 377px;
-  }
-
-  // .post-container, {
-  //     // width: 377px;
-  //     // padding-top: 1rem;
-
-  //    }
-
-  // .img {}
-
-  div.img img {
-    width: 95%;
-    max-height: 600px;
-    object-fit: fill;
+  .media-item {
+    width: 100%;
+    height: 100%;
     border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 
-  .user-info {
-    width: 377px;
-    padding-top: 1rem;
-  }
+  &.multi {
+    display: grid;
+    margin: 0 auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(2, 6.5rem);
+    grid-template-areas:
+      "one two"
+      "one three";
+    column-gap: 10px;
+    row-gap: 10px;
 
-  .create-new-post {
-    width: 377px;
-  }
+    .media-item:first-child {
+      grid-area: one;
+    }
 
-  .imgname {
-    padding-left: 11px;
-    display: flex;
-    min-width: 250px;
-  }
+    .media-item:nth-child(2) {
+      grid-area: two;
+    }
 
-  .buttons {
-    display: flex;
-    // margin-left: 60px !important;
-  }
+    .media-item:last-child {
+      grid-area: three;
 
-  .footer-box {
-    display: none;
+      .media-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: adjust-color($label, $alpha: -0.4);
+        color: #fff;
+        font: $mobile-display-small-bold;
+      }
+    }
   }
-
-  // div.timestamp {
-  //     margin-left: 54px !important;
-  // }
 }
 
-@media only screen and (min-width: 769px) {
+
+// div.post-media img {
+//   width: 95%;
+//   max-height: 600px;
+//   object-fit: fill;
+//   border-radius: 10px;
+// }
+
+#user-posts {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  padding: 0 .5rem;
+
+  .post-option {
+    width: 10rem;
+    margin: 0 .5rem;
+    position: relative;
+
+    label {
+      cursor: pointer;
+      height: 100%;
+      display: inline-block;
+      border-radius: 10px;
+      transition: background-color .1s ease-in-out, color .1s ease-in-out;
+
+      .post-img {
+        width: 10rem;
+        height: 10rem;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+
+      .post-title {
+        font: $mobile-text-medium;
+        color: $title-active;
+        margin: .5rem;
+        transition: inherit;
+      }
+
+      p {
+        font: $mobile-text-small;
+        margin: 0 .5rem .5rem;
+      }
+    }
+
+    input[type="checkbox"] {
+      height: 1px;
+      width: 1px;
+      opacity: 0;
+      position: absolute;
+
+      &:hover {
+        + label {
+          background-color: $input-background;
+        }
+      }
+
+      &:checked {
+        + label {
+          background-color: $purple-default;
+          color: #fff !important;
+
+          .post-title {
+            color: inherit;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tablet {
   .description {
     margin: 0 auto;
     max-width: 700px;
@@ -261,10 +291,6 @@ div.imgmore .img3 img {
   //     // padding-top: 3rem;
 
   //    }
-
-  .user-info {
-    width: 700px !important;
-  }
 
   .create-new-post {
     width: 700px !important;
@@ -277,12 +303,6 @@ div.imgmore .img3 img {
 
   .afiye-posts {
     width: 700px !important;
-  }
-
-  .buttons {
-    display: flex;
-    margin-left: 95px !important;
-    // margin-left: 160px !important;
   }
 
   .timestamp {
@@ -310,12 +330,8 @@ div.imgmore .img3 img {
   }
 }
 
-@media only screen and (min-width: 1024px) {
+@include desktop {
   .footer-box {
     display: block;
-  }
-
-  .buttons {
-    margin-left: 130px !important;
   }
 }

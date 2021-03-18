@@ -11,7 +11,7 @@ requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {
-  if ($('main').hasClass('pageType-addPost')) {
+  if ($('main').hasClass('pageType-addPost') || $('main').hasClass('pageType-addAlbum')) {
     familyList(data.family, 'check'); //eslint-disable-line
   }
 });
@@ -27,6 +27,10 @@ $('input[name=mode]').on('click', () => {
   $('#mode-select input[type=submit]').removeAttr('disabled');
 });
 
+// Feed
+$('#add-post-control .button').on('click', () => {
+  $('#add-options').toggleClass('hidden');
+});
 
 // modals
 $('.modal-inner button.cross').on('click', (event) => {
@@ -81,49 +85,51 @@ const readURL = (input, element) => {
 
 // Generate list of family members
 const familyList = (family, option) => {
-  console.log(family);
   // const container = $('#memberList');
   let ordered = _.sortBy(family, [member => member.firstName.toLowerCase()]);
-  console.log(ordered);
-  family.forEach(member => {
-    let name;
+  if (family.length == 0) {
+    $($.parseHTML(`<p>Hmm... It doesn't look like you have any family in your network yet.</p>`)).appendTo($('#memberList'));
+  } else {
+    ordered.forEach(member => {
+      let name;
 
-    if (member.prefName) {
-      name = member.prefName;
-    } else {
-      name = member.firstName;
-    }
-    let color = member.profileColor;
-    let strokeColor =
-              (color === 'color-pink') ? '#fe66b8'
-            : (color === 'color-magenta') ? '#f83a74'
-            : (color === 'color-red') ? '#f42525'
-            : (color === 'color-orange') ? '#ff5722'
-            : (color === 'color-yellow') ? '#ffc52f'
-            : (color === 'color-green') ? '#1db954'
-            : (color === 'color-teal') ? '#07a092'
-            : (color === 'color-light-blue') ? '#0ab4ff'
-            : (color === 'color-dark-blue') ? '#4169e1'
-            : (color === 'color-purple') ? '#922aff'
-            : (color === 'color-brown') ? '#ae640d'
-            : (color === 'color-gray') ? '#6e7191'
-            : (color === 'color-black') ? '#1d1b2d'
-            : color;
+      if (member.prefName) {
+        name = member.prefName;
+      } else {
+        name = member.firstName;
+      }
+      let color = member.profileColor;
+      let strokeColor =
+                (color === 'color-pink') ? '#fe66b8'
+              : (color === 'color-magenta') ? '#f83a74'
+              : (color === 'color-red') ? '#f42525'
+              : (color === 'color-orange') ? '#ff5722'
+              : (color === 'color-yellow') ? '#ffc52f'
+              : (color === 'color-green') ? '#1db954'
+              : (color === 'color-teal') ? '#07a092'
+              : (color === 'color-light-blue') ? '#0ab4ff'
+              : (color === 'color-dark-blue') ? '#4169e1'
+              : (color === 'color-purple') ? '#922aff'
+              : (color === 'color-brown') ? '#ae640d'
+              : (color === 'color-gray') ? '#6e7191'
+              : (color === 'color-black') ? '#1d1b2d'
+              : color;
 
-    $($.parseHTML(`<div id='m-${member.uid}' class='member'></div>`)).appendTo($('#memberList'));
-    if (option === 'check') {
-      $($.parseHTML(`<div class="check-container">
-                      <input class="checkbox" type="checkbox" name="tagged_family" id="option-${member.uid}" value="${member.uid}" />
-                      <label for="option-${member.uid}">${name} ${member.lastName}</label>
-                    </div>`)).appendTo(`#memberList #m-${member.uid}`);
+      $($.parseHTML(`<div id='m-${member.uid}' class='member'></div>`)).appendTo($('#memberList'));
+      if (option === 'check') {
+        $($.parseHTML(`<div class="check-container">
+                        <input class="checkbox" type="checkbox" name="tagged_family" id="option-${member.uid}" value="${member.uid}" />
+                        <label for="option-${member.uid}">${name} ${member.lastName}</label>
+                      </div>`)).appendTo(`#memberList #m-${member.uid}`);
 
-    } else {
-      $($.parseHTML(`<img src='${member.avatar}' alt="${name}'s avatar">`))
-        .attr('style', `box-shadow: 0 0 0 2px #fff, 0 0 0 4px ${strokeColor}`)
-        .appendTo(`#memberList #m-${member.uid}`);
-      $($.parseHTML(`<p>${name} ${member.lastName}</p>`)).appendTo(`#memberList #m-${member.uid}`);
-    }
-  });
+      } else {
+        $($.parseHTML(`<img src='${member.avatar}' alt="${name}'s avatar">`))
+          .attr('style', `box-shadow: 0 0 0 2px #fff, 0 0 0 4px ${strokeColor}`)
+          .appendTo(`#memberList #m-${member.uid}`);
+        $($.parseHTML(`<p>${name} ${member.lastName}</p>`)).appendTo(`#memberList #m-${member.uid}`);
+      }
+    });
+  }
 };
 
 if(typeof(module.hot) !== 'undefined') {

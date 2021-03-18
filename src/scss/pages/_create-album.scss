@@ -10,61 +10,6 @@
 
 /* (tablet screens, 377px and up) */
 @media only screen and (min-width: 377px) {
-  .bottom-nav {
-    background: #ffffff;
-    box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 999;
-    width: 100%;
-    height: 97px;
-  }
-
-  .feed-nav {
-    position: fixed;
-    margin-left: 20%;
-    margin-top: 3.7em;
-  }
-
-  .tree-nav {
-    position: fixed;
-    margin-left: 38%;
-    margin-top: 3.7em;
-  }
-
-  .profile-nav {
-    position: fixed;
-    margin-left: 55%;
-    margin-top: 3.7em;
-  }
-
-  .settings-nav {
-    position: fixed;
-    margin-left: 72%;
-    margin-top: 3.7em;
-  }
-
-  .feed-nav-top {
-    display: none;
-  }
-
-  .tree-nav-top {
-    display: none;
-  }
-
-  .settings-nav-top {
-    display: none;
-  }
-
-  .footer-title {
-    display: none;
-  }
-
-  .footer-box {
-    display: none;
-  }
-
   .memory-create {
     font-size: 32px;
     font-style: normal;
@@ -151,16 +96,6 @@
     width: 62px;
     height: 62px;
   }
-
-  .button {
-    background-color: #922aff;
-    border-radius: 10px;
-    width: 221px;
-    height: 55px;
-
-    margin-left: 60px;
-    margin-top: 20px;
-  }
 }
 
 @media only screen and (min-width: 767px) {
@@ -221,16 +156,6 @@
     width: 62px;
     height: 62px;
   }
-
-  .button {
-    background-color: #922aff;
-    border-radius: 10px;
-    width: 221px;
-    height: 55px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -259,38 +184,6 @@
 
 /* desktop screens (laptops/desktops, 769px and up) */
 @media only screen and (min-width: 769px) {
-  .feed-nav-top {
-    position: fixed;
-    margin-left: 70%;
-    margin-top: -2.5em;
-    display: block;
-  }
-
-  .tree-nav-top {
-    position: fixed;
-    margin-left: 78%;
-    margin-top: -2.5em;
-    display: block;
-  }
-
-  .settings-nav-top {
-    position: fixed;
-    margin-left: 86%;
-    margin-top: -2.5em;
-    display: block;
-  }
-
-  .bottom-nav {
-    display: none;
-  }
-
-  .footer-title {
-    display: block;
-  }
-  .footer-box {
-    display: block;
-  }
-
   .album {
     width: 693px;
     height: 65px;
@@ -453,21 +346,4 @@ DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
   display: block;
   margin: auto;
   top: 48px;
-}
-
-.button-text {
-  color: white;
-  text-align: center;
-  text-decoration: none;
-
-  position: relative;
-  display: block;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0px;
-  margin-left: auto;
-  margin-right: auto;
-  top: 15px;
 }

@@ -1,0 +1,17 @@
+<div class="post-option">
+  <input
+    type="checkbox"
+    name="posts"
+    id="option-<%- post.post.pid %>"
+    value="<%- post.post.pid %>"
+  />
+  <label for="option-<%- post.post.pid %>">
+    <img
+      class="post-img"
+      src="<%- post.post.media[0] %>"
+      alt="<%- post.post.title %>"
+    />
+    <h4 class="post-title"><%- post.post.title %></h4>
+    <p>Created by "<%- post.ownerData.firstName %>"</p>
+  </label>
+</div>
