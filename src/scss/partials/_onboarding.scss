@@ -31,7 +31,7 @@ section.choices {
 }
 
 section.image {
-  padding-top: 5rem;
+  padding-top: .25rem;
 }
 
 #imgradio input[type="radio"] {
@@ -55,4 +55,14 @@ section.image {
   font-size: 16px;
   border: 2px solid #444;
   border-radius: 4px;
+}
+
+
+.back-arrow{
+  width:24px;
+  height:24px;
+  transform: rotate(180deg);
+  position: absolute;
+  margin-top: 60px;
+  margin-left: 25px;
 }
