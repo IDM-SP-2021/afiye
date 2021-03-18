@@ -1,0 +1,160 @@
+.pageType-profile {
+  #profile-overview {
+    padding-top: 1rem;
+    background-size: 100% 7rem;
+    background-repeat: no-repeat;
+
+    &.profileColor-pink {
+      background-image: linear-gradient(
+        adjust-color($profile-pink, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-magenta {
+      background-image: linear-gradient(
+        adjust-color($profile-magenta, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-red {
+      background-image: linear-gradient(
+        adjust-color($profile-red, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-orange {
+      background-image: linear-gradient(
+        adjust-color($profile-orange, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-yellow {
+      background-image: linear-gradient(
+        adjust-color($profile-yellow, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-green {
+      background-image: linear-gradient(
+        adjust-color($profile-green, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-teal {
+      background-image: linear-gradient(
+        adjust-color($profile-teal, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-light-blue {
+      background-image: linear-gradient(
+        adjust-color($profile-light-blue, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-dark-blue {
+      background-image: linear-gradient(
+        adjust-color($profile-dark-blue, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-purple {
+      background-image: linear-gradient(
+        adjust-color($profile-purple, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-brown {
+      background-image: linear-gradient(
+        adjust-color($profile-brown, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-gray {
+      background-image: linear-gradient(
+        adjust-color($profile-gray, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    &.profileColor-black {
+      background-image: linear-gradient(
+        adjust-color($profile-black, $alpha: -0.5),
+        rgba(255, 255, 255, 0)
+      );
+    }
+
+    .avatar {
+      width: 7rem;
+      height: 7rem;
+      margin: 10px;
+
+      &.profileColor-pink {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-pink;
+      }
+
+      &.profileColor-magenta {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-magenta;
+      }
+
+      &.profileColor-red {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-red;
+      }
+
+      &.profileColor-orange {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-orange;
+      }
+
+      &.profileColor-yellow {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-yellow;
+      }
+
+      &.profileColor-green {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-green;
+      }
+
+      &.profileColor-teal {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-teal;
+      }
+
+      &.profileColor-light-blue {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-light-blue;
+      }
+
+      &.profileColor-dark-blue {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-dark-blue;
+      }
+
+      &.profileColor-purple {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-purple;
+      }
+
+      &.profileColor-brown {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-brown;
+      }
+
+      &.profileColor-gray {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-gray;
+      }
+
+      &.profileColor-black {
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-black;
+      }
+    }
+
+    h2 {
+      font: $mobile-text-large;
+    }
+  }
+}

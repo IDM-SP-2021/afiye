@@ -1,8 +1,8 @@
 <%- include('../../partials/user-header') %>
 
 <main id="top" class="pageType-profile">
-  <section id="profile-overview">
-    <%- include('../../partials/avatar', {person: data.profile}) %> 
+  <section id="profile-overview" class="<%- data.profile.profileColor %>">
+    <%- include('../../partials/avatar', {person: data.profile}) %>
     <h2>
       <% if (data.profile.prefName !== '') { %> <%- data.profile.prefName %> <%-
       data.profile.lastName %><% } else { %> <%- data.profile.firstName %> <%-
@@ -21,7 +21,7 @@
     <% } %> <% if (data.profile.claimed === false || data.profile.uid ===
     user.uid) { %>
     <a href="/account/profile-edit-<%- data.profile.uid %>">
-      <span class="edit"></span>Edit Profile
+      <i class="icon icon-edit"></i> Edit Profile
     </a>
     <% } %>
   </section>
@@ -34,14 +34,11 @@
       <div id="imm-family">
         <h3>Immediate Family</h3>
         <div id="imm-family-members">
-          <% data.immFamily.forEach(member => { %>
-            <%- include('../../partials/avatar', {person: member}) %> 
+          <% data.immFamily.forEach(member => { %> <%-
+          include('../../partials/avatar', {person: member}) %>
           <p>
-            <% if (member.prefName !== '') { %>
-              <%- member.prefName %>
-            <% } else { %>
-              <%- member.firstName %>
-            <% } %>
+            <% if (member.prefName !== '') { %> <%- member.prefName %> <% } else
+            { %> <%- member.firstName %> <% } %>
           </p>
           <% }); %>
         </div>
