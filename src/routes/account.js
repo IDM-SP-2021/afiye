@@ -185,7 +185,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     res.redirect('/account/welcome');
   } else {
     let postData = [];
-    api.getFamily(req.user)
+    api.getFamily(req.user, req.user.uid)
       .then((result) => {
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
@@ -204,6 +204,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let current = _.find(result, {'uid': req.user.uid});
+          console.log(sorted);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
@@ -669,11 +670,10 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
   api.getFamily(req.user, member)
     .then((result) => {
-      console.log('Family: ', result);
-      let profile = _.find(result.family, {uid: member}),
+      let profile = _.find(result, {uid: member}),
           postData = [],
           immRels = ['parent', 'child', 'sibling', 'spouse'],
-          immFamily = _.filter(result.relationships, rel => _.indexOf(immRels, rel.relType) !== -1); // filter relationships by immRels array
+          immFamily = _.filter(result, rel => _.indexOf(immRels, rel.relType) !== -1); // filter relationships by immRels array
 
       immFamily = _.uniqBy(immFamily, 'uid'); // clear duplicates
 

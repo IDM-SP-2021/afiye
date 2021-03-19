@@ -17,10 +17,9 @@
         <h2>
           <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
-          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase()
-          + item.itemType.slice(1) %>
+          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase() + item.itemType.slice(1) %>
         </h2>
-        <span> TBD </span>
+        <span><%- item.ownerData.relType.charAt(0).toUpperCase() + item.ownerData.relType.slice(1) %></span>
       </div>
     </div>
 
