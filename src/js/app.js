@@ -133,6 +133,20 @@ const familyList = (family, option) => {
   }
 };
 
+$('.tab-bar a').on('click', (event) => {
+  event.preventDefault();
+  console.log('Tab bar item clicked');
+  console.log(event.target);
+  if (!$(event.target).hasClass('active')) {
+    $('.tab-bar a.active').removeClass('active');
+    $(event.target).addClass('active');
+    console.log($(event.target).attr('href'));
+    $('.tab-container').addClass('hidden');
+    console.log($($(event.target).attr('href')));
+    $($(event.target).attr('href')).removeClass('hidden');
+  }
+});
+
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef
 }

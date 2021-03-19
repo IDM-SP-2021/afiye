@@ -1,8 +1,18 @@
 .pageType-profile {
   #profile-overview {
     padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 0 auto 1rem;
+    border-bottom: 1px solid $input-background;
     background-size: 100% 7rem;
     background-repeat: no-repeat;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 1rem;
+    grid-template-areas:
+      "avatar profile-info"
+      "edit personal-info";
+    max-width: 485px;
 
     &.profileColor-pink {
       background-image: linear-gradient(
@@ -96,9 +106,11 @@
     }
 
     .avatar {
+      grid-area: avatar;
       width: 7rem;
       height: 7rem;
       margin: 10px;
+      justify-self: center;
 
       &.profileColor-pink {
         box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-pink;
@@ -153,8 +165,114 @@
       }
     }
 
-    h2 {
-      font: $mobile-text-large;
+    .profile-info {
+      grid-area: profile-info;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h2 {
+        font: $mobile-text-large;
+      }
+    }
+
+    .personal-info {
+      grid-area: personal-info;
+
+      .birthdate {
+        font: $mobile-text-x-small;
+
+        p {
+          color: $placeholder;
+          margin: 0 0.25rem;
+        }
+
+        i.icon {
+          color: $purple-default;
+        }
+      }
+
+      .location {
+        @extend .birthdate;
+      }
+    }
+
+    .edit-profile {
+      font: $mobile-link-x-small;
+      grid-area: edit;
+      align-self: end;
+      text-align: center;
+    }
+  }
+
+  #profile-tabs {
+    .tab-bar {
+      max-width: 43.75rem;
+      margin: 0 auto;
+      a {
+        color: $placeholder;
+        font: $mobile-text-x-small;
+        margin-right: 1.5rem;
+        position: relative;
+        padding-bottom: 0.25rem;
+        transition: color 0.1s ease-in-out;
+
+        &:after {
+          content: "";
+          position: absolute;
+          left: -0.25rem;
+          bottom: 0;
+          width: calc(100% + 0.5rem);
+          height: 0.1875rem;
+          border-radius: 1px;
+          background-color: adjust-color($label, $alpha: -1);
+          transition: background-color 0.1s ease-in-out;
+        }
+
+        &:hover,
+        &:focus {
+          color: $label;
+
+          &:after {
+            background-color: $label;
+          }
+        }
+
+        &.active {
+          color: $purple-default;
+
+          &:after {
+            background-color: $purple-default;
+          }
+        }
+      }
+    }
+
+    .tab-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    #tab-recent-activity {
+      #imm-family {
+        overflow-x: scroll;
+
+        #imm-family-members {
+          display: flex;
+          a {
+            color: $title-active;
+            padding: 0.25rem;
+            width: 6.25rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            p {
+              margin: 0.25rem 0;
+            }
+          }
+        }
+      }
     }
   }
 }
