@@ -24,9 +24,16 @@
       <% } %>
     </div>
     <% if (data.profile.claimed === false || data.profile.uid === user.uid) { %>
-    <a class="edit-profile" href="/account/profile-edit-<%- data.profile.uid %>">
-      <i class="icon icon-edit"></i> Edit Profile
-    </a>
+    <div class="profile-actions">
+      <a class="edit-profile" href="/account/profile-edit-<%- data.profile.uid %>">
+        <i class="icon icon-edit"></i> Edit Profile
+      </a>
+      <% if (data.profile.claimed === false) { %>
+        <a href="/account/invite-member-<%- data.profile.uid %>" class="invite-member">
+          <i class="icon icon-mail"></i> Invite to network
+        </a>
+      <% } %> 
+    </div>
     <% } %>
   </section>
   <section id="profile-tabs">

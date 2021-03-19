@@ -11,7 +11,7 @@
     grid-column-gap: 1rem;
     grid-template-areas:
       "avatar profile-info"
-      "edit personal-info";
+      "profile-actions personal-info";
     max-width: 485px;
 
     &.profileColor-pink {
@@ -197,11 +197,15 @@
       }
     }
 
-    .edit-profile {
-      font: $mobile-link-x-small;
-      grid-area: edit;
+    .profile-actions {
+      grid-area: profile-actions;
       align-self: end;
       text-align: center;
+
+      a {
+        font: $mobile-link-x-small;
+        display: block;
+      }
     }
   }
 

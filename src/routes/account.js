@@ -5,14 +5,28 @@ const {ensureAuthenticated} = require('../server/config/auth.js');
 const User = require('../models/user.js');
 const Post = require('../models/post.js');
 const Album = require('../models/album.js');
+const {Invite} = require('../models/invite.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
+const nanoinv = customAlphabet('1234567890', 6);
 const api = require('../server/neo4j.js');
 const cloudinary = require('../server/config/cloudinary');
 const streamifier = require('streamifier');
 const multer = require('multer');
 const fileUpload = multer();
 const _ = require('lodash');
+const ejs = require('ejs');
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  host: process.env.MAIL_SERVICE_HOST,
+  port: process.env.MAIL_SERVICE_PORT,
+  secure: true,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
+  }
+});
 
 // Upload to Cloudinar
 function upload(file, folder) {
@@ -204,7 +218,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let current = _.find(result, {'uid': req.user.uid});
-          console.log(sorted);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
@@ -241,7 +254,6 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               post
             }
           };
-          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }
@@ -280,7 +292,6 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
       urls.push(newPath.secure_url);
     }
     if (urls) {
-      console.log('media:', urls);
       let newPost = new Post({
         owner: req.user.uid,
         family: req.user.fid,
@@ -292,7 +303,6 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
       });
       await newPost.save()
         .then(() => {
-          console.log(newPost);
           return res.redirect('/account/feed');
         }).catch(error => {
           return res.json(error);
@@ -339,8 +349,6 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
                 postData
               }
             };
-            console.log('Album: ', locals.data.albumData);
-            console.log('Posts: ', locals.data.postData);
             res.render(path.resolve(__dirname, '../views/user/feed/album'), locals);
           });
       });
@@ -375,7 +383,6 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/add-album', ensureAuthenticated, (req, res) => {
-  console.log(req.body);
   const {title, description, posts, tagged_family} = req.body;
   const alid = 'al' + nanoid();
 
@@ -391,11 +398,8 @@ router.post('/add-album', ensureAuthenticated, (req, res) => {
       tagged: tagged_family,
     });
 
-    console.log(newAlbum);
-
     newAlbum.save()
       .then(() => {
-        console.log(newAlbum);
         return res.redirect('/account/feed');
       }).catch(error => {
         return res.json(error);
@@ -544,7 +548,7 @@ router.get('/add-member', ensureAuthenticated, (req, res) => {
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/member/add-member'), locals);
     });
 });
 
@@ -574,7 +578,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/member/add-member'), locals);
     });
   } else {
     const uid = 'u' + nanoid(); // db identifier for user
@@ -630,8 +634,6 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           claimed: false,
         };
 
-        console.log(person);
-
         api.addMember(person)
           .then(results => {
             if (Object.keys(results[0].directRelation).length >= 1) {
@@ -663,6 +665,67 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           });
       });
   }
+});
+
+router.get('/invite-member-:uid', ensureAuthenticated, (req, res) => {
+  const target = req.params.uid;
+  api.getNode(target)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Invite Member',
+        user: req.user,
+        invite: result,
+      };
+
+      res.render(path.resolve(__dirname, '../views/user/member/invite-member'), locals);
+    });
+});
+
+router.post('/invite-member-:uid', ensureAuthenticated, (req, res) => {
+  const target = req.params.uid,
+        {email, message} = req.body;
+
+  api.getNode(target)
+    .then((result) => {
+      let code = nanoinv();
+
+      const newInv = new Invite({
+        uid: target,
+        code
+      });
+
+      newInv.save()
+        .catch(value => console.log(value));
+      let invite = {
+        name: result.firstName,
+        email,
+        message,
+        code,
+        link: `${process.env.MAIL_DOMAIN}/register`
+      };
+
+      ejs.renderFile(__dirname + '/../views/email/invite.ejs', { invite }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - You\'ve been invited to join a family network',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.redirect(`/account/invite-member-${target}`);
+    });
 });
 
 // * user profile
@@ -697,7 +760,7 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
         let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse(); // sort post data by most recently modified
 
         let locals = {
-          title: `Afiye - ${req.user.name}'s Profile`,
+          title: `Afiye - ${profile.firstName}'s Profile`,
           user: req.user,
           data: {
             profile,
