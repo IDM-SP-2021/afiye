@@ -4,7 +4,7 @@ const InviteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  token: {
+  code: {
     type: String,
     required: true
   },
@@ -12,7 +12,7 @@ const InviteSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
     index: {
-      expires: 43200,
+      expires: 259200,
     }
   }
 });
