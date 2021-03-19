@@ -3,5 +3,37 @@
 <main>
   <h1>Verify Your Account</h1>
 
-  <%- include('../partials/messages') %>
+  <% if(typeof errors!= 'undefined') { %>
+    <% errors.forEach(function(error){ %>
+      <div class="message error">
+        <i class="icon icon-alert"></i>
+        <% if (error.msg === 'expired') { %>
+          <p>Your verification link has expired.&nbsp;</p>
+          <form action="/verify-<%- uid %>-<%- token %> " method="post">
+            <input type="submit" value="Resend Link">
+          </form>
+        <% } else if (error.msg === 'locate') { %>
+          <p>We're having trouble locating your account. Try again later or <a href="/register">register again</a>.</p>
+        <% } %> 
+      </div>
+    <% }) %>
+  <% } %>
+  <% if(success_msg!='') { %>
+    <div class="message success">
+      <i class="icon icon-tick"></i>
+      <p><%= success_msg %></p>
+    </div>
+  <% } %>
+  <% if(error_msg != '') { %>
+    <div class="message error">
+      <i class="icon icon-alert"></i>
+      <p><%= error_msg %></p>
+    </div>
+  <% } %>
+  <% if(error != '') { %>
+    <div class="message error">
+      <i class="icon icon-alert"></i>
+      <p><%= error %></p>
+    </div>
+  <% } %>
 </main>

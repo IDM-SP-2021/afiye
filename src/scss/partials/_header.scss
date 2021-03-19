@@ -156,6 +156,8 @@ header {
   $header-height: 4.25em;
 
   header {
+    position: relative;
+
     .header-nav {
       display: grid;
       height: $header-height;

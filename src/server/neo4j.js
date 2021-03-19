@@ -76,13 +76,19 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user) => {
+const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
   let session = driver.session();
+  let query;
+  if (per) {
+    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+            MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
+            RETURN p, u, r.relation AS rel`;
+  } else {
+    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+            RETURN p`;
+  }
 
-  return session.run(
-    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-    RETURN p`
-  )
+  return session.run(query)
   .then(results => {
     let family = [];
 
@@ -99,13 +105,40 @@ const getFamily = (user) => {
           gender = props.gender,
           birthdate = props.birthdate,
           avatar = props.avatar,
-          profileColor = props.profileColor;
+          claimed = props.claimed,
+          profileColor = props.profileColor,
+          member;
 
       if (avatar === undefined) {
         avatar = '../assets/icons/user.svg';
       }
 
-      let member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
+      if (per) {
+        let relType = res.get('rel');
+        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
+      } else {
+        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+      }
+
+      if (per) {
+        let person = res.get('u'),
+            id = person.identity.low.toString(),
+            props = person.properties,
+            uid = props.uid,
+            fid = props.fid,
+            firstName = props.firstName,
+            prefName = props.prefName,
+            lastName = props.lastName,
+            gender = props.gender,
+            birthdate = props.birthdate,
+            avatar = props.avatar,
+            claimed = props.claimed,
+            profileColor = props.profileColor,
+            relType = "That's you!",
+            current = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
+
+        family.push(current);
+      }
 
       family.push(member);
     });
@@ -206,12 +239,14 @@ const simplifyPath = (path) => {
 
     : (path == 'childchild') ||
       (path == 'niblingchild') ||
-      (path == 'siblinggrandchild')
+      (path == 'siblinggrandchild') ||
+      (path == 'childchildinLaw')
         ? 'grandchild' // Source is Grandson, Granddaughter, or Grandchild to End
 
     : (path == 'parentparent') ||
       (path == 'parentparsib') ||
-      (path == 'grandparentsibling')
+      (path == 'grandparentsibling') ||
+      (path == 'parentinLawparent')
         ? 'grandparent' // Source is Grandfather, Grandmother, or Grandparent to End
 
     : (path == 'spousesibling') ||

@@ -1,44 +1,98 @@
 .avatar {
-    /* Use Avatar Profile Images Below*/
-    background-image: url('https://via.placeholder.com/150');
-    
-    /* square container for profile image size */
-    width: 3em;
-    height: 3em;
+  /* square container for profile image size */
+  width: 3em;
+  height: 3em;
+  overflow: hidden;
+  margin: 4px;
 
-    /* fills the container, keeps aspect ratio, crops to fit */
-    background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    /* center the avatar image vertically and horizontally */
-    background-position: top center;
-    margin: .1875em auto;
+  /* fills the container, keeps aspect ratio, crops to fit */
+  background-size: cover;
 
-    /* round the edges to a circle with border radius 1/2 container size */
-    border-radius: 50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
+  /* center the avatar image vertically and horizontally */
+  background-position: top center;
+  // margin: 0.1875em auto;
 
+  /* round the edges to a circle with border radius 1/2 container size */
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+
+  img {
+    height: 100%;
+  }
+
+  &.profileColor-pink {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-pink;
+  }
+
+  &.profileColor-magenta {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-magenta;
+  }
+
+  &.profileColor-red {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-red;
+  }
+
+  &.profileColor-orange {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-orange;
+  }
+
+  &.profileColor-yellow {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-yellow;
+  }
+
+  &.profileColor-green {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-green;
+  }
+
+  &.profileColor-teal {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-teal;
+  }
+
+  &.profileColor-light-blue {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-light-blue;
+  }
+
+  &.profileColor-dark-blue {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-dark-blue;
+  }
+
+  &.profileColor-purple {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-purple;
+  }
+
+  &.profileColor-brown {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-brown;
+  }
+
+  &.profileColor-gray {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-gray;
+  }
+
+  &.profileColor-black {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px $profile-black;
+  }
 }
 
-
-
 .avatar-circle {
+  /* change outline color depending on user's choice */
+  border: 0.22em solid $profile-red;
 
-    /* change outline color depending on user's choice */
-    border: 0.22em solid $profile-red;   
-    
-     /* make sure the height, width are .375em larger than the profile image */
-    height: 3.375em;
-    width: 3.375em;
+  /* make sure the height, width are .375em larger than the profile image */
+  height: 3.375em;
+  width: 3.375em;
 
-    /* make the red outline a circle */
-    border-radius:50%;
-    -moz-border-radius:50%;
-    -webkit-border-radius:50%;
-
+  /* make the red outline a circle */
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
 }
 
 .username {
-    padding-left: 65px;
-    margin: 0;
+  padding-left: 65px;
+  margin: 0;
 }

@@ -29,6 +29,8 @@
         position: absolute;
         left: 0;
         opacity: 0;
+        width: 100% !important;
+        height: 100% !important;
 
         &:not(:checked) {
           + label {
@@ -51,11 +53,11 @@
             &:after {
               content: "";
               position: absolute;
-              width: 2.25em;
-              height: 2.25em;
-              top: 0.375em;
-              left: 0.375em;
-              border-radius: 1.125em;
+              width: 2.25rem;
+              height: 2.25rem;
+              top: 0.375rem;
+              left: 0.375rem;
+              border-radius: 1.125rem;
               background: $input-background;
             }
 
@@ -245,6 +247,58 @@
       // height: 100%;
       border: 0;
       outline: 0;
+    }
+
+    &.profileColor-pink {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-pink;
+    }
+
+    &.profileColor-magenta {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-magenta;
+    }
+
+    &.profileColor-red {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-red;
+    }
+
+    &.profileColor-orange {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-orange;
+    }
+
+    &.profileColor-yellow {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-yellow;
+    }
+
+    &.profileColor-green {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-green;
+    }
+
+    &.profileColor-teal {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-teal;
+    }
+
+    &.profileColor-light-blue {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-light-blue;
+    }
+
+    &.profileColor-dark-blue {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-dark-blue;
+    }
+
+    &.profileColor-purple {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-purple;
+    }
+
+    &.profileColor-brown {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-brown;
+    }
+
+    &.profileColor-gray {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-gray;
+    }
+
+    &.profileColor-black {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-black;
     }
   }
 }

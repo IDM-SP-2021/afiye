@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You've been invted to Afiye!</title>
+  </head>
+  <body>
+    <h1>You have been invited to join a family network on Afiye.</h1>
+    <p><%- invite.message %></p>
+    <p>Please complete the registration process by clicking the link below.</p>
+    <h2>Your invite code:</h2>
+    <p><strong><%- invite.code %></strong></p>
+    <a href="<%- invite.link %>">Register now!</a>
+    <p>
+      If the link does not work, copy and paste the following url into your
+      browser's address bar:<br />
+      <%- invite.link %>
+    </p>
+  </body>
+</html>
