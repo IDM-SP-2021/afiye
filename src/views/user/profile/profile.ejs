@@ -1,7 +1,88 @@
 <%- include('../../partials/user-header') %>
 
-<h1>Profile</h1>
-
-<p>Welcome <%= user.name %></p>
+<main id="top" class="pageType-profile">
+  <section id="profile-overview" class="<%- data.profile.profileColor %>">
+    <%- include('../../partials/avatar', {person: data.profile}) %> 
+    <div class="profile-info">
+      <h2>
+        <% if (data.profile.prefName !== '') { %> <%- data.profile.prefName %> <%-
+        data.profile.lastName %><% } else { %> <%- data.profile.firstName %> <%-
+        data.profile.lastName %><% } %>
+      </h2>
+      <a class="button primary" href="/account/tree">View in Tree</a>
+    </div>
+    <div class="personal-info">
+      <div class="birthdate">
+        <p>Birth Date</p>
+        <span><i class="icon icon-cake"></i> <%- data.profile.birthdate %></span>
+      </div>
+      <% if (data.profile.location) { %>
+      <div class="location">
+        <p>Lives in</p>
+        <span><i class="icon icon-map-pin"></i><%- data.profile.location %></span>
+      </div>
+      <% } %>
+    </div>
+    <% if (data.profile.claimed === false || data.profile.uid === user.uid) { %>
+    <div class="profile-actions">
+      <a class="edit-profile" href="/account/profile-edit-<%- data.profile.uid %>">
+        <i class="icon icon-edit"></i> Edit Profile
+      </a>
+      <% if (data.profile.claimed === false) { %>
+        <a href="/account/invite-member-<%- data.profile.uid %>" class="invite-member">
+          <i class="icon icon-mail"></i> Invite to network
+        </a>
+      <% } %> 
+    </div>
+    <% } %>
+  </section>
+  <section id="profile-tabs">
+    <div class="tab-bar">
+      <a href="#tab-recent-activity" class="active">Recent Activity</a>
+      <a href="#tab-about">About</a>
+    </div>
+    <div id="tab-recent-activity" class="tab-container">
+      <div id="imm-family">
+        <h3>Immediate Family</h3>
+        <div id="imm-family-members">
+          <% data.immFamily.forEach(member => { %>
+            <a href="/account/profile-<%- member.uid %>">
+              <%- include('../../partials/avatar', {person: member}) %>
+              <p>
+                <% if (member.prefName !== '') { %>
+                  <%- member.prefName %>
+                <% } else { %>
+                  <%- member.firstName %>
+                <% } %>
+              </p>
+              <% }); %>
+            </a>
+        </div>
+      </div>
+      <div id="recent-activity" class="post-container">
+        <h3>Recent Activity</h3>
+        <% if (data.posts.length === 0) { %>
+        <div id="no-posts" class="afiye-posts">
+          <h2>
+            Hmm... It doesn't look like this person has shared any memories yet.
+          </h2>
+          <a href="/account/add-post">Create a memory and share it with your family!</a
+          >
+        </div>
+        <% } else { %> <% data.posts.forEach(item => { %> <%-
+        include('../../partials/feed-item', {item: item}) %> <% }) %>
+        <p>
+          You've reached the end of <% if (data.profile.prefName !== '') { %>
+          <%- data.profile.prefName %> <% } else { %> <%- data.profile.firstName
+          %> <% } %> recent activity. <a href="#top">Back to the top!</a>
+        </p>
+        <% } %>
+      </div>
+    </div>
+    <section id="tab-about" class="tab-container hidden">
+      <h3>About Tab</h3>
+    </section>
+  </section>
+</main>
 
 <%- include('../../partials/user-mobile-nav') %>

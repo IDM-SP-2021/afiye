@@ -1,7 +1,5 @@
-<% let colorOptions = { 'pink': 'fe66b8', 'magenta': 'f83a74', 'red': 'f42525',
-'orange': 'ff5722', 'yellow': 'ffc52f', 'green': '1db954', 'teal': '07a092',
-'light-blue': '0ab4ff', 'dark-blue': '4169e1', 'purple': '922aff', 'brown':
-'ae640d', 'gray': '6e7191', 'black': '1d1b2d' } %>
+<% let colorOptions = [ 'pink', 'magenta', 'red', 'orange', 'yellow', 'green',
+'teal', 'light-blue', 'dark-blue', 'purple', 'brown', 'gray', 'black' ] %>
 <div class="container">
   <section class="image">
     <% if (title === 'Afiye - Making a Tree') { %>
@@ -83,8 +81,8 @@
       <div class="input-container">
         <label for="related">To</label>
         <select name="related" id="related" required>
-          <% data.family.forEach(member => { %> <% if (member.prefName !== '') {
-          %>
+          <% data.family.forEach(member => { %>
+          <% if (member.prefName !== '') { %>
           <option value="<%- member.id %>">
             <%- member.prefName %> <%- member.lastName %>
           </option>
@@ -117,16 +115,16 @@
       </div>
       <fieldset id="profile-color-select">
         <legend>Select a profile color</legend>
-        <% for (const property in colorOptions) { %>
+        <% for (let i = 0; i < colorOptions.length; i++) { %>
         <div class="check-container">
           <input
             type="radio"
             name="profileColor"
-            id="color-<%- property %>"
-            value="<%- colorOptions[property] %>"
+            id="color-<%- colorOptions[i] %>"
+            value="profileColor-<%- colorOptions[i] %>"
           />
-          <label for="color-<%- property %>">
-            <span><%- colorOptions %></span>
+          <label for="color-<%- colorOptions[i] %>">
+            <span><%- colorOptions[i] %></span>
           </label>
         </div>
         <% } %>

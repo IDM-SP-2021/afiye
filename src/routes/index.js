@@ -299,7 +299,7 @@ router.get('/verify/:uid-:token', (req, res) => {
   } else {
     Token.findOne({uid: uid}).exec((err, token) => {
       if (!token) {
-        errors.push({msg: 'Your account verification link has expired. <a>Resend link</a>'});
+        errors.push({msg: 'expired'});
         res.render(path.resolve(__dirname, '../views/front/verify'), {
           errors: errors,
           title: 'Afiye - Account Verification',
@@ -309,7 +309,7 @@ router.get('/verify/:uid-:token', (req, res) => {
       } else {
         User.findOneAndUpdate({uid: uid},{ status: 'Active' },{new: true}).exec((err, user) => {
           if (!user) {
-            errors.push({msg: 'We ran into a problem locating your account. Refresh the page or re-register for an account if the problem persists.'});
+            errors.push({msg: 'locate'});
             res.render(path.resolve(__dirname, '../views/front/verify'), {
               errors: errors,
               title: 'Afiye - Account Verification',
@@ -328,6 +328,63 @@ router.get('/verify/:uid-:token', (req, res) => {
       }
     });
   }
+});
+
+router.post('/verify/:uid-:token', (req, res) => {
+  const uid = req.params.uid;
+  const token = req.params.token;
+  const title = 'Account Verification';
+  let errors = [];
+
+  User.findOne({ uid: uid }).exec((err, user) => {
+    if (!user) {
+      errors.push({msg: 'locate'});
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        errors: errors,
+      });
+    } else {
+      const firstName = user.firstName;
+      const email = user.email;
+      const valToken = nanoid(); // email validation token
+      // create email validation token in tokens collection
+      const newToken = new Token({
+        uid: uid,
+        token: valToken
+      });
+
+      newToken.save()
+        .catch(value => console.log(value));
+
+      ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - Confirm Your Account',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        token: token,
+        success_msg: 'Account confirmation message resent!'
+      });
+    }
+  });
 });
 
 router.get('/downloads/:file-:ext', (req, res) => {

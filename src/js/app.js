@@ -47,8 +47,9 @@ $('#profile').on('change', () => { // get profile image upload
   readURL($('#profile'), $('#open-profile'));
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
-  let color = $('input[name=profileColor]:checked').prop('value');
-  $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
+  // let color = $('input[name=profileColor]:checked').prop('value');
+  // $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
+  $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
 });
 $('#profile-setup input[type="submit"]').on('click', (event) => {
   if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned')) {
@@ -131,6 +132,20 @@ const familyList = (family, option) => {
     });
   }
 };
+
+$('.tab-bar a').on('click', (event) => {
+  event.preventDefault();
+  console.log('Tab bar item clicked');
+  console.log(event.target);
+  if (!$(event.target).hasClass('active')) {
+    $('.tab-bar a.active').removeClass('active');
+    $(event.target).addClass('active');
+    console.log($(event.target).attr('href'));
+    $('.tab-container').addClass('hidden');
+    console.log($($(event.target).attr('href')));
+    $($(event.target).attr('href')).removeClass('hidden');
+  }
+});
 
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef

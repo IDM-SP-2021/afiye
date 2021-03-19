@@ -221,8 +221,13 @@ div.img {
       grid-area: one;
     }
 
-    .media-item:nth-child(2) {
+    .media-item:nth-child(2):not(:last-child) {
       grid-area: two;
+    }
+
+    .media-item:nth-child(2):last-child {
+      grid-row-start: 1;
+      grid-row-end: 3;
     }
 
     .media-item:last-child {

@@ -153,9 +153,11 @@ header {
 }
 
 @include desktop {
-  $header-height: 6.25em;
+  $header-height: 4.25em;
 
   header {
+    position: relative;
+
     .header-nav {
       display: grid;
       height: $header-height;
