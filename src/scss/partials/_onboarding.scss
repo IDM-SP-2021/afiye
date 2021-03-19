@@ -31,7 +31,7 @@ section.choices {
 }
 
 section.image {
-  padding-top: 5rem;
+  padding-top: .25rem;
 }
 
 #imgradio input[type="radio"] {
@@ -55,4 +55,50 @@ section.image {
   font-size: 16px;
   border: 2px solid #444;
   border-radius: 4px;
+}
+
+
+.back-arrow{
+  width:24px;
+  height:24px;
+  transform: rotate(180deg);
+  position: absolute;
+  margin-top: 60px;
+  margin-left: 25px;
+}
+
+.login-bubble1{
+  position: fixed;
+  margin-top: -250px;
+  margin-left: -245px;
+  border-radius: 75%;
+  transform: rotate(120deg);
+  z-index: -10;
+  opacity: 0.1;
+  overflow: hidden;
+}
+
+.login-bubble2{
+  position: fixed;
+  bottom: -300px;
+  right: -200px;
+  transform: rotate(-35deg);
+  z-index: -10;
+  opacity: 0.1;
+  border-radius: 75%;
+}
+
+
+.login-logo-section{
+  width: 100%;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.login-logo{
+  margin-left: auto;
+  margin-right: auto;
+  width: 63.55px;
+  height: 81px;
+
 }
