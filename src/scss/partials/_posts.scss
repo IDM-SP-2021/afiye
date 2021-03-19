@@ -9,6 +9,17 @@
   background: #fff;
 }
 
+.feed-btn {
+  background: #922aff;
+  width: 45px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  border-width: 0;
+  border-radius: 50%;
+}
+
 // Image + Username and title for creating posts
 .imgname {
   display: flex;
@@ -49,15 +60,32 @@ div.imgname div:last-child span {
   }
 }
 
+.buttons {
+  // float: right;
+  // width: 68px;
+  margin-left: 46px;
+  // margin-top: 15px;
+}
+
 .afiye-posts {
-  padding-bottom: 2rem;
+  padding-bottom: 0.5rem;
   // width: 100vw;
   margin: 0 auto;
-  border-top: 1px solid #c1bcbc;
+  border: 1px solid #e7e7e7;
   // border-bottom: 1px solid #c1bcbc;
   /* border-radius: 24px; */
   width: 377px;
   background-color: white;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+.user-info {
+  display: flex;
+  width: 100vw;
+  margin: 0 auto;
+  // padding-top: 3rem;
 }
 
 div.timestamp {
@@ -65,6 +93,7 @@ div.timestamp {
   margin-left: 67px;
   font-size: 13px;
 }
+
 div.timestamp img {
   padding-bottom: 5px;
 }
@@ -110,6 +139,10 @@ div.img {
   stroke: #8a3ab8;
   stroke-width: 3px;
 }
+.avatars {
+  // grid-area: avatar;
+  display: flex !important;
+}
 
 .story {
   width: 70px;
@@ -124,6 +157,14 @@ div.img {
   // z-index: -100;
   margin: 11px;
 }
+.tagged-users {
+  display: grid;
+  // grid-template-columns: 1fr;
+  // grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "title"
+    "avatar";
+}
 
 .story svg {
   fill: none;
@@ -134,23 +175,18 @@ div.img {
   // z-index: -1000;
 }
 
-.avatars {
-  grid-area: avatar;
-  display: flex;
-}
-
 .title-tag-users {
   grid-area: title;
 }
 
-.tagged-users {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "title"
-    "avatar";
-}
+// .tagged-users {
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   grid-template-rows: 1fr 1fr;
+//   grid-template-areas:
+//     "title"
+//     "avatar";
+// }
 
 .post-media {
   width: 100%;
@@ -213,6 +249,11 @@ div.img {
     }
   }
 }
+
+// check this
+// .buttons {
+//   margin-left: 20px;
+// }
 
 // div.post-media img {
 //   width: 95%;
@@ -337,5 +378,20 @@ div.img {
 @include desktop {
   .footer-box {
     display: block;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .footer-box {
+    display: block;
+  }
+
+  .buttons {
+    margin-left: 115px !important;
+  }
+
+  .avatars {
+    // grid-area: avatar;
+    display: flex !important;
   }
 }

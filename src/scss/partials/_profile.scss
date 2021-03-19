@@ -251,6 +251,10 @@
     .tab-container {
       max-width: 700px;
       margin: 0 auto;
+
+      &.hidden {
+        display: none;
+      }
     }
 
     #tab-recent-activity {

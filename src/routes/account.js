@@ -203,10 +203,12 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
             postData.push({ownerData, timeStamp, itemType, item});
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
+          let current = _.find(result, {'uid': req.user.uid});
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
             data: {
+              current,
               family: result,
               posts: sorted
             }
