@@ -77,23 +77,25 @@ const getData = (user) => {
 
 // GET /add-member
 const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
+  console.log('user: ', user);
+  console.log('per: ', per);
   let session = driver.session();
   let query;
   if (per) {
     query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
+            OPTIONAL MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
             RETURN p, u, r.relation AS rel`;
   } else {
     query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
             RETURN p`;
   }
-
+  console.log(query);
   return session.run(query)
   .then(results => {
     let family = [];
 
     results.records.forEach(res => {
-
+      console.log('Res: ', res);
       let person = res.get('p'),
           id = person.identity.low.toString(),
           props = person.properties,
@@ -120,7 +122,7 @@ const getFamily = (user, per) => { // user = user obj (typically req.user), per 
         member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
       }
 
-      if (per) {
+      if (per && results.records.length > 1) {
         let person = res.get('u'),
             id = person.identity.low.toString(),
             props = person.properties,
@@ -214,6 +216,11 @@ const initFamily = (person) => {
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
       RETURN *`
     )
+    .then(results => {
+      results.records.forEach(res => {
+        console.log(res);
+      });
+    })
     .catch(err => {
       throw err;
     })

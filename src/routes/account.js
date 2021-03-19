@@ -169,14 +169,15 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
           birthdate: birthdate,
           gender: gender,
           location: location,
-          profileColor: `#${profileColor}`,
+          profileColor: profileColor,
           avatar: avatarUrl,
           claimed: true,
         };
 
-        api.initFamily(person);
-
-        res.redirect('/account/feed');
+        api.initFamily(person)
+          .then(() => {
+            res.redirect('/account/feed');
+          });
       });
     }
   });
@@ -201,6 +202,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user, req.user.uid)
       .then((result) => {
+        console.log(result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -218,6 +220,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let current = _.find(result, {'uid': req.user.uid});
+          console.log(current);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
