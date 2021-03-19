@@ -202,6 +202,10 @@ i.icon {
     // usage: <i class="icon icon-accessibility"></i>
     content: "\e900";
   }
+  &.icon-alert:before {
+    // usage: <i class="icon icon-alert"></i>
+    content: "\e919";
+  }
   &.icon-arrow:before {
     // usage: <i class="icon icon-arrow"></i>
     content: "\e901";

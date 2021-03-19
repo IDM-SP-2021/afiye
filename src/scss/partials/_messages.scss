@@ -1,0 +1,27 @@
+// styles for success and error messages
+
+.message {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto 1rem;
+  padding: 0 1rem;
+  border-radius: 5px;
+
+  i.icon {
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+    border-right: 2px solid;
+  }
+
+  &.error {
+    background-color: $red-light;
+    color: $red-dark;
+  }
+
+  &.success {
+    background-color: $green-light;
+    color: $green-dark;
+  }
+}
