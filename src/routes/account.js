@@ -458,6 +458,24 @@ router.get('/inputcode', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/user/onboarding/inputcode'), locals);
 });
 
+router.post('/inputcode', ensureAuthenticated, (req, res) => {
+  let {code} = req.body;
+  console.log(code);
+  Invite.findOne({code: code}).exec((err, invite) => {
+    console.log('Invite: ', invite);
+    api.getNode(invite.uid)
+      .then((result) => {
+        console.log('Current: ', req.user);
+        console.log('Result: ', result);
+        User.findOneAndUpdate({uid: req.user.uid}, {uid: result.uid, fid: result.fid, node: true}, {new: true}).exec((err, user) => {
+          let query = `MATCH (p:Person {uid: '${user.uid}'}) SET p.claimed = true RETURN p`;
+          api.submitQuery(query);
+        });
+        res.redirect('/account/feed');
+      });
+  });
+});
+
 // claim profile
 router.get('/claimprofile', ensureAuthenticated, (req, res) => {
   let locals = {
@@ -724,7 +742,7 @@ router.post('/invite-member-:uid', ensureAuthenticated, (req, res) => {
         }
       });
 
-      res.redirect(`/account/invite-member-${target}`);
+      res.redirect(`/account/profile-${target}`);
     });
 });
 
