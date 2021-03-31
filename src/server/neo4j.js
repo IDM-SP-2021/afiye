@@ -76,19 +76,12 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
+const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
   console.log('user: ', user);
-  console.log('per: ', per);
   let session = driver.session();
   let query;
-  if (per) {
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            OPTIONAL MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
-            RETURN p, u, r.relation AS rel`;
-  } else {
     query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
             RETURN p`;
-  }
   console.log(query);
   return session.run(query)
   .then(results => {
@@ -115,32 +108,7 @@ const getFamily = (user, per) => { // user = user obj (typically req.user), per 
         avatar = '../assets/icons/user.svg';
       }
 
-      if (per) {
-        let relType = res.get('rel');
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-      } else {
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
-      }
-
-      if (per && results.records.length > 1) {
-        let person = res.get('u'),
-            id = person.identity.low.toString(),
-            props = person.properties,
-            uid = props.uid,
-            fid = props.fid,
-            firstName = props.firstName,
-            prefName = props.prefName,
-            lastName = props.lastName,
-            gender = props.gender,
-            birthdate = props.birthdate,
-            avatar = props.avatar,
-            claimed = props.claimed,
-            profileColor = props.profileColor,
-            relType = "That's you!",
-            current = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-
-        family.push(current);
-      }
+      member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
 
       family.push(member);
     });

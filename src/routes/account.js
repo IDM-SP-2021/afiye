@@ -200,7 +200,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     res.redirect('/account/welcome');
   } else {
     let postData = [];
-    api.getFamily(req.user, req.user.uid)
+    api.getFamily(req.user)
       .then((result) => {
         console.log(result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
@@ -752,7 +752,7 @@ router.post('/invite-member-:uid', ensureAuthenticated, (req, res) => {
 // * user profile
 router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
-  api.getFamily(req.user, member)
+  api.getFamily(req.user)
     .then((result) => {
       let profile = _.find(result, {uid: member}),
           postData = [],
