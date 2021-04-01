@@ -132,3 +132,21 @@ hr.solid {
     margin-left: 16px;
     width: 200px;
   }
+
+  .mobile-menu {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    height: 64px;
+    align-items: center;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.item {
+    display: flex;
+    align-items: center;}

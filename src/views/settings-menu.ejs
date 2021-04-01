@@ -1,0 +1,94 @@
+<%- include('./partials/user-header') %>
+
+<!-- <h1>Feed</h1>
+<p>Welcome <%= user.name %></p> -->
+
+<div class="menu">
+    
+    <div class="Account Options">
+		<div class="input-container">
+			<label for="email">Email</label>
+			<input
+				class="input"
+				type="email"
+				name="email"
+				placeholder="Enter Email"
+			/>
+		</div>		
+        
+        <div class="input-container">
+			<label for="email">Password</label>
+			<input
+				class="input"
+				type="password"
+				name="password"
+				placeholder="Enter Password"
+			/>
+		</div>
+        <button type="submit" class="button primary">Login</button>
+        <button type="submit" class="button primary">Login</button>
+    </div>
+
+</div>
+<div class="mobile-menu">
+
+    <h1>Settings</h1>
+
+
+    <div class="item">
+        <div class="sub-item">
+            <img style="padding-right: 13px;"src="../assets/icons/Profile.svg">
+            <a>Account</a>
+        </div>
+        <img style="width: 2%;" src="../assets/icons/arrow.svg">
+    </div>
+
+    <div class="item">
+        <div class="sub-item">
+            <img style="padding-right: 13px;"src="../assets/icons/privacy.svg">
+            <a>Privacy Settings</a>
+        </div>
+        <img style="width: 2%;" src="../assets/icons/arrow.svg">    </div>
+
+    <div class="item">
+        <div class="sub-item">
+            <img style="padding-right: 13px;"src="../assets/icons/access.svg">
+            <a>Accessibility Options</a>
+        </div>
+        <img style="width: 2%;" src="../assets/icons/arrow.svg">    </div>
+
+    <div class="item">
+        <div class="sub-item">
+            <img style="padding-right: 13px;"src="../assets/icons/email.svg">
+            <a>Email Notifications</a>
+        </div>
+        <img style="width: 2%;" src="../assets/icons/arrow.svg">    </div>
+
+        <div class="item">
+            <div class="sub-item">
+                <img style="padding-right: 13px;"src="../assets/icons/email.svg">
+                <a>Leave Tree</a>
+            </div>
+            <img style="width: 2%;" src="../assets/icons/arrow.svg">    </div>
+
+            <div class="item">
+                <div class="sub-item">
+                    <img style="padding-right: 13px;"src="../assets/icons/email.svg">
+                    <a>Deactivate Account</a>
+                </div>
+                <img style="width: 2%;" src="../assets/icons/arrow.svg">    </div>
+</div>
+
+<!-- <div class="footer-box">
+    <p class="footer-title">© afiye 2020</p>
+</div> -->
+<!-- 
+<div class="bottom-nav">
+        <p class="feed-nav">Feed</p>
+        <p class="tree-nav">Tree</p>
+        <p class="profile-nav">Profile</p>
+        <p class="settings-nav">Settings</p>
+</div> -->
+<!-- <p>Welcome <%= user.name %></p> -->
+
+<%- include('./partials/user-mobile-nav') %>

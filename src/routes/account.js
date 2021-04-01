@@ -255,6 +255,16 @@ router.get('/profile', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/profile'), locals);
 });
 
+// * settings-menu=
+router.get('/settings-menu', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: `Afiye - ${req.user.name}'s Settings`,
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-menu'), locals);
+});
+
 // * user settings
 router.get('/settings', ensureAuthenticated, (req, res) => {
   let locals = {
