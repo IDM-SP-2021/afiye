@@ -164,7 +164,6 @@ const getNode = (node) => {
             person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
         result = person;
       });
-      console.log(result);
       return result;
     })
     .catch(err => {
@@ -178,7 +177,6 @@ const getNode = (node) => {
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
-  console.log(person);
   return session
     .run(
       `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
@@ -199,11 +197,11 @@ const initFamily = (person) => {
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
       RETURN *`
     )
-    .then(results => {
-      results.records.forEach(res => {
-        console.log(res);
-      });
-    })
+    // .then(results => {
+    //   results.records.forEach(res => {
+    //     console.log(res);
+    //   });
+    // })
     .catch(err => {
       throw err;
     })

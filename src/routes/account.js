@@ -208,8 +208,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
             const ownerData = _.find(result, {'uid': item.owner}),
                   timeStamp = timeDiff(item.date),
                   itemType = 'memory';
-            console.log('Post: ', item.pid);
-            console.log('Owner data: ', ownerData);
             postData.push({ownerData, timeStamp, itemType, item});
           });
         });
@@ -222,7 +220,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let current = _.find(result, {'uid': req.user.uid});
-          // console.log(current);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
@@ -756,10 +753,11 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
   api.getFamily(req.user)
     .then((result) => {
+      console.log('Profile page result: ', result);
       let profile = _.find(result, {uid: member}),
           postData = [],
           immRels = ['parent', 'child', 'sibling', 'spouse'],
-          immFamily = _.filter(result, rel => _.indexOf(immRels, rel.relType) !== -1); // filter relationships by immRels array
+          immFamily = _.filter(result, rel => _.indexOf(immRels, rel.relation) !== -1); // filter relationships by immRels array
 
       immFamily = _.uniqBy(immFamily, 'uid'); // clear duplicates
 
