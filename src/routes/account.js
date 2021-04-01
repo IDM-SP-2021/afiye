@@ -208,6 +208,8 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
             const ownerData = _.find(result, {'uid': item.owner}),
                   timeStamp = timeDiff(item.date),
                   itemType = 'memory';
+            console.log('Post: ', item.pid);
+            console.log('Owner data: ', ownerData);
             postData.push({ownerData, timeStamp, itemType, item});
           });
         });
