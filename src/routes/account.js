@@ -202,7 +202,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
-        console.log(result);
+        console.log('family @ /feed', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -220,7 +220,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
           let current = _.find(result, {'uid': req.user.uid});
-          console.log(current);
+          // console.log(current);
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,

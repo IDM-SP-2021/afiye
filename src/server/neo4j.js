@@ -4,6 +4,29 @@ const _ = require('lodash');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
+const nodeObj = (node) => {
+  let id = node.identity.low.toString(),
+      props = node.properties,
+      uid = props.uid,
+      fid = props.fid,
+      firstName = props.firstName,
+      prefName = props.prefName,
+      lastName = props.lastName,
+      gender = props.gender,
+      birthdate = props.birthdate,
+      avatar = props.avatar,
+      claimed = props.claimed,
+      profileColor = props.profileColor,
+      member;
+
+  if (avatar === undefined) {
+    avatar = '../assets/icons/user.svg';
+  }
+
+  member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+  return member;
+};
+
 // submit generic query
 const submitQuery = (query) => {
   let session = driver.session();
@@ -77,38 +100,30 @@ const getData = (user) => {
 
 // GET /add-member
 const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
-  console.log('user: ', user);
   let session = driver.session();
-  let query;
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            RETURN p`;
-  console.log(query);
+  let query =
+    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
+    WITH collect(p) AS nodes
+    MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
+    UNWIND nodes AS n
+    WITH * WHERE id(u) <> id(n)
+    MATCH path = allShortestPaths( (n)-[*..1]->(u) )
+    RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
+
   return session.run(query)
   .then(results => {
     let family = [];
+    let first_iter = true;
 
     results.records.forEach(res => {
-      console.log('Res: ', res);
-      let person = res.get('p'),
-          id = person.identity.low.toString(),
-          props = person.properties,
-          uid = props.uid,
-          fid = props.fid,
-          firstName = props.firstName,
-          prefName = props.prefName,
-          lastName = props.lastName,
-          gender = props.gender,
-          birthdate = props.birthdate,
-          avatar = props.avatar,
-          claimed = props.claimed,
-          profileColor = props.profileColor,
-          member;
-
-      if (avatar === undefined) {
-        avatar = '../assets/icons/user.svg';
+      if (first_iter) {
+        let currentMem = nodeObj(res.get('curr'));
+            currentMem.relation = "That's You!";
+        family.push(currentMem);
       }
 
-      member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+      let member = nodeObj(res.get('familyMem'));
+          member.relation = res.get('relationship')[0].properties.relation;
 
       family.push(member);
     });
