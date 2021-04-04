@@ -17,6 +17,7 @@ const fileUpload = multer();
 const _ = require('lodash');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_SERVICE_HOST,
@@ -824,6 +825,76 @@ router.get('/settings-account-change-password', ensureAuthenticated, (req, res) 
   };
 
   res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), locals);
+});
+
+router.post('/settings-account-change-password', ensureAuthenticated, (req, res) => {
+  const { currentPassword, newPassword, newPassword2 } = req.body;
+  let errors = [];
+
+  // check if passwords match
+  if (newPassword !== newPassword2) {
+    errors.push({msg: 'Passwords don\'t match'});
+  }
+
+  // check if password is more than 6 characters
+  if (newPassword.length < 6) {
+    errors.push({msg: 'Password must be at least 6 characters'});
+  }
+
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+      errors: errors,
+      newPassword: newPassword,
+      newPassword2: newPassword2,
+      title: 'Afiye - Change Password',
+      user: req.user,
+    });
+  } else {
+    User.findOne({uid: req.user.uid}).exec((err, user) => {
+      bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+        if (!isMatch) {
+          errors.push({msg: 'Current password is incorrect'});
+          res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+            errors: errors,
+            newPassword: newPassword,
+            newPassword2: newPassword2,
+            title: 'Afiye - Change Password',
+            user: req.user,
+          });
+        } else {
+          bcrypt.genSalt(10,(err,salt) =>
+          bcrypt.hash(newPassword,salt, (err,hash)=> {
+            if(err) {
+              throw err;
+            } else {
+              User.findOneAndUpdate({uid: req.user.uid}, {password: hash}, {new: true}).exec((err, user) => {
+                if (!user) {
+                  errors.push({msg: 'locate'});
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                    errors: errors,
+                    newPassword: newPassword,
+                    newPassword2: newPassword2,
+                    title: 'Afiye - Change Password',
+                    user: req.user,
+                  });
+                } else {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                    success_msg: 'You password has been updated!',
+                    newPassword: newPassword,
+                    newPassword2: newPassword2,
+                    title: 'Afiye - Change Password',
+                    user: req.user,
+                  });
+                }
+              });
+            }
+          }
+        ));
+          // User.findOneAndUpdate({uid: req.user.uid},)
+        }
+      });
+    });
+  }
 });
 
 // user settings
