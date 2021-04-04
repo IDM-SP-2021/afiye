@@ -879,7 +879,7 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
                   });
                 } else {
                   res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
-                    success_msg: 'You password has been updated!',
+                    success_msg: 'Your password has been updated!',
                     newPassword: newPassword,
                     newPassword2: newPassword2,
                     title: 'Afiye - Change Password',
