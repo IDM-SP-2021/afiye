@@ -889,8 +889,7 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
               });
             }
           }
-        ));
-          // User.findOneAndUpdate({uid: req.user.uid},)
+          ));
         }
       });
     });
