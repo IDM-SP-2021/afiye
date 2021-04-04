@@ -127,7 +127,8 @@ router.post('/register', (req, res) => {
         // create email validation token in tokens collection
         const newToken = new Token({
           uid: uid,
-          token: valToken
+          token: valToken,
+          type: 'account'
         });
 
         newToken.save()
@@ -226,7 +227,7 @@ router.post('/register/confirmation-:uid', (req,res) => {
     } else {
       const firstName = user.firstName;
       const email = user.email;
-      Token.findOne({ uid: uid }).exec((err, token) => {
+      Token.findOne({ uid: uid, type: 'account' }).exec((err, token) => {
         if(!token) {
           errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
           res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
@@ -297,8 +298,8 @@ router.get('/verify/:uid-:token', (req, res) => {
       token: valToken,
     });
   } else {
-    Token.findOne({uid: uid}).exec((err, token) => {
-      if (!token) {
+    Token.findOne({uid: uid, type: 'account'}).exec((err, token) => {
+      if (!token || token.token !== valToken) {
         errors.push({msg: 'expired'});
         res.render(path.resolve(__dirname, '../views/front/verify'), {
           errors: errors,
@@ -351,7 +352,8 @@ router.post('/verify/:uid-:token', (req, res) => {
       // create email validation token in tokens collection
       const newToken = new Token({
         uid: uid,
-        token: valToken
+        token: valToken,
+        type: 'account'
       });
 
       newToken.save()
@@ -393,6 +395,137 @@ router.get('/downloads/:file-:ext', (req, res) => {
       path = `../assets/downloads/${file}.${ext}`;
 
   res.download(__dirname, path);
+});
+
+router.get('/password-reset', (req, res) => {
+  let locals = {
+    title: 'Afiye - Reset Password'
+  };
+
+  res.render(path.resolve(__dirname, '../views/front/password-reset'), locals);
+});
+
+router.post('/password-reset', (req, res) => {
+  const { email } = req.body;
+  let errors = [];
+  const title = 'Afiye - Reset Password';
+
+  User.findOne({email: email}).exec((err, user) => {
+    if (!user) {
+      errors.push({msg: 'That email is not registered.'});
+      res.render(path.resolve(__dirname, '../views/front/password-reset'), {
+        title,
+        errors,
+      });
+    } else {
+      const uid = user.uid;
+      const email = user.email;
+      const valToken = nanoid(); // email validation token
+      // create email validation token in tokens collection
+      const newToken = new Token({
+        uid: uid,
+        token: valToken,
+        type: 'password'
+      });
+
+      newToken.save()
+        .catch(value => console.log(value));
+
+      ejs.renderFile(__dirname + '/../views/email/passwordReset.ejs', { verifyLink: `${process.env.MAIL_DOMAIN}/password-reset/${uid}-${valToken}` }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - Reset your password',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.render(path.resolve(__dirname, '../views/front/password-reset'), {
+        title,
+        uid: uid,
+        success_msg: `Password reset link sent to ${email}!`
+      });
+    }
+  });
+});
+
+router.get('/password-reset/:uid-:valToken', (req, res) => {
+  const { uid, valToken } = req.params;
+
+  Token.findOne({uid: uid, type: 'password'}).exec((err, token) => {
+    if (!token || token.token !== valToken) {
+      res.redirect('/password-reset');
+    } else {
+      res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+        title: 'Afiye - Password Reset',
+        uid,
+        valToken
+      });
+    }
+  });
+});
+
+router.post('/password-reset/:uid-:valToken', (req, res) => {
+  const { uid, valToken } = req.params,
+        { password, password2 } = req.body;
+  let errors = [];
+
+  // check if passwords match
+  if (password !== password2) {
+    errors.push({msg: 'Passwords don\'t match'});
+  }
+
+  // check if password is more than 6 characters
+  if (password.length < 6) {
+    errors.push({msg: 'Password must be at least 6 characters'});
+  }
+
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+      errors,
+      title: 'Afiye - Password Reset',
+      uid,
+      valToken
+    });
+  } else {
+    bcrypt.genSalt(10,(err,salt) =>
+    bcrypt.hash(password,salt, (err,hash)=> {
+      if(err) {
+        throw err;
+      } else {
+        User.findOneAndUpdate({uid: uid}, {password: hash}, {new: true}).exec((err, user) => {
+          if (!user) {
+            errors.push({msg: 'locate'});
+            res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+              errors,
+              title: 'Afiye - Password Reset',
+              uid,
+              valToken
+            });
+          } else {
+            res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+              success_msg: 'Your password has been successfully reset!',
+              title: 'Afiye - Password Reset',
+              uid,
+              valToken
+            });
+          }
+        });
+      }
+    }
+    ));
+  }
 });
 
 module.exports = router;
