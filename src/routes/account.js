@@ -203,7 +203,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
-        console.log('family @ /feed', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -754,7 +753,6 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
   api.getFamily(req.user)
     .then((result) => {
-      console.log('Profile page result: ', result);
       let profile = _.find(result, {uid: member}),
           postData = [],
           immRels = ['parent', 'child', 'sibling', 'spouse'],
@@ -794,6 +792,30 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
 
         res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
       });
+    });
+});
+
+router.get('/edit-profile-:uid', (req, res) => {
+  let member = req.params.uid;
+  api.getFamily(req.user)
+    .then((result) => {
+      let profile = _.find(result, {uid: member});
+      if (profile.claimed === true && profile.uid !== req.user.uid) {
+        console.log('Cannot edit this profile');
+        res.redirect(`/account/profile-${profile.uid}`);
+      } else {
+        console.log('Able to edit this profile');
+        let locals = {
+          title: 'Afiye - Edit Profile',
+          user: req.user,
+          data: {
+            profile,
+            family: result.family,
+          }
+        };
+        console.log('Edit profile: ', profile);
+        res.render(path.resolve(__dirname, '../views/user/profile/edit'), locals);
+      }
     });
 });
 

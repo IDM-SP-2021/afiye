@@ -9,23 +9,24 @@
     <% } %>
     <form
       id="profile-setup"
-      action="<% if (title === 'Afiye - Making a Tree') { %>/account/welcome-make<% } else if (title === 'Afiye - Add Family Member') { %>/account/add-member<% } %>"
+      action="<% if (title === 'Afiye - Making a Tree') { %>
+        /account/welcome-make<% } else if (title === 'Afiye - Add Family Member') { %>/account/add-member<% } else if (title === 'Afiye - Edit Profile') { %>/account/edit-profile-<%- user.uid %><% } %>"
       method="post"
       enctype="multipart/form-data"
     >
-      <button id="open-profile"><img src="" alt="" srcset="" /></button>
+      <button id="open-profile" class="<% if (title === 'Afiye - Edit Profile') { %> <%- data.profile.profileColor %> <% } %>"><% if (title === 'Afiye - Edit Profile') { %><img src="<%- data.profile.avatar %>"><% } %></button>
       <h2 id="full-name">
-        <% if (title === 'Afiye - Making a Tree') { %>
+        <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
         <span><%- user.firstName %> <%- user.lastName %></span>
         <% } else if (title === 'Afiye - Add Family Member') { %>
         <span>Tracy Doe</span>
         <% } %>
       </h2>
-      <% if (title === 'Afiye - Making a Tree') { %>
+      <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
       <p class="caption">This is how your name will appear to your family</p>
       <% } else if (title === 'Afiye - Add Family Member') { %>
       <p class="caption">This is how their name will appear to your family</p>
-      <% } %> <% if (title === 'Afiye - Add Family Member') { %>
+      <% } %> <% if (title === 'Afiye - Add Family Member' || title === 'Afiye - Edit Profile') { %>
       <div class="input-container">
         <input
           type="text"
@@ -33,6 +34,7 @@
           class="input"
           id="firstName"
           placeholder="First name"
+          value="<% if (title === 'Afiye - Edit Profile') { %><%- data.profile.firstName %><% } %>"
           required
         />
       </div>
@@ -44,9 +46,10 @@
           id="prefName"
           class="input"
           placeholder="Preferred first name (optional)"
+          value="<% if (title === 'Afiye - Edit Profile') { %><%- data.profile.prefName %><% } %>"
         />
       </div>
-      <% if (title === 'Afiye - Add Family Member') { %>
+      <% if (title === 'Afiye - Add Family Member' || title === 'Afiye - Edit Profile') { %>
       <div class="input-container">
         <input
           type="text"
@@ -62,10 +65,10 @@
       <div class="input-container">
         <label for="gender">Gender</label>
         <select name="gender" id="gender" required>
-          <option value="F">Female</option>
-          <option value="M">Male</option>
-          <option value="N">Non-Binary</option>
-          <option value="NA">Prefer not to say</option>
+          <option value="F" <% if (data.profile.gender === 'F') { %> selected <% } %> >Female</option>
+          <option value="M" <% if (data.profile.gender === 'M') { %> selected <% } %> >Male</option>
+          <option value="N" <% if (data.profile.gender === 'N') { %> selected <% } %> >Non-Binary</option>
+          <option value="NA" <% if (data.profile.gender === 'NA') { %> selected <% } %> >Prefer not to say</option>
         </select>
       </div>
       <% if (title === 'Afiye - Add Family Member') { %>
@@ -100,7 +103,7 @@
           name="birthdate"
           class="input"
           id="birthdate"
-          placeholder="Birthdate"
+          value="<% if (title === 'Afiye - Edit Profile') { %><%- data.profile.birthdate %><% } %>"
           required
         />
       </div>
@@ -111,6 +114,7 @@
           class="input"
           id="location"
           placeholder="Location (optional)"
+          value="<% if (title === 'Afiye - Edit Profile') { %><%- data.profile.location %><% } %>"
         />
       </div>
       <fieldset id="profile-color-select">
@@ -122,6 +126,7 @@
             name="profileColor"
             id="color-<%- colorOptions[i] %>"
             value="profileColor-<%- colorOptions[i] %>"
+            <% if (data.profile.profileColor === `profileColor-${ colorOptions[i] }`) { %> checked <% } %>
           />
           <label for="color-<%- colorOptions[i] %>">
             <span><%- colorOptions[i] %></span>
@@ -147,7 +152,7 @@
       <input
         class="button primary"
         type="submit"
-        value="<% if (title === 'Afiye - Making a Tree') { %>Save<% } else if (title === 'Afiye - Add Family Member') { %>Create<% } %>"
+        value="<% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>Save<% } else if (title === 'Afiye - Add Family Member') { %>Create<% } %>"
       />
     </form>
   </section>
