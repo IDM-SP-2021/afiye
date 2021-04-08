@@ -870,14 +870,38 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
     upload(req)
       .then(() => {
         memData.avatar = avatarUrl;
-        console.log('New avatar ', memData);
-        api.updateMember(memData);
-        res.redirect(`/account/edit-profile-${member}`);
+        let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+        _.forEach(memData, (value, key) => {
+          if (key !== 'uid' && key !== 'fid') {
+            query += `p.${key} = '${value}',`;
+          }
+        });
+
+        query = query.slice(0,-1);
+        query += ' RETURN p';
+
+        api.submitQuery(query)
+          .then(() => {
+            res.redirect(`/account/profile-${member}`);
+          })
       });
   } else {
-    console.log('No new avatar', memData);
-    api.updateMember(memData);
-    res.redirect(`/account/edit-profile-${member}`);
+    let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+    _.forEach(memData, (value, key) => {
+      if (key !== 'uid' && key !== 'fid') {
+        query += `p.${key} = '${value}',`;
+      }
+    });
+
+    query = query.slice(0,-1);
+    query += ' RETURN p';
+
+    api.submitQuery(query)
+      .then(() => {
+        res.redirect(`/account/profile-${member}`);
+      })
   }
 });
 

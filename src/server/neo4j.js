@@ -363,19 +363,6 @@ const addMember = (person) => {
     });
 };
 
-const updateMember = (member) => {
-  let query = `MATCH (p:Person {fid: '${member.fid}', uid: '${member.uid}'}) SET `;
-  _.forEach(member, (value, key) => {
-    if (key !== 'uid' && key !== 'fid') {
-      console.log('Key is: ', key, typeof(key));
-      query += `p.${key} = '${value}',`;
-    }
-  });
-  query = query.slice(0,-1);
-  query += ' RETURN p';
-  console.log(query);
-};
-
 module.exports = {
   submitQuery: submitQuery,
   getData: getData,
@@ -383,5 +370,4 @@ module.exports = {
   initFamily: initFamily,
   addMember: addMember,
   getNode: getNode,
-  updateMember: updateMember,
 };
