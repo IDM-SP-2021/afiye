@@ -4,7 +4,12 @@
 	<h1>Email has been sent</h1>
 
 	<% if (typeof success_msg !== 'undefined') { %>
-		<p><%- success_msg %> </p>
+		<p style="
+		text-align: center;
+		max-width: 325px;
+		margin-left: auto;
+		margin-right: auto;
+	"><%- success_msg %> </p>
 	<% } %>
 	<p>
 		<% if(typeof errors != 'undefined') { %>
@@ -18,8 +23,11 @@
 		<% } %>
 	</p>
 	<a class="button primary" href="/login">Login</a>
-	<form action="/register/confirmation-<%- uid %> " method="post">
+	<form action="/register/confirmation-<%- uid %> " method="post" style="
+		text-align: center;
+		padding-top: 2em;
+	">
 		<label>Didn't recieve the message?</label
-		><input class="button text-only" type="submit" value="Resend" />
+		><input class="button text-only" type="submit" value="Resend" style="margin-top: 1.25em;" />
 	</form>
 </main>
