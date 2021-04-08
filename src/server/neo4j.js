@@ -4,6 +4,29 @@ const _ = require('lodash');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
+const nodeObj = (node) => {
+  let id = node.identity.low.toString(),
+      props = node.properties,
+      uid = props.uid,
+      fid = props.fid,
+      firstName = props.firstName,
+      prefName = props.prefName,
+      lastName = props.lastName,
+      gender = props.gender,
+      birthdate = props.birthdate,
+      avatar = props.avatar,
+      claimed = props.claimed,
+      profileColor = props.profileColor,
+      member;
+
+  if (avatar === undefined) {
+    avatar = '../assets/icons/user.svg';
+  }
+
+  member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+  return member;
+};
+
 // submit generic query
 const submitQuery = (query) => {
   let session = driver.session();
@@ -76,71 +99,31 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
-  console.log('user: ', user);
-  console.log('per: ', per);
+const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
   let session = driver.session();
-  let query;
-  if (per) {
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            OPTIONAL MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
-            RETURN p, u, r.relation AS rel`;
-  } else {
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            RETURN p`;
-  }
-  console.log(query);
+  let query =
+    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
+    WITH collect(p) AS nodes
+    MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
+    UNWIND nodes AS n
+    WITH * WHERE id(u) <> id(n)
+    MATCH path = allShortestPaths( (n)-[*..1]->(u) )
+    RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
+
   return session.run(query)
   .then(results => {
     let family = [];
+    let first_iter = true;
 
     results.records.forEach(res => {
-      console.log('Res: ', res);
-      let person = res.get('p'),
-          id = person.identity.low.toString(),
-          props = person.properties,
-          uid = props.uid,
-          fid = props.fid,
-          firstName = props.firstName,
-          prefName = props.prefName,
-          lastName = props.lastName,
-          gender = props.gender,
-          birthdate = props.birthdate,
-          avatar = props.avatar,
-          claimed = props.claimed,
-          profileColor = props.profileColor,
-          member;
-
-      if (avatar === undefined) {
-        avatar = '../assets/icons/user.svg';
+      if (first_iter) {
+        let currentMem = nodeObj(res.get('curr'));
+            currentMem.relation = "That's You!";
+        family.push(currentMem);
       }
 
-      if (per) {
-        let relType = res.get('rel');
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-      } else {
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
-      }
-
-      if (per && results.records.length > 1) {
-        let person = res.get('u'),
-            id = person.identity.low.toString(),
-            props = person.properties,
-            uid = props.uid,
-            fid = props.fid,
-            firstName = props.firstName,
-            prefName = props.prefName,
-            lastName = props.lastName,
-            gender = props.gender,
-            birthdate = props.birthdate,
-            avatar = props.avatar,
-            claimed = props.claimed,
-            profileColor = props.profileColor,
-            relType = "That's you!",
-            current = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-
-        family.push(current);
-      }
+      let member = nodeObj(res.get('familyMem'));
+          member.relation = res.get('relationship')[0].properties.relation;
 
       family.push(member);
     });
@@ -181,7 +164,6 @@ const getNode = (node) => {
             person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
         result = person;
       });
-      console.log(result);
       return result;
     })
     .catch(err => {
@@ -195,7 +177,6 @@ const getNode = (node) => {
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
-  console.log(person);
   return session
     .run(
       `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
@@ -216,11 +197,11 @@ const initFamily = (person) => {
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
       RETURN *`
     )
-    .then(results => {
-      results.records.forEach(res => {
-        console.log(res);
-      });
-    })
+    // .then(results => {
+    //   results.records.forEach(res => {
+    //     console.log(res);
+    //   });
+    // })
     .catch(err => {
       throw err;
     })

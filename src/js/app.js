@@ -1,4 +1,5 @@
 import '../scss/styles.scss';
+import '../favicons/favicons';
 
 import $ from 'jquery';
 import _ from 'lodash';
