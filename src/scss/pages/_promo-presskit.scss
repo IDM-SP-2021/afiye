@@ -34,13 +34,6 @@
       top: 3rem;
     }
 
-    #hero {
-      position: absolute;
-      width: 115%;
-      z-index: -10;
-      left: -1em;
-    }
-
     .promo-heading {
       font: $promo-heading-mobile;
       background: $gradient-two;
@@ -58,12 +51,45 @@
     }
   }
 
+@include mobile {
+    #hero {
+        position: absolute;
+        width: 110%;
+        z-index: -10;
+        left: -1em;
+        top: -8.5em;
+      }
+}
+
+@include tablet {
+    #hero {
+        position: absolute;
+        width: 110%;
+        z-index: -10;
+        left: -1em;
+        top: -29.5em;
+      }
+}
+
+@include desktop {
+    #hero {
+        position: absolute;
+        width: 110%;
+        z-index: -10;
+        left: -1em;
+        top: -50.5em;
+      }
+}
+
+
+
+
   // About
 
   #about {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 20rem;
 
     .promo-heading {
@@ -80,6 +106,9 @@
 
   #brand-guide {
     margin-top: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -145,12 +174,3 @@
   }
 }
 
-@include tablet {
-  #presskit-heading {
-    #hero {
-      width: 100%;
-      margin: 0 auto;
-      top: -60vw;
-    }
-  }
-}
