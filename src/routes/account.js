@@ -255,6 +255,8 @@ router.get('/profile', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/profile'), locals);
 });
 
+
+
 // * settings-menu=
 router.get('/settings-menu', ensureAuthenticated, (req, res) => {
   let locals = {
