@@ -19,7 +19,7 @@
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
           item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase() + item.itemType.slice(1) %>
         </h2>
-        <span><%- item.ownerData.relType.charAt(0).toUpperCase() + item.ownerData.relType.slice(1) %></span>
+        <span><%- item.ownerData.relation %></span>
       </div>
     </div>
 
