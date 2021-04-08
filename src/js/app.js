@@ -53,7 +53,7 @@ $('input[name=profileColor]').on('change', () => { // change profile image ring 
   $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
 });
 $('#profile-setup input[type="submit"]').on('click', (event) => {
-  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned')) {
+  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned') && !$('#open-profile img').length) {
     event.preventDefault();
     console.log('missing profile');
     $('#open-profile').after('<p>Hey you forgot to add a profile picture! If you don\'t have one you can skip this for now!</p>');

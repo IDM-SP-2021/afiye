@@ -62,10 +62,10 @@
       <div class="input-container">
         <label for="gender">Gender</label>
         <select name="gender" id="gender" required>
-          <option value="F">Female</option>
-          <option value="M">Male</option>
-          <option value="N">Non-Binary</option>
-          <option value="NA">Prefer not to say</option>
+          <option value="F" <% if (title === 'Afiye - Edit Profile') { %><% if (data.profile.gender === 'F') { %> selected <% } %><% } %> >Female</option>
+          <option value="M" <% if (title === 'Afiye - Edit Profile') { %><% if (data.profile.gender === 'M') { %> selected <% } %><% } %> >Male</option>
+          <option value="N" <% if (title === 'Afiye - Edit Profile') { %><% if (data.profile.gender === 'N') { %> selected <% } %><% } %> >Non-Binary</option>
+          <option value="NA" <% if (title === 'Afiye - Edit Profile') { %><% if (data.profile.gender === 'NA') { %> selected <% } %><% } %> >Prefer not to say</option>
         </select>
       </div>
       <% if (title === 'Afiye - Add Family Member') { %>
@@ -122,6 +122,7 @@
             name="profileColor"
             id="color-<%- colorOptions[i] %>"
             value="profileColor-<%- colorOptions[i] %>"
+            <% if (title === 'Afiye - Edit Profile') { %><% if (data.profile.profileColor === `profileColor-${ colorOptions[i] }`) { %> checked <% } %><% } %>
           />
           <label for="color-<%- colorOptions[i] %>">
             <span><%- colorOptions[i] %></span>
