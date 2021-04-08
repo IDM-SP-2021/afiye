@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Upload to Cloudinar
+// Upload to Cloudinary
 function upload(file, folder) {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
@@ -817,6 +817,69 @@ router.get('/edit-profile-:uid', (req, res) => {
         res.render(path.resolve(__dirname, '../views/user/profile/edit'), locals);
       }
     });
+});
+
+router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
+  let member = req.params.uid;
+  const { firstName, prefName, lastName, birthdate, gender, location, profileColor } = req.body;
+  const memData = {
+    uid: member,
+    fid: req.user.fid,
+    firstName,
+    prefName,
+    lastName,
+    birthdate,
+    gender,
+    location,
+    profileColor
+  };
+  if (req.file) {
+    let avatarUrl;
+
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${member}`,
+            eager: [
+              {quality: 'auto'}
+            ]
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const upload = async (req) => {
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
+    };
+
+    upload(req)
+      .then(() => {
+        memData.avatar = avatarUrl;
+        console.log('New avatar ', memData);
+        api.updateMember(memData);
+        res.redirect(`/account/edit-profile-${member}`);
+      });
+  } else {
+    console.log('No new avatar', memData);
+    api.updateMember(memData);
+    res.redirect(`/account/edit-profile-${member}`);
+  }
+
 });
 
 // * user settings
