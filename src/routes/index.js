@@ -68,6 +68,24 @@ router.get('/login', (req, res) => {
   res.render(path.resolve(__dirname, '../views/front/login'), locals);
 });
 
+// * forgot password
+router.get('/forgotpwd', (req, res) => {
+  let locals = {
+    title: `Afiye - Forgot Password`,
+  };
+
+  res.render(path.resolve(__dirname, '../views/forgotpwd'), locals);
+});
+
+// * forgot password
+router.get('/emailsent', (req, res) => {
+  let locals = {
+    title: `Afiye - Email sent`,
+  };
+
+  res.render(path.resolve(__dirname, '../views/emailsent'), locals);
+});
+
 // * register page
 router.get('/register', (req, res) => {
   let locals = {

@@ -1,0 +1,37 @@
+<%- include('./partials/front-header') %>
+
+<main style="    height: 100%;
+background-color: white;">
+	<!-- <h1>Login to your Account</h1> -->
+
+	<%- include ('./partials/messages') %>
+<div class="login-mobile" style="    text-align: center;
+margin: 0 auto;
+width: 375px;
+padding-top: 6rem;">
+
+	<img src="../assets/imgs/pwd.png" style= "    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+    align-items: center;
+    justify-items: center;">
+	<h1 style="font-size: 1.5rem;">Forgot Password?</h1>
+	<p>We will send a recovery link to your email.</p>
+
+	<form action="/login" method="post">
+		<div class="input-container">
+			<!-- <label for="email">Email</label> -->
+			<input
+				class="input mobile"
+				type="email"
+				name="email"
+				placeholder="Email"
+				style="height: 3.5rem;"
+			/>
+		</div>
+		<a href="/emailsent" style="text-align: right;"> Forgot email?</a>
+		<button type="submit" class="button primary">Next</button>
+	</form>
+	<!-- <p>Don't have an account? <a href="/register">Sign Up</a></p> -->
+</div>
+</main>
