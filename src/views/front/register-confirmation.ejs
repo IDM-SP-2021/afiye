@@ -1,0 +1,25 @@
+<%- include('../partials/front-header') %>
+
+<main>
+	<h1>Email has been sent</h1>
+
+	<% if (typeof success_msg !== 'undefined') { %>
+		<p><%- success_msg %> </p>
+	<% } %>
+	<p>
+		<% if(typeof errors != 'undefined') { %>
+			<% errors.forEach(function(error){ %>
+				<p><%= error.msg %></p>
+			<% }) %>
+		<% } else { %>
+			<%- firstName %>, please check you inbox for
+			<strong><%- email %></strong> to confirm your account. Make sure you check
+			you spam folder!
+		<% } %>
+	</p>
+	<a class="button primary" href="/login">Login</a>
+	<form action="/register/confirmation-<%- uid %> " method="post">
+		<label>Didn't recieve the message?</label
+		><input class="button text-only" type="submit" value="Resend" />
+	</form>
+</main>

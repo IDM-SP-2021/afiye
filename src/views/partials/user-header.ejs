@@ -1,25 +1,25 @@
 <header>
-	<nav class="header-nav">
-		<h2 class="header-title">afiye</h2>
-		<div class="nav-link-group">
-			<span
-				class="nav-link <% if (title === 'Afiye - Memory Feed') { %>active<% } %>"
-			>
-				<a href="/account/feed">Feed</a>
-			</span>
-			<span
-				class="nav-link <% if (title === 'Afiye - Family Tree') { %>active<% } %>"
-				><a href="/account/tree">Tree</a></span
-			>
-			<span
-				class="nav-link <% if (title === `Afiye - ${user.name}'s Profile`) { %>active<% } %>"
-				><a href="/account/profile">Profile</a></span
-			>
-			<span
-				class="nav-link <% if (title === 'Afiye - Account Settings') { %>active<% } %>"
-				><a href="/account/settings">Settings</a></span
-			>
-			<span class="nav-link"><a href="/logout">Logout</a></span>
-		</div>
-	</nav>
+  <nav class="header-nav">
+    <h2 class="header-title">afiye</h2>
+    <div class="nav-link-group">
+      <span
+        class="nav-link <% if (title === 'Afiye - Memory Feed') { %>active<% } %>"
+      >
+        <a href="/account/feed">Feed</a>
+      </span>
+      <span
+        class="nav-link <% if (title === 'Afiye - Family Tree') { %>active<% } %>"
+        ><a href="/account/tree">Tree</a></span
+      >
+      <span
+        class="nav-link <% if (title === `Afiye - ${user.name}'s Profile`) { %>active<% } %>"
+        ><a href="/account/profile-<%- user.uid %>">Profile</a></span
+      >
+      <span
+        class="nav-link <% if (title === 'Afiye - Account Settings') { %>active<% } %>"
+        ><a href="/account/settings">Settings</a></span
+      >
+      <span class="nav-link"><a href="/logout">Logout</a></span>
+    </div>
+  </nav>
 </header>

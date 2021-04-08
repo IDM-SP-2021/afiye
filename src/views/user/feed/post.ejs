@@ -1,0 +1,79 @@
+<%- include('../../partials/user-header') %>
+
+<div class="post-container" style="padding-top: 4rem">
+  <div class="afiye-posts">
+    <!-- header for user's name and timestamp -->
+    <div class="user-info">
+      <!-- profile img -->
+      <div class="imgname">
+        <div class="story">
+          <img src="<%- data.postOwner.avatar %>" alt="" />
+          <svg viewbox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" />
+          </svg>
+        </div>
+
+        <!-- username -->
+        <div class="description">
+          <h2>
+            <% if (data.postOwner.prefName !== '') { %><%=
+            data.postOwner.prefName %><% } else { %><%= data.postOwner.firstName
+            %><% } %> <%= data.postOwner.lastName %>
+          </h2>
+          <span> TBD </span>
+        </div>
+      </div>
+
+      <!-- timestamp -->
+      <div class="timestamp" style="float: right">
+        <a href="/account/modal"
+          ><img
+            style="padding-bottom: 10px"
+            src="../assets/icons/more-01.svg"
+            alt="more"
+          />
+        </a>
+        <span><%- data.timeStamp %></span>
+      </div>
+    </div>
+
+    <div>
+      <h2><%- data.post.title %></h2>
+    </div>
+    <div>
+      <p><%- data.post.description %></p>
+    </div>
+
+    <!-- Actual post -->
+
+    <div class="img">
+      <% data.post.media.forEach(media => { %>
+      <img class="post-media" src="<%- media %>" />
+      <% }) %>
+    </div>
+
+    <!-- Tagged users -->
+
+    <div class="tagged-users" style="display: grid">
+      <div class="title-tag-users">
+        <h2>Tagged Family</h2>
+      </div>
+
+      <% if (data.post.tagged.length > 0) { %>
+      <div class="avatars">
+        <% data.post.tagged.forEach(person => { %>
+        <div class="story">
+          <p><%- person %></p>
+        </div>
+        <% }) %>
+      </div>
+      <% } else { %>
+      <p>No one is tagged in this memory.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+<%- include('../../partials/user-mobile-nav') %>
+<div class="footer-box">
+  <p class="footer-title">© afiye 2020</p>
+</div>

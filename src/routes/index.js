@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
     title: 'Afiye'
   };
 
-  res.render(path.resolve(__dirname, '../views/index'), locals);
+  res.render(path.resolve(__dirname, '../views/front/index'), locals);
 });
 
 // * front matter press kit
@@ -38,7 +38,7 @@ router.get('/press-kit', (req, res) => {
     title: 'Afiye - Press Kit',
   };
 
-  res.render(path.resolve(__dirname, '../views/press-kit'), locals);
+  res.render(path.resolve(__dirname, '../views/front/press-kit'), locals);
 });
 
 // * front matter case study
@@ -47,7 +47,7 @@ router.get('/case-study', (req, res) => {
     title: 'Afiye - Case Study',
   };
 
-  res.render(path.resolve(__dirname, '../views/case-study'), locals);
+  res.render(path.resolve(__dirname, '../views/front/case-study'), locals);
 });
 
 // * front matter team page
@@ -56,7 +56,7 @@ router.get('/team', (req, res) => {
     title: 'Afiye - Meet the Team'
   };
 
-  res.render(path.resolve(__dirname, '../views/team'), locals);
+  res.render(path.resolve(__dirname, '../views/front/team'), locals);
 });
 
 // * login page
@@ -65,7 +65,7 @@ router.get('/login', (req, res) => {
     title: 'Afiye - Account Login'
   };
 
-  res.render(path.resolve(__dirname, '../views/login'), locals);
+  res.render(path.resolve(__dirname, '../views/front/login'), locals);
 });
 
 // * forgot password
@@ -92,13 +92,14 @@ router.get('/register', (req, res) => {
     title: 'Afiye - Sign Up'
   };
 
-  res.render(path.resolve(__dirname, '../views/register'), locals);
+  res.render(path.resolve(__dirname, '../views/front/register'), locals);
 });
 
 // * register handle
 router.post('/register', (req, res) => {
   const {firstName, lastName, email, password, password2} = req.body;
   let errors = [];
+  let em = email.toLowerCase();
 
   if (!firstName || !lastName || !email || !password || !password2) {
     errors.push({msg: 'Please fill in all fields'});
@@ -115,7 +116,7 @@ router.post('/register', (req, res) => {
   }
 
   if (errors.length > 0) {
-    res.render(path.resolve(__dirname, '../views/register'), {
+    res.render(path.resolve(__dirname, '../views/front/register'), {
       errors: errors,
       firstName: firstName,
       lastName: lastName,
@@ -126,14 +127,14 @@ router.post('/register', (req, res) => {
     });
   } else {
     // validation passed
-    User.findOne({email: email}).exec((err, user) => {
+    User.findOne({email: em}).exec((err, user) => {
       if (user) {
         errors.push({msg: 'Email is already registered'});
-        res.render(path.resolve(__dirname, '../views/register'), {
+        res.render(path.resolve(__dirname, '../views/front/register'), {
           errors: errors,
           firstName: firstName,
           lastName: lastName,
-          email: email,
+          email: em,
           password: password,
           password2: password2,
           title: 'Afiye - Sign Up',
@@ -149,12 +150,11 @@ router.post('/register', (req, res) => {
 
         newToken.save()
           .catch(value => console.log(value));
-
         // create user document in users collection
         const newUser = new User({
           firstName: firstName,
           lastName: lastName,
-          email: email,
+          email: em,
           uid: uid,
           password: password
         });
@@ -209,7 +209,7 @@ router.get('/register/confirmation-:uid', (req, res) => {
   User.findOne({ uid: uid }).exec((err, user) => {
     if (!user) {
       errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
-      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+      res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
         title: title,
         uid: uid,
         errors: errors,
@@ -217,7 +217,7 @@ router.get('/register/confirmation-:uid', (req, res) => {
     } else {
       const firstName = user.firstName;
       const email = user.email;
-      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+      res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
         title: title,
         uid: uid,
         firstName: firstName,
@@ -236,7 +236,7 @@ router.post('/register/confirmation-:uid', (req,res) => {
   User.findOne({ uid: uid }).exec((err, user) => {
     if (!user) {
       errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
-      res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+      res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
         title: title,
         uid: uid,
         errors: errors,
@@ -247,7 +247,7 @@ router.post('/register/confirmation-:uid', (req,res) => {
       Token.findOne({ uid: uid }).exec((err, token) => {
         if(!token) {
           errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
-          res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+          res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
             title: title,
             uid: uid,
             errors: errors,
@@ -274,7 +274,7 @@ router.post('/register/confirmation-:uid', (req,res) => {
             }
           });
 
-          res.render(path.resolve(__dirname, '../views/register-confirmation'), {
+          res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
             title: title,
             uid: uid,
             firstName: firstName,
@@ -308,7 +308,7 @@ router.get('/verify/:uid-:token', (req, res) => {
   let errors = [];
 
   if (errors.length > 0) {
-    res.render(path.resolve(__dirname, '../views/verify'), {
+    res.render(path.resolve(__dirname, '../views/front/verify'), {
       errors: errors,
       title: 'Afiye - Account Verification',
       uid: uid,
@@ -317,8 +317,8 @@ router.get('/verify/:uid-:token', (req, res) => {
   } else {
     Token.findOne({uid: uid}).exec((err, token) => {
       if (!token) {
-        errors.push({msg: 'Your account verification link has expired. <a>Resend link</a>'});
-        res.render(path.resolve(__dirname, '../views/verify'), {
+        errors.push({msg: 'expired'});
+        res.render(path.resolve(__dirname, '../views/front/verify'), {
           errors: errors,
           title: 'Afiye - Account Verification',
           uid: uid,
@@ -327,15 +327,15 @@ router.get('/verify/:uid-:token', (req, res) => {
       } else {
         User.findOneAndUpdate({uid: uid},{ status: 'Active' },{new: true}).exec((err, user) => {
           if (!user) {
-            errors.push({msg: 'We ran into a problem locating your account. Refresh the page or re-register for an account if the problem persists.'});
-            res.render(path.resolve(__dirname, '../views/verify'), {
+            errors.push({msg: 'locate'});
+            res.render(path.resolve(__dirname, '../views/front/verify'), {
               errors: errors,
               title: 'Afiye - Account Verification',
               uid: uid,
               token: valToken,
             });
           } else {
-            res.render(path.resolve(__dirname, '../views/verify'), {
+            res.render(path.resolve(__dirname, '../views/front/verify'), {
               success_msg: 'Your account has been verified.',
               title: 'Afiye - Account Verification',
               uid: uid,
@@ -346,6 +346,71 @@ router.get('/verify/:uid-:token', (req, res) => {
       }
     });
   }
+});
+
+router.post('/verify/:uid-:token', (req, res) => {
+  const uid = req.params.uid;
+  const token = req.params.token;
+  const title = 'Account Verification';
+  let errors = [];
+
+  User.findOne({ uid: uid }).exec((err, user) => {
+    if (!user) {
+      errors.push({msg: 'locate'});
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        errors: errors,
+      });
+    } else {
+      const firstName = user.firstName;
+      const email = user.email;
+      const valToken = nanoid(); // email validation token
+      // create email validation token in tokens collection
+      const newToken = new Token({
+        uid: uid,
+        token: valToken
+      });
+
+      newToken.save()
+        .catch(value => console.log(value));
+
+      ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - Confirm Your Account',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        token: token,
+        success_msg: 'Account confirmation message resent!'
+      });
+    }
+  });
+});
+
+router.get('/downloads/:file-:ext', (req, res) => {
+  let file = req.params.file,
+      ext = req.params.ext,
+      path = `../assets/downloads/${file}.${ext}`;
+
+  res.download(__dirname, path);
 });
 
 module.exports = router;

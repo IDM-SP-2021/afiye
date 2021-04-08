@@ -1,440 +1,163 @@
-.header-box {
-    position: fixed;
-top: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 100px;
+/* (tablet screens, 377px and up) */
+@media only screen and (min-width: 377px) {
+  .profile-section {
+    width: 343px;
+    height: 145px;
+    margin-top: 4em;
+    margin-left: auto;
+    margin-right: auto;
   }
+}
 
-  .header-title{
-      font-family: Rubik;
-      font-weight: bold;
-
-      color: purple;
+@media only screen and (min-width: 767px) {
+  .profile-create {
+    font-weight: bold;
     font-size: 24px;
-    margin-left: 15px;
-    margin-top: 15px;
+    top: 1.5em;
+    text-align: center;
+    position: relative;
   }
 
-
-  .footer-box {
-    position: fixed;
-bottom: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 45px;
-background: #550EA1;
-text-align: left;
+  .profile-section {
+    width: 437px;
+    height: 145px;
+    margin-top: 4em;
+    margin-left: auto;
+    margin-right: auto;
   }
-
-  .footer-title{
-      font-family: Rubik;
-
-      color: #ffffff;
-    font-size: 24px;
-    margin-left: 15px;
-    margin-top: 10px;
-  }
-
-
-  /* (phone screens, 376px and down) */
-  @media only screen and (max-width: 376px) {
-    .header-box {
-      height: 60px;
-      background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-        text-align: center;
-        }
-
-        .feed-nav{
-            position: fixed;
-            margin-left: 14%;
-        }
-
-        .tree-nav{
-            position: fixed;
-            margin-left: 35%;
-        }
-
-        .profile-nav{
-            position: fixed;
-            margin-left: 55%;
-        }
-
-        .settings-nav{
-            position: fixed;
-            margin-left: 75%;
-        }
-
-        .feed-nav-top{
-          display: none;
-        }
-
-        .tree-nav-top{
-          display: none;
-        }
-
-        .settings-nav-top{
-          display: none;
-        }
-
-        .footer-title{
-  display: none;
 }
 
-.footer-box{
-  display: none;
-}
-
-
-
-  } 
-  
-  /* (tablet screens, 377px and up) */
-  @media only screen and (min-width: 377px) {
-    .header-box {
-      height: 60px;
-      background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-        text-align: center;
-        }
-
-        .bottom-nav{
-          background: #FFFFFF;
-          box-shadow: 0px -4px 32px rgba(0, 0, 0, 0.07);
-          position: fixed;
-bottom: 0;
-left: 0;
-z-index: 999;
-width: 100%;
-height: 97px;
-font-family: Rubik;
-        }
-
-        .feed-nav{
-            position: fixed;
-            margin-left: 20%;
-            margin-top: 3.7em;
-        }
-
-        .tree-nav{
-            position: fixed;
-            margin-left: 38%;
-            margin-top: 3.7em;
-        }
-
-        .profile-nav{
-            position: fixed;
-            margin-left: 55%;
-            margin-top: 3.7em;
-        }
-
-        .settings-nav{
-            position: fixed;
-            margin-left: 72%;
-            margin-top: 3.7em;
-        }
-
-
-        .feed-nav-top{
-          display: none;
-        }
-
-        .tree-nav-top{
-          display: none;
-        }
-
-        .settings-nav-top{
-          display: none;
-        }
-
-
-        .footer-title{
-  display: none;
-}
-
-.footer-box{
-  display: none;
-}
-
-
-
-.profile-section{
-  width: 343px;
-  height: 145px;
-  margin-top: 4em;
+.new-avatar {
+  width: 124px;
+  height: 124px;
+  border-radius: 50%;
   margin-left: auto;
-margin-right: auto;
+  margin-right: auto;
+  margin-top: 3em;
+
+  background-color: #a0a3bd;
 }
 
-  } 
+.profile-name {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0px;
+  text-align: center;
 
+  margin-bottom: -6px;
+  color: #a0a3bd;
+}
 
-  @media only screen and (min-width: 767px) {
+.profile-name-info {
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0.75px;
+  text-align: center;
 
-    .profile-create{
-  font-family: Rubik;
+  color: #000000;
+}
+
+.profile-create {
   font-weight: bold;
   font-size: 24px;
   top: 1.5em;
-text-align: center;
-position: relative;
+  text-align: center;
+  position: relative;
 }
 
-.profile-section{
-  width: 437px;
-  height: 145px;
-  margin-top: 4em;
-  margin-left: auto;
-margin-right: auto;
-}
-
-
-  }
-
-
-
-  
-  /* desktop screens (laptops/desktops, 769px and up) */
-  @media only screen and (min-width: 769px) {
-    .header-box {
-      height: 100px;
-      background: #FFFFFF;
-box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-        text-align: left;
-
-        }
-
-.header-title{
-  margin-top: 35px;
-}
-
-
-      .feed-nav-top{
-            position: fixed;
-            margin-left: 70%;
-            margin-top: -2.5em;
-            display: block;
-        }
-
-        .tree-nav-top{
-            position: fixed;
-            margin-left: 78%;
-            margin-top: -2.5em;
-            display: block;
-        }
-
-        .settings-nav-top{
-            position: fixed;
-            margin-left: 86%;
-            margin-top: -2.5em;
-            display: block;
-        }
-
-.bottom-nav{
-          display: none;
-        }
-
-.footer-title{
-  display: block;
-}
-.footer-box{
-  display: block;
-}
-
-  } 
-
-
-
-
-
-
-.new-avatar{
-width: 124px;
-height: 124px;
-border-radius: 50%;
-margin-left: auto;
-margin-right: auto;
-margin-top: 3em;
-
-background-color: #A0A3BD;
-}
-
-.profile-name{
-font-family: Rubik;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: 32px;
-letter-spacing: 0px;
-text-align: center;
-
-margin-bottom: -6px;
-color: #A0A3BD;
-}
-
-.profile-name-info{
-font-family: Poppins;
-font-size: 11px;
-font-style: normal;
-font-weight: 500;
-line-height: 17px;
-letter-spacing: 0.75px;
-text-align: center;
-
-color: #000000;
-;
-}
-
-
-.profile-create{
-  font-family: Rubik;
-  font-weight: bold;
-  font-size: 24px;
-top: 1.5em;
-text-align: center;
-position: relative;
-}
-
-
-
-.albums-section{
+.albums-section {
   width: 343px;
   height: 248px;
   margin-top: 0em;
-  margin-left: -.75em;
+  margin-left: -0.75em;
 }
 
-
-.album-thumbs{
+.album-thumbs {
   width: 343px;
   height: 146px;
 }
 
-.view-all{
+.view-all {
   margin-left: 17em;
   margin-top: -2em;
 }
 
-
-
-
-
-.location{
+.location {
   width: 343px;
   height: 55px;
   background-color: #ffffff;
   border-radius: 10px;
-  border: 1px solid #C4C4C4;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
   margin-top: 20px;
-margin-right: auto;
-margin-left: auto;
+  margin-right: auto;
+  margin-left: auto;
 }
 
+.location-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
 
-
-.location-text{
-font-family: Rubik;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 28px;
-letter-spacing: 0px;
-text-align: left;
-
-margin-top: 12px;
-margin-left: 15px;
-color: #A0A3BD;
+  margin-top: 12px;
+  margin-left: 15px;
+  color: #a0a3bd;
 }
 
+// .birthdate {
+//   width: 343px;
+//   height: 55px;
+//   background-color: #ffffff;
+//   border-radius: 10px;
+//   border: 1px solid #c4c4c4;
+//   box-sizing: border-box;
+//   margin-top: 54px;
+//   margin-right: auto;
+//   margin-left: auto;
+// }
 
+.birthdate-text {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: left;
 
-
-.birthdate{
-  width: 343px;
-  height: 55px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  border: 1px solid #C4C4C4;
-  box-sizing: border-box;
-  margin-top: 54px;
-margin-right: auto;
-margin-left: auto;
+  margin-top: 12px;
+  margin-left: 15px;
+  color: #a0a3bd;
 }
 
-
-
-.birthdate-text{
-font-family: Rubik;
-font-size: 16px;
-font-style: normal;
-font-weight: 400;
-line-height: 28px;
-letter-spacing: 0px;
-text-align: left;
-
-margin-top: 12px;
-margin-left: 15px;
-color: #A0A3BD;
+.add-album {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-top: 15px;
 }
 
-
-.add-album{
-font-family: Rubik;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 26px;
-letter-spacing: 0px;
-text-align: left;
-margin-top: 15px;
-}
-
-.album-addition{
+.album-addition {
   width: 146px;
   height: 146px;
-  background-color: #EFF0F7;
+  background-color: #eff0f7;
   border-radius: 10px;
 }
 
-#plus{
+#plus {
   width: 40px;
   height: 40px;
   position: relative;
   display: block;
   margin: auto;
   top: 48px;
-}
-
-
-.button{
-  background-color: #922AFF;
-  border-radius: 10px;
-  width: 221px;
-  height: 55px;
-
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 20px;
-}
-
-.button-text{
-  color: white;
-  text-align: center;
-  text-decoration: none;
-
-  position: relative;
-  display: block;
-font-family: Rubik;
-font-size: 14px;
-font-style: normal;
-font-weight: 500;
-line-height: 24px;
-letter-spacing: 0px;
-margin-left: auto;
-  margin-right: auto;
-top: 15px;
 }

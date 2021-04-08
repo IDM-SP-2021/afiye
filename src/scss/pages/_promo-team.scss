@@ -1,94 +1,100 @@
- #team-container {
-    // Hero Section 
+#team-container {
+  padding-bottom: 1.25em;
+  // Hero Section
 
-    #team {
-        height: 24rem;
-        position: relative;
-        h1 {
-            font: $mobile-display-large-bold;
-            color: white;
-            margin: 0 auto;
-            text-align: center;
-            
-            position: relative;
-            top: 3rem;
-        }
+  #team {
+    height: 24rem;
+    position: relative;
+    h1 {
+      font: $mobile-display-large-bold;
+      color: white;
+      margin: 0 auto;
+      text-align: center;
 
-        #hero {
-            position: absolute;
-            top: -.000125rem;
-            z-index: -10;
-            margin: 0 -.875rem;
-        }
-
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
-        }
-
-        .promo-text {
-            text-align: right;
-            position: absolute;
-            right: 1rem;
-            top: 17.5rem;
-        }
+      position: relative;
+      top: 3rem;
     }
 
-    p {
-        font: $mobile-text-small;
+    #hero {
+      position: absolute;
+      top: -0.000125rem;
+      z-index: -10;
+      margin: 0 -0.875rem;
     }
 
-
-    //I cannot get this to center
-    #team-description {
-        width: 80%;
-        text-align: center;
-        margin: 0 auto;
-        display: inline-block;
-
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
     }
 
-    //Member Container
+    .promo-text {
+      text-align: right;
+      position: absolute;
+      right: 1rem;
+      top: 17.5rem;
+    }
+  }
 
-    //i cannot get the image to be not stretched
-    #members, #special-thanks {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-self: center;
-        margin-top: 8rem;
+  p {
+    font: $mobile-text-small;
+  }
+
+  #team-description {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    display: inline-block;
+  }
+
+  //Member Container
+
+  //i cannot get the image to be not stretched
+  #members,
+  #special-thanks {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: center;
+    margin-top: 8rem;
+    width: 100%;
+    gap: 2rem;
+
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    #item-a,
+    #item-b,
+    #item-c,
+    #item-d,
+    #item-e,
+    #item-f,
+    #item-g,
+    #item-h {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      max-width: 678px;
+      margin-left: auto;
+      margin-right: auto;
+
+      .team-portrait {
+        display: block;
+        max-width: 6.25rem;
+        max-height: 6.25rem;
         width: 100%;
-        gap: 2rem;
-
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        #item-a, #item-b, #item-c, #item-d, #item-e, #item-f, #item-g, #item-h {
-            display: flex;
-            flex-direction: row;
-            gap: 1rem;
-            width: 100%;
-
-            .team-portrait {
-                display: block;
-                max-width: 6.25rem;
-                max-height: 6.25rem;
-                width: 100%;
-                height: auto;
-            }
-        }
+        height: auto;
+      }
     }
+  }
 }
- 
- 

@@ -1,0 +1,40 @@
+<%- include('../partials/front-header') %>
+
+<main>
+  
+  <img class="login-bubble1" src="assets/blob-promo-index-hero.svg">
+  <img class="login-bubble2" src="assets/blob-promo-index-hero.svg">
+
+
+  <div class="login-logo-section">
+    <img class="login-logo" src="assets\imgs\afiye-icon.png">
+    <p>Your whole family in one place</p>
+  </div>
+
+  <h1 class="center-header">Login to your Account</h1>
+
+  <%- include ('../partials/messages') %>
+
+  <form action="/login" method="post">
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input
+        class="input"
+        type="email"
+        name="email"
+        placeholder="Enter Email"
+      />
+    </div>
+    <div class="input-container">
+      <label for="passord">Password</label>
+      <input
+        class="input"
+        type="password"
+        name="password"
+        placeholder="Enter Password"
+      />
+    </div>
+    <button type="submit" class="button primary">Login</button>
+  </form>
+  <p class="center-header">Don't have an account? <a href="/register">Sign Up</a></p>
+</main>

@@ -1,19 +1,21 @@
-
 .input-container {
 	margin-bottom: 10px;
 	max-width: 430px;
+	margin-left: auto;
+    margin-right: auto;
 }
 
 .input-container span {
-	padding-left: 10px;
-	font-size: 10px;
-	font-family: $mobile-text-small;
+  padding-left: 10px;
+  font-size: 10px;
+  font-family: $mobile-text-small;
 }
 
 .mobile {
-	max-width: 325px !important
+  max-width: 325px !important
 ;
 }
+
 input {
 	// display: block;
 	border: 1.5px solid #eff0f6;
@@ -31,11 +33,11 @@ input {
 // Left Icon
 
 .inputLeftIcon input[type="text"] {
-	padding-left: 30px;
+  padding-left: 30px;
 }
 
 .inputLeftIcon input[placeholder="First Name"] {
-	padding-left: 30px;
+  padding-left: 30px;
 }
 
 // .inputLeftIcon {
@@ -58,56 +60,55 @@ input {
 // }
 
 .inputRightIcon {
-	position: relative;
-	width: 430px;
+  position: relative;
+  width: 430px;
 }
 
 .inputRightIcon i {
-	position: absolute;
-	left: 95%;
-	padding: 9px 8px;
-	color: #aaa;
-	transition: 0.3s;
-	font-size: 15px;
-} 
-
+  position: absolute;
+  left: 95%;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: 0.3s;
+  font-size: 15px;
+}
 
 .inputLeftIcon {
-	position: relative;
-	width: 430px;
+  position: relative;
+  width: 430px;
 }
 
 .inputLeftIcon i {
-	position: absolute;
-	left: 0%;
-	padding: 9px 8px;
-	color: #aaa;
-	transition: 0.3s;
-	font-size: 15px;
-} 
+  position: absolute;
+  left: 0%;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: 0.3s;
+  font-size: 15px;
+}
 
 // .mobile {
 // 	max-width: 50% !important;
 // }
 
 .input-success {
-	border: 1.5px solid green !important;
+  border: 1.5px solid green !important;
 }
 
 .input-container[data-error] .input {
-	border-color: #c92432;
-	background: white;
-	color: black;
+  border-color: #c92432;
+  background: white;
+  color: black;
 }
 
 .input-container[data-error]::after {
-	content: attr(data-error);
-	font-size: 10px;
+  content: attr(data-error);
+  font-size: 10px;
 }
 
 input:disabled {
-	background: #eff0f6;
-	border: 1.5px solid #a0a3bd;
+  background: #eff0f6;
+  border: 1.5px solid #a0a3bd;
 }
 
 // input::after {
@@ -117,52 +118,91 @@ input:disabled {
 // }
 
 input:focus {
-	border: 1.5px solid #5700b2;
+  border: 1.5px solid #5700b2;
 }
 
 input::placeholder {
-	color: #6e7191;
-	transition: color 0.3s ease;
+  color: #6e7191;
+  transition: color 0.3s ease;
 }
 
 input:focus::placeholder {
-	color: transparent;
+  color: transparent;
 }
 
 input:hover {
-	border: 1.5px solid #922aff;
+  border: 1.5px solid #922aff;
 }
 
 .success-caption {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 .error-caption {
-	font-size: 10px;
+  font-size: 10px;
 }
 
 input[type="radio"] {
-    display: block;
-    border: 1.5px solid #eff0f6;
-    border-radius: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    width: 88px !important;
-    height: 88px !important;
-    background-image: url(../assets/imgs/maketree.png);
-    background-repeat: no-repeat;
-    outline: none;
+  display: block;
+  border: 1.5px solid #eff0f6;
+  border-radius: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  width: 88px !important;
+  height: 88px !important;
+  background-image: url(../assets/imgs/maketree.png);
+  background-repeat: no-repeat;
+  outline: none;
 }
 
 input[type="radio"]:hover {
-	border: 1.5px solid #922aff;
+  border: 1.5px solid #922aff;
 }
 
-
 input[type="radio"]:checked {
-	border: 1.5px solid #922aff;
+  border: 1.5px solid #922aff;
 }
 
 // #j-tree input[type="radio"] {
 // 	background-image: url(../assets/imgs/jointree.png) !important;
 // }
+
+.file-input {
+  display: flex;
+  justify-content: center;
+  label {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $body;
+    font: $mobile-display-small-bold;
+    cursor: pointer;
+
+    &::before {
+      content: "";
+      width: 7em;
+      height: 7em;
+      border-radius: 50%;
+      background: center / 50% no-repeat url("../assets/icons/upload.svg");
+      background-color: $purple-default;
+      margin-bottom: 1.5em;
+      transition: background-color 0.2s ease-in-out;
+    }
+  }
+
+  input[type="file"] {
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    position: absolute;
+
+    &:hover + label,
+    &:focus + label {
+      &::before {
+        background-color: $purple-dark;
+      }
+    }
+  }
+}

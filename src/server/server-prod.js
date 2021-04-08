@@ -6,6 +6,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import passport from 'passport';
 import compression from 'compression';
+import bodyParser from 'body-parser';
 
 require('dotenv').config();
 require('./config/passport')(passport);
@@ -28,6 +29,7 @@ mongoose.connect(process.env.MONGO_HOST,
 //EJS
 app.set('view engine','ejs');
 app.use(expressEjsLayout);
+
 //BodyParser
 app.use(express.urlencoded({extended : false}));
 
