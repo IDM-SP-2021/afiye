@@ -68,6 +68,24 @@ router.get('/login', (req, res) => {
   res.render(path.resolve(__dirname, '../views/front/login'), locals);
 });
 
+// // * forgot password
+// router.get('/forgotpwd', (req, res) => {
+//   let locals = {
+//     title: `Afiye - Forgot Password`,
+//   };
+
+//   res.render(path.resolve(__dirname, '../views/forgotpwd'), locals);
+// });
+
+// * forgot password
+router.get('/emailsent', (req, res) => {
+  let locals = {
+    title: `Afiye - Email sent`,
+  };
+
+  res.render(path.resolve(__dirname, '../views/emailsent'), locals);
+});
+
 // * register page
 router.get('/register', (req, res) => {
   let locals = {
@@ -402,7 +420,7 @@ router.get('/password-reset', (req, res) => {
     title: 'Afiye - Reset Password'
   };
 
-  res.render(path.resolve(__dirname, '../views/front/password-reset'), locals);
+  res.render(path.resolve(__dirname, '../views/front/forgotpwd'), locals);
 });
 
 router.post('/password-reset', (req, res) => {
@@ -413,7 +431,7 @@ router.post('/password-reset', (req, res) => {
   User.findOne({email: email}).exec((err, user) => {
     if (!user) {
       errors.push({msg: 'That email is not registered.'});
-      res.render(path.resolve(__dirname, '../views/front/password-reset'), {
+      res.render(path.resolve(__dirname, '../views/front/forgotpwd'), {
         title,
         errors,
       });
@@ -451,7 +469,7 @@ router.post('/password-reset', (req, res) => {
         }
       });
 
-      res.render(path.resolve(__dirname, '../views/front/password-reset'), {
+      res.render(path.resolve(__dirname, '../views/front/emailsent'), {
         title,
         uid: uid,
         success_msg: `Password reset link sent to ${email}!`

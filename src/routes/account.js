@@ -879,7 +879,17 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
     api.updateMember(memData);
     res.redirect(`/account/edit-profile-${member}`);
   }
+});
 
+
+// * settings-menu=
+router.get('/settings-menu', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: `Afiye - ${req.user.name}'s Settings`,
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/settings-menu'), locals);
 });
 
 // * user settings

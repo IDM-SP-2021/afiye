@@ -132,3 +132,82 @@ hr.solid {
     margin-left: 16px;
     width: 200px;
   }
+
+  .mobile-menu {
+    width: 85%;
+    margin: 0 auto;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    height: 64px;
+    align-items: center;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+// .item {
+//     display: flex;
+//     align-items: center;}
+
+.sub-item {
+  align-items: center;
+  display: flex;
+}
+
+.large-menu {
+  display: grid;
+  grid-template-columns: 0.25fr 1fr;
+  grid-template-rows: 0.2fr 1fr;
+  grid-template-areas:
+      'settings settings'
+      'menu menuitems';
+}
+
+.large-menu h1{
+  grid-area: settings;
+  padding-left: 40px;
+  font-weight: 100;
+  font-size: 1.25rem;
+}
+
+.menu {
+  grid-area: menu;
+  padding-left: 40px;
+  width: 320px;
+}
+
+.menuitems {
+  margin: 0 auto;
+  grid-area: menuitems;
+}
+
+@media only screen and (min-width: 375px) {
+  .large-menu {
+    display: none;
+  }
+}
+  
+
+
+@media only screen and (min-width: 769px) {
+  .mobile-menu {
+    display: none;
+    
+  }
+
+  .large-menu {
+    display: grid;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .mobile-menu {
+    display: none;
+  }
+
+  .large-menu {
+    display: grid;
+  }
+}
