@@ -1,6 +1,7 @@
 // const neo4j = require('neo4j-driver').v1;
 const neo4j = require('neo4j-driver');
 const _ = require('lodash');
+const { type } = require('jquery');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
@@ -365,7 +366,8 @@ const addMember = (person) => {
 const updateMember = (member) => {
   let query = `MATCH (p:Person {fid: '${member.fid}', uid: '${member.uid}'}) SET `;
   _.forEach(member, (value, key) => {
-    if (key !== 'uid' || key !== 'fid') {
+    if (key !== 'uid' && key !== 'fid') {
+      console.log('Key is: ', key, typeof(key));
       query += `p.${key} = '${value}',`;
     }
   });
