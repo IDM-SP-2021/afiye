@@ -51,38 +51,33 @@
     }
   }
 
-@include mobile {
+  #hero {
+    position: absolute;
+    width: 110%;
+    z-index: -10;
+    left: -1em;
+    top: -8.5em;
+  }
+
+  @include tablet {
     #hero {
-        position: absolute;
-        width: 110%;
-        z-index: -10;
-        left: -1em;
-        top: -8.5em;
-      }
-}
+      position: absolute;
+      width: 110%;
+      z-index: -10;
+      left: -1em;
+      top: -29.5em;
+    }
+  }
 
-@include tablet {
+  @include desktop {
     #hero {
-        position: absolute;
-        width: 110%;
-        z-index: -10;
-        left: -1em;
-        top: -29.5em;
-      }
-}
-
-@include desktop {
-    #hero {
-        position: absolute;
-        width: 110%;
-        z-index: -10;
-        left: -1em;
-        top: -50.5em;
-      }
-}
-
-
-
+      position: absolute;
+      width: 110%;
+      z-index: -10;
+      left: -1em;
+      top: -50.5em;
+    }
+  }
 
   // About
 
@@ -173,4 +168,3 @@
     color: rgba(0, 0, 0, 0.09);
   }
 }
-

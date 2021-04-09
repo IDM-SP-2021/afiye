@@ -1,6 +1,7 @@
 // const neo4j = require('neo4j-driver').v1;
 const neo4j = require('neo4j-driver');
 const _ = require('lodash');
+const { type } = require('jquery');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
@@ -361,8 +362,6 @@ const addMember = (person) => {
       return session.close();
     });
 };
-
-
 
 module.exports = {
   submitQuery: submitQuery,
