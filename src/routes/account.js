@@ -677,8 +677,10 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
 
               const query = match + merge + 'RETURN *';
 
-              api.submitQuery(query);
-              res.redirect('/account/tree');
+              api.submitQuery(query)
+                .then(() => {
+                  res.redirect('/account/tree');
+                });
             } else {
               res.redirect('/account/tree');
             }
@@ -884,7 +886,7 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
         api.submitQuery(query)
           .then(() => {
             res.redirect(`/account/profile-${member}`);
-          })
+          });
       });
   } else {
     let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
@@ -901,7 +903,7 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
     api.submitQuery(query)
       .then(() => {
         res.redirect(`/account/profile-${member}`);
-      })
+      });
   }
 });
 
