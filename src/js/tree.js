@@ -124,7 +124,7 @@ const renderGraph = (data) => {
     });
 
   node.on('click', (d, i) => {
-    console.log(`redirect to /account/profile/${i.fid}-${i.uid}`);
+    window.location.href = `/account/profile-${i.uid}`;
   });
 
   simulation.on('tick', () => {
