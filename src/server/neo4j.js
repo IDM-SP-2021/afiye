@@ -1,7 +1,6 @@
 // const neo4j = require('neo4j-driver').v1;
 const neo4j = require('neo4j-driver');
 const _ = require('lodash');
-const { type } = require('jquery');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
@@ -100,43 +99,94 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
+// const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
+//   let session = driver.session();
+//   let query =
+//     `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
+//     WITH collect(p) AS nodes
+//     MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
+//     UNWIND nodes AS n
+//     WITH * WHERE id(u) <> id(n)
+//     MATCH path = allShortestPaths( (n)-[*..1]->(u) )
+//     RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
+
+//   return session.run(query)
+//   .then(results => {
+//     let family = [];
+//     let first_iter = true;
+
+//     results.records.forEach(res => {
+//       if (first_iter) {
+//         let currentMem = nodeObj(res.get('curr'));
+//             currentMem.relation = "That's You!";
+//         family.push(currentMem);
+//       }
+
+//       let member = nodeObj(res.get('familyMem'));
+//           member.relation = res.get('relationship')[0].properties.relation;
+
+//       family.push(member);
+//     });
+
+//     return family;
+//   })
+//   .catch(err => {
+//     throw err;
+//   })
+//   .finally(() => {
+//     return session.close();
+//   });
+// };
+
+const getFamily = async (user) => {
   let session = driver.session();
-  let query =
-    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
-    WITH collect(p) AS nodes
-    MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
-    UNWIND nodes AS n
-    WITH * WHERE id(u) <> id(n)
-    MATCH path = allShortestPaths( (n)-[*..1]->(u) )
-    RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
-
-  return session.run(query)
-  .then(results => {
+  const txc = session.beginTransaction();
+  try {
     let family = [];
-    let first_iter = true;
 
-    results.records.forEach(res => {
-      if (first_iter) {
-        let currentMem = nodeObj(res.get('curr'));
-            currentMem.relation = "That's You!";
-        family.push(currentMem);
+    const result1 = await txc.run(
+      'MATCH (u:Person {uid: $uid, fid: $fid}) RETURN u AS curr',
+      {
+        uid: user.uid,
+        fid: user.fid
       }
+    );
+    result1.records.forEach(res => {
+      let currentMem = nodeObj(res.get('curr'));
+          currentMem.relation = 'That\'s You!';
+      family.push(currentMem);
+    });
+    console.log('First query completed');
 
+    const result2 = await txc.run(
+      'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \
+      WITH collect(p) AS nodes \
+      MATCH (u:Person {uid: $uid, fid: $fid}) \
+      UNWIND nodes AS n \
+      WITH * WHERE id(u) <> id(n) \
+      MATCH path = allShortestPaths( (n)-[*..1]->(u) ) \
+      RETURN nodes, relationships(path) AS relationship, n AS familyMem',
+      {
+        fid: user.fid,
+        uid: user.uid
+      }
+    );
+    result2.records.forEach(res => {
       let member = nodeObj(res.get('familyMem'));
           member.relation = res.get('relationship')[0].properties.relation;
-
       family.push(member);
     });
+    console.log('Second query completed');
 
+    console.log('Family: ', family);
     return family;
-  })
-  .catch(err => {
-    throw err;
-  })
-  .finally(() => {
-    return session.close();
-  });
+  } catch (error) {
+    console.log(error);
+    await txc.rollback();
+    console.log('rolled back');
+  } finally {
+    await session.close();
+  }
 };
 
 const getNode = (node) => {
@@ -213,6 +263,7 @@ const initFamily = (person) => {
 
 // Simplify multi-step relationship path to a one step relationship
 const simplifyPath = (path) => {
+  console.log('Fullpath: ', path);
   let simplified =
       (path == 'childspouse') ||
       (path == 'siblingchild')
@@ -273,6 +324,7 @@ const simplifyPath = (path) => {
 
     : 'Unknown Relationship'; // Relationship type is not defined for current path
 
+  console.log('Simplified path: ', simplified);
   return simplified;
 };
 
@@ -333,6 +385,7 @@ const addMember = (person) => {
 
 
         if (relationPath.length > 1) {
+          console.log(start, '->', end);
           const directPath = simplifyPath(relationPath.join('')),
                 s = start,
                 t = end;
