@@ -1,21 +1,20 @@
 <%- include('./partials/front-header') %>
 
-<main style="    height: 100%;
-background-color: white;">
+<main style="    height: 100%;">
+
+<img class="login-bubble1" src="assets/blob-promo-index-hero.svg">
+<img class="login-bubble2" src="assets/blob-promo-index-hero.svg">
 	<!-- <h1>Login to your Account</h1> -->
 
 	<%- include ('./partials/messages') %>
-<div class="login-mobile" style="    text-align: center;
-margin: 0 auto;
-width: 375px;
-padding-top: 6rem;">
+<div class="login-mobile">
 
-	<img src="../assets/imgs/pwd.png" style= "    width: 30%;
+	<img src="../assets/imgs/pwd.png" style= "
     text-align: center;
     margin: 0 auto;
     align-items: center;
     justify-items: center;">
-	<h1 style="font-size: 1.5rem;">Forgot Password?</h1>
+	<h1>Forgot Password?</h1>
 	<p>We will send a recovery link to your email.</p>
 
 	<form action="/login" method="post">
@@ -29,9 +28,11 @@ padding-top: 6rem;">
 				style="height: 3.5rem;"
 			/>
 		</div>
-		<a href="/emailsent" style="text-align: right;"> Forgot email?</a>
-		<button type="submit" class="button primary">Next</button>
+		<button style="width: 300px;" type="submit" class="button primary new">Next</button>
 	</form>
+
+	<a href="/emailsent" style="text-align: right; padding-top: 2rem;"> Forgot email?</a>
+
 	<!-- <p>Don't have an account? <a href="/register">Sign Up</a></p> -->
 </div>
 </main>

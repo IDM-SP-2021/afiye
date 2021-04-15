@@ -12,8 +12,8 @@
 }
 
 .mobile {
-  max-width: 325px !important
-;
+  max-width: 300px !important;
+  height: 50px !important;
 }
 
 input {
@@ -28,10 +28,6 @@ input {
   -ms-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
-
-textarea {
-  @extend input;
 }
 
 // Left Icon
