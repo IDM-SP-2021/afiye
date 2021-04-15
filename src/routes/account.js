@@ -203,6 +203,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
+        console.log('Get feed results: ', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -229,6 +230,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
+          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
