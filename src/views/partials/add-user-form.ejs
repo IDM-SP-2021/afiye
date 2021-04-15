@@ -19,7 +19,7 @@
         <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
         <span><%- user.firstName %> <%- user.lastName %></span>
         <% } else if (title === 'Afiye - Add Family Member') { %>
-        <span>First Last</span>
+        <span>Tracy Doe</span>
         <% } %>
       </h2>
       <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
@@ -150,7 +150,6 @@
         </div>
       </div>
       <input
-        id="userform-bottom"
         class="button primary"
         type="submit"
         value="<% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>Save<% } else if (title === 'Afiye - Add Family Member') { %>Create<% } %>"

@@ -1,20 +1,8 @@
-@media only screen and (min-width: 1024px) {
 #tree-tutorial {
   position: absolute;
   top: 1.5em;
   right: 1.5em;
 }
-}
-
-@media only screen and (max-width: 1023px) {
-  #tree-tutorial {
-    position: absolute;
-    top: 3.5em;
-    right: 1.5em;
-  }
-  }
-
-
 .ellipse {
   background: #b166ff;
   height: 100px;
