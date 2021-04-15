@@ -203,7 +203,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
-        console.log(result);
+        console.log('Get feed results: ', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -230,7 +230,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Feed Locals: ', locals);
+          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -679,8 +679,10 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
 
               const query = match + merge + 'RETURN *';
 
-              api.submitQuery(query);
-              res.redirect('/account/tree');
+              api.submitQuery(query)
+                .then(() => {
+                  res.redirect('/account/tree');
+                });
             } else {
               res.redirect('/account/tree');
             }
@@ -886,7 +888,7 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
         api.submitQuery(query)
           .then(() => {
             res.redirect(`/account/profile-${member}`);
-          })
+          });
       });
   } else {
     let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
@@ -903,7 +905,7 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
     api.submitQuery(query)
       .then(() => {
         res.redirect(`/account/profile-${member}`);
-      })
+      });
   }
 });
 
