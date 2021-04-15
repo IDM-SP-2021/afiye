@@ -58,6 +58,42 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
     $('#profile-setup input[type="submit"]').addClass('warned');
   }
 });
+$('#profile-setup #firstName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
+  }
+});
+$('#profile-setup #prefName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
+  }
+});
+$('#profile-setup #lastName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
+  }
+});
 
 // Memory creation form
 $('#open-tag').on('click', (event) => {
