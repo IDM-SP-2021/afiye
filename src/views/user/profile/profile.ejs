@@ -25,7 +25,7 @@
     </div>
     <% if (data.profile.claimed === false || data.profile.uid === user.uid) { %>
     <div class="profile-actions">
-      <a class="edit-profile" href="/account/profile-edit-<%- data.profile.uid %>">
+      <a class="edit-profile" href="/account/edit-profile-<%- data.profile.uid %>">
         <i class="icon icon-edit"></i> Edit Profile
       </a>
       <% if (data.profile.claimed === false) { %>

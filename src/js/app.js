@@ -48,12 +48,10 @@ $('#profile').on('change', () => { // get profile image upload
   readURL($('#profile'), $('#open-profile'));
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
-  // let color = $('input[name=profileColor]:checked').prop('value');
-  // $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
   $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
 });
 $('#profile-setup input[type="submit"]').on('click', (event) => {
-  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned')) {
+  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned') && !$('#open-profile img').length) {
     event.preventDefault();
     console.log('missing profile');
     $('#open-profile').after('<p>Hey you forgot to add a profile picture! If you don\'t have one you can skip this for now!</p>');
@@ -73,6 +71,7 @@ $('#post-media-upload').on('change', () => {
 // Append image preview to page element
 const readURL = (input, element) => {
   if (input.prop('files') && input.prop('files')[0]) {
+    element.empty();
     for (let i = 0; i < input.prop('files').length; i++) {
       let reader = new FileReader();
 

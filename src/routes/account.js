@@ -29,7 +29,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Upload to Cloudinar
+// Upload to Cloudinary
 function upload(file, folder) {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
@@ -203,7 +203,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
-        console.log('family @ /feed', result);
+        console.log('Get feed results: ', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -680,8 +680,10 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
 
               const query = match + merge + 'RETURN *';
 
-              api.submitQuery(query);
-              res.redirect('/account/tree');
+              api.submitQuery(query)
+                .then(() => {
+                  res.redirect('/account/tree');
+                });
             } else {
               res.redirect('/account/tree');
             }
@@ -756,7 +758,6 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
   api.getFamily(req.user)
     .then((result) => {
-      console.log('Profile page result: ', result);
       let profile = _.find(result, {uid: member}),
           postData = [],
           immRels = ['parent', 'child', 'sibling', 'spouse'],
@@ -799,6 +800,115 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
     });
 });
 
+router.get('/edit-profile-:uid', (req, res) => {
+  let member = req.params.uid;
+  api.getFamily(req.user)
+    .then((result) => {
+      let profile = _.find(result, {uid: member});
+      if (profile.claimed === true && profile.uid !== req.user.uid) {
+        console.log('Cannot edit this profile');
+        res.redirect(`/account/profile-${profile.uid}`);
+      } else {
+        console.log('Able to edit this profile');
+        let locals = {
+          title: 'Afiye - Edit Profile',
+          user: req.user,
+          data: {
+            profile,
+            family: result.family,
+          }
+        };
+        console.log('Edit profile: ', profile);
+        res.render(path.resolve(__dirname, '../views/user/profile/edit'), locals);
+      }
+    });
+});
+
+router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
+  let member = req.params.uid;
+  const { firstName, prefName, lastName, birthdate, gender, location, profileColor } = req.body;
+  const memData = {
+    uid: member,
+    fid: req.user.fid,
+    firstName,
+    prefName,
+    lastName,
+    birthdate,
+    gender,
+    location,
+    profileColor
+  };
+  if (req.file) {
+    let avatarUrl;
+
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${member}`,
+            eager: [
+              {quality: 'auto'}
+            ]
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const upload = async (req) => {
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
+    };
+
+    upload(req)
+      .then(() => {
+        memData.avatar = avatarUrl;
+        let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+        _.forEach(memData, (value, key) => {
+          if (key !== 'uid' && key !== 'fid') {
+            query += `p.${key} = '${value}',`;
+          }
+        });
+
+        query = query.slice(0,-1);
+        query += ' RETURN p';
+
+        api.submitQuery(query)
+          .then(() => {
+            res.redirect(`/account/profile-${member}`);
+          });
+      });
+  } else {
+    let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+    _.forEach(memData, (value, key) => {
+      if (key !== 'uid' && key !== 'fid') {
+        query += `p.${key} = '${value}',`;
+      }
+    });
+
+    query = query.slice(0,-1);
+    query += ' RETURN p';
+
+    api.submitQuery(query)
+      .then(() => {
+        res.redirect(`/account/profile-${member}`);
+      });
+  }
+});
 
 
 // * settings-menu=
