@@ -203,7 +203,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user)
       .then((result) => {
-        console.log('Get feed results: ', result);
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
@@ -230,7 +229,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Feed Locals: ', locals);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -545,6 +543,7 @@ router.get('/jt-done', ensureAuthenticated, (req, res) => {
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
     .then((result) => {
+      console.log(result);
       let locals = {
         title: 'Afiye - Family Tree',
         user: req.user,
@@ -552,7 +551,8 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
           user: {
             name: req.user.name
           },
-          graph: result
+          graph: result.graph,
+          family: result.family
         }
       };
 

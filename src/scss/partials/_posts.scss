@@ -28,7 +28,6 @@
 }
 
 div.imgname div:last-child {
-  margin-top: 19px;
   margin-left: 8px;
 }
 
@@ -83,7 +82,6 @@ div.imgname div:last-child span {
 
 .user-info {
   display: flex;
-  width: 100vw;
   margin: 0 auto;
   // padding-top: 3rem;
 }
@@ -396,25 +394,25 @@ div.img {
   }
 }
 
-#memory-title{
-  max-width: 90vw;
-    margin: 8px auto;
-    display: block
-}
-
-#post-media-preview{
-  max-width: 85%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#post-media-upload{
+#memory-title {
   max-width: 90vw;
   margin: 8px auto;
   display: block;
 }
 
-#description{
+#post-media-preview {
+  max-width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#post-media-upload {
+  max-width: 90vw;
+  margin: 8px auto;
+  display: block;
+}
+
+#description {
   margin-top: 8px;
   margin-left: auto;
   margin-right: auto;
@@ -422,52 +420,50 @@ div.img {
   max-width: 90vw;
 }
 
-
-#post-media-preview>img{
+#post-media-preview > img {
   max-width: 100%;
   margin-top: 10px;
 }
 
-#search_family{
+#search_family {
   max-width: 100%;
 }
 
-#add-bottom-button{
+#add-bottom-button {
   margin-bottom: 10em;
 }
 
 @media only screen and (min-width: 1px) {
-#memory-title-tag{
-text-align: center;
-display: block;
-margin-left: -74vw
-}
+  #memory-title-tag {
+    text-align: center;
+    display: block;
+    margin-left: -74vw;
+  }
 }
 
 @media only screen and (max-width: 499px) {
-#open-tag{
-  margin-right: 0em;
+  #open-tag {
+    margin-right: 0em;
+  }
 }
-}
-
 
 @media only screen and (min-width: 500px) {
-  #memory-title-tag{
-  text-align: center;
-  display: block;
-  margin-left: -24em
+  #memory-title-tag {
+    text-align: center;
+    display: block;
+    margin-left: -24em;
   }
 
-  #open-tag{
+  #open-tag {
     left: 14em;
   }
-  }
+}
 
-  .post-title>h3{
-    padding: 0 5px;
-  }
+.post-title > h3 {
+  padding: 0 5px;
+}
 
-#feed-bottom-message{
+#feed-bottom-message {
   text-align: center;
   max-width: 275px;
   margin-left: auto;

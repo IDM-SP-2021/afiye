@@ -56,6 +56,9 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
     event.preventDefault();
     console.log('missing profile');
     $('#open-profile').after('<p>Hey you forgot to add a profile picture! If you don\'t have one you can skip this for now!</p>');
+    $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
     $('#profile-setup input[type="submit"]').addClass('warned');
   }
 });

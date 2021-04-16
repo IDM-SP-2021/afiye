@@ -45,32 +45,97 @@ const submitQuery = (query) => {
 };
 
 // GET /tree
-const getData = (user) => {
+// const getData = (user) => {
+//   let session = driver.session();
+
+//   return session.run(
+//     `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
+//     WITH p \
+//     OPTIONAL MATCH (p)-[r:RELATED]->(t:Person) \
+//     WHERE r.relation = "parent" OR r.relation = "child" OR r.relation = "sibling" OR r.relation = "spouse" \
+//     RETURN p, ID(p) AS src_id, ID(t) AS tar_id, r.relation AS rel_type`
+//   )
+//   .then(results => {
+//     let nodes = [], rels = [];
+
+//     results.records.forEach(res => {
+//       let person = res.get('p'),
+//           id = person.identity.low.toString(),
+//           uid = person.properties.uid,
+//           fid = person.properties.fid,
+//           firstName = person.properties.firstName,
+//           prefName = person.properties.prefName,
+//           lastName = person.properties.lastName,
+//           gender = person.properties.gender,
+//           birthdate = person.properties.birthdate,
+//           avatar = person.properties.avatar,
+//           profileColor = person.properties.profileColor,
+//           member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor},
+//           relType = res.get('rel_type'),
+//           source = res.get('src_id'),
+//           target = res.get('tar_id');
+//       if (source !== null) {
+//         source = source.toString();
+//       }
+//       if (target !== null) {
+//         target = target.toString();
+//       }
+//       let link = {source, target, relType};
+//       if (!_.some(nodes, member)) {
+//         nodes.push(member);
+//       }
+//       if (!_.some(rels, link) && link.relType !== null && link.target !== null) {
+//         rels.push(link);
+//       }
+//     });
+//     return {nodes, links: rels};
+//   })
+//   .catch(err => {
+//     throw err;
+//   })
+//   .finally(() => {
+//     return session.close();
+//   });
+// };
+
+const getData = async (user) => {
   let session = driver.session();
+  let txc = session.beginTransaction();
 
-  return session.run(
-    `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-    WITH p \
-    OPTIONAL MATCH (p)-[r:RELATED]->(t:Person) \
-    WHERE r.relation = "parent" OR r.relation = "child" OR r.relation = "sibling" OR r.relation = "spouse" \
-    RETURN p, ID(p) AS src_id, ID(t) AS tar_id, r.relation AS rel_type`
-  )
-  .then(results => {
-    let nodes = [], rels = [];
+  try {
+    let family = [], nodes = [], rels = [];
 
-    results.records.forEach(res => {
-      let person = res.get('p'),
-          id = person.identity.low.toString(),
-          uid = person.properties.uid,
-          fid = person.properties.fid,
-          firstName = person.properties.firstName,
-          prefName = person.properties.prefName,
-          lastName = person.properties.lastName,
-          gender = person.properties.gender,
-          birthdate = person.properties.birthdate,
-          avatar = person.properties.avatar,
-          profileColor = person.properties.profileColor,
-          member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor},
+    const result1 = await txc.run(
+      'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \
+      WITH collect(p) AS nodes \
+      MATCH (u:Person {uid: $uid, fid: $fid}) \
+      UNWIND nodes AS n \
+      WITH * WHERE id(u) <> id(n) \
+      MATCH path = allShortestPaths( (n)-[*..1]->(u) ) \
+      RETURN nodes, relationships(path) AS relationship, n AS familyMem',
+      {
+        fid: user.fid,
+        uid: user.uid
+      }
+    );
+    result1.records.forEach(res => {
+      let member = nodeObj(res.get('familyMem'));
+          member.relation = res.get('relationship')[0].properties.relation;
+      family.push(member);
+    });
+
+    const result2 = await txc.run(
+      'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \
+       WITH p \
+       OPTIONAL MATCH (p)-[r:RELATED]->(t:Person) \
+       WHERE r.relation = "parent" OR r.relation = "child" OR r.relation = "sibling" OR r.relation = "spouse" \
+       RETURN p, ID(p) AS src_id, ID(t) AS tar_id, r.relation AS rel_type',
+       {
+         fid: user.fid
+       }
+    );
+    result2.records.forEach(res => {
+      let member = nodeObj(res.get('p')),
           relType = res.get('rel_type'),
           source = res.get('src_id'),
           target = res.get('tar_id');
@@ -88,55 +153,17 @@ const getData = (user) => {
         rels.push(link);
       }
     });
-    return {nodes, links: rels};
-  })
-  .catch(err => {
-    throw err;
-  })
-  .finally(() => {
-    return session.close();
-  });
+
+    let graph = {nodes, links: rels};
+    return {family, graph};
+  } catch (error) {
+    console.log(error);
+    await txc.rollback();
+    console.log('rolled back');
+  } finally {
+    await session.close();
+  }
 };
-
-// GET /add-member
-// const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
-//   let session = driver.session();
-//   let query =
-//     `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
-//     WITH collect(p) AS nodes
-//     MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
-//     UNWIND nodes AS n
-//     WITH * WHERE id(u) <> id(n)
-//     MATCH path = allShortestPaths( (n)-[*..1]->(u) )
-//     RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
-
-//   return session.run(query)
-//   .then(results => {
-//     let family = [];
-//     let first_iter = true;
-
-//     results.records.forEach(res => {
-//       if (first_iter) {
-//         let currentMem = nodeObj(res.get('curr'));
-//             currentMem.relation = "That's You!";
-//         family.push(currentMem);
-//       }
-
-//       let member = nodeObj(res.get('familyMem'));
-//           member.relation = res.get('relationship')[0].properties.relation;
-
-//       family.push(member);
-//     });
-
-//     return family;
-//   })
-//   .catch(err => {
-//     throw err;
-//   })
-//   .finally(() => {
-//     return session.close();
-//   });
-// };
 
 const getFamily = async (user) => {
   let session = driver.session();
@@ -263,7 +290,6 @@ const initFamily = (person) => {
 
 // Simplify multi-step relationship path to a one step relationship
 const simplifyPath = (path) => {
-  console.log('Fullpath: ', path);
   let simplified =
       (path == 'childspouse') ||
       (path == 'siblingchild')
@@ -353,8 +379,6 @@ const simplifyPath = (path) => {
         ? 'spouse'
 
     : 'Extended Family'; // Relationship type is not defined for current path
-
-  console.log('Simplified path: ', simplified);
   return simplified;
 };
 
@@ -415,7 +439,6 @@ const addMember = (person) => {
 
 
         if (relationPath.length > 1) {
-          console.log(res.get('sName'), ' -> ', res.get('eName'));
           const directPath = simplifyPath(relationPath.join('')),
                 s = start,
                 t = end;
@@ -427,7 +450,6 @@ const addMember = (person) => {
         });
 
         if (relReciprocalPath.length > 1) {
-          console.log(res.get('eName'), ' -> ', res.get('sName'));
           const directPath = simplifyPath(relReciprocalPath.join('')),
                 s = end,
                 t = start;
