@@ -6,11 +6,7 @@
   justify-content: space-between;
   width: 377px;
   padding-top: 1rem;
-  // background: #fff;
-}
-
-#post-leveler {
-  margin-top: 3px;
+  background: #fff;
 }
 
 .feed-btn {
@@ -32,8 +28,8 @@
 }
 
 div.imgname div:last-child {
-  margin-top: 12px;
-  margin-left: 16px;
+  margin-top: 19px;
+  margin-left: 8px;
 }
 
 div.imgname div:last-child h2 {
@@ -55,14 +51,11 @@ div.imgname div:last-child span {
   #add-options {
     position: absolute;
     right: 0;
-    padding-left: 2rem;
-    margin: 0 auto;
-    bottom: -5rem;
-    width: 14rem;
-    height: 80px;
+    bottom: -2rem;
+    width: 11rem;
     z-index: 20;
-    background: #c48cff8a;
-    border-radius: 15px;
+    background: $off-white;
+    border-radius: 5px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
   }
 }
@@ -75,7 +68,7 @@ div.imgname div:last-child span {
 }
 
 .afiye-posts {
-  // padding-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
   // width: 100vw;
   margin: 0 auto;
   border: 1px solid #e7e7e7;
@@ -90,11 +83,9 @@ div.imgname div:last-child span {
 
 .user-info {
   display: flex;
+  width: 100vw;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e7e7e7;
+  // padding-top: 3rem;
 }
 
 div.timestamp {
@@ -104,7 +95,7 @@ div.timestamp {
 }
 
 div.timestamp img {
-  padding-right: 1rem;
+  padding-bottom: 5px;
 }
 
 div.timestamp span {
@@ -199,7 +190,7 @@ div.img {
 
 .post-media {
   width: 100%;
-  // height: 13rem;
+  height: 13rem;
 
   .media-item {
     width: 100%;
@@ -388,19 +379,11 @@ div.img {
   .footer-box {
     display: block;
   }
-
-  #post-leveler {
-    margin-top: 12px;
-  }
 }
 
 @media only screen and (min-width: 1024px) {
   .footer-box {
     display: block;
-  }
-
-  #post-leveler {
-    margin-top: 12px;
   }
 
   .buttons {
@@ -413,25 +396,25 @@ div.img {
   }
 }
 
-#memory-title {
+#memory-title{
   max-width: 90vw;
-  margin: 8px auto;
-  display: block;
+    margin: 8px auto;
+    display: block
 }
 
-#post-media-preview {
+#post-media-preview{
   max-width: 85%;
   margin-left: auto;
   margin-right: auto;
 }
 
-#post-media-upload {
+#post-media-upload{
   max-width: 90vw;
   margin: 8px auto;
   display: block;
 }
 
-#description {
+#description{
   margin-top: 8px;
   margin-left: auto;
   margin-right: auto;
@@ -439,50 +422,52 @@ div.img {
   max-width: 90vw;
 }
 
-#post-media-preview > img {
+
+#post-media-preview>img{
   max-width: 100%;
   margin-top: 10px;
 }
 
-#search_family {
+#search_family{
   max-width: 100%;
 }
 
-#add-bottom-button {
+#add-bottom-button{
   margin-bottom: 10em;
 }
 
 @media only screen and (min-width: 1px) {
-  #memory-title-tag {
-    text-align: center;
-    display: block;
-    margin-left: -74vw;
-  }
+#memory-title-tag{
+text-align: center;
+display: block;
+margin-left: -74vw
+}
 }
 
 @media only screen and (max-width: 499px) {
-  #open-tag {
-    margin-right: 0em;
-  }
+#open-tag{
+  margin-right: 0em;
 }
+}
+
 
 @media only screen and (min-width: 500px) {
-  #memory-title-tag {
-    text-align: center;
-    display: block;
-    margin-left: -24em;
+  #memory-title-tag{
+  text-align: center;
+  display: block;
+  margin-left: -24em
   }
 
-  #open-tag {
+  #open-tag{
     left: 14em;
   }
-}
+  }
 
-.post-title > h3 {
-  padding: 0 5px;
-}
+  .post-title>h3{
+    padding: 0 5px;
+  }
 
-#feed-bottom-message {
+#feed-bottom-message{
   text-align: center;
   max-width: 275px;
   margin-left: auto;
