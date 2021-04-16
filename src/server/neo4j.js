@@ -280,41 +280,68 @@ const simplifyPath = (path) => {
     : (path == 'childchild') ||
       (path == 'niblingchild') ||
       (path == 'siblinggrandchild') ||
-      (path == 'childchildinLaw')
+      (path == 'childchildinLaw') ||
+      (path == 'grandchildspouse')
         ? 'grandchild' // Source is Grandson, Granddaughter, or Grandchild to End
+
+    : (path == 'grandchildchild') ||
+      (path == 'greatgrandchildspouse') ||
+      (path == 'childgrandchild')
+        ? 'greatgrandchild' // Source is great-grandchild to End
 
     : (path == 'parentparent') ||
       (path == 'parentparsib') ||
       (path == 'grandparentsibling') ||
-      (path == 'parentinLawparent')
+      (path == 'parentinlawparent') ||
+      (path == 'spousegrandparent')
         ? 'grandparent' // Source is Grandfather, Grandmother, or Grandparent to End
+
+    : (path == 'parentgrandparent') ||
+      (path == 'spousegreatgrandparent') ||
+      (path == 'grandparentparent')
+        ? 'greatgrandparent' // Souce is great-grandparent to End
 
     : (path == 'spousesibling') ||
       (path == 'siblingspouse') ||
-      (path == 'spousesiblingspouse')
+      (path == 'spousesiblingspouse') ||
+      (path == 'spousesiblinginlaw') ||
+      (path == 'siblinginlawspouse') ||
+      (path == 'siblinginlawsibling')
         ? 'siblinginlaw' // Source is the Brother-in-Law, Sister-in-Law, or Sibling-in-Law to End
 
     : (path == 'spousechild') ||
-      (path == 'siblinginlawchild')
+      (path == 'siblinginlawchild') ||
+      (path == 'childinlawspouse')
         ? 'childinlaw' // Source is Son-in-Law, Daughter-in-Law, or Child-in-Law to End
 
     : (path == 'parentspouse') ||
-      (path == 'parentsiblinginlaw')
+      (path == 'parentsiblinginlaw') ||
+      (path == 'spouseparentinlaw')
         ? 'parentinlaw' // Source is Father-in-Law, Mother-in-Law, or Parent-in-Law to End
 
     : (path == 'siblingparent') ||
       (path == 'spousesiblingparent') ||
       (path == 'siblingspouseparent') ||
       (path == 'siblinginlawparent') ||
-      (path == 'parsibsibling')
+      (path == 'parsibsibling') ||
+      (path == 'spouseparsib') ||
+      (path == 'siblingparsib')
         ? 'parsib' // Source is Uncle, Aunt, or Parsib to End
+
+    : (path == 'parsibparent')
+        ? 'greatparsib'
 
     : (path == 'childsibling') ||
       (path == 'childsiblingspouse') ||
       (path == 'childspousesibling') ||
       (path == 'childsiblinginlaw') ||
-      (path == 'siblingnibling')
+      (path == 'siblingnibling') ||
+      (path == 'niblingspouse') ||
+      (path == 'niblingsibling')
         ? 'nibling' // Source is Nephew, Niece, or Nibling to End
+
+    : (path == 'childnibling')
+        ? 'greatnibling'
 
     : (path == 'childsiblingparent') ||
       (path == 'childparsib') ||
@@ -322,7 +349,10 @@ const simplifyPath = (path) => {
       (path == 'siblingcousin')
         ? 'cousin'
 
-    : 'Unknown Relationship'; // Relationship type is not defined for current path
+    : (path == 'parentchild')
+        ? 'spouse'
+
+    : 'Extended Family'; // Relationship type is not defined for current path
 
   console.log('Simplified path: ', simplified);
   return simplified;
@@ -365,7 +395,7 @@ const addMember = (person) => {
       WITH * WHERE id(n) <> id(m)
       MATCH path = allShortestPaths( (n)-[*..10]->(m) )
       MATCH revPath = allShortestPaths( (m)-[*..10]->(n) )
-      RETURN nodes, n.uid AS start, relationships(path) AS relationship, m.uid AS end, relationships(revPath) AS revRelationship`
+      RETURN nodes, n.uid AS start, n.firstName AS sName, relationships(path) AS relationship, m.uid AS end, m.firstName AS eName, relationships(revPath) AS revRelationship`
     )
     .then(results => {
       let directRelation = [];
@@ -385,7 +415,7 @@ const addMember = (person) => {
 
 
         if (relationPath.length > 1) {
-          console.log(start, '->', end);
+          console.log(res.get('sName'), ' -> ', res.get('eName'));
           const directPath = simplifyPath(relationPath.join('')),
                 s = start,
                 t = end;
@@ -397,6 +427,7 @@ const addMember = (person) => {
         });
 
         if (relReciprocalPath.length > 1) {
+          console.log(res.get('eName'), ' -> ', res.get('sName'));
           const directPath = simplifyPath(relReciprocalPath.join('')),
                 s = end,
                 t = start;
