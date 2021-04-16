@@ -16,18 +16,34 @@
 
   <div id="family-container">
     <div id="inner-container">
-      <input
+      <!-- <input
         class="input"
         id="family-search"
         type="search"
         name="family-search"
         placeholder="Search"
-      />
+      /> -->
       <h2>Family Members</h2>
       <div id="family-list">
         <ul>
-          <% data.graph.nodes.forEach(member => { %>
-          <li><%- member.firstName %> <%- member.lastName %></li>
+          <% data.family.forEach(member => { %>
+          <li>
+            <a href="/account/profile-<%- member.uid %> " class="user-info">
+              <!-- profile img -->
+              <div class="imgname">
+          
+                <%- include('../../partials/avatar', {person: member}) %>
+          
+                <!-- username -->
+                <div>
+                  <h3>
+                    <% if (member.prefName !== '') { %><%= member.prefName %><% } else { %><%= member.firstName %><% } %> <%= member.lastName %>
+                  </h3>
+                  <span><%- member.relation %></span>
+                </div>
+              </div>
+            </a>
+          </li>
           <% }); %>
         </ul>
       </div>
