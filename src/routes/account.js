@@ -201,7 +201,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     res.redirect('/account/welcome');
   } else {
     let postData = [];
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
@@ -265,7 +265,7 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
 
 // create post
 router.get('/add-post', ensureAuthenticated, (req, res) => {
-  api.getFamily(req.user)
+  api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
 
@@ -328,7 +328,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
       Post.find({
         'pid': { $in: album.posts }
       }).exec((err, posts) => {
-        api.getFamily(req.user)
+        api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
             let postData = [];
 
@@ -361,7 +361,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
 
 router.get('/add-album', ensureAuthenticated, (req, res) => {
   Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
         let postData = [];
         posts.forEach(post => {
@@ -561,7 +561,7 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/add-member', ensureAuthenticated, (req, res) => {
-  api.getFamily(req.user)
+  api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let locals = {
         title: 'Afiye - Add Family Member',
@@ -591,7 +591,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
   }
 
   if (errors.length > 0) {
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let locals = {
         title: 'Afiye - Add Family Member',
@@ -756,7 +756,7 @@ router.post('/invite-member-:uid', ensureAuthenticated, (req, res) => {
 // * user profile
 router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
   let member = req.params.uid;
-  api.getFamily(req.user)
+  api.getFamily(member, req.user.fid)
     .then((result) => {
       let profile = _.find(result, {uid: member}),
           postData = [],
@@ -802,7 +802,7 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
 
 router.get('/edit-profile-:uid', (req, res) => {
   let member = req.params.uid;
-  api.getFamily(req.user)
+  api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let profile = _.find(result, {uid: member});
       if (profile.claimed === true && profile.uid !== req.user.uid) {

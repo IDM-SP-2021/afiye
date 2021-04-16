@@ -165,7 +165,7 @@ const getData = async (user) => {
   }
 };
 
-const getFamily = async (user) => {
+const getFamily = async (uid, fid) => {
   let session = driver.session();
   const txc = session.beginTransaction();
   try {
@@ -174,8 +174,8 @@ const getFamily = async (user) => {
     const result1 = await txc.run(
       'MATCH (u:Person {uid: $uid, fid: $fid}) RETURN u AS curr',
       {
-        uid: user.uid,
-        fid: user.fid
+        uid: uid,
+        fid: fid
       }
     );
     result1.records.forEach(res => {
@@ -194,8 +194,8 @@ const getFamily = async (user) => {
       MATCH path = allShortestPaths( (n)-[*..1]->(u) ) \
       RETURN nodes, relationships(path) AS relationship, n AS familyMem',
       {
-        fid: user.fid,
-        uid: user.uid
+        fid: fid,
+        uid: uid
       }
     );
     result2.records.forEach(res => {
