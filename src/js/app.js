@@ -46,6 +46,7 @@ $('#open-profile').on('click', (event) => { // open profile upload modal
 });
 $('#profile').on('change', () => { // get profile image upload
   readURL($('#profile'), $('#open-profile'));
+  $('#profile-upload').addClass('hidden');
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
   $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
