@@ -1,16 +1,23 @@
 <%- include('../../partials/user-header') %>
-<main class='pageType-addPost'>
+<main class='pageType-addPost' style="padding: 0; margin: 0 auto; width: 300px;">
+  <div class="title-head" style="    display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 2rem 0;">
+    <h2 style="font-size: 1.3rem;">Create a New Memory</h2>
+    <button id="open-tag" class="button primary icon tag" style="margin: 0;"></button>
+  </div>
+
   <form
     id="add-post"
     action="/account/add-post"
     method="post"
     enctype="multipart/form-data"
   >
-    <h2>Create a New Memory</h2>
-    <button id="open-tag" class="button primary icon tag"></button>
-    <label for="memory-title">Title</label>
-    <input type="text" name="title" id="memory-title">
+    <!-- <label for="memory-title">Title</label> -->
+    <input type="text" name="title" class="input mobile" placeholder="Title" id="memory-title" style="height: 50px">
     <input
+      style="width: 300px;"
       type="file"
       name="post-media-upload"
       id="post-media-upload"
@@ -21,6 +28,10 @@
     />
     <div id="post-media-preview"></div>
     <textarea
+    style="width: 300px;
+    border-radius: 6px;
+    border: 1px solid #eff0f6;
+    "
       id="description"
       name="description"
       cols="30"
@@ -42,7 +53,8 @@
         </select>
       </div>
     </div>
-    <input class="button primary" type="submit" value="Share" />
+    <input class="button primary" type="submit" value="Share" style="    margin-top: 2rem;
+    width: 300px; margin: 2rem 0;" />
   </form>
 </main>
 <%- include('../../partials/user-mobile-nav') %>
