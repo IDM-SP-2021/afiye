@@ -230,7 +230,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Feed Locals: ', locals.data.posts)
+          console.log('Feed Locals: ', locals.data.posts);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -258,7 +258,7 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               post
             }
           };
-          console.log('Feed Locals: ', locals)
+          console.log('Feed Locals: ', locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }
