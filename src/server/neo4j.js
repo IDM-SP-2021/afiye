@@ -4,6 +4,29 @@ const _ = require('lodash');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
+const nodeObj = (node) => {
+  let id = node.identity.low.toString(),
+      props = node.properties,
+      uid = props.uid,
+      fid = props.fid,
+      firstName = props.firstName,
+      prefName = props.prefName,
+      lastName = props.lastName,
+      gender = props.gender,
+      birthdate = props.birthdate,
+      avatar = props.avatar,
+      claimed = props.claimed,
+      profileColor = props.profileColor,
+      member;
+
+  if (avatar === undefined) {
+    avatar = '../assets/icons/user.svg';
+  }
+
+  member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+  return member;
+};
+
 // submit generic query
 const submitQuery = (query) => {
   let session = driver.session();
@@ -76,83 +99,94 @@ const getData = (user) => {
 };
 
 // GET /add-member
-const getFamily = (user, per) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
-  console.log('user: ', user);
-  console.log('per: ', per);
+// const getFamily = (user) => { // user = user obj (typically req.user), per is an optional person to find direct relationships
+//   let session = driver.session();
+//   let query =
+//     `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'})
+//     WITH collect(p) AS nodes
+//     MATCH (u:Person {uid: '${user.uid}', fid: '${user.fid}'})
+//     UNWIND nodes AS n
+//     WITH * WHERE id(u) <> id(n)
+//     MATCH path = allShortestPaths( (n)-[*..1]->(u) )
+//     RETURN nodes, u AS curr, relationships(path) AS relationship, n AS familyMem`;
+
+//   return session.run(query)
+//   .then(results => {
+//     let family = [];
+//     let first_iter = true;
+
+//     results.records.forEach(res => {
+//       if (first_iter) {
+//         let currentMem = nodeObj(res.get('curr'));
+//             currentMem.relation = "That's You!";
+//         family.push(currentMem);
+//       }
+
+//       let member = nodeObj(res.get('familyMem'));
+//           member.relation = res.get('relationship')[0].properties.relation;
+
+//       family.push(member);
+//     });
+
+//     return family;
+//   })
+//   .catch(err => {
+//     throw err;
+//   })
+//   .finally(() => {
+//     return session.close();
+//   });
+// };
+
+const getFamily = async (user) => {
   let session = driver.session();
-  let query;
-  if (per) {
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            OPTIONAL MATCH (u:Person {uid:'${per}'})<-[r:RELATED]-(p) \
-            RETURN p, u, r.relation AS rel`;
-  } else {
-    query = `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-            RETURN p`;
-  }
-  console.log(query);
-  return session.run(query)
-  .then(results => {
+  const txc = session.beginTransaction();
+  try {
     let family = [];
 
-    results.records.forEach(res => {
-      console.log('Res: ', res);
-      let person = res.get('p'),
-          id = person.identity.low.toString(),
-          props = person.properties,
-          uid = props.uid,
-          fid = props.fid,
-          firstName = props.firstName,
-          prefName = props.prefName,
-          lastName = props.lastName,
-          gender = props.gender,
-          birthdate = props.birthdate,
-          avatar = props.avatar,
-          claimed = props.claimed,
-          profileColor = props.profileColor,
-          member;
-
-      if (avatar === undefined) {
-        avatar = '../assets/icons/user.svg';
+    const result1 = await txc.run(
+      'MATCH (u:Person {uid: $uid, fid: $fid}) RETURN u AS curr',
+      {
+        uid: user.uid,
+        fid: user.fid
       }
+    );
+    result1.records.forEach(res => {
+      let currentMem = nodeObj(res.get('curr'));
+          currentMem.relation = 'That\'s You!';
+      family.push(currentMem);
+    });
+    console.log('First query completed');
 
-      if (per) {
-        let relType = res.get('rel');
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-      } else {
-        member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+    const result2 = await txc.run(
+      'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \
+      WITH collect(p) AS nodes \
+      MATCH (u:Person {uid: $uid, fid: $fid}) \
+      UNWIND nodes AS n \
+      WITH * WHERE id(u) <> id(n) \
+      MATCH path = allShortestPaths( (n)-[*..1]->(u) ) \
+      RETURN nodes, relationships(path) AS relationship, n AS familyMem',
+      {
+        fid: user.fid,
+        uid: user.uid
       }
-
-      if (per && results.records.length > 1) {
-        let person = res.get('u'),
-            id = person.identity.low.toString(),
-            props = person.properties,
-            uid = props.uid,
-            fid = props.fid,
-            firstName = props.firstName,
-            prefName = props.prefName,
-            lastName = props.lastName,
-            gender = props.gender,
-            birthdate = props.birthdate,
-            avatar = props.avatar,
-            claimed = props.claimed,
-            profileColor = props.profileColor,
-            relType = "That's you!",
-            current = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, relType};
-
-        family.push(current);
-      }
-
+    );
+    result2.records.forEach(res => {
+      let member = nodeObj(res.get('familyMem'));
+          member.relation = res.get('relationship')[0].properties.relation;
       family.push(member);
     });
+    console.log('Second query completed');
 
+    console.log('Family: ', family);
     return family;
-  })
-  .catch(err => {
-    throw err;
-  })
-  .finally(() => {
-    return session.close();
-  });
+  } catch (error) {
+    console.log(error);
+    await txc.rollback();
+    console.log('rolled back');
+  } finally {
+    await session.close();
+  }
 };
 
 const getNode = (node) => {
@@ -181,7 +215,6 @@ const getNode = (node) => {
             person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
         result = person;
       });
-      console.log(result);
       return result;
     })
     .catch(err => {
@@ -195,7 +228,6 @@ const getNode = (node) => {
 // POST /welcome-make
 const initFamily = (person) => {
   let session = driver.session();
-  console.log(person);
   return session
     .run(
       `CREATE (${person.fid}:Family {fid: '${person.fid}', created: ${Date.now()}}),
@@ -216,11 +248,11 @@ const initFamily = (person) => {
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
       RETURN *`
     )
-    .then(results => {
-      results.records.forEach(res => {
-        console.log(res);
-      });
-    })
+    // .then(results => {
+    //   results.records.forEach(res => {
+    //     console.log(res);
+    //   });
+    // })
     .catch(err => {
       throw err;
     })
@@ -231,6 +263,7 @@ const initFamily = (person) => {
 
 // Simplify multi-step relationship path to a one step relationship
 const simplifyPath = (path) => {
+  console.log('Fullpath: ', path);
   let simplified =
       (path == 'childspouse') ||
       (path == 'siblingchild')
@@ -291,6 +324,7 @@ const simplifyPath = (path) => {
 
     : 'Unknown Relationship'; // Relationship type is not defined for current path
 
+  console.log('Simplified path: ', simplified);
   return simplified;
 };
 
@@ -351,6 +385,7 @@ const addMember = (person) => {
 
 
         if (relationPath.length > 1) {
+          console.log(start, '->', end);
           const directPath = simplifyPath(relationPath.join('')),
                 s = start,
                 t = end;
@@ -380,8 +415,6 @@ const addMember = (person) => {
       return session.close();
     });
 };
-
-
 
 module.exports = {
   submitQuery: submitQuery,

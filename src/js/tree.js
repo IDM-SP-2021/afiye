@@ -45,7 +45,9 @@ const renderGraph = (data) => {
       target: i * 2 + 1
     });
     let split = d.avatar.split('upload/');
+    console.log('Avatar split: ', split);
     d.tAvatar = split[0] + 'upload/w_200,h_200,c_scale,r_max/w_200/' + split[1];
+    d.tAvatar = d.tAvatar.substr(0, d.tAvatar.lastIndexOf('.')) + '.png';
   });
 
   const simulation = d3.forceSimulation(data.nodes)
@@ -122,7 +124,7 @@ const renderGraph = (data) => {
     });
 
   node.on('click', (d, i) => {
-    console.log(`redirect to /account/profile/${i.fid}-${i.uid}`);
+    window.location.href = `/account/profile-${i.uid}`;
   });
 
   simulation.on('tick', () => {

@@ -1,4 +1,3 @@
-<div class="afiye-posts">
   <!-- header for user's name and timestamp -->
   <div class="user-info">
     <!-- profile img -->
@@ -17,23 +16,25 @@
         <h2>
           <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
-          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase() + item.itemType.slice(1) %>
+          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase()
+          + item.itemType.slice(1) %>
         </h2>
+        <span><%- item.ownerData.relation %></span>
         <span><%- item.timeStamp %> ago</span>
       </div>
     </div>
 
     <!-- timestamp -->
     <div class="timestamp" style="float: right">
-      <img
-        src="../assets/imgs/more-feed.png"
-        alt="more"
-      />
+      <img src="../assets/imgs/more-feed.png" alt="more" />
       <!-- <span><%- item.timeStamp %> ago</span> -->
     </div>
   </div>
 
-  <div class="post-title" style=" padding-left: 1rem; padding-top: 1rem; padding-bottom: 1rem;">
+  <div
+    class="post-title"
+    style="padding-left: 1rem; padding-top: 1rem; padding-bottom: 1rem"
+  >
     <p><%- item.item.title %></p>
   </div>
 

@@ -31,7 +31,7 @@ section.choices {
 }
 
 section.image {
-  padding-top: .25rem;
+  padding-top: 0.25rem;
 }
 
 #imgradio input[type="radio"] {
@@ -57,17 +57,16 @@ section.image {
   border-radius: 4px;
 }
 
-
-.back-arrow{
-  width:24px;
-  height:24px;
+.back-arrow {
+  width: 24px;
+  height: 24px;
   transform: rotate(180deg);
   position: absolute;
   margin-top: 60px;
   margin-left: 25px;
 }
 
-.login-bubble1{
+.login-bubble1 {
   position: fixed;
   left: -140px;
   top: -10px;
@@ -78,7 +77,7 @@ section.image {
   overflow: hidden;
 }
 
-.login-bubble2{
+.login-bubble2 {
   position: fixed;
   bottom: -300px;
   right: -200px;
@@ -88,17 +87,14 @@ section.image {
   border-radius: 75%;
 }
 
-
-.login-logo-section{
+.login-logo-section {
   width: 100%;
   text-align: center;
   margin-top: 25px;
-}
 
-.login-logo{
-  margin-left: auto;
-  margin-right: auto;
-  width: 63.55px;
-  height: 81px;
-
+  .logo {
+    width: 6rem;
+    height: auto;
+    background-image: url(../assets/imgs/logo-2x.png); // fallback if svg fails to load
+  }
 }
