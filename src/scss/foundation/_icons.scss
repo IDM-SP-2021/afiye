@@ -7,7 +7,13 @@
     filter: hue-rotate(269deg) saturate(1) brightness(1);
   }
 }
+.arrow-white { 
+  @extend .accessibility;
 
+  &:after {
+    content: url("../assets/icons/arrow-white.svg");
+  }
+}
 .cake {
   @extend .accessibility;
 
@@ -104,6 +110,22 @@
   }
 }
 
+.node-view { 
+  @extend .accessibility;
+
+  &:after { 
+    content: url("../assets/icons/node-view.svg");
+  }
+}
+
+.node-view-gray { 
+  @extend .accessibility;
+
+  &:after { 
+    content: url("../assets/icons/node-view-gray.svg");
+  }
+}
+
 .pause {
   @extend .accessibility;
 
@@ -165,6 +187,22 @@
 
   &:after {
     content: url("../assets/icons/tick.svg");
+  }
+}
+
+.tree-view { 
+  @extend .accessibility;
+
+  &:after { 
+    content: url("../assets/icons/tree-view.svg");
+  }
+}
+
+.tree-view-gray { 
+  @extend .accessibility;
+
+  &:after { 
+    content: url("../assets/icons/tree-view-gray.svg");
   }
 }
 
