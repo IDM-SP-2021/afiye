@@ -111,20 +111,20 @@ hr.solid {
     height: 50px;
     align-items: center;
   }
-  .section > .left { 
+  .section > .lefty { 
     flex: 2 0 20px;
     justify-content: flex-start;
   }
-  .section > .right { 
+  .section > .righty { 
     justify-content: flex-end;
     flex: 1 0 20px;
     margin-top: 5px;
   }
-  .privacy-section > .left { 
+  .privacy-section > .lefty { 
     flex: 2 0 20px;
     justify-content: flex-start;
   }
-  .privacy-section > .right { 
+  .privacy-section > .righty { 
     justify-content: flex-end;
     margin-top: 5px;
   }

@@ -46,7 +46,6 @@ const renderGraph = (data) => {
       target: i * 2 + 1
     });
     let split = d.avatar.split('upload/');
-    console.log('Avatar split: ', split);
     d.tAvatar = split[0] + 'upload/w_200,h_200,c_scale,r_max/w_200/' + split[1];
     d.tAvatar = d.tAvatar.substr(0, d.tAvatar.lastIndexOf('.')) + '.png';
   });
@@ -84,7 +83,6 @@ const renderGraph = (data) => {
     .attr('r', 40)
     .attr('stroke', d => {
       let color = d.profileColor;
-      console.log(color);
       let strokeColor =
           (color === 'profileColor-pink') ? '#fe66b8'
         : (color === 'profileColor-magenta') ? '#f83a74'
@@ -201,3 +199,43 @@ const drag = simulation => {
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef
 }
+
+$('#open-tutorial').on('click', (event) => { // open tree tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-modal').removeClass('hidden');
+});
+
+$('#tutorial-first').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-1').toggleClass('hidden');
+  $('#tree-tutorial-2').toggleClass('hidden');
+});
+
+$('#tutorial-second').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-2').toggleClass('hidden');
+  $('#tree-tutorial-3').toggleClass('hidden');
+});
+
+$('#tutorial-third').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-3').toggleClass('hidden');
+  $('#tree-tutorial-4').toggleClass('hidden');
+});
+
+$('#tutorial-fourth').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-4').toggleClass('hidden');
+  $('#tree-tutorial-5').toggleClass('hidden');
+});
+
+$('#tutorial-fifth').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-5').toggleClass('hidden');
+  $('#tree-tutorial-6').toggleClass('hidden');
+});
+
+$('#tutorial-sixth').on('click', (event) => { // close tree tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-modal').addClass('hidden');
+});
