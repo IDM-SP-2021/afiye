@@ -7,6 +7,7 @@ $(function() {
   $('#container-toggle').on('click', () => {
     console.log('toggled');
     $('#inner-container').toggleClass('open');
+    $('#arrow-down').toggleClass('arrow-up');
   });
 
   $('#add-user').on('click', () => {
