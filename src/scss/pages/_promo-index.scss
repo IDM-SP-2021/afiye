@@ -14,16 +14,13 @@
 
   // Hero Section
   #hero {
+    margin: 0 -0.875rem;
     padding: 1.5rem 0;
     position: relative;
     text-align: center;
-
-    #hero-blob {
-      position: absolute;
-      top: -0.000125rem;
-      z-index: -10;
-      margin: 0 -0.875rem;
-    }
+    background-image: url("../assets/blob-promo-index-hero.svg");
+    background-size: cover;
+    background-position-y: bottom;
 
     #hero-button {
       display: block;
@@ -71,9 +68,14 @@
   // Key Features
 
   #keyfeatures {
-    margin-top: 12.5rem;
     position: relative;
     color: white;
+    background-image: url("../assets/blob-promo-index-kf.svg");
+    padding: 6.5rem 0;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    margin: 6rem -0.875rem 0;
 
     .promo-heading {
       font: $promo-heading-bold-mobile;
@@ -88,6 +90,10 @@
 
       &:not(:last-of-type) {
         margin-bottom: 5.25rem;
+      }
+
+      .keyfeature-img {
+        width: 8.3125rem;
       }
     }
   }
@@ -121,9 +127,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 20rem;
+    margin: 5rem -0.875rem 0;
     position: relative;
     text-align: center;
+    background-image: url("../assets/blob-promo-index-cs.svg");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    padding: 8rem 0;
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -189,17 +200,24 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 15rem;
+    padding-top: 7rem;
     text-align: center;
-    width: 100%;
     position: relative;
     color: white;
+    background-image: url("../assets/blob-promo-index-cb.svg");
+    background-size: cover;
+    margin: 8rem -0.875rem 0;
 
     .promo-heading {
       font: $promo-heading-bold-mobile;
       text-transform: uppercase;
       color: white;
       margin-top: 3rem;
+    }
+
+    .promo-text {
+      width: auto;
+      margin: 2rem auto;
     }
   }
 
@@ -266,17 +284,12 @@
     }
 
     #keyfeatures {
-      margin-top: 12rem;
+      padding: 8.5rem 0;
 
       .feature-container {
         justify-content: center;
         gap: 3.5rem;
         align-items: center;
-        margin-top: 5.625rem;
-
-        &:first-child {
-          padding-top: 12rem;
-        }
       }
 
       .promo-text {
@@ -298,15 +311,8 @@
     }
 
     #case-study {
-      #case-study-blob {
-        margin: 0 -0.875rem;
-        top: 0rem;
-        width: 50rem;
-      }
-
       #case-study-img {
         width: 37.1875rem;
-        padding-top: 25rem;
       }
 
       .promo-text {
@@ -359,7 +365,6 @@
       }
 
       .promo-text {
-        margin: 2rem auto;
         width: 25.3125rem;
       }
 
