@@ -387,10 +387,19 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/add-album', ensureAuthenticated, (req, res) => {
-  const {title, description, posts, tagged_family} = req.body;
-  const alid = 'al' + nanoid();
+  const {title, description, posts, tagged_family} = req.body,
+        alid = 'al' + nanoid();
+  let post_arr;
 
-  Post.findOne({family: req.user.fid, pid: posts[0]}).exec((err, post) => {
+  console.log('Adding album: ', req.body);
+  console.log('Posts type ', typeof(posts));
+  if (typeof(posts) === 'string') {
+    post_arr = posts.split();
+  } else {
+    post_arr = posts;
+  }
+
+  Post.findOne({family: req.user.fid, pid: post_arr[0]}).exec((err, post) => {
     let newAlbum = new Album({
       owner: req.user.uid,
       family: req.user.fid,
