@@ -31,7 +31,9 @@ $('input[name=mode]').on('click', () => {
 });
 
 // Feed
-$('#add-post-control .button').on('click', () => {
+$('#add-post-control .button').on('click', (event) => {
+  event.preventDefault();
+  console.log('clicked button');
   $('#add-options').toggleClass('hidden');
 });
 

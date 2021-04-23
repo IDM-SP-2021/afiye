@@ -229,6 +229,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
+          console.log('Feed Locals: ', locals.data.posts);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });

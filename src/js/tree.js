@@ -7,6 +7,7 @@ $(function() {
   $('#container-toggle').on('click', () => {
     console.log('toggled');
     $('#inner-container').toggleClass('open');
+    $('#arrow-down').toggleClass('arrow-up');
   });
 
   $('#add-user').on('click', () => {
@@ -198,3 +199,43 @@ const drag = simulation => {
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef
 }
+
+$('#open-tutorial').on('click', (event) => { // open tree tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-modal').removeClass('hidden');
+});
+
+$('#tutorial-first').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-1').toggleClass('hidden');
+  $('#tree-tutorial-2').toggleClass('hidden');
+});
+
+$('#tutorial-second').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-2').toggleClass('hidden');
+  $('#tree-tutorial-3').toggleClass('hidden');
+});
+
+$('#tutorial-third').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-3').toggleClass('hidden');
+  $('#tree-tutorial-4').toggleClass('hidden');
+});
+
+$('#tutorial-fourth').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-4').toggleClass('hidden');
+  $('#tree-tutorial-5').toggleClass('hidden');
+});
+
+$('#tutorial-fifth').on('click', (event) => { // next screen on tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-5').toggleClass('hidden');
+  $('#tree-tutorial-6').toggleClass('hidden');
+});
+
+$('#tutorial-sixth').on('click', (event) => { // close tree tutorial modal
+  event.preventDefault();
+  $('#tree-tutorial-modal').addClass('hidden');
+});
