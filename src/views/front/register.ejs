@@ -7,7 +7,7 @@
     <img src="../../assets/imgs/afiye-DesktopIntro.svg">
   </div>
 
-  <div class="right" style=" margin: 0 auto; text-align: center;">
+  <div class="right" style=" margin: 0 auto; text-align: center; width: 400px;">
       <h1 style="text-align: center; color: #000000; margin-bottom: 0rem;">Sign Up</h1>
       <p style="margin-bottom: 4rem; color: #4e4b66;"> Create your account</p>
 
@@ -15,61 +15,56 @@
 
       <form action="/register" method="post">
         <div class="input-container">
-          <!-- <label for="name">First Name</label> -->
+          <label for="name">First Name</label>
           <input
             style="height: 50px;"
             class="input mobile"
             type="name"
             name="firstName"
-            placeholder="First Name"
             value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
           />
         </div>
         <div class="input-container">
-          <!-- <label for="name">Last Name</label> -->
+          <label for="name">Last Name</label>
           <input
           style="height: 50px;"
 
             class="input mobile"
             type="name"
             name="lastName"
-            placeholder="Last Name"
             value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
           />
         </div>
         <div class="input-container">
-          <!-- <label for="email">Email</label> -->
+          <label for="email">Email</label>
           <input
           style="height: 50px;"
 
             class="input mobile"
             type="email"
             name="email"
-            placeholder="Email"
             value="<%= typeof email != 'undefined' ? email : '' %>"
           />
         </div>
         <div class="input-container">
-          <!-- <label for="password">Password</label> -->
+          <label for="password">Password</label>
           <input
           style="height: 50px;"
 
             class="input mobile"
             type="password"
             name="password"
-            placeholder="Password"
             value="<%= typeof password != 'undefined' ? password : '' %>"
           />
         </div>
         <div class="input-container">
-          <!-- <label for="password2">Confirm Password</label> -->
+          <label for="password2">Confirm Password</label>
           <input
           style="height: 50px;"
 
             class="input mobile"
             type="password"
             name="password2"
-            placeholder="Confirm Password"
             value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
           />
         </div>
@@ -92,63 +87,58 @@
 
   <%- include ('../partials/messages') %>
 
-  <form action="/register" method="post">
+  <form action="/register" method="post" style="width: 344px;">
     <div class="input-container">
-      <!-- <label for="name">First Name</label> -->
+      <label for="name">First Name</label>
       <input
         style="height: 50px;"
         class="input mobile"
         type="name"
         name="firstName"
-        placeholder="First Name"
         value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="name">Last Name</label> -->
+      <label for="name">Last Name</label>
       <input
       style="height: 50px;"
 
         class="input mobile"
         type="name"
         name="lastName"
-        placeholder="Last Name"
         value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="email">Email</label> -->
+      <label for="email">Email</label>
       <input
       style="height: 50px;"
 
         class="input mobile"
         type="email"
         name="email"
-        placeholder="Email"
         value="<%= typeof email != 'undefined' ? email : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="password">Password</label> -->
+      <label for="password">Password</label>
       <input
       style="height: 50px;"
 
         class="input mobile"
         type="password"
         name="password"
-        placeholder="Password"
         value="<%= typeof password != 'undefined' ? password : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="password2">Confirm Password</label> -->
+      <label for="password2">Confirm Password</label>
       <input
       style="height: 50px;"
 
         class="input mobile"
         type="password"
         name="password2"
-        placeholder="Confirm Password"
         value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
       />
     </div>
