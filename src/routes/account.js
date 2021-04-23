@@ -387,10 +387,19 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/add-album', ensureAuthenticated, (req, res) => {
-  const {title, description, posts, tagged_family} = req.body;
-  const alid = 'al' + nanoid();
+  const {title, description, posts, tagged_family} = req.body,
+        alid = 'al' + nanoid();
+  let post_arr;
 
-  Post.findOne({family: req.user.fid, pid: posts[0]}).exec((err, post) => {
+  console.log('Adding album: ', req.body);
+  console.log('Posts type ', typeof(posts));
+  if (typeof(posts) === 'string') {
+    post_arr = posts.split();
+  } else {
+    post_arr = posts;
+  }
+
+  Post.findOne({family: req.user.fid, pid: post_arr[0]}).exec((err, post) => {
     let newAlbum = new Album({
       owner: req.user.uid,
       family: req.user.fid,
@@ -545,6 +554,16 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
     .then((result) => {
       console.log(result);
+      result.family.forEach(member => {
+        member.relation =
+            (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+          : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+          : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+          : (member.relation === 'childinlaw') ? 'Child-in-Law'
+          : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+          : (member.relation === 'greatnibling') ? 'Great Nibling'
+          : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+      });
       let locals = {
         title: 'Afiye - Family Tree',
         user: req.user,
