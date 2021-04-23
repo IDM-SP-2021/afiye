@@ -60,7 +60,14 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 5rem;
+    gap: 2rem;
+    margin-top: 6rem;
+    text-align: center;
+
+    .promo-text {
+      font: $mobile-text-medium;
+      width: 18rem;
+    }
 
     .promo-heading {
       font: $promo-heading-mobile;

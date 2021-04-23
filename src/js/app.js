@@ -8,7 +8,7 @@ const requireAll = (r) => {
   r.keys().forEach(r);
 };
 requireAll(require.context('../views/', true, /\.ejs$/));
-requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg|eps|pdf)$/i));
+requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg|eps|pdf|zip)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {

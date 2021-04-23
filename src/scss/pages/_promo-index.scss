@@ -7,7 +7,7 @@
   // Text
 
   p {
-    font: $mobile-text-small;
+    font: $mobile-text-medium;
   }
 
   // Header
@@ -54,6 +54,12 @@
     justify-content: center;
     gap: 2rem;
     margin-top: 6rem;
+    text-align: center;
+
+    .promo-text {
+      font: $mobile-text-medium;
+      width: 18rem;
+    }
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -219,6 +225,18 @@
       width: auto;
       margin: 2rem auto;
     }
+
+    #contract-img {
+      width: 18rem;
+    }
+  }
+
+  #team-container {
+    max-width: 56rem;
+  }
+
+  .member-img {
+    width: 5rem;
   }
 
   // Footer
@@ -270,7 +288,7 @@
       align-items: center;
 
       .promo-text {
-        width: 18rem;
+        width: 24rem;
       }
 
       #about-img {
