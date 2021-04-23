@@ -1,385 +1,403 @@
 // Promo Shit
 
 #index-container {
-	margin: 0;
-	overflow-y: hidden;
+  margin: 0;
+  overflow-y: hidden;
 
-	// Text
+  // Text
 
-	p {
-		font: $mobile-text-small;
-	}
+  p {
+    font: $mobile-text-small;
+  }
 
-	// Header
+  // Header
 
-	// Hero Section
-	#hero {
-		padding: 1.5rem 0;
-		position: relative;
-		text-align: center;
+  // Hero Section
+  #hero {
+    margin: 0 -0.875rem;
+    padding: 1.5rem 0;
+    position: relative;
+    text-align: center;
+    background-image: url("../assets/blob-promo-index-hero.svg");
+    background-size: cover;
+    background-position-y: bottom;
 
-		#hero-blob {
-			position: absolute;
-			top: -0.000125rem;
-			z-index: -10;
-			margin: 0 -0.875rem;
-		}
+    #hero-button {
+      display: block;
+      margin: -0.5rem auto;
+    }
 
-		#hero-button {
-			display: block;
-			margin: -0.5rem auto;
-		}
+    #placeholder-hero {
+      display: block;
+      margin: 0 auto;
+    }
 
-		#placeholder-hero {
-			display: block;
-			margin: 0 auto;
-		}
+    #hero-img {
+      margin: 0 auto 1.25em;
+      background-image: url("../assets/imgs/promo-mobile-hero.png");
+      height: 18.75em;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position-x: center;
 
-		img {
-			width: 55%;
-			margin-bottom: 20px;
-		}
-	}
+      @media only screen and (min-width: 600px) {
+        height: 25em;
+      }
+    }
+  }
 
-	// About Section
+  // About Section
 
-	#about {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		gap: 2rem;
-		margin-top: 6rem;
+  #about {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 6rem;
 
-		.promo-heading {
-			font: $promo-heading-mobile;
-			background: $gradient-two;
-			background-clip: text;
-			-webkit-background-clip: text;
-			color: rgba(0, 0, 0, 0.09);
-			text-transform: uppercase;
-		}
-	}
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
+    }
+  }
 
-	// Key Features
+  // Key Features
 
-	#keyfeatures {
-		margin-top: 12.5rem;
-		position: relative;
-		color: white;
+  #keyfeatures {
+    position: relative;
+    color: white;
+    background-image: url("../assets/blob-promo-index-kf.svg");
+    padding: 6.5rem 0;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    margin: 6rem -0.875rem 0;
 
-		.promo-heading {
-			font: $promo-heading-bold-mobile;
-			color: white;
-			text-transform: uppercase;
-		}
+    .promo-heading {
+      font: $promo-heading-bold-mobile;
+      color: white;
+      text-transform: uppercase;
+    }
 
-		.feature-container {
-			display: flex;
-			justify-content: center;
-			gap: 2rem;
+    .feature-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
 
-			&:not(:last-of-type) {
-				margin-bottom: 5.25rem;
-			}
-		}
-	}
+      &:not(:last-of-type) {
+        margin-bottom: 5.25rem;
+      }
 
-	.promo-text {
-		width: 11.5rem;
-	}
+      .keyfeature-img {
+        width: 8.3125rem;
+      }
+    }
+  }
 
-	#keyfeatures-blob {
-		margin: 0 -0.875rem;
-		z-index: -10;
-		position: absolute;
-		top: -5rem;
-	}
+  .promo-text {
+    width: 11.5rem;
+  }
 
-	// Case Study
+  #keyfeatures-blob {
+    margin: 0 -0.875rem;
+    z-index: -10;
+    position: absolute;
+    top: -5rem;
+  }
 
-	#case-study-blob {
-		margin: 0 -0.875rem;
-		z-index: -10;
-		position: absolute;
-		top: -10rem;
-	}
+  // Case Study
 
-	#case-study-button {
-		margin-top: 2rem;
-	}
+  #case-study-blob {
+    margin: 0 -0.875rem;
+    z-index: -10;
+    position: absolute;
+    top: -10rem;
+  }
 
-	#case-study {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-top: 20rem;
-		position: relative;
-		text-align: center;
+  #case-study-button {
+    margin-top: 2rem;
+  }
 
-		.promo-heading {
-			font: $promo-heading-mobile;
-			background: $gradient-two;
-			background-clip: text;
-			-webkit-background-clip: text;
-			color: rgba(0, 0, 0, 0.09);
-			text-transform: uppercase;
-		}
-	}
+  #case-study {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem -0.875rem 0;
+    position: relative;
+    text-align: center;
+    background-image: url("../assets/blob-promo-index-cs.svg");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    padding: 8rem 0;
 
-	//Meet the Team
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
+    }
+  }
 
-	#meet-team-button {
-		margin-top: 2rem;
-	}
+  //Meet the Team
 
-	#meet-team {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-top: 10rem;
-		text-align: center;
-		width: 100%;
+  #meet-team-button {
+    margin-top: 2rem;
+  }
 
-		.promo-heading {
-			font: $promo-heading-mobile;
-			background: $gradient-two;
-			background-clip: text;
-			-webkit-background-clip: text;
-			color: rgba(0, 0, 0, 0.09);
-			text-transform: uppercase;
-		}
-	}
+  #meet-team {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10rem;
+    text-align: center;
+    width: 100%;
 
-	#team-container {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-evenly;
-		align-content: space-between;
-		flex-wrap: wrap;
-		width: 90%;
-		gap: 1rem;
-	}
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
+    }
+  }
 
-	// Contract Book
+  #team-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+    gap: 1rem;
+  }
 
-	#contract-book-button {
-		margin-top: 2rem;
-	}
+  // Contract Book
 
-	#contract-book-blob {
-		margin: 0 -0.875rem;
-		z-index: -10;
-		position: absolute;
-		// top: -20rem;
-		bottom: 0;
-	}
+  #contract-book-button {
+    margin-top: 2rem;
+  }
 
-	#contract-book {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin-top: 15rem;
-		text-align: center;
-		width: 100%;
-		position: relative;
-		color: white;
+  #contract-book-blob {
+    margin: 0 -0.875rem;
+    z-index: -10;
+    position: absolute;
+    // top: -20rem;
+    bottom: 0;
+  }
 
-		.promo-heading {
-			font: $promo-heading-bold-mobile;
-			text-transform: uppercase;
-			color: white;
-			margin-top: 3rem;
-		}
-	}
+  #contract-book {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 7rem;
+    text-align: center;
+    position: relative;
+    color: white;
+    background-image: url("../assets/blob-promo-index-cb.svg");
+    background-size: cover;
+    margin: 8rem -0.875rem 0;
 
-	// Footer
+    .promo-heading {
+      font: $promo-heading-bold-mobile;
+      text-transform: uppercase;
+      color: white;
+      margin-top: 3rem;
+    }
 
-	footer {
-		width: 100%;
-		display: absolute;
-		bottom: 0;
-	}
+    .promo-text {
+      width: auto;
+      margin: 2rem auto;
+    }
+  }
 
-	#copyright {
-		font: $promo-heading-bold-mobile;
-		color: $main-purple-default;
-		text-align: left;
-	}
+  // Footer
+
+  footer {
+    width: 100%;
+    display: absolute;
+    bottom: 0;
+  }
+
+  #copyright {
+    font: $promo-heading-bold-mobile;
+    color: $main-purple-default;
+    text-align: left;
+  }
 }
 
 @include tablet {
+  #index-container {
+    p {
+      font: $desktop-text-medium;
+    }
 
-	#index-container {
+    #hero {
+      #hero-blob {
+        width: 61.25rem;
+        top: -20rem;
+        left: -6rem;
+      }
 
-			p {
-		font: $desktop-text-medium;
-	}
+      #placeholder-hero {
+        width: 38rem;
+        margin-top: 5rem;
+      }
 
-		#hero {
+      #hero-button {
+        margin-top: 1.5rem;
+      }
 
-			#hero-blob {
-					width: 61.25rem;
-					top: -20rem;
-					left: -6rem;
-				}
+      #hero-img {
+        background-image: url("../assets/imgs/promo-tablet-hero.png");
+        height: 32em;
+      }
+    }
 
-			#placeholder-hero {
-				width: 38rem;
-				margin-top: 5rem;
-			}
-			
-			#hero-button {
-				margin-top: 1.5rem;
-			}
-		}
+    #about {
+      justify-content: center;
+      gap: 3rem;
+      align-items: center;
 
-		#about {
+      .promo-text {
+        width: 18rem;
+      }
 
-			justify-content: center;
-			gap: 3rem;
-			align-items: center;
+      #about-img {
+        width: 17.9375rem;
+      }
 
-			.promo-text {
-				width: 18rem;
-				
-			}
+      .promo-heading {
+        font: $desktop-text-small;
+        margin-bottom: 1.5rem;
+      }
+    }
 
-			#about-img {
-				width: 17.9375rem;
-			}
+    #keyfeatures {
+      padding: 8.5rem 0;
 
-			.promo-heading {
-				font: $desktop-text-small;
-				margin-bottom: 1.5rem;
-			}		
-		}
-		
-		#keyfeatures {
+      .feature-container {
+        justify-content: center;
+        gap: 3.5rem;
+        align-items: center;
+      }
 
-			margin-top: 12rem;
+      .promo-text {
+        width: 16.6875rem;
+      }
 
-			.feature-container {
-				justify-content: center;
-				gap: 3.5rem;
-				align-items: center;
-				margin-top: 5.625rem;
-				
-				&:first-child {
-					padding-top: 12rem;
-				}
-			}
+      #keyfeatures-blob {
+        width: 50rem;
+        margin: 0 auto;
+      }
 
-			.promo-text {
-				width: 16.6875rem;
-			}
+      .keyfeature-img {
+        width: 15.8125rem;
+      }
 
-			#keyfeatures-blob {
-				width: 50rem;
-				margin: 0 auto;
-			}
+      #promo-heading {
+        font: $mobile-link-medium;
+      }
+    }
 
-			.keyfeature-img {
-				width: 15.8125rem;
-			}
+    #case-study {
+      #case-study-img {
+        width: 37.1875rem;
+      }
 
-			#promo-heading {
-				font: $mobile-link-medium;
-			}
-		}
+      .promo-text {
+        margin: 2rem auto;
+        width: 25.3125rem;
 
-		#case-study {
+        #case-study-button {
+          margin: 4rem auto 0;
+        }
+      }
 
-			#case-study-blob {
-				margin: 0 -0.875rem;
-				top: 0rem;
-				width: 50rem;
-			}
+      .promo-heading {
+        font: $mobile-text-medium;
+      }
+    }
 
-			#case-study-img {
-				width: 37.1875rem;
-				padding-top: 25rem;
-			}
+    #meet-team {
+      margin-top: 20rem;
 
-			.promo-text {
-				margin: 2rem auto;
-				width: 25.3125rem;
+      .promo-heading {
+        font: $mobile-text-medium;
+      }
 
-				#case-study-button {
-					margin: 4rem auto 0;
-				}
-			}
+      .promo-text {
+        margin: 2rem auto;
+        width: 25.3125rem;
+      }
 
-			.promo-heading {
-				font: $mobile-text-medium;
-			}
-			
-		}
+      .member-img {
+        width: 8.75rem;
+      }
 
-		#meet-team {
+      #team-container {
+        width: 80%;
+      }
 
-			margin-top: 20rem;
+      #meet-team-button {
+        margin-top: 4rem;
+      }
+    }
 
-			.promo-heading {
-				font: $mobile-text-medium;
-			}
+    #contract-book {
+      #contract-book-blob {
+        width: 48rem;
+        top: -20rem;
+      }
 
-			.promo-text {
-				margin: 2rem auto;
-				width: 25.3125rem;
-			}
+      #contract-img {
+        width: 17.9375rem;
+      }
 
-			.member-img {
-				width: 8.75rem;
-			}
+      .promo-text {
+        width: 25.3125rem;
+      }
 
-			#team-container {
-				width: 80%;
-			}
+      #promo-heading {
+        font: $mobile-link-medium;
+      }
 
-			#meet-team-button {
-				margin-top: 4rem;
-			}
-		}
+      #contract-book-button {
+        margin: 4rem auto 0;
+      }
+    }
 
-		#contract-book {
+    footer {
+      overflow-y: hidden;
 
-			
+      #copyright {
+        font: $mobile-link-large;
+      }
+    }
+  }
+}
 
-			#contract-book-blob {
-				width: 48rem;
-				top: -20rem;
-			}
+@include desktop {
+  #index-container {
+    #hero {
+      #hero-img {
+        background-image: url("../assets/imgs/promo-desktop-hero.png");
+        height: 24em;
 
-			#contract-img {
-				width: 17.9375rem;
-			}
-
-			.promo-text {
-				margin: 2rem auto;
-				width: 25.3125rem;
-			}
-
-			#promo-heading {
-				font: $mobile-link-medium;
-			}
-
-			#contract-book-button {
-				margin: 4rem auto 0; 
-			}
-		}
-
-		footer {
-
-			overflow-y: hidden;
-
-			#copyright {
-				font: $mobile-link-large;
-			}	
-		}
-
-	}
-
+        @media only screen and (min-width: 1300px) {
+          height: 32em;
+        }
+      }
+    }
+  }
 }

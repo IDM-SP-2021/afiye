@@ -8,13 +8,15 @@ const requireAll = (r) => {
   r.keys().forEach(r);
 };
 requireAll(require.context('../views/', true, /\.ejs$/));
-requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg)$/i));
+requireAll(require.context('../assets/', true, /\.(png|jpe?g|gif|svg|eps|pdf)$/i));
 requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/));
 
 $(() => {
   if ($('main').hasClass('pageType-addPost') || $('main').hasClass('pageType-addAlbum')) {
     familyList(data.family, 'check'); //eslint-disable-line
   }
+
+  $('input[type="submit"]').attr('disabled', false);
 });
 
 // Front nav mobile toggle
@@ -23,7 +25,7 @@ $('.nav-toggle').on('click', () => {
   $('.nav-toggle').toggleClass('is-active');
 });
 
-// Onboarding
+// * Onboarding -------------------------------------------------------------------------
 $('input[name=mode]').on('click', () => {
   $('#mode-select input[type=submit]').removeAttr('disabled');
 });
@@ -41,7 +43,13 @@ $('.modal-inner button.cross').on('click', (event) => {
   $('.modal-inner button.cross').parent().parent().addClass('hidden');
 });
 
-// node creation form
+$(document).on('click', function(event) {
+  if (!$(event.target).closest('.modal-inner,.open-modal').length) {
+    $('body').find('.modal').addClass('hidden');
+  }
+});
+
+// * node creation form -----------------------------------------------------------------
 $('#open-profile').on('click', (event) => { // open profile upload modal
   event.preventDefault();
   $('#profile-upload').removeClass('hidden');
@@ -64,7 +72,9 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
     $('#profile-setup input[type="submit"]').addClass('warned');
   }
 });
-$('#profile-setup #firstName').on('change', () => {
+
+// Change display name on top of the page on text input change
+$('#profile-setup #firstName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
         last = $('#profile-setup #lastName').prop('value');
@@ -76,7 +86,7 @@ $('#profile-setup #firstName').on('change', () => {
     $('#profile-setup #full-name span').html(first + ' ' + last);
   }
 });
-$('#profile-setup #prefName').on('change', () => {
+$('#profile-setup #prefName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
         last = $('#profile-setup #lastName').prop('value');
@@ -88,10 +98,10 @@ $('#profile-setup #prefName').on('change', () => {
     $('#profile-setup #full-name span').html(first + ' ' + last);
   }
 });
-$('#profile-setup #lastName').on('change', () => {
+$('#profile-setup #lastName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
-        last = $('#profile-setup #lastName').prop('value');
+        last  = $('#profile-setup #lastName').prop('value');
 
 
   if (pref !== '') {
@@ -101,7 +111,12 @@ $('#profile-setup #lastName').on('change', () => {
   }
 });
 
-// Memory creation form
+$('#profile-setup').on('submit', function() {
+  $('#profile-setup input[type="submit"]').attr('disabled', 'disabled');
+});
+// * ------------------------------------------------------------------------------------
+
+// * Memory creation form ---------------------------------------------------------------
 $('#open-tag').on('click', (event) => {
   event.preventDefault();
   $('#tag-family').removeClass('hidden');
@@ -109,6 +124,7 @@ $('#open-tag').on('click', (event) => {
 $('#post-media-upload').on('change', () => {
   readURL($('#post-media-upload'), $('#post-media-preview'));
 });
+// * ------------------------------------------------------------------------------------
 
 // Append image preview to page element
 const readURL = (input, element) => {
@@ -117,11 +133,21 @@ const readURL = (input, element) => {
     for (let i = 0; i < input.prop('files').length; i++) {
       let reader = new FileReader();
 
-      reader.onload = (e) => {
-        $($.parseHTML('<img>')).attr('src', e.target.result).appendTo(element);
-      };
+      if (input.prop('files')[i].size > 1500000) {
+        input.wrap('<form>').closest('form').get(0).reset();
+        input.unwrap();
+        element.empty();
+        element.after('<div class="message error"><i class="icon icon-alert"></i><p>File size is greater than 1.5 MB</p></div>');
 
-      reader.readAsDataURL(input.prop('files')[i]);
+        console.log(input.prop('files'));
+        break;
+      } else {
+        $('.message').remove();
+        reader.onload = (e) => {
+          $($.parseHTML('<img>')).attr('src', e.target.result).appendTo(element);
+        };
+        reader.readAsDataURL(input.prop('files')[i]);
+      }
     }
   }
 };

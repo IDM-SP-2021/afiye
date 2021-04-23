@@ -52,7 +52,7 @@ const JSLoader = {
 };
 
 const FileLoader = {
-  test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+  test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2|eps|pdf)$/i,
   // exclude: /fonts/,
   use: [
     {

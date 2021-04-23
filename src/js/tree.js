@@ -9,10 +9,6 @@ $(function() {
     $('#inner-container').toggleClass('open');
     $('#arrow-down').toggleClass('arrow-up');
   });
-
-  $('#add-user').on('click', () => {
-    console.log('add user');
-  });
 });
 
 const renderGraph = (data) => {

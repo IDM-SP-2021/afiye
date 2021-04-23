@@ -23,6 +23,19 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+const download = (req, res) => {
+  const fileName = req.params.name;
+  const directoryPath = __dirname + '/../public/assets/downloads/';
+
+  res.download(directoryPath + fileName, fileName, (err) => {
+    if (err) {
+      res.status(500).send({
+        message: "Could not download the file. " + err,
+      });
+    }
+  });
+};
+
 // * home page
 router.get('/', (req, res) => {
   let locals = {
@@ -524,8 +537,10 @@ router.post('/password-reset/:uid-:valToken', (req, res) => {
           });
         }
       }
-      ));
+    ));
   }
 });
+
+router.get('/downloads/:name', download);
 
 module.exports = router;
