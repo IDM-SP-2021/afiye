@@ -13,6 +13,10 @@
     // align-items: center;
 }
 
+.order {
+    display: block;
+}
+
 .right {
     grid-area: form;
     margin: 0 auto;
@@ -53,6 +57,11 @@ div.login-mobile {
 // }
 
 @include tablet {
+
+    .order {
+        display: block;
+    }
+
     .login-mobile {
         width: 60%;
     }
@@ -76,6 +85,17 @@ div.login-mobile {
 }
 
 @media only screen and (min-width: 1024px) {
+
+    .order {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        width: 900px;
+        margin: 0 auto;
+        grid-template-areas:
+            "title title"
+            "first second";
+    }
 
     #desktop-register {
         display: grid;
