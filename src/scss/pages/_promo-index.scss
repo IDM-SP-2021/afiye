@@ -184,6 +184,7 @@
     align-content: space-between;
     flex-wrap: wrap;
     width: 90%;
+    max-width: 56rem;
     gap: 1rem;
   }
 
@@ -229,10 +230,6 @@
     #contract-img {
       width: 18rem;
     }
-  }
-
-  #team-container {
-    max-width: 56rem;
   }
 
   .member-img {
