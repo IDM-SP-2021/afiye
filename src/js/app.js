@@ -15,6 +15,8 @@ $(() => {
   if ($('main').hasClass('pageType-addPost') || $('main').hasClass('pageType-addAlbum')) {
     familyList(data.family, 'check'); //eslint-disable-line
   }
+
+  $('input[type="submit"]').attr('disabled', false);
 });
 
 // Front nav mobile toggle
@@ -23,7 +25,7 @@ $('.nav-toggle').on('click', () => {
   $('.nav-toggle').toggleClass('is-active');
 });
 
-// Onboarding
+// * Onboarding -------------------------------------------------------------------------
 $('input[name=mode]').on('click', () => {
   $('#mode-select input[type=submit]').removeAttr('disabled');
 });
@@ -44,7 +46,7 @@ $('.modal').on('click', function() {
   $(this).toggleClass('hidden');
 });
 
-// node creation form
+// * node creation form -----------------------------------------------------------------
 $('#open-profile').on('click', (event) => { // open profile upload modal
   event.preventDefault();
   $('#profile-upload').removeClass('hidden');
@@ -67,6 +69,8 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
     $('#profile-setup input[type="submit"]').addClass('warned');
   }
 });
+
+// Change display name on top of the page on text input change
 $('#profile-setup #firstName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
@@ -104,7 +108,12 @@ $('#profile-setup #lastName').on('keyup', () => {
   }
 });
 
-// Memory creation form
+$('#profile-setup').on('submit', function() {
+  $('#profile-setup input[type="submit"]').attr('disabled', 'disabled');
+});
+// * ------------------------------------------------------------------------------------
+
+// * Memory creation form ---------------------------------------------------------------
 $('#open-tag').on('click', (event) => {
   event.preventDefault();
   $('#tag-family').removeClass('hidden');
@@ -112,6 +121,7 @@ $('#open-tag').on('click', (event) => {
 $('#post-media-upload').on('change', () => {
   readURL($('#post-media-upload'), $('#post-media-preview'));
 });
+// * ------------------------------------------------------------------------------------
 
 // Append image preview to page element
 const readURL = (input, element) => {
