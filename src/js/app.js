@@ -67,7 +67,7 @@ $('#profile-setup input[type="submit"]').on('click', (event) => {
     $('#profile-setup input[type="submit"]').addClass('warned');
   }
 });
-$('#profile-setup #firstName').on('change', () => {
+$('#profile-setup #firstName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
         last = $('#profile-setup #lastName').prop('value');
@@ -79,7 +79,7 @@ $('#profile-setup #firstName').on('change', () => {
     $('#profile-setup #full-name span').html(first + ' ' + last);
   }
 });
-$('#profile-setup #prefName').on('change', () => {
+$('#profile-setup #prefName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
         last = $('#profile-setup #lastName').prop('value');
@@ -91,7 +91,7 @@ $('#profile-setup #prefName').on('change', () => {
     $('#profile-setup #full-name span').html(first + ' ' + last);
   }
 });
-$('#profile-setup #lastName').on('change', () => {
+$('#profile-setup #lastName').on('keyup', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
         last  = $('#profile-setup #lastName').prop('value');
