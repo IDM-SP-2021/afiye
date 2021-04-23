@@ -79,22 +79,22 @@ router.get('/register', (req, res) => {
 
 // * register handle
 router.post('/register', (req, res) => {
-  const {firstName, lastName, email, password, password2} = req.body;
+  const { firstName, lastName, email, password, password2 } = req.body;
   let errors = [];
   let em = email.toLowerCase();
 
   if (!firstName || !lastName || !email || !password || !password2) {
-    errors.push({msg: 'Please fill in all fields'});
+    errors.push({ msg: 'Please fill in all fields' });
   }
 
   // check if passwords match
   if (password !== password2) {
-    errors.push({msg: 'Passwords don\'t match'});
+    errors.push({ msg: 'Passwords don\'t match' });
   }
 
   // check if password is more than 6 characters
   if (password.length < 6) {
-    errors.push({msg: 'Password must be at least 6 characters'});
+    errors.push({ msg: 'Password must be at least 6 characters' });
   }
 
   if (errors.length > 0) {
@@ -109,9 +109,9 @@ router.post('/register', (req, res) => {
     });
   } else {
     // validation passed
-    User.findOne({email: em}).exec((err, user) => {
+    User.findOne({ email: em }).exec((err, user) => {
       if (user) {
-        errors.push({msg: 'Email is already registered'});
+        errors.push({ msg: 'Email is already registered' });
         res.render(path.resolve(__dirname, '../views/front/register'), {
           errors: errors,
           firstName: firstName,
@@ -127,7 +127,8 @@ router.post('/register', (req, res) => {
         // create email validation token in tokens collection
         const newToken = new Token({
           uid: uid,
-          token: valToken
+          token: valToken,
+          type: 'account'
         });
 
         newToken.save()
@@ -140,9 +141,9 @@ router.post('/register', (req, res) => {
           uid: uid,
           password: password
         });
-        bcrypt.genSalt(10,(err,salt)=>
-          bcrypt.hash(newUser.password,salt, (err,hash)=> {
-            if(err) {
+        bcrypt.genSalt(10, (err, salt) =>
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) {
               throw err;
             } else {
               //save pass to hash
@@ -151,9 +152,9 @@ router.post('/register', (req, res) => {
 
             //save user
             newUser.save()
-              .catch(value=> console.log(value));
+              .catch(value => console.log(value));
           }
-        ));
+          ));
 
         ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
           if (err) {
@@ -210,7 +211,7 @@ router.get('/register/confirmation-:uid', (req, res) => {
 });
 
 // * Resend registration verification from confirmation page
-router.post('/register/confirmation-:uid', (req,res) => {
+router.post('/register/confirmation-:uid', (req, res) => {
   const uid = req.params.uid;
   const title = 'Afiye - Sign Up';
   let errors = [];
@@ -226,8 +227,8 @@ router.post('/register/confirmation-:uid', (req,res) => {
     } else {
       const firstName = user.firstName;
       const email = user.email;
-      Token.findOne({ uid: uid }).exec((err, token) => {
-        if(!token) {
+      Token.findOne({ uid: uid, type: 'account' }).exec((err, token) => {
+        if (!token) {
           errors.push('We had trouble locating your account. Refresh the page, and if the problem persists try signing up again.');
           res.render(path.resolve(__dirname, '../views/front/register-confirmation'), {
             title: title,
@@ -285,7 +286,7 @@ router.get('/logout', (req, res) => {
 
 router.get('/verify/:uid-:token', (req, res) => {
   let uid = req.params.uid,
-      valToken = req.params.token;
+    valToken = req.params.token;
 
   let errors = [];
 
@@ -297,9 +298,9 @@ router.get('/verify/:uid-:token', (req, res) => {
       token: valToken,
     });
   } else {
-    Token.findOne({uid: uid}).exec((err, token) => {
-      if (!token) {
-        errors.push({msg: 'Your account verification link has expired. <a>Resend link</a>'});
+    Token.findOne({ uid: uid, type: 'account' }).exec((err, token) => {
+      if (!token || token.token !== valToken) {
+        errors.push({ msg: 'expired' });
         res.render(path.resolve(__dirname, '../views/front/verify'), {
           errors: errors,
           title: 'Afiye - Account Verification',
@@ -307,9 +308,9 @@ router.get('/verify/:uid-:token', (req, res) => {
           token: valToken,
         });
       } else {
-        User.findOneAndUpdate({uid: uid},{ status: 'Active' },{new: true}).exec((err, user) => {
+        User.findOneAndUpdate({ uid: uid }, { status: 'Active' }, { new: true }).exec((err, user) => {
           if (!user) {
-            errors.push({msg: 'We ran into a problem locating your account. Refresh the page or re-register for an account if the problem persists.'});
+            errors.push({ msg: 'locate' });
             res.render(path.resolve(__dirname, '../views/front/verify'), {
               errors: errors,
               title: 'Afiye - Account Verification',
@@ -323,19 +324,208 @@ router.get('/verify/:uid-:token', (req, res) => {
               uid: uid,
               token: valToken,
             });
-            }
+          }
         });
       }
     });
   }
 });
 
+router.post('/verify/:uid-:token', (req, res) => {
+  const uid = req.params.uid;
+  const token = req.params.token;
+  const title = 'Account Verification';
+  let errors = [];
+
+  User.findOne({ uid: uid }).exec((err, user) => {
+    if (!user) {
+      errors.push({ msg: 'locate' });
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        errors: errors,
+      });
+    } else {
+      const firstName = user.firstName;
+      const email = user.email;
+      const valToken = nanoid(); // email validation token
+      // create email validation token in tokens collection
+      const newToken = new Token({
+        uid: uid,
+        token: valToken,
+        type: 'account'
+      });
+
+      newToken.save()
+        .catch(value => console.log(value));
+
+      ejs.renderFile(__dirname + '/../views/email/emailConfirmation.ejs', { name: firstName, verifyLink: `${process.env.MAIL_DOMAIN}/verify/${uid}-${valToken}` }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - Confirm Your Account',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.render(path.resolve(__dirname, '../views/front/verify'), {
+        title: title,
+        uid: uid,
+        token: token,
+        success_msg: 'Account confirmation message resent!'
+      });
+    }
+  });
+});
+
 router.get('/downloads/:file-:ext', (req, res) => {
   let file = req.params.file,
-      ext = req.params.ext,
-      path = `../assets/downloads/${file}.${ext}`;
+    ext = req.params.ext,
+    path = `../assets/downloads/${file}.${ext}`;
 
   res.download(__dirname, path);
+});
+
+router.get('/password-reset', (req, res) => {
+  let locals = {
+    title: 'Afiye - Reset Password'
+  };
+
+  res.render(path.resolve(__dirname, '../views/front/forgotpwd'), locals);
+});
+
+router.post('/password-reset', (req, res) => {
+  const { email } = req.body;
+  let errors = [];
+  const title = 'Afiye - Reset Password';
+
+  User.findOne({ email: email }).exec((err, user) => {
+    if (!user) {
+      errors.push({ msg: 'That email is not registered.' });
+      res.render(path.resolve(__dirname, '../views/front/forgotpwd'), {
+        title,
+        errors,
+      });
+    } else {
+      const uid = user.uid;
+      const email = user.email;
+      const valToken = nanoid(); // email validation token
+      // create email validation token in tokens collection
+      const newToken = new Token({
+        uid: uid,
+        token: valToken,
+        type: 'password'
+      });
+
+      newToken.save()
+        .catch(value => console.log(value));
+
+      ejs.renderFile(__dirname + '/../views/email/passwordReset.ejs', { verifyLink: `${process.env.MAIL_DOMAIN}/password-reset/${uid}-${valToken}` }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - Reset your password',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.render(path.resolve(__dirname, '../views/front/emailsent'), {
+        title,
+        uid: uid,
+        success_msg: `Password reset link sent to ${email}!`
+      });
+    }
+  });
+});
+
+router.get('/password-reset/:uid-:valToken', (req, res) => {
+  const { uid, valToken } = req.params;
+
+  Token.findOne({ uid: uid, type: 'password' }).exec((err, token) => {
+    if (!token || token.token !== valToken) {
+      res.redirect('/password-reset');
+    } else {
+      res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+        title: 'Afiye - Password Reset',
+        uid,
+        valToken
+      });
+    }
+  });
+});
+
+router.post('/password-reset/:uid-:valToken', (req, res) => {
+  const { uid, valToken } = req.params,
+    { password, password2 } = req.body;
+  let errors = [];
+
+  // check if passwords match
+  if (password !== password2) {
+    errors.push({ msg: 'Passwords don\'t match' });
+  }
+
+  // check if password is more than 6 characters
+  if (password.length < 6) {
+    errors.push({ msg: 'Password must be at least 6 characters' });
+  }
+
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+      errors,
+      title: 'Afiye - Password Reset',
+      uid,
+      valToken
+    });
+  } else {
+    bcrypt.genSalt(10, (err, salt) =>
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) {
+          throw err;
+        } else {
+          User.findOneAndUpdate({ uid: uid }, { password: hash }, { new: true }).exec((err, user) => {
+            if (!user) {
+              errors.push({ msg: 'locate' });
+              res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+                errors,
+                title: 'Afiye - Password Reset',
+                uid,
+                valToken
+              });
+            } else {
+              res.render(path.resolve(__dirname, '../views/front/password-reset-form'), {
+                success_msg: 'Your password has been successfully reset!',
+                title: 'Afiye - Password Reset',
+                uid,
+                valToken
+              });
+            }
+          });
+        }
+      }
+      ));
+  }
 });
 
 module.exports = router;

@@ -8,7 +8,7 @@ html,
 body {
   height: 100%;
   margin: 0;
-  color: $body;
+  color: #000;
   overflow-x: hidden;
   // background: #f0f0f0;
 }
@@ -21,20 +21,27 @@ h1 {
   color: black;
 }
 
-
 a {
   color: $purple-default;
   text-decoration: none;
 }
 
-.center-header{
+.center-header {
   text-align: center;
+}
+
 .hidden {
   visibility: hidden;
+  display: none;
 }
 
 .caption {
   color: $placeholder;
   font: $mobile-text-x-small;
   padding-top: 5px;
+}
+
+object.logo {
+  background-image: url(../assets/imgs/logo.png); // fallback if svg fails to load
+  background-size: cover;
 }

@@ -16,11 +16,21 @@ header {
     height: $header-height;
     overflow: hidden;
 
-    .header-title {
-      font: $mobile-display-small-bold;
-      font-variant-ligatures: no-common-ligatures;
-      color: $purple-default;
-      margin: 0 1.5em;
+    .nav-link-home {
+      display: flex;
+
+      .logo {
+        width: 2rem;
+        height: auto;
+        margin: 0 0.5rem 0 1.5rem;
+      }
+
+      .header-title {
+        font: $mobile-display-small-bold;
+        font-variant-ligatures: no-common-ligatures;
+        color: $purple-default;
+        margin: 0;
+      }
     }
 
     .nav-link-group {
@@ -153,9 +163,11 @@ header {
 }
 
 @include desktop {
-  $header-height: 6.25em;
+  $header-height: 4.25em;
 
   header {
+    position: relative;
+
     .header-nav {
       display: grid;
       height: $header-height;

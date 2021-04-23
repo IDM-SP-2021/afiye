@@ -1,8 +1,20 @@
-#tree-tutorial {
+@media only screen and (min-width: 1024px) {
+#open-tutorial {
   position: absolute;
   top: 1.5em;
   right: 1.5em;
 }
+}
+
+@media only screen and (max-width: 1023px) {
+  #open-tutorial {
+    position: absolute;
+    top: 3.5em;
+    right: 1.5em;
+  }
+  }
+
+
 .ellipse {
   background: #b166ff;
   height: 100px;
@@ -10,7 +22,38 @@
   border-radius: 50%;
 }
 .breadcrumbs {
-  margin: 40px auto 20px;
+  margin: 0 auto 20px;
   height: 25px;
   width: 200px;
+}
+
+@media only screen and (min-width: 768px) {
+#tree-tutorial{
+  font-size: 16px !important;
+}
+}
+
+@media only screen and (max-width: 1025px) {
+#arrow-down{
+  border: solid black;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    width: .01px;
+}
+
+.arrow-up{
+  border: solid black;
+    border-width: 0 4px 4px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-135deg) !important; 
+    -webkit-transform: rotate(-135deg) !important;
+    width: .01px;
+}
+
+
+
 }

@@ -8,6 +8,7 @@
   #container-toggle {
     padding: 0.875em;
     cursor: pointer;
+    text-align: center;
 
     .bar {
       display: block;
@@ -24,16 +25,46 @@
     overflow: hidden;
 
     &.open {
-      height: auto;
+      height: calc(100vh - 3.75rem - 4.5rem - 2rem);
       padding: 1.875em 1.25em 0.5em;
+      overflow-y: scroll;
     }
 
     input {
       width: 100%;
     }
 
+    #family-list {
+      margin: 0 -0.5em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.25em;
+
+        a {
+          padding: 0.5em;
+          border-radius: 0.625rem;
+          transition: background 0.1s ease-in-out;
+
+          &:hover {
+            background: $input-background;
+          }
+        }
+      }
+    }
+
     h2 {
       font: $mobile-display-small-bold;
+    }
+
+    h3 {
+      font: $mobile-display-x-small-bold;
+      color: $body;
+      margin: 0.5em 0 0;
     }
   }
 }
@@ -41,6 +72,12 @@
 @include tablet {
   #family-container {
     top: 4.6875em;
+
+    #inner-container {
+      &.open {
+        height: calc(100vh - 4.6875em - 4.5rem - 2rem);
+      }
+    }
   }
 }
 
@@ -48,7 +85,9 @@
   #family-container {
     position: static;
     width: 30em;
+    height: calc(100% - 4.25em);
     order: 3;
+    overflow-y: scroll;
 
     #container-toggle {
       display: none;
@@ -56,8 +95,11 @@
 
     #inner-container {
       height: auto;
-      overflow: scroll;
       padding: 1.875em 1em;
+
+      &.open {
+        height: auto;
+      }
     }
   }
 }

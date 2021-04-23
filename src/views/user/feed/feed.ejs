@@ -3,12 +3,13 @@
     <!-- profile img -->
         <div class="imgname">
 
-            <div class="story">
+            <!-- <div class="story">
                 <img src="https://picsum.photos/45/45?random=1" alt="">
                 <svg viewbox="0 0 100 100">
                     <circle cx="50" cy="50" r="40"/>
                 </svg>
-            </div>
+            </div> -->
+            <%- include('../../partials/avatar', {person: data.current}) %>
 
             <!-- username -->
             <div>
@@ -20,7 +21,7 @@
 
         <!-- buttons -->
         <div id="add-post-control" class="buttons">
-            <button class="button primary icon plus"></button>
+            <div class="button primary icon plus"></div>
             <div id="add-options" class="hidden">
               <a href="/account/add-post" id="add-post" class="add-option">Create a New Memory</a>
               <a href="/account/add-album" id="add-post" class="add-option">Create a New Album</a>
@@ -42,10 +43,7 @@
     <% data.posts.forEach(item => { %>
     <%- include('../../partials/feed-item', {item: item}) %>
     <% }) %>
-    <p>You've reached the end of your family's memories. <a href="#top">Back to the top!</a></p>
+    <p id="feed-bottom-message">You've reached the end of your family's memories. <a href="#top">Back to the top!</a></p>
   <% } %>
-</div>
-<div class="footer-box">
-    <p class="footer-title">© afiye 2020</p>
 </div>
 <%- include('../../partials/user-mobile-nav') %>

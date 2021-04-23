@@ -1,0 +1,120 @@
+#desktop-register {
+  display: none;
+}
+
+.left {
+  grid-area: img;
+  // background-color: blueviolet;
+  // height: 100%;
+  margin: 0 auto;
+  // width: 100%;
+  // text-align: center;
+  // justify-content: center;
+  // align-items: center;
+}
+
+.right {
+  grid-area: form;
+  margin: 2rem auto;
+  border: 1px solid #0000002b;
+  padding: 3rem;
+  border-radius: 18px;
+  background-color: white;
+}
+
+.new {
+  margin-bottom: 2rem !important;
+  margin-top: 2rem !important;
+}
+
+div.login-mobile h1 {
+  font-size: 1.5rem;
+}
+
+div.login-mobile {
+  padding-top: 8rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.login-bubble1 {
+  width: 20rem;
+}
+.login-bubble2 {
+  width: 25rem;
+}
+
+// div.login-mobile img {
+//     width: 46% !important;
+// }
+// .login-mobile {
+
+// }
+
+@include tablet {
+  .login-mobile {
+    width: 60%;
+  }
+
+  div.login-mobile h1 {
+    font-size: 2rem;
+  }
+
+  div.login-mobile p {
+    font-size: 1rem;
+  }
+
+  div.login-mobile {
+    padding-top: 5rem !important;
+  }
+
+  div.login-mobile img {
+    width: 250px !important;
+    margin-bottom: 2rem;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  #desktop-register {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    grid-template-areas: "img form";
+    height: calc(100% - 4.25em);
+  }
+
+  .login-bubble {
+    position: fixed;
+    z-index: -10;
+  }
+
+  div.left img {
+    width: 500px;
+  }
+
+  .mobile-register {
+    display: none;
+  }
+
+  .login-mobile {
+    width: 55%;
+  }
+
+  div.login-mobile h1 {
+    font-size: 2rem;
+  }
+
+  div.login-mobile p {
+    font-size: 1rem;
+    // padding-bottom: 2rem;
+  }
+
+  div.login-mobile img {
+    width: 250px !important;
+    margin-bottom: 2rem;
+  }
+
+  div.login-mobile {
+    padding-top: 5rem !important;
+  }
+}

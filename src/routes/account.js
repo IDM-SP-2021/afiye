@@ -5,16 +5,31 @@ const {ensureAuthenticated} = require('../server/config/auth.js');
 const User = require('../models/user.js');
 const Post = require('../models/post.js');
 const Album = require('../models/album.js');
+const {Invite} = require('../models/invite.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
+const nanoinv = customAlphabet('1234567890', 6);
 const api = require('../server/neo4j.js');
 const cloudinary = require('../server/config/cloudinary');
 const streamifier = require('streamifier');
 const multer = require('multer');
 const fileUpload = multer();
 const _ = require('lodash');
+const ejs = require('ejs');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
-// Upload to Cloudinar
+const transporter = nodemailer.createTransport({
+  host: process.env.MAIL_SERVICE_HOST,
+  port: process.env.MAIL_SERVICE_PORT,
+  secure: true,
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS
+  }
+});
+
+// Upload to Cloudinary
 function upload(file, folder) {
   return new Promise((resolve, reject) => {
     let stream = cloudinary.uploader.upload_stream(
@@ -155,14 +170,15 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
           birthdate: birthdate,
           gender: gender,
           location: location,
-          profileColor: `#${profileColor}`,
+          profileColor: profileColor,
           avatar: avatarUrl,
           claimed: true,
         };
 
-        api.initFamily(person);
-
-        res.redirect('/account/feed');
+        api.initFamily(person)
+          .then(() => {
+            res.redirect('/account/feed');
+          });
       });
     }
   });
@@ -185,7 +201,7 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     res.redirect('/account/welcome');
   } else {
     let postData = [];
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
@@ -203,14 +219,17 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
             postData.push({ownerData, timeStamp, itemType, item});
           });
           let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
+          let current = _.find(result, {'uid': req.user.uid});
           let locals = {
             title: 'Afiye - Memory Feed',
             user: req.user,
             data: {
+              current,
               family: result,
               posts: sorted
             }
           };
+          console.log('Feed Locals: ', locals.data.posts);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -238,7 +257,7 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               post
             }
           };
-          console.log(locals);
+          console.log('Feed Locals: ', locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }
@@ -247,7 +266,7 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
 
 // create post
 router.get('/add-post', ensureAuthenticated, (req, res) => {
-  api.getFamily(req.user)
+  api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
 
@@ -277,7 +296,6 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
       urls.push(newPath.secure_url);
     }
     if (urls) {
-      console.log('media:', urls);
       let newPost = new Post({
         owner: req.user.uid,
         family: req.user.fid,
@@ -289,7 +307,6 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
       });
       await newPost.save()
         .then(() => {
-          console.log(newPost);
           return res.redirect('/account/feed');
         }).catch(error => {
           return res.json(error);
@@ -312,7 +329,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
       Post.find({
         'pid': { $in: album.posts }
       }).exec((err, posts) => {
-        api.getFamily(req.user)
+        api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
             let postData = [];
 
@@ -336,8 +353,6 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
                 postData
               }
             };
-            console.log('Album: ', locals.data.albumData);
-            console.log('Posts: ', locals.data.postData);
             res.render(path.resolve(__dirname, '../views/user/feed/album'), locals);
           });
       });
@@ -347,7 +362,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
 
 router.get('/add-album', ensureAuthenticated, (req, res) => {
   Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
         let postData = [];
         posts.forEach(post => {
@@ -372,7 +387,6 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/add-album', ensureAuthenticated, (req, res) => {
-  console.log(req.body);
   const {title, description, posts, tagged_family} = req.body;
   const alid = 'al' + nanoid();
 
@@ -388,11 +402,8 @@ router.post('/add-album', ensureAuthenticated, (req, res) => {
       tagged: tagged_family,
     });
 
-    console.log(newAlbum);
-
     newAlbum.save()
       .then(() => {
-        console.log(newAlbum);
         return res.redirect('/account/feed');
       }).catch(error => {
         return res.json(error);
@@ -449,6 +460,24 @@ router.get('/inputcode', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/onboarding/inputcode'), locals);
+});
+
+router.post('/inputcode', ensureAuthenticated, (req, res) => {
+  let {code} = req.body;
+  console.log(code);
+  Invite.findOne({code: code}).exec((err, invite) => {
+    console.log('Invite: ', invite);
+    api.getNode(invite.uid)
+      .then((result) => {
+        console.log('Current: ', req.user);
+        console.log('Result: ', result);
+        User.findOneAndUpdate({uid: req.user.uid}, {uid: result.uid, fid: result.fid, node: true}, {new: true}).exec((err, user) => {
+          let query = `MATCH (p:Person {uid: '${user.uid}'}) SET p.claimed = true RETURN p`;
+          api.submitQuery(query);
+        });
+        res.redirect('/account/feed');
+      });
+  });
 });
 
 // claim profile
@@ -515,6 +544,7 @@ router.get('/jt-done', ensureAuthenticated, (req, res) => {
 router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
     .then((result) => {
+      console.log(result);
       let locals = {
         title: 'Afiye - Family Tree',
         user: req.user,
@@ -522,7 +552,8 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
           user: {
             name: req.user.name
           },
-          graph: result
+          graph: result.graph,
+          family: result.family
         }
       };
 
@@ -531,7 +562,7 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
 });
 
 router.get('/add-member', ensureAuthenticated, (req, res) => {
-  api.getFamily(req.user)
+  api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let locals = {
         title: 'Afiye - Add Family Member',
@@ -541,7 +572,7 @@ router.get('/add-member', ensureAuthenticated, (req, res) => {
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/member/add-member'), locals);
     });
 });
 
@@ -561,7 +592,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
   }
 
   if (errors.length > 0) {
-    api.getFamily(req.user)
+    api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let locals = {
         title: 'Afiye - Add Family Member',
@@ -571,7 +602,7 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
         }
       };
 
-      res.render(path.resolve(__dirname, '../views/user/add-member'), locals);
+      res.render(path.resolve(__dirname, '../views/user/member/add-member'), locals);
     });
   } else {
     const uid = 'u' + nanoid(); // db identifier for user
@@ -619,15 +650,13 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
           birthdate: birthdate,
           gender: gender,
           location: location,
-          profileColor: `#${profileColor}`,
+          profileColor: profileColor,
           relation: relation,
           relReciprocal: relReciprocal,
           related: related,
           avatar: avatarUrl,
           claimed: false,
         };
-
-        console.log(person);
 
         api.addMember(person)
           .then(results => {
@@ -652,8 +681,10 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
 
               const query = match + merge + 'RETURN *';
 
-              api.submitQuery(query);
-              res.redirect('/account/tree');
+              api.submitQuery(query)
+                .then(() => {
+                  res.redirect('/account/tree');
+                });
             } else {
               res.redirect('/account/tree');
             }
@@ -662,14 +693,233 @@ router.post('/add-member', ensureAuthenticated, fileUpload.single('profile'), (r
   }
 });
 
+router.get('/invite-member-:uid', ensureAuthenticated, (req, res) => {
+  const target = req.params.uid;
+  api.getNode(target)
+    .then((result) => {
+      let locals = {
+        title: 'Afiye - Invite Member',
+        user: req.user,
+        invite: result,
+      };
+
+      res.render(path.resolve(__dirname, '../views/user/member/invite-member'), locals);
+    });
+});
+
+router.post('/invite-member-:uid', ensureAuthenticated, (req, res) => {
+  const target = req.params.uid,
+        {email, message} = req.body;
+
+  api.getNode(target)
+    .then((result) => {
+      let code = nanoinv();
+
+      const newInv = new Invite({
+        uid: target,
+        code
+      });
+
+      newInv.save()
+        .catch(value => console.log(value));
+      let invite = {
+        name: result.firstName,
+        email,
+        message,
+        code,
+        link: `${process.env.MAIL_DOMAIN}/register`
+      };
+
+      ejs.renderFile(__dirname + '/../views/email/invite.ejs', { invite }, (err, data) => {
+        if (err) {
+          console.log(err);
+        } else {
+          let mainOptions = {
+            from: '"noreply" <noreply@afiye.io>',
+            to: email,
+            subject: 'Afiye - You\'ve been invited to join a family network',
+            html: data
+          };
+          transporter.sendMail(mainOptions, (err, info) => {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log('Message sent: ' + info.response);
+            }
+          });
+        }
+      });
+
+      res.redirect(`/account/profile-${target}`);
+    });
+});
+
 // * user profile
-router.get('/profile', ensureAuthenticated, (req, res) => {
+router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
+  let member = req.params.uid;
+  api.getFamily(member, req.user.fid)
+    .then((result) => {
+      let profile = _.find(result, {uid: member}),
+          postData = [],
+          immRels = ['parent', 'child', 'sibling', 'spouse'],
+          immFamily = _.filter(result, rel => _.indexOf(immRels, rel.relation) !== -1); // filter relationships by immRels array
+
+      immFamily = _.uniqBy(immFamily, 'uid'); // clear duplicates
+
+      Post.find({owner: member}).exec((err, posts) => {
+        posts.forEach(item => {
+          const ownerData = profile,
+                timeStamp = timeDiff(item.date),
+                itemType = 'memory';
+          postData.push({ownerData, timeStamp, itemType, item});
+        });
+
+      });
+      Album.find({owner: member}).exec((err, albums) => {
+        albums.forEach(item => {
+          const ownerData = profile,
+                timeStamp = timeDiff(item.date),
+                itemType = 'album';
+          postData.push({ownerData, timeStamp, itemType, item});
+        });
+
+        let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse(); // sort post data by most recently modified
+
+        let locals = {
+          title: `Afiye - ${profile.firstName}'s Profile`,
+          user: req.user,
+          data: {
+            profile,
+            family: result.family,
+            immFamily,
+            posts: sorted,
+          }
+        };
+
+        res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
+      });
+    });
+});
+
+router.get('/edit-profile-:uid', (req, res) => {
+  let member = req.params.uid;
+  api.getFamily(req.user.uid, req.user.fid)
+    .then((result) => {
+      let profile = _.find(result, {uid: member});
+      if (profile.claimed === true && profile.uid !== req.user.uid) {
+        console.log('Cannot edit this profile');
+        res.redirect(`/account/profile-${profile.uid}`);
+      } else {
+        console.log('Able to edit this profile');
+        let locals = {
+          title: 'Afiye - Edit Profile',
+          user: req.user,
+          data: {
+            profile,
+            family: result.family,
+          }
+        };
+        console.log('Edit profile: ', profile);
+        res.render(path.resolve(__dirname, '../views/user/profile/edit'), locals);
+      }
+    });
+});
+
+router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
+  let member = req.params.uid;
+  const { firstName, prefName, lastName, birthdate, gender, location, profileColor } = req.body;
+  const memData = {
+    uid: member,
+    fid: req.user.fid,
+    firstName,
+    prefName,
+    lastName,
+    birthdate,
+    gender,
+    location,
+    profileColor
+  };
+  if (req.file) {
+    let avatarUrl;
+
+    let streamUpload = (req) => {
+      return new Promise((resolve, reject) => {
+        let stream = cloudinary.uploader.upload_stream(
+          {
+            folder: `uploads/${req.user.fid}/${member}`,
+            eager: [
+              {quality: 'auto'}
+            ]
+          },
+          (error, result) => {
+            if (result) {
+              resolve(result);
+            } else {
+              reject(error);
+            }
+          }
+        );
+
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+    };
+
+    const upload = async (req) => {
+      if (!req.file) {
+        avatarUrl = 'https://res.cloudinary.com/afiye-io/image/upload/v1614875519/avatars/placeholder_female_akgvlb.png';
+      } else {
+        let result = await streamUpload(req);
+        avatarUrl = result.secure_url;
+      }
+    };
+
+    upload(req)
+      .then(() => {
+        memData.avatar = avatarUrl;
+        let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+        _.forEach(memData, (value, key) => {
+          if (key !== 'uid' && key !== 'fid') {
+            query += `p.${key} = '${value}',`;
+          }
+        });
+
+        query = query.slice(0,-1);
+        query += ' RETURN p';
+
+        api.submitQuery(query)
+          .then(() => {
+            res.redirect(`/account/profile-${member}`);
+          });
+      });
+  } else {
+    let query = `MATCH (p:Person {fid: '${memData.fid}', uid: '${memData.uid}'}) SET `;
+
+    _.forEach(memData, (value, key) => {
+      if (key !== 'uid' && key !== 'fid') {
+        query += `p.${key} = '${value}',`;
+      }
+    });
+
+    query = query.slice(0,-1);
+    query += ' RETURN p';
+
+    api.submitQuery(query)
+      .then(() => {
+        res.redirect(`/account/profile-${member}`);
+      });
+  }
+});
+
+
+// * settings-menu=
+router.get('/settings-menu', ensureAuthenticated, (req, res) => {
   let locals = {
-    title: `Afiye - ${req.user.name}'s Profile`,
+    title: `Afiye - ${req.user.name}'s Settings`,
     user: req.user,
   };
 
-  res.render(path.resolve(__dirname, '../views/user/profile/profile'), locals);
+  res.render(path.resolve(__dirname, '../views/settings-menu'), locals);
 });
 
 // * user settings
@@ -700,6 +950,75 @@ router.get('/settings-account-change-password', ensureAuthenticated, (req, res) 
   };
 
   res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), locals);
+});
+
+router.post('/settings-account-change-password', ensureAuthenticated, (req, res) => {
+  const { currentPassword, newPassword, newPassword2 } = req.body;
+  let errors = [];
+
+  // check if passwords match
+  if (newPassword !== newPassword2) {
+    errors.push({msg: 'Passwords don\'t match'});
+  }
+
+  // check if password is more than 6 characters
+  if (newPassword.length < 6) {
+    errors.push({msg: 'Password must be at least 6 characters'});
+  }
+
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+      errors: errors,
+      newPassword: newPassword,
+      newPassword2: newPassword2,
+      title: 'Afiye - Change Password',
+      user: req.user,
+    });
+  } else {
+    User.findOne({uid: req.user.uid}).exec((err, user) => {
+      bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+        if (!isMatch) {
+          errors.push({msg: 'Current password is incorrect'});
+          res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+            errors: errors,
+            newPassword: newPassword,
+            newPassword2: newPassword2,
+            title: 'Afiye - Change Password',
+            user: req.user,
+          });
+        } else {
+          bcrypt.genSalt(10,(err,salt) =>
+          bcrypt.hash(newPassword,salt, (err,hash)=> {
+            if(err) {
+              throw err;
+            } else {
+              User.findOneAndUpdate({uid: req.user.uid}, {password: hash}, {new: true}).exec((err, user) => {
+                if (!user) {
+                  errors.push({msg: 'locate'});
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                    errors: errors,
+                    newPassword: newPassword,
+                    newPassword2: newPassword2,
+                    title: 'Afiye - Change Password',
+                    user: req.user,
+                  });
+                } else {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                    success_msg: 'Your password has been updated!',
+                    newPassword: newPassword,
+                    newPassword2: newPassword2,
+                    title: 'Afiye - Change Password',
+                    user: req.user,
+                  });
+                }
+              });
+            }
+          }
+          ));
+        }
+      });
+    });
+  }
 });
 
 // user settings

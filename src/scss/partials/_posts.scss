@@ -6,7 +6,22 @@
   justify-content: space-between;
   width: 377px;
   padding-top: 1rem;
-  background: #fff;
+  // background: #fff;
+}
+
+#post-leveler {
+  margin-top: 3px;
+}
+
+.feed-btn {
+  background: #922aff;
+  width: 45px;
+  height: 45px;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  border-width: 0;
+  border-radius: 50%;
 }
 
 // Image + Username and title for creating posts
@@ -17,8 +32,8 @@
 }
 
 div.imgname div:last-child {
-  margin-top: 19px;
-  margin-left: 8px;
+  margin-top: 12px;
+  margin-left: 16px;
 }
 
 div.imgname div:last-child h2 {
@@ -40,24 +55,47 @@ div.imgname div:last-child span {
   #add-options {
     position: absolute;
     right: 0;
-    bottom: -2rem;
-    width: 11rem;
+    padding-left: 2rem;
+    margin: 0 auto;
+    bottom: -5rem;
+    width: 14rem;
+    height: 80px;
     z-index: 20;
-    background: $off-white;
-    border-radius: 5px;
+    background: #c48cff8a;
+    border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
   }
 }
 
+.buttons {
+  // float: right;
+  // width: 68px;
+  margin-left: 46px;
+  // margin-top: 15px;
+}
+
 .afiye-posts {
-  padding-bottom: 2rem;
+  // padding-bottom: 0.5rem;
   // width: 100vw;
   margin: 0 auto;
-  border-top: 1px solid #c1bcbc;
+  border: 1px solid #e7e7e7;
   // border-bottom: 1px solid #c1bcbc;
   /* border-radius: 24px; */
   width: 377px;
   background-color: white;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  // border-radius: 10px;
+}
+
+.user-info {
+  display: flex;
+  // width: 100vw;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e7e7e7;
 }
 
 div.timestamp {
@@ -65,8 +103,9 @@ div.timestamp {
   margin-left: 67px;
   font-size: 13px;
 }
+
 div.timestamp img {
-  padding-bottom: 5px;
+  padding-right: 1rem;
 }
 
 div.timestamp span {
@@ -110,6 +149,10 @@ div.img {
   stroke: #8a3ab8;
   stroke-width: 3px;
 }
+.avatars {
+  // grid-area: avatar;
+  display: flex !important;
+}
 
 .story {
   width: 70px;
@@ -124,6 +167,14 @@ div.img {
   // z-index: -100;
   margin: 11px;
 }
+.tagged-users {
+  display: grid;
+  // grid-template-columns: 1fr;
+  // grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "title"
+    "avatar";
+}
 
 .story svg {
   fill: none;
@@ -134,32 +185,27 @@ div.img {
   // z-index: -1000;
 }
 
-.avatars {
-  grid-area: avatar;
-  display: flex;
-}
-
 .title-tag-users {
   grid-area: title;
 }
 
-.tagged-users {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    "title"
-    "avatar";
-}
+// .tagged-users {
+//   display: grid;
+//   grid-template-columns: 1fr;
+//   grid-template-rows: 1fr 1fr;
+//   grid-template-areas:
+//     "title"
+//     "avatar";
+// }
 
 .post-media {
   width: 100%;
-  height: 13rem;
+  // height: 13rem;
 
   .media-item {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    // border-radius: 10px;
     overflow: hidden;
     position: relative;
 
@@ -167,6 +213,7 @@ div.img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      vertical-align: middle;
     }
   }
 
@@ -185,8 +232,13 @@ div.img {
       grid-area: one;
     }
 
-    .media-item:nth-child(2) {
+    .media-item:nth-child(2):not(:last-child) {
       grid-area: two;
+    }
+
+    .media-item:nth-child(2):last-child {
+      grid-row-start: 1;
+      grid-row-end: 3;
     }
 
     .media-item:last-child {
@@ -209,6 +261,10 @@ div.img {
   }
 }
 
+// check this
+// .buttons {
+//   margin-left: 20px;
+// }
 
 // div.post-media img {
 //   width: 95%;
@@ -221,11 +277,11 @@ div.img {
   display: flex;
   width: 100%;
   overflow-x: scroll;
-  padding: 0 .5rem;
+  padding: 0 0.5rem;
 
   .post-option {
     width: 10rem;
-    margin: 0 .5rem;
+    margin: 0 0.5rem;
     position: relative;
 
     label {
@@ -233,7 +289,7 @@ div.img {
       height: 100%;
       display: inline-block;
       border-radius: 10px;
-      transition: background-color .1s ease-in-out, color .1s ease-in-out;
+      transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out;
 
       .post-img {
         width: 10rem;
@@ -245,13 +301,13 @@ div.img {
       .post-title {
         font: $mobile-text-medium;
         color: $title-active;
-        margin: .5rem;
+        margin: 0.5rem;
         transition: inherit;
       }
 
       p {
         font: $mobile-text-small;
-        margin: 0 .5rem .5rem;
+        margin: 0 0.5rem 0.5rem;
       }
     }
 
@@ -333,5 +389,28 @@ div.img {
 @include desktop {
   .footer-box {
     display: block;
+  }
+
+  #post-leveler {
+    margin-top: 12px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .footer-box {
+    display: block;
+  }
+
+  #post-leveler {
+    margin-top: 12px;
+  }
+
+  .buttons {
+    margin-left: 115px !important;
+  }
+
+  .avatars {
+    // grid-area: avatar;
+    display: flex !important;
   }
 }

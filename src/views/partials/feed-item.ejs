@@ -3,22 +3,23 @@
   <div class="user-info">
     <!-- profile img -->
     <div class="imgname">
-      <div class="story">
+      <!-- <div class="story">
         <img src="<%= item.ownerData.avatar %>" alt="" />
         <svg viewbox="0 0 100 100">
           <circle cx="50" cy="50" r="40" />
         </svg>
-      </div>
+      </div> -->
+
+      <%- include('./avatar', {person: item.ownerData}) %>
 
       <!-- username -->
       <div>
         <h2>
           <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
-          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase()
-          + item.itemType.slice(1) %>
+          item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase() + item.itemType.slice(1) %>
         </h2>
-        <span> TBD </span>
+        <span><%- item.ownerData.relation %></span>
       </div>
     </div>
 

@@ -1,4 +1,5 @@
 import '../scss/styles.scss';
+import '../favicons/favicons';
 
 import $ from 'jquery';
 import _ from 'lodash';
@@ -28,7 +29,9 @@ $('input[name=mode]').on('click', () => {
 });
 
 // Feed
-$('#add-post-control .button').on('click', () => {
+$('#add-post-control .button').on('click', (event) => {
+  event.preventDefault();
+  console.log('clicked button');
   $('#add-options').toggleClass('hidden');
 });
 
@@ -45,17 +48,56 @@ $('#open-profile').on('click', (event) => { // open profile upload modal
 });
 $('#profile').on('change', () => { // get profile image upload
   readURL($('#profile'), $('#open-profile'));
+  $('#profile-upload').addClass('hidden');
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
-  let color = $('input[name=profileColor]:checked').prop('value');
-  $('#open-profile').css('box-shadow', `0 0 0 5px #fff, 0 0 0 10px #${color}`);
+  $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
 });
 $('#profile-setup input[type="submit"]').on('click', (event) => {
-  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned')) {
+  if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned') && !$('#open-profile img').length) {
     event.preventDefault();
     console.log('missing profile');
     $('#open-profile').after('<p>Hey you forgot to add a profile picture! If you don\'t have one you can skip this for now!</p>');
+    $('html, body').animate({
+      scrollTop: 0
+    }, 'slow');
     $('#profile-setup input[type="submit"]').addClass('warned');
+  }
+});
+$('#profile-setup #firstName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
+  }
+});
+$('#profile-setup #prefName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
+  }
+});
+$('#profile-setup #lastName').on('change', () => {
+  const first = $('#profile-setup #firstName').prop('value'),
+        pref  = $('#profile-setup #prefName').prop('value'),
+        last = $('#profile-setup #lastName').prop('value');
+
+
+  if (pref !== '') {
+    $('#profile-setup #full-name span').html(pref + ' ' + last);
+  } else {
+    $('#profile-setup #full-name span').html(first + ' ' + last);
   }
 });
 
@@ -71,6 +113,7 @@ $('#post-media-upload').on('change', () => {
 // Append image preview to page element
 const readURL = (input, element) => {
   if (input.prop('files') && input.prop('files')[0]) {
+    element.empty();
     for (let i = 0; i < input.prop('files').length; i++) {
       let reader = new FileReader();
 
@@ -131,6 +174,20 @@ const familyList = (family, option) => {
     });
   }
 };
+
+$('.tab-bar a').on('click', (event) => {
+  event.preventDefault();
+  console.log('Tab bar item clicked');
+  console.log(event.target);
+  if (!$(event.target).hasClass('active')) {
+    $('.tab-bar a.active').removeClass('active');
+    $(event.target).addClass('active');
+    console.log($(event.target).attr('href'));
+    $('.tab-container').addClass('hidden');
+    console.log($($(event.target).attr('href')));
+    $($(event.target).attr('href')).removeClass('hidden');
+  }
+});
 
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef

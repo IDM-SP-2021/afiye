@@ -1,161 +1,198 @@
-// Header 
+// Header
 
 #press-kit-container {
-    margin: 0;
-    padding: 0 .875rem;;
+  margin: 0;
+  padding: 0 0.875rem;
 
-    p {
-        font: $mobile-text-small;
+  p {
+    font: $mobile-text-small;
+  }
+
+  #logo {
+    font: $mobile-display-small-bold;
+    color: $purple-default;
+    text-align: center;
+  }
+
+  #menu {
+    position: absolute;
+    right: 0.875rem;
+  }
+
+  // Hero Section
+
+  #presskit-heading {
+    position: relative;
+
+    h1 {
+      font: $mobile-display-large-bold;
+      color: white;
+      margin: 0 auto;
+      text-align: center;
+
+      position: relative;
+      top: 3rem;
     }
 
-    #logo {
-        font: $mobile-display-small-bold;
-        color: $purple-default;
-        text-align: center;
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
     }
 
-    #menu {
-        position: absolute;
-        right: 0.875rem;
+    .promo-text {
+      text-align: right;
+      position: absolute;
+      right: 1rem;
+      top: 17.5rem;
     }
+  }
 
-    // Hero Section 
+  #hero {
+    position: absolute;
+    width: 110%;
+    z-index: -10;
+    left: -1em;
+    top: -8.5em;
+  }
 
-    
-
-    #presskit-heading {
-        position: relative;
-
-        h1 {
-            font: $mobile-display-large-bold;
-            color: white;
-            margin: 0 auto;
-            text-align: center;
-            
-            position: relative;
-            top: 3rem;
-        }
-
-        #hero {
-            position: absolute;
-            top: -.000125rem;
-            z-index: -10;
-        
-        }
-
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
-        }
-
-        .promo-text {
-            text-align: right;
-            position: absolute;
-            right: 1rem;
-            top: 17.5rem;
-        }
+  @include tablet {
+    #hero {
+      position: absolute;
+      width: 110%;
+      z-index: -10;
+      left: -1em;
+      top: -29.5em;
     }
+  }
 
-
-    // About
-
-    #about {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 20rem;
-
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
+  @include desktop {
+    #hero {
+      position: absolute;
+      width: 110%;
+      z-index: -10;
+      left: -1em;
+      top: -50.5em;
     }
+  }
+
+  // About
+
+  #about {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20rem;
+
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
     }
+  }
 
-    // Brand Guide
+  // Brand Guide
 
-    #brand-guide {
-        margin-top: 6rem;
+  #brand-guide {
+    margin-top: 6rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
     }
-        #download-brand-eps, #download-brand-pdf {
-            margin: .5rem auto;
-            display: block;
-        }
+    #download-brand-eps,
+    #download-brand-pdf {
+      margin: 0.5rem auto;
+      display: block;
     }
+  }
 
-    // Media Gallery
+  // Media Gallery
 
-    #media-gallery {
-        margin-top: 6rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+  #media-gallery {
+    margin-top: 6rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-        .promo-heading {
-            font: $promo-heading-mobile;
-            background: $gradient-two;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            text-transform: uppercase;
+    .promo-heading {
+      font: $promo-heading-mobile;
+      background: $gradient-two;
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: rgba(0, 0, 0, 0.09);
+      text-transform: uppercase;
     }
-        #download-media-zip {
-            margin: .5rem auto;
-            display: block;
-        }
+    #download-media-zip {
+      margin: 0.5rem auto;
+      display: block;
     }
+  }
 
-    #faux-carousel {
-        width: 100%;
-        display: inline-flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-    }
+  #faux-carousel {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-    // Footer
 
-    footer {
-        width: 100%;
-        display: absolute;
-        bottom: 0;
-    }
-
-    #copyright {
-        font: $promo-heading-bold-mobile;
-        text-align: left;
-        background: $gradient-one;
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: rgba(0, 0, 0, 0.09);
-            
-    }
+/* First the Grid */
+.gallery-grid {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1.5rem;
+  justify-items: center;
+  margin: 0;
+  padding: 0;
 }
 
-@include tablet {
 
-    #presskit-heading {
+/* The Images */
+.gallery-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform .2s ease-in-out;
+}
 
-        #hero {
-            width: 100%;
-            margin: 0 auto;
-            top: -10rem;
-        }
-    }
+.gallery-img:hover {
+  transform: scale(1.15);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3)
+}
+
+
+
+  // Footer
+
+  footer {
+    width: 100%;
+    display: absolute;
+    bottom: 0;
+  }
+
+  #copyright {
+    font: $promo-heading-bold-mobile;
+    text-align: left;
+    background: $gradient-one;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: rgba(0, 0, 0, 0.09);
+  }
 }

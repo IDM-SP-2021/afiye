@@ -1,38 +1,469 @@
 <div class="full-height">
   <%- include('../../partials/user-header') %>
 
+  
   <div id="graph-container" class="full-height-content">
     <div id="graph"></div>
-    <a href="/account/tree-tutorial-1" id="tree-tutorial" class="button primary"
-      >Tutorial
-    </a>
+    <button id="open-tutorial" class="button primary icon help"></button>
+    <div id="tree-tutorial-modal" class="modal hidden">
+      <div id="tree-tutorial-1" class="modal-inner">
+        <button class="button primary icon cross"></button>
+        
+            <div class="breadcrumbs">
+            <svg height="10" width="10" style="float: left; margin: 0 10px 0 45px">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+               height="10"
+                 width="10"
+               style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+               >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+                     </svg>
+             <svg
+                              height="10"
+                              width="10"
+                              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+                            >
+                              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+                            </svg>
+                            <svg
+                              height="10"
+                              width="10"
+                              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+                            >
+                              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+                            </svg>
+            </div>
 
+            <div style="margin: 0 auto; text-align: center">
+            <h1 class="header-title-mobile" style="text-align: center">Family Profiles</h1>
+            <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px;  width: 55ch;">
+              From your Family Wall, you are able to see the connections between everyone that has been added.  
+              Each profile represents a family member!  
+            </p>
+            <img src="../assets/imgs/tutorial.svg" style="margin: 10px auto;" width="300px" height="200px"/>
+            <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;">
+            You can select anyone’s node to view their profile in the Family Tree.
+            </p>
+            </div>
+            <div style="height: 70px; margin-top: 20px; margin-bottom: px;">
+            <button class="button primary" id="tutorial-first":disabled style="margin: 0 auto;">
+            Next
+            </button>
+            </div>
+      </div>
+      <div id="tree-tutorial-2" class="modal-inner hidden">
+        <button class="button primary icon cross"></button>
+        <div class="breadcrumbs">
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 45px; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg height="10" width="10" style="float: left; margin: 0 10px 0 0">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+        </div>
+        <div style="margin: 0 auto; text-align: center">
+        <h1 class="header-title-mobile" style="text-align: center">Family Network</h1>
+          <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;">
+              While your Family Wall continues to grow, you can pinch and zoom out to see more of your family’s nodes!
+          </p>
+          <img src="../assets/imgs/network.svg" style="margin: 10px auto;" width="300px" height="300px"/>
+        </div>
+        
+           <button class="button primary" id="tutorial-second" :disabled style="margin: 20px auto;"
+            >
+            Next
+            </button>
+        
+      </div>
+      <div id="tree-tutorial-3" class="modal-inner hidden">
+        <button class="button primary icon cross"></button>
+        <div class="breadcrumbs">
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 45px; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg height="10" width="10" style="float: left; margin: 0 10px 0 0">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+        </div>
+        <div style="margin: 0 auto; text-align: center">
+          <h1 class="header-title-mobile" style="text-align: center">Network View</h1>
+          <p
+            class="mobile-text-small"
+            style="text-align: center; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+          >
+          This is the Network view, you can view all your  family connections. You can drag and interact with the profiles.
+          </p>
+        </div>
+        <div
+          style="height: 50px; width: 160px; margin: 20px auto 0; text-align: center"
+        >
+         
+            <button
+              type="submit"
+              class="button icon primary node-view"
+              style="float: left; width: 56px; height: 56px; border-radius: 5rem"
+            >
+            </button>
+          
+          <button
+            type="submit"
+            class="button icon tree-view-gray"
+            style="float: right; width: 56px; height: 56px; border-radius: 5rem"
+          >
+          </button>
+        </div>
+        <p class="mobile-text-small" style="text-align: center; margin-top: 30px">
+          Network View
+        </p>
+        <img src="../assets/imgs/network.svg" style="margin: 20px auto;" width="300px" height="300px"/>
+        
+            <button id="tutorial-third"
+              class="button primary"
+              :disabled
+              style="margin: 0 auto 10px;"
+            >
+              Next
+            </button>
+          
+            
+      </div>
+      <div id="tree-tutorial-4" class="modal-inner hidden">
+        <button class="button primary icon cross"></button>
+        
+                <div class="breadcrumbs">
+                  <svg height="10" width="10" style="float: left; margin: 0 10px 0 45px; opacity: 0.4;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                    <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                    <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                    <svg height="10" width="10" style="float: left; margin: 0 10px 0 0;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                    <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                    <svg height="10" width="10" style="float: left; margin: 0 10px 0 0; opacity: 0.4;">
+                      <circle cx="5" cy="5" r="4" fill="#5700B3"/>
+                    </svg>
+                  </div>
+        <div style="margin: 0 auto; text-align: center">
+          <h1 class="header-title-mobile" style="text-align: center">Tree View</h1>
+          <p
+            class="mobile-text-small"
+            style="text-align: center; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+          >
+          This is the Tree view, to see your family in a more traditional way!
+          </p>
+        </div>
+        <div
+          style="height: 50px; width: 160px; margin: 20px auto 0; text-align: center"
+        >
+         
+            <button
+              type="submit"
+              class="button icon node-view-gray"
+              style="float: left; width: 56px; height: 56px; border-radius: 5rem"
+            >
+            </button>
+          
+          <button
+            type="submit"
+            class="button icon primary tree-view"
+            style="float: right; width: 56px; height: 56px; border-radius: 5rem"
+          >
+          </button>
+        </div>
+        <p class="mobile-text-small" style="text-align: center; margin-top: 20px">
+          Tree View
+        </p>
+        <img src="../assets/imgs/heirarchy.svg" style="margin: 10px auto;" width="250px" height="250px"/>
+        
+            <button id="tutorial-fourth"
+              class="button primary"
+              :disabled
+              style="margin: 10px auto;"
+            >
+              Next
+            </button>
+      </div>
+      <div id="tree-tutorial-5" class="modal-inner hidden">
+        <div class="breadcrumbs">
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 45px; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg height="10" width="10" style="float: left; margin: 0 10px 0 0">
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+          <svg
+            height="10"
+            width="10"
+            style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+          >
+            <circle cx="5" cy="5" r="4" fill="#5700B3" />
+          </svg>
+        </div>
+        
+        <div style="margin: 0 auto; text-align: center">
+          <h1 class="header-title-mobile" style="text-align: center">Add a Profile</h1>
+          <p
+            class="mobile-text-small"
+            style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+          >
+          If you notice that your Family Wall is missing someone, be sure to add their profile with the Add Button.
+          </p>
+          <img
+            src="../assets/icons/plusbox.svg"
+            style="
+              margin: 40px auto;
+              text-align: center;
+              width: 55px;
+              height: 55px;
+            "
+          />
+          <p
+            class="mobile-text-small"
+            style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+          >
+          In a person’s profile node, you can add their name, birthday, profile picture!  
+          </p>
+        </div>
+    
+          <button id="tutorial-fifth"
+              class="button primary"
+              :disabled
+              style="margin: 10px auto;"
+            >
+              Next
+            </button>
+          
+      
+        
+      </div>
+      <div id="tree-tutorial-6" class="modal-inner hidden">
+       
+          <div class="breadcrumbs">
+            <svg
+              height="10"
+              width="10"
+              style="float: left; margin: 0 10px 0 45px; opacity: 0.4"
+            >
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+              height="10"
+              width="10"
+              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+            >
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+              height="10"
+              width="10"
+              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+            >
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+              height="10"
+              width="10"
+              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+            >
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg
+              height="10"
+              width="10"
+              style="float: left; margin: 0 10px 0 0; opacity: 0.4"
+            >
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+            <svg height="10" width="10" style="float: left; margin: 0 10px 0 0">
+              <circle cx="5" cy="5" r="4" fill="#5700B3" />
+            </svg>
+          </div>
+                      
+              <div style="margin: 0 auto; text-align: center">
+                <h1 class="header-title-mobile" style="text-align: center">Send a Code</h1>
+                <p
+                  class="mobile-text-small"
+                  style="text-align: center; margin: 0 auto; padding: 10px 40px; width: 55ch;"
+                >
+                  Some profiles in your family tree may still be empty! You can help get your
+                  family members into your tree.
+                </p>
+                <h1 class="header-title-mobile" style="margin: 40px auto; text-align: center">
+                  ### ###
+                </h1>
+                <p
+                  class="mobile-text-small"
+                  style="text-align: center; margin: 0 auto; padding: 10px 40px; width: 55ch;"
+                >
+                  Select an empty profile to generate and send an invite code to them to join!
+                </p>
+              </div>
+             
+                
+                  <button id="tutorial-sixth"
+                    class="button primary"
+                    :disabled
+                    style="margin: 30px auto;"
+                  >
+                    Finish
+                  </button>
+                
+              
+
+      
+        
+      </div>
+    </div>
     <a
       href="/account/add-member"
       id="add-member"
       class="button primary icon plus"
     ></a>
-  </div>
+      
+    </div>
 
   <div id="family-container">
     <div id="inner-container">
-      <input
+      <!-- <input
         class="input"
         id="family-search"
         type="search"
         name="family-search"
         placeholder="Search"
-      />
+      /> -->
       <h2>Family Members</h2>
       <div id="family-list">
         <ul>
-          <% data.graph.nodes.forEach(member => { %>
-          <li><%- member.firstName %> <%- member.lastName %></li>
+          <% data.family.forEach(member => { %>
+          <li>
+            <a href="/account/profile-<%- member.uid %> " class="user-info">
+              <!-- profile img -->
+              <div class="imgname">
+          
+                <%- include('../../partials/avatar', {person: member}) %>
+          
+                <!-- username -->
+                <div>
+                  <h3>
+                    <% if (member.prefName !== '') { %><%= member.prefName %><% } else { %><%= member.firstName %><% } %> <%= member.lastName %>
+                  </h3>
+                  <span><%- member.relation %></span>
+                </div>
+              </div>
+            </a>
+          </li>
           <% }); %>
         </ul>
       </div>
     </div>
-    <div id="container-toggle"><span class="bar"></span></div>
+    <div id="container-toggle"><span id="arrow-down"></span></div>
   </div>
 
   <%- include('../../partials/user-mobile-nav') %>

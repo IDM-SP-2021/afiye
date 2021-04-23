@@ -1,0 +1,27 @@
+<%- include('../../partials/user-header') %>
+
+<main>
+  <form
+    id="invite-member"
+    action="/account/invite-member-<%- invite.uid %>"
+    method="post"
+  >
+    <% if (invite.prefName !== '') { %>
+    <h2>Invite <%- invite.prefName %> to You Family Network</h2>
+    <% } else { %>
+    <h2>Invite <%- invite.firstName %> to Your Family Network</h2>
+    <% } %>
+
+    <div class="input-container">
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" />
+    </div>
+    <div class="input-container">
+      <label for="message"
+        >Add a personal message to go along with your invitation!</label
+      >
+      <textarea name="message" id="message" cols="30" rows="10"></textarea>
+    </div>
+    <input class="button primary" type="submit" value="Invite" />
+  </form>
+</main>
