@@ -13,6 +13,10 @@
   // align-items: center;
 }
 
+.order {
+  display: block;
+}
+
 .right {
   grid-area: form;
   margin: 2rem auto;
@@ -52,6 +56,10 @@ div.login-mobile {
 // }
 
 @include tablet {
+  .order {
+    display: block;
+  }
+
   .login-mobile {
     width: 60%;
   }
@@ -75,12 +83,23 @@ div.login-mobile {
 }
 
 @media only screen and (min-width: 1024px) {
+  .order {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    width: 900px;
+    margin: 0 auto;
+    grid-template-areas:
+      "title title"
+      "first second";
+  }
+
   #desktop-register {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     grid-template-areas: "img form";
-    height: calc(100% - 4.25em);
+    height: 100%;
   }
 
   .login-bubble {
@@ -89,7 +108,7 @@ div.login-mobile {
   }
 
   div.left img {
-    width: 500px;
+    width: 675px;
   }
 
   .mobile-register {
@@ -101,7 +120,7 @@ div.login-mobile {
   }
 
   div.login-mobile h1 {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   div.login-mobile p {

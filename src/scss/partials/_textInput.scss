@@ -3,6 +3,9 @@
   max-width: 430px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 10px;
+  text-align: left;
+  color: #6e7191;
 }
 
 .input-container span {
@@ -22,12 +25,26 @@ input {
   border-radius: 5px;
   padding: 8px;
   margin-bottom: 10px;
+  margin-top: 10px;
   width: 430px;
+  height: 50px;
   outline: none;
+  background-color: white;
   -webkit-appearance: none;
   -ms-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+select {
+  width: 430px;
+  height: 50px;
+  border-radius: 5px;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1.5px solid #eff0f6;
 }
 
 // Left Icon
@@ -71,6 +88,10 @@ input {
   color: #aaa;
   transition: 0.3s;
   font-size: 15px;
+}
+
+.order {
+  display: block;
 }
 
 .inputLeftIcon {
@@ -205,4 +226,46 @@ input[type="radio"]:checked {
       }
     }
   }
+}
+
+#profile-setup form {
+  display: grid;
+  grid-template-columns: 0.75fr 0.75fr;
+  /* align-items: center; */
+  width: 1000px;
+  margin: 0 auto;
+  grid-template-areas:
+    "title title"
+    "first second";
+}
+
+.profile-top {
+  grid-area: title;
+  padding-bottom: 2rem;
+}
+
+// .pickcolor {
+//   grid-area: colorz;
+// }
+
+.First {
+  grid-area: first;
+}
+
+.Second {
+  grid-area: second;
+}
+
+#profile-color-select {
+  grid-area: colorz;
+}
+
+@media only screen and (min-width: 1024px) {
+  // .First {
+  //   width: 500px;
+  // }
+
+  // .Second {
+  //   width: 500px;
+  // }
 }
