@@ -54,6 +54,14 @@
             background: $input-background;
           }
         }
+
+        .user-info {
+          div.imgname {
+            div:last-child {
+              margin-top: 0;
+            }
+          }
+        }
       }
     }
 

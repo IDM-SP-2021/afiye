@@ -554,6 +554,16 @@ router.get('/tree', ensureAuthenticated, (req, res) => {
   api.getData(req.user)
     .then((result) => {
       console.log(result);
+      result.family.forEach(member => {
+        member.relation =
+            (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+          : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+          : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+          : (member.relation === 'childinlaw') ? 'Child-in-Law'
+          : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+          : (member.relation === 'greatnibling') ? 'Great Nibling'
+          : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+      });
       let locals = {
         title: 'Afiye - Family Tree',
         user: req.user,
