@@ -39,6 +39,11 @@ $('.modal-inner button.cross').on('click', (event) => {
   $('.modal-inner button.cross').parent().parent().addClass('hidden');
 });
 
+$('.modal').on('click', function() {
+  console.log('Clicked modal');
+  $(this).toggleClass('hidden');
+});
+
 // node creation form
 $('#open-profile').on('click', (event) => { // open profile upload modal
   event.preventDefault();
@@ -89,7 +94,7 @@ $('#profile-setup #prefName').on('change', () => {
 $('#profile-setup #lastName').on('change', () => {
   const first = $('#profile-setup #firstName').prop('value'),
         pref  = $('#profile-setup #prefName').prop('value'),
-        last = $('#profile-setup #lastName').prop('value');
+        last  = $('#profile-setup #lastName').prop('value');
 
 
   if (pref !== '') {
@@ -115,11 +120,21 @@ const readURL = (input, element) => {
     for (let i = 0; i < input.prop('files').length; i++) {
       let reader = new FileReader();
 
-      reader.onload = (e) => {
-        $($.parseHTML('<img>')).attr('src', e.target.result).appendTo(element);
-      };
+      if (input.prop('files')[i].size > 1500000) {
+        input.wrap('<form>').closest('form').get(0).reset();
+        input.unwrap();
+        element.empty();
+        element.after('<div class="message error"><i class="icon icon-alert"></i><p>File size is greater than 1.5 MB</p></div>');
 
-      reader.readAsDataURL(input.prop('files')[i]);
+        console.log(input.prop('files'));
+        break;
+      } else {
+        $('.message').remove();
+        reader.onload = (e) => {
+          $($.parseHTML('<img>')).attr('src', e.target.result).appendTo(element);
+        };
+        reader.readAsDataURL(input.prop('files')[i]);
+      }
     }
   }
 };
