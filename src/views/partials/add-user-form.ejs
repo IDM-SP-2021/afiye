@@ -14,7 +14,7 @@
       method="post"
       enctype="multipart/form-data"
     >
-      <button id="open-profile" class="<% if (title === 'Afiye - Edit Profile') { %> <%- data.profile.profileColor %> <% } %>"><% if (title === 'Afiye - Edit Profile') { %><img src="<%- data.profile.avatar %>"><% } %></button>
+      <button id="open-profile" class="open-modal <% if (title === 'Afiye - Edit Profile') { %> <%- data.profile.profileColor %> <% } %>"><% if (title === 'Afiye - Edit Profile') { %><img src="<%- data.profile.avatar %>"><% } %></button>
       <h2 id="full-name">
         <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
         <span><%- user.firstName %> <%- user.lastName %></span>

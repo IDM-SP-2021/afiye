@@ -43,9 +43,10 @@ $('.modal-inner button.cross').on('click', (event) => {
   $('.modal-inner button.cross').parent().parent().addClass('hidden');
 });
 
-$('.modal').on('click', function() {
-  console.log('Clicked modal');
-  $(this).toggleClass('hidden');
+$(document).on('click', function(event) {
+  if (!$(event.target).closest('.modal-inner,.open-modal').length) {
+    $('body').find('.modal').addClass('hidden');
+  }
 });
 
 // * node creation form -----------------------------------------------------------------
