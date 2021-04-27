@@ -1,51 +1,128 @@
 <%- include('../../partials/user-header') %>
+<main class="pageType-settings">
+  <h1>Settings</h1>
+  <div id="settings-menu">
+    <div class="menu">
+      <div id="menu-email" class="item <% if (section !== undefined && section === 'email') { %>active<% } %>">
+        <div class="sub-item">
+          <i class="icon icon-mail"></i>
+          <span>Change Email</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </div>
 
-<div class="header">
-  <h1 class="header-title-mobile">Settings</h1>
-</div>
-<div class="section">
-  <div class="lefty">
-    <p class="mobile-text-medium heading">Change Password</p>
+      <div id="menu-password" class="item <% if (section !== undefined && section === 'password') { %>active<% } %>">
+        <div class="sub-item">
+          <i class="icon icon-lock-round"></i>
+          <span>Change Password</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </div>
+
+      <div id="menu-tree" class="item">
+        <div class="sub-item">
+          <i class="icon icon-tree"></i>
+          <span>Leave Tree</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </div>
+
+      <div id="menu-deactivate" class="item">
+        <div class="sub-item">
+          <i class="icon icon-delete"></i>
+          <span>Deactivate Account</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </div>
+
+      <a href="/logout" id="menu-logout" class="item">
+        <div class="sub-item">
+          <i class="icon icon-cross"></i>
+          <span>Sign Out</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </a>
+    </div>
   </div>
-  <div class="righty">
-    <a href="/account/settings-account-change-password"
-      ><button type="submit" class="button icon next arrow-white"></button>
-    </a>
+
+  <div id="settings-items">
+    <section id="section-email">
+      <button class="button primary icon back">
+        <i class="icon icon-arrow"></i>
+      </button>
+
+      <h2>Change Email</h2>
+
+      <%- include ('../../partials/messages') %>
+
+      <div style="text-align: center; margin: 20px auto; height: 70px;">
+        <p class="mobile-text-small">
+          You can change your account's email address here.
+        </p>
+      </div>
+      <form id="change-email" action="/account/settings-account-change-email" method="post">
+        <div class="input-container">
+          <label for="newEmail">New Email</label>
+          <input id="newEmail" class="input" type="password" name="newEmail" placeholder="New Email" required></input>
+        </div>
+        <input type="submit" class="button primary" value="Update"></input>
+      </form>
+    </section>
+
+    <section id="section-password">
+      <button class="button primary icon back">
+        <i class="icon icon-arrow"></i>
+      </button>
+
+      <h2>Change Password</h2>
+
+      <%- include ('../../partials/messages') %>
+
+      <div style="text-align: center; margin: 20px auto; height: 70px;">
+        <p class="mobile-text-small">
+          You can change your account's password here.
+        </p>
+      </div>
+      <form id="change-pass" action="/account/settings-account-change-password" method="post">
+        <div class="input-container">
+          <label for="currentPassword">Current Password</label>
+          <input id="currentPassword" class="input" type="password" name="currentPassword" placeholder="Current Password" required></input>
+        </div>
+        <div class="input-container">
+          <label for="newPassword">New Password</label>
+          <input id="newPassword" class="input" type="password" name="newPassword" placeholder="New Password" required value="<%= typeof newPassword != 'undefined' ? newPassword : '' %>"></input>
+        </div>
+        <div class="input-container">
+          <label for="newPassword2">Confirm New Password</label>
+          <input id="newPassword2" class="input" type="password" name="newPassword2" placeholder="Confirm New Password" required value="<%= typeof newPassword2 != 'undefined' ? newPassword2 : '' %>"></input>
+        </div>
+        <input type="submit" class="button primary" value="Update"></input>
+      </form>
+    </section>
+
+    <section id="section-tree">
+      <button class="button primary icon back">
+        <i class="icon icon-arrow"></i>
+      </button>
+
+      <h2>Leave Tree</h2>
+
+      <%- include ('../../partials/messages') %>
+
+      <div style="text-align: center; margin: 20px auto; height: 70px;">
+        <p class="mobile-text-small">
+          We will maintain your log in data. This means you will be able to rejoin the network or create a new network at a later date with the same login credentials.
+        </p>
+      </div>
+      <form id="leave-tree" action="/account/settings-account-leave-tree" method="post">
+        <div class="input-container">
+          <label for="password">Password</label>
+          <input id="currentPassword" class="input" type="password" name="currentPassword" placeholder="Current Password" required></input>
+        </div>
+        <input type="submit" class="button primary" value="Update"></input>
+      </form>
+    </section>
   </div>
-</div>
-<hr class="solid" />
-<div class="section">
-  <div class="lefty">
-    <p class="mobile-text-medium heading">Change Email</p>
-  </div>
-  <div class="righty">
-    <a href="/account/settings-account-change-email"
-      ><button type="submit" class="button icon next arrow-white"></button>
-    </a>
-  </div>
-</div>
-<hr class="solid" />
-<div class="section">
-  <div class="lefty">
-    <p class="mobile-text-medium heading">Leave Tree</p>
-  </div>
-  <div class="righty">
-    <a href="/account/settings-account-leave-tree"
-      ><button type="submit" class="button icon next arrow-white"></button>
-    </a>
-  </div>
-</div>
-<hr class="solid" />
-<div class="section">
-  <div class="lefty">
-    <p class="mobile-text-medium heading">Deactivate Account</p>
-  </div>
-  <div class="righty">
-    <a href="/account/settings-account-deactivate"
-      ><button type="submit" class="button icon next arrow-white"></button>
-    </a>
-  </div>
-</div>
-<hr class="solid" />
+</main>
 
 <%- include('../../partials/user-mobile-nav') %>

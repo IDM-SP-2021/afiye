@@ -260,6 +260,10 @@ input[type="radio"]:checked {
   grid-area: colorz;
 }
 
+input[type="submit"] {
+  margin-top: 5rem;
+}
+
 @media only screen and (min-width: 1024px) {
   // .First {
   //   width: 500px;

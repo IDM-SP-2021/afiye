@@ -10,6 +10,7 @@
   padding: 1.125rem;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 
   outline: none;
 
@@ -69,6 +70,10 @@
     &:disabled {
       background: $input-background;
       color: #a0a3bd;
+    }
+
+    &.back {
+      transform: rotate(180deg);
     }
   }
 

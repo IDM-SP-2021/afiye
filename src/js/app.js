@@ -16,6 +16,34 @@ $(() => {
     familyList(data.family, 'check'); //eslint-disable-line
   }
 
+  if ($('main').hasClass('pageType-settings')) {
+    if ($(window).width() < 768) {
+      $('#settings-items section').addClass('hidden');
+    } else if ($('#settings-menu .item').hasClass('active')) {
+      let item = $('#settings-menu .item.active').attr('id').split('-')[1];
+      let section = '#section-' + item;
+
+      $(section).siblings().addClass('hidden');
+    } else {
+      $('#settings-items section:not(:first-child)').addClass('hidden');
+      $('#settings-menu .item:first-child').addClass('active');
+    }
+
+    $('#settings-menu .item').on('click', function() {
+      let item = $(this).attr('id').split('-')[1];
+      let section = '#section-' + item;
+
+      // change active menu item
+      $(this).addClass('active');
+      $(this).siblings().removeClass('active');
+      // change active setting item section
+      $(section).removeClass('hidden');
+      $(section).siblings().addClass('hidden');
+      // remove any existing error or success messages
+      $('.message').remove();
+    });
+  }
+
   $('input[type="submit"]').attr('disabled', false);
 });
 

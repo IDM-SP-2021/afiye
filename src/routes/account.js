@@ -946,6 +946,7 @@ router.get('/settings', ensureAuthenticated, (req, res) => {
   let locals = {
     title: 'Afiye - Settings',
     user: req.user,
+    section: '',
   };
 
   res.render(path.resolve(__dirname, '../views/user/settings/settings'), locals);
@@ -998,12 +999,13 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
       bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
         if (!isMatch) {
           errors.push({msg: 'Current password is incorrect'});
-          res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+          res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
             errors: errors,
             newPassword: newPassword,
             newPassword2: newPassword2,
             title: 'Afiye - Change Password',
             user: req.user,
+            section: 'password'
           });
         } else {
           bcrypt.genSalt(10,(err,salt) =>
@@ -1014,20 +1016,22 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
               User.findOneAndUpdate({uid: req.user.uid}, {password: hash}, {new: true}).exec((err, user) => {
                 if (!user) {
                   errors.push({msg: 'locate'});
-                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
                     errors: errors,
                     newPassword: newPassword,
                     newPassword2: newPassword2,
                     title: 'Afiye - Change Password',
                     user: req.user,
+                    section: 'password'
                   });
                 } else {
-                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
                     success_msg: 'Your password has been updated!',
                     newPassword: newPassword,
                     newPassword2: newPassword2,
                     title: 'Afiye - Change Password',
                     user: req.user,
+                    section: 'password'
                   });
                 }
               });
