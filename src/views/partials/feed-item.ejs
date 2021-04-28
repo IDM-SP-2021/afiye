@@ -13,28 +13,29 @@
       <%- include('./avatar', {person: item.ownerData}) %>
 
       <!-- username -->
-      <div id="post-leveler">
+      <div>
         <h2>
           <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
           item.ownerData.lastName %>'s <%= item.itemType.charAt(0).toUpperCase() + item.itemType.slice(1) %>
         </h2>
-        <span><%- item.timeStamp %> ago</span>
+        <span><%- item.ownerData.relation %></span>
       </div>
     </div>
 
     <!-- timestamp -->
     <div class="timestamp" style="float: right">
       <img
-        src="../assets/imgs/more-feed.png"
+        style="padding-bottom: 10px"
+        src="../assets/icons/more-01.svg"
         alt="more"
       />
-      <!-- <span><%- item.timeStamp %> ago</span> -->
+      <span><%- item.timeStamp %></span>
     </div>
   </div>
 
-  <div class="post-title" style=" padding-left: 1rem; padding-top: 1rem; padding-bottom: 1rem;">
-    <p><%- item.item.title %></p>
+  <div class="post-title">
+    <h3><%- item.item.title %></h3>
   </div>
 
   <% if (item.itemType === 'album') { %>

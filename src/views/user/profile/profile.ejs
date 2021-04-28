@@ -25,7 +25,7 @@
     </div>
     <% if (data.profile.claimed === false || data.profile.uid === user.uid) { %>
     <div class="profile-actions">
-      <a class="edit-profile" href="/account/profile-edit-<%- data.profile.uid %>">
+      <a class="edit-profile" href="/account/edit-profile-<%- data.profile.uid %>">
         <i class="icon icon-edit"></i> Edit Profile
       </a>
       <% if (data.profile.claimed === false) { %>
@@ -37,10 +37,6 @@
     <% } %>
   </section>
   <section id="profile-tabs">
-    <div class="tab-bar">
-      <a href="#tab-recent-activity" class="active">Recent Activity</a>
-      <a href="#tab-about">About</a>
-    </div>
     <div id="tab-recent-activity" class="tab-container">
       <div id="imm-family">
         <h3>Immediate Family</h3>
@@ -79,9 +75,6 @@
         <% } %>
       </div>
     </div>
-    <section id="tab-about" class="tab-container hidden">
-      <h3>About Tab</h3>
-    </section>
   </section>
 </main>
 

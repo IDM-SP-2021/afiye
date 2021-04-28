@@ -4,22 +4,20 @@
 
   #team {
     height: 24rem;
+    padding-top: 3rem;
+    margin: 0 -0.875rem;
     position: relative;
+    background-image: url("../assets/blob-promo-team.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: center;
+
     h1 {
       font: $mobile-display-large-bold;
       color: white;
       margin: 0 auto;
       text-align: center;
-
-      position: relative;
-      top: 3rem;
-    }
-
-    #hero {
-      position: absolute;
-      top: -0.000125rem;
-      z-index: -10;
-      margin: 0 -0.875rem;
     }
 
     .promo-heading {
@@ -87,6 +85,7 @@
       max-width: 678px;
       margin-left: auto;
       margin-right: auto;
+      width: 100%;
 
       .team-portrait {
         display: block;
@@ -96,5 +95,14 @@
         height: auto;
       }
     }
+  }
+
+  #special-members {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-self: center;
+    width: 100%;
+    gap: 2rem;
   }
 }

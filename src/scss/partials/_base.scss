@@ -21,6 +21,15 @@ h1 {
   color: black;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-variant-ligatures: no-common-ligatures;
+}
+
 a {
   color: $purple-default;
   text-decoration: none;
@@ -32,10 +41,16 @@ a {
 
 .hidden {
   visibility: hidden;
+  display: none;
 }
 
 .caption {
   color: $placeholder;
   font: $mobile-text-x-small;
   padding-top: 5px;
+}
+
+object.logo {
+  background-image: url(../assets/imgs/logo.png); // fallback if svg fails to load
+  background-size: cover;
 }

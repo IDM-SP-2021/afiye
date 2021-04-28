@@ -3,15 +3,12 @@
 <div class="container">
   <section class="image" id="split-form" style="margin: 3rem auto;">
       <img class="login-bubble1" src="../assets/imgs/blob.png">
-      <img class="login-bubble2" src="../assets/imgs/blob.png"">
-    <% if (title === 'Afiye - Making a Tree') { %>
-    <h2 id="h2-ob1">Create a Profile</h2>
-    <% } else if (title === 'Afiye - Add Family Member') { %>
-    <!-- <h2 id="h2-ob1">Add a Family Member</h2> -->
-    <% } %>
+      <img class="login-bubble2" src="../assets/imgs/blob.png">
+    <% if (title === 'Afiye - Making a Tree') { %><h2 id="h2-ob1">Create a Profile</h2><% } else if (title === 'Afiye - Add Family Member') { %><h2 id="h2-ob1">Add a Family Member</h2><% } %>
     <form
       id="profile-setup"
-      action="<% if (title === 'Afiye - Making a Tree') { %>/account/welcome-make<% } else if (title === 'Afiye - Add Family Member') { %>/account/add-member<% } %>"
+      action="<% if (title === 'Afiye - Making a Tree') { %>
+        /account/welcome-make<% } else if (title === 'Afiye - Add Family Member') { %>/account/add-member<% } else if (title === 'Afiye - Edit Profile') { %>/account/edit-profile-<%- user.uid %><% } %>"
       method="post"
       enctype="multipart/form-data"
     >
@@ -25,7 +22,7 @@
         <span style="font-size: 1.8rem;">Tracy Doe</span>
         <% } %>
       </h2>
-      <% if (title === 'Afiye - Making a Tree') { %>
+      <% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %>
       <p class="caption">This is how your name will appear to your family</p>
       <% } else if (title === 'Afiye - Add Family Member') { %>
       <!-- <p class="caption">This is how their name will appear to your family</p> -->
