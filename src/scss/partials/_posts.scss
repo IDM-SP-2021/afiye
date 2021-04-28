@@ -61,7 +61,7 @@ div.imgname div:last-child span {
     width: 14rem;
     height: 80px;
     z-index: 20;
-    background: #c48cff8a;
+    background: #c48cff;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
   }
@@ -413,4 +413,11 @@ div.img {
     // grid-area: avatar;
     display: flex !important;
   }
+}
+
+
+#add-post{
+  display: inline-block;
+  margin-top: .75em;
+  color: black !important;
 }
