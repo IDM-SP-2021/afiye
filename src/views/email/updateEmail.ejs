@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Afiye - We've Received a Request to Update Your Email Address</title>
+  </head>
+  <body>
+    <h1>We've Received a Request to Update Your Email Address</h1>
+    <p>
+      Please verify your new email with the following code at the link below:
+    </p>
+    <h2>Your verification code:</h2>
+    <p><strong><%- message.code %></strong></p>
+    <a href="<%- message.link %>">Verify your email</a>
+    <p>
+      If the link does not work, copy and paste the following url into your
+      browser's address bar:<br />
+      <%- message.link %>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<%- include('../partials/front-header') %>
+
+<div class="container">
+  <section class="image">
+    <%- include ('../partials/messages') %>
+    <form action="/update-email/<%- uid %>-<%- verToken %>" method="post">
+      <h2 id="h2-ob1">Please input your verification code</h2>
+
+      <div class="input-container" style="margin: 0 auto; padding-bottom: 2rem">
+        <input
+          class="input mobile"
+          type="number"
+          name="code"
+          id="code"
+          placeholder="•••••••"
+          style="margin: 0 auto"
+        />
+      </div>
+      <input type="submit" value="Verify" class="button primary"></input>
+    </form>
+  </section>
+</div>

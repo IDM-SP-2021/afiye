@@ -5,6 +5,7 @@ const User = require('../models/user.js');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { Token } = require('../models/token.js');
+const { Email } = require('../models/email.js');
 const { customAlphabet } = require('nanoid');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
@@ -539,6 +540,73 @@ router.post('/password-reset/:uid-:valToken', (req, res) => {
       }
     ));
   }
+});
+
+router.get('/update-email/:uid-:verToken', (req, res) => {
+  const { uid, verToken } = req.params;
+
+  Email.findOne({ uid: uid }).exec((err, token) => {
+    if (!token || token.token !== verToken) {
+      res.redirect('/login');
+    } else {
+      res.render(path.resolve(__dirname, '../views/front/update-email'), {
+        title: 'Afiye - Update Email',
+        uid,
+        verToken
+      });
+    }
+  });
+});
+
+router.post('/update-email/:uid-:verToken', (req, res) => {
+  const { uid, verToken } = req.params,
+        { code } = req.body;
+
+  let errors = [];
+
+  Email.findOne({uid: uid, token: verToken}).exec((err, token) => {
+    if (!token) {
+      errors.push({msg: 'Invalid validation token'});
+      res.render(path.resolve(__dirname, '../views/front/update-email'), {
+        errors,
+        title: 'Afiye - Update Email',
+        uid,
+        verToken
+      });
+    } else if (token.code !== code) {
+      errors.push({msg: 'Verification code is incorrect'});
+      res.render(path.resolve(__dirname, '../views/front/update-email'), {
+        errors,
+        title: 'Afiye - Update Email',
+        uid,
+        verToken
+      });
+    } else if (token.code === code) {
+      User.findOneAndUpdate({uid: uid}, {email: token.email}, {new: true}).exec((err, user) => {
+        console.log('Updated email');
+        if (!user) {
+          console.log('Cannot locate user');
+          errors.push({msg: 'locate'});
+          res.render(path.resolve(__dirname, '../views/front/update-email'), {
+            errors,
+            title: 'Afiye - Update Email',
+            uid,
+            verToken
+          });
+        } else {
+          console.log('Updating complete');
+          Email.findOneAndDelete({uid: uid}).exec(() => {
+            res.render(path.resolve(__dirname, '../views/front/update-email'), {
+              success_msg: 'Your email has been updated',
+              title: 'Afiye - Update Email',
+              uid,
+              verToken
+            });
+          });
+        }
+      });
+    }
+  });
 });
 
 router.get('/downloads/:name', download);
