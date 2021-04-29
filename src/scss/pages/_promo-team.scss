@@ -50,16 +50,70 @@
 
   //Member Container
 
-  //i cannot get the image to be not stretched
   #members,
-  #special-thanks {
+  #special-members {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-self: center;
-    margin-top: 8rem;
-    width: 100%;
     gap: 2rem;
+
+    max-width: 900px;
+    margin: 0 auto;
+
+    @include tablet {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      justify-content: center;
+    }
+
+    .profile-card {
+      padding: 1.5rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+
+      .profile-card-portrait {
+        width: 12.5rem;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $purple-default,
+          0 2px 8px 8px $purple-dark;
+        z-index: 10;
+
+        & + .profile-card-contents {
+          margin-top: -6.25rem;
+          padding: 8.5rem 2rem 2rem;
+        }
+      }
+
+      .profile-card-contents {
+        box-shadow: 0px 5px 60px -20px rgba(81, 81, 81, 0.7);
+        border-radius: 10px;
+        padding: 2rem;
+        width: 100%;
+
+        h3 {
+          text-align: center;
+          font: $mobile-display-small-bold;
+          margin-top: 0;
+        }
+
+        .role {
+          text-align: center;
+          font: $mobile-link-x-small;
+          height: 34px;
+        }
+
+        p:not(.role) {
+          height: 54px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  #special-thanks {
+    margin: 8rem auto 0;
+    max-width: 900px;
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -70,39 +124,5 @@
       text-transform: uppercase;
       text-align: center;
     }
-
-    #item-a,
-    #item-b,
-    #item-c,
-    #item-d,
-    #item-e,
-    #item-f,
-    #item-g,
-    #item-h {
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
-      max-width: 678px;
-      margin-left: auto;
-      margin-right: auto;
-      width: 100%;
-
-      .team-portrait {
-        display: block;
-        max-width: 6.25rem;
-        max-height: 6.25rem;
-        width: 100%;
-        height: auto;
-      }
-    }
-  }
-
-  #special-members {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-self: center;
-    width: 100%;
-    gap: 2rem;
   }
 }

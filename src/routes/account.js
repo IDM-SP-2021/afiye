@@ -6,6 +6,7 @@ const User = require('../models/user.js');
 const Post = require('../models/post.js');
 const Album = require('../models/album.js');
 const {Invite} = require('../models/invite.js');
+const {Email} = require('../models/email.js');
 const { customAlphabet } = require('nanoid');
 const nanoid = customAlphabet('1234567890abdefhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 10);
 const nanoinv = customAlphabet('1234567890', 6);
@@ -86,12 +87,17 @@ function timeDiff(start) {
 
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Profile Setup',
-    user: req.user
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Profile Setup',
+      user: req.user
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding'), locals);
+  }
 });
 
 router.post('/welcome', ensureAuthenticated, (req, res) => {
@@ -105,13 +111,17 @@ router.post('/welcome', ensureAuthenticated, (req, res) => {
 
 // * user onboarding - make a tree
 router.get('/welcome-make', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Making a Tree',
-    user: req.user
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Making a Tree',
+      user: req.user
+    };
 
-  // res.render(path.resolve(__dirname, '../views/user/onboarding/createprofile'), locals);
-  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
+  }
 });
 
 router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
@@ -186,12 +196,17 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
 
 // * user onboarding - join a tree
 router.get('/welcome-join', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Joining a Tree',
-    user: req.user
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Joining a Tree',
+      user: req.user
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-join'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-join'), locals);
+  }
 });
 
 // * user feed
@@ -229,7 +244,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Feed Locals: ', locals.data.posts);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -420,55 +434,34 @@ router.post('/add-album', ensureAuthenticated, (req, res) => {
   });
 });
 
-// modal
-// user post
-router.get('/modal', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tagged',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/partials/modal'), locals);
-});
-
-// welcome
-router.get('/welcome', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tagged',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/onboarding/welcome'), locals);
-});
-
-// profile-color
-router.get('/pcok', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Profile color',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/onboarding/pcok'), locals);
-});
-
 // joining tree
 router.get('/joiningtree', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Join Tree',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Join Tree',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/joiningtree'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/joiningtree'), locals);
+  }
 });
 
 // input code
 router.get('/inputcode', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Join Tree',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Join Tree',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/inputcode'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/inputcode'), locals);
+  }
 });
 
 router.post('/inputcode', ensureAuthenticated, (req, res) => {
@@ -491,62 +484,92 @@ router.post('/inputcode', ensureAuthenticated, (req, res) => {
 
 // claim profile
 router.get('/claimprofile', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Join Tree',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Join Tree',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile'), locals);
+  }
 });
 
 // claim profile 2
 router.get('/claimprofile-2', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Join Tree',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Join Tree',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile-2'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/claimprofile-2'), locals);
+  }
 });
 
 // making a tree
 router.get('/makingtree', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tagged',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Tagged',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/makingtree'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/makingtree'), locals);
+  }
 });
 
 // create a profile
 router.get('/createprofile', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tagged',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Tagged',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/createprofile'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/createprofile'), locals);
+  }
 });
 
 // create profile-circle
 router.get('/pcok-I', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Profile-circle',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Profile-circle',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/pcok-I'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/pcok-I'), locals);
+  }
 });
 
 // join tree done
 router.get('/jt-done', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Profile-circle',
-    user: req.user,
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Profile-circle',
+      user: req.user,
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/jt-done'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/jt-done'), locals);
+  }
 });
 
 // user tree
@@ -930,45 +953,98 @@ router.post('/edit-profile-:uid', fileUpload.single('profile'), (req, res) => {
   }
 });
 
-
-// * settings-menu=
-router.get('/settings-menu', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: `Afiye - ${req.user.name}'s Settings`,
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/settings-menu'), locals);
-});
-
 // * user settings
 router.get('/settings', ensureAuthenticated, (req, res) => {
   let locals = {
     title: 'Afiye - Settings',
     user: req.user,
+    section: '',
   };
 
   res.render(path.resolve(__dirname, '../views/user/settings/settings'), locals);
 });
 
-// user settings
-router.get('/settings-account', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Account Settings',
-    user: req.user,
-  };
+router.post('/settings-account-change-email', ensureAuthenticated, (req, res) => {
+  const { newEmail } = req.body;
+  let errors = [];
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account'), locals);
-});
+  if (newEmail === req.user.email) {
+    errors.push({msg: 'Can\'t use your current email'});
+  }
 
-// user settings
-router.get('/settings-account-change-password', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Change Password',
-    user: req.user,
-  };
+  console.log('Error length: ', errors.length);
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), locals);
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+      errors: errors,
+      newEmail: newEmail,
+      title: 'Afiye - Settings',
+      user: req.user,
+      section: 'email',
+    });
+  } else {
+    User.findOne({email: newEmail}).exec((err, user) => {
+      if (user) {
+        errors.push({msg: 'That email is already in use'});
+        res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+          errors: errors,
+          newEmail: newEmail,
+          title: 'Afiye - Settings',
+          user: req.user,
+          section: 'email',
+        });
+      } else {
+        const emToken = nanoid();
+        const emCode = nanoinv();
+
+        const newEm = new Email({
+          uid: req.user.uid,
+          token: emToken,
+          email: newEmail,
+          code: emCode
+        });
+
+        newEm.save()
+          .catch(value => console.log(value));
+
+        console.log(req.user);
+
+        let message = {
+          name: req.user.firstName,
+          code: emCode,
+          link: `${process.env.MAIL_DOMAIN}/update-email/${req.user.uid}-${emToken}`
+        };
+
+        ejs.renderFile(__dirname + '/../views/email/updateEmail.ejs', { message }, (err, data) => {
+          if (err) {
+            console.log(err);
+          } else {
+            let mainOptions = {
+              from: '"noreply" <noreply@afiye.io>',
+              to: newEmail,
+              subject: 'Afiye - We\'ve Received a Request to Update Your Email Address',
+              html: data
+            };
+            transporter.sendMail(mainOptions, (err, info) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log('Message sent: ' + info.response);
+              }
+            });
+          }
+        });
+
+        res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+          success_msg: 'Please check your email to verify your change',
+          newEmail: newEmail,
+          title: 'Afiye - Settings',
+          user: req.user,
+          section: 'email',
+        });
+      }
+    });
+  }
 });
 
 router.post('/settings-account-change-password', ensureAuthenticated, (req, res) => {
@@ -986,24 +1062,26 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
   }
 
   if (errors.length > 0) {
-    res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
       errors: errors,
       newPassword: newPassword,
       newPassword2: newPassword2,
-      title: 'Afiye - Change Password',
+      title: 'Afiye - Settings',
       user: req.user,
+      section: 'password'
     });
   } else {
     User.findOne({uid: req.user.uid}).exec((err, user) => {
       bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
         if (!isMatch) {
           errors.push({msg: 'Current password is incorrect'});
-          res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+          res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
             errors: errors,
             newPassword: newPassword,
             newPassword2: newPassword2,
-            title: 'Afiye - Change Password',
+            title: 'Afiye - Settings',
             user: req.user,
+            section: 'password'
           });
         } else {
           bcrypt.genSalt(10,(err,salt) =>
@@ -1014,20 +1092,22 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
               User.findOneAndUpdate({uid: req.user.uid}, {password: hash}, {new: true}).exec((err, user) => {
                 if (!user) {
                   errors.push({msg: 'locate'});
-                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
                     errors: errors,
                     newPassword: newPassword,
                     newPassword2: newPassword2,
-                    title: 'Afiye - Change Password',
+                    title: 'Afiye - Settings',
                     user: req.user,
+                    section: 'password'
                   });
                 } else {
-                  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-change-password'), {
+                  res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
                     success_msg: 'Your password has been updated!',
                     newPassword: newPassword,
                     newPassword2: newPassword2,
-                    title: 'Afiye - Change Password',
+                    title: 'Afiye - Settings',
                     user: req.user,
+                    section: 'password'
                   });
                 }
               });
@@ -1085,60 +1165,6 @@ router.get('/settings-email', ensureAuthenticated, (req, res) => {
   };
 
   res.render(path.resolve(__dirname, '../views/user/settings/settings-email'), locals);
-});
-
-router.get('/tree-tutorial-1', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 1',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-1'), locals);
-});
-
-router.get('/tree-tutorial-2', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 2',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-2'), locals);
-});
-
-router.get('/tree-tutorial-3', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 3',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-3'), locals);
-});
-
-router.get('/tree-tutorial-4', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 4',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-4'), locals);
-});
-
-router.get('/tree-tutorial-5', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 5',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-5'), locals);
-});
-
-router.get('/tree-tutorial-6', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Tree Tutorial 6',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/tree/tree-tutorial-6'), locals);
 });
 
 module.exports = router;

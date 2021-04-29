@@ -30,6 +30,10 @@
     background-size: cover;
     background-position-x: center;
 
+    @include desktop {
+      padding-bottom: 25rem;
+    }
+
     h1 {
       font: $mobile-display-large-bold;
       color: white;
@@ -106,10 +110,7 @@
 
   #media-gallery {
     margin-top: 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 3rem 1.5rem;
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -118,9 +119,10 @@
       -webkit-background-clip: text;
       color: rgba(0, 0, 0, 0.09);
       text-transform: uppercase;
+      text-align: center;
     }
     #download-media-zip {
-      margin: 0.5rem auto;
+      margin: 3rem auto 0;
       display: block;
     }
   }
@@ -137,11 +139,28 @@
   .gallery-grid {
     display: -ms-grid;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 1.5rem;
     justify-items: center;
     margin: 0;
     padding: 0;
+
+    @include tablet {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+    }
+
+    .gallery-frame {
+      background-color: $input-background;
+      margin: 0;
+      padding: 1rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 
   /* The Images */
@@ -152,10 +171,10 @@
     transition: transform 0.2s ease-in-out;
   }
 
-//   .gallery-img:hover {
-//     transform: scale(1.15);
-//     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-//   }
+  //   .gallery-img:hover {
+  //     transform: scale(1.15);
+  //     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  //   }
 
   // Footer
 

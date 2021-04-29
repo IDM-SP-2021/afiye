@@ -99,7 +99,10 @@ div.login-mobile {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     grid-template-areas: "img form";
-    height: 90%;
+    min-height: calc(100% - 4.25rem);
+    background-image: url("../assets/imgs/blob.png");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
   }
 
   .login-bubble {
@@ -109,7 +112,7 @@ div.login-mobile {
 
   div.left img {
     width: 675px;
-    padding: .75em;
+    padding: 0.75em;
   }
 
   .mobile-register {
