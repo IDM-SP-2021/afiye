@@ -1120,51 +1120,68 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
   }
 });
 
-// user settings
-router.get('/settings-account-leave-tree', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Leave Tree',
-    user: req.user,
-  };
+router.post('/settings-account-deactivate-account', ensureAuthenticated, (req, res) => {
+  const { currentPassword, confirmLeave } = req.body;
+  let errors = [];
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-leave-tree'), locals);
-});
+  console.log(req.user);
 
-router.get('/settings-account-deactivate', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Deactivate Account',
-    user: req.user,
-  };
+  if (confirmLeave !== 'on') {
+    errors.push({msg: 'You must agree to the statement'});
+  }
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-deactivate'), locals);
-});
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+      errors: errors,
+      title: 'Afiye - Settings',
+      user: req.user,
+      section: 'deactivate',
+    });
+  } else {
+    User.findOne({uid: req.user.uid}).exec((err, user) => {
+      bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+        if (!isMatch) {
+          errors.push({msg: 'Password is incorrect'});
+          res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+            errors: errors,
+            title: 'Afiye - Settings',
+            user: req.user,
+            section: 'deactivate',
+          });
+        } else {
+          let message = {
+            name: req.user.firstName
+          };
 
-router.get('/settings-privacy', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Privacy Settings',
-    user: req.user,
-  };
+          ejs.renderFile(__dirname + '/../views/email/deactivate.ejs', { message }, (err, data) => {
+            if (err) {
+              console.log(err);
+            } else {
+              let mainOptions = {
+                from: '"noreply" <noreply@afiye.io>',
+                to: req.user.email,
+                subject: 'Afiye - Sorry to See You Go',
+                html: data
+              };
+              transporter.sendMail(mainOptions, (err, info) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log('Message sent: ' + info.response);
+                }
+              });
+            }
+          });
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-privacy'), locals);
-});
-
-router.get('/settings-accessibility', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Accessibility Options',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-accessibility'), locals);
-});
-
-
-router.get('/settings-email', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Email Notifications',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-email'), locals);
+          User.findOneAndDelete({uid: req.user.uid}).exec((err, user) => {
+            let query = `MATCH (p:Person {uid: '${user.uid}'}) SET p.claimed = false RETURN p`;
+            api.submitQuery(query);
+          });
+          res.redirect('/logout');
+        }
+      });
+    });
+  }
 });
 
 module.exports = router;

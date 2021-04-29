@@ -76,6 +76,14 @@ $(() => {
       $('#settings-menu').removeClass('hidden');
       $('#settings-menu .item').removeClass('active');
     });
+
+    $('#deactivate-form input[name="currentPassword"], #deactivate-form input[name="confirmLeave"]').on('change', function() {
+      if ($('#deactivate-form input[name="currentPassword"]').val() && $('#deactivate-form input[name="confirmLeave"]:checked').length > 0) {
+        $('#deactivate-form input[type="submit"]').attr('disabled', false);
+      } else {
+        $('#deactivate-form input[type="submit"]').attr('disabled', true);
+      }
+    });
   }
 });
 
