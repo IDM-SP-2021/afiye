@@ -19,7 +19,7 @@
   height: 50px !important;
 }
 
-input {
+input:not([type="checkbox"]):not([type="radio"]) {
   // display: block;
   border: 1.5px solid #eff0f6;
   border-radius: 5px;
@@ -29,7 +29,7 @@ input {
   width: 430px;
   height: 50px;
   outline: none;
-  background-color: white;
+  // background-color: white;
   -webkit-appearance: none;
   -ms-appearance: none;
   -moz-appearance: none;

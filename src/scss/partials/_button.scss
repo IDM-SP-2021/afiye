@@ -1,10 +1,10 @@
 .button {
-  border-radius: 0.625rem;
+  border-radius: 0.625rem !important;
   color: $off-white;
   font: $desktop-link-x-small;
-  width: 12.5rem;
-  height: 3.125rem;
-  border-width: 0;
+  width: 12.5rem !important;
+  height: 3.125rem !important;
+  border-width: 0 !important;
   text-decoration: none;
   text-align: center;
   padding: 1.125rem;
@@ -48,18 +48,12 @@
   }
 
   &.icon {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
+    width: 2rem !important;
+    height: 2rem !important;
+    border-radius: 50% !important;
     position: relative;
 
     &::after {
-      // position: absolute;
-      // left: .25rem;
-      // top: .25rem;
-      // width: 1.5rem;
-      // height: 1.5rem;
-      //new
       position: absolute;
       left: 0.35rem;
       top: 0.4rem;
@@ -102,9 +96,9 @@
     font-size: $desktop-link-small;
 
     &.icon {
-      width: 3.375rem;
-      height: 3.375rem;
-      border-radius: 1.6875rem;
+      width: 3.375rem !important;
+      height: 3.375rem !important;
+      border-radius: 1.6875rem !important;
 
       &::after {
         left: 0.9375rem;
