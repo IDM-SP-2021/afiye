@@ -7,12 +7,20 @@
     method="post"
     enctype="multipart/form-data"
   >
+
+  <div class="newalb">
+
     <h2>Create a New Memory</h2>
-    <button id="open-tag" class="button primary icon tag open-modal"></button>
-    <label id="memory-title-tag" for="memory-title">Title</label>
-    <input type="text" name="title" id="memory-title">
+    <button id="open-tag" class="button primary icon tag"></button>
+    </div>
+
+    <div class="input-container">
+      <label id="memory-title-tag" for="memory-title">Title</label>
+      <input type="text" name="title" id="memory-title">
+    </div>
+
+<div class="input-container">    
     <input
-      style="width: 300px;"
       type="file"
       name="post-media-upload"
       id="post-media-upload"
@@ -21,18 +29,18 @@
       class="input"
       multiple
     />
+  </div>
     <div id="post-media-preview"></div>
-    <textarea
-    style="width: 300px;
-    border-radius: 6px;
-    border: 1px solid #eff0f6;
-    "
-      id="description"
-      name="description"
-      cols="30"
-      rows="10"
-      required
-    ></textarea>
+    <div class="input-container">
+      <label for="album-description">Description</label>
+      <textarea
+        name="description"
+        id="album-description"
+        cols="30"
+        rows="10"
+        required
+      ></textarea>
+    </div>
     <div id="tag-family" class="modal hidden">
       <div class="modal-inner">
         <h2>Tag Your Family</h2>
