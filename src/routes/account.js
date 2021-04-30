@@ -259,21 +259,159 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
     if (!post) {
       res.redirect('/account/feed');
     } else {
-      api.getNode(post.owner)
+      api.getFamily(req.user.uid, req.user.fid)
         .then((result) => {
-          let timeStamp = timeDiff(post.date);
+          let owner = _.find(result, {uid: post.owner}),
+              tagged = [],
+              timeStamp = timeDiff(post.date),
+              editable = false;
+
+          post.tagged.forEach(person => {
+            let member = _.find(result, {uid: person});
+            member.relation =
+                (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+              : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+              : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+              : (member.relation === 'childinlaw') ? 'Child-in-Law'
+              : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+              : (member.relation === 'greatnibling') ? 'Great Nibling'
+              : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+            tagged.push(member);
+          });
+
+          if (post.owner === req.user.uid || post.tagged.includes(req.user.uid)) {
+            editable = true;
+          }
           let locals = {
             title: 'Afiye - Post',
             user: req.user,
             data: {
-              postOwner: result,
+              postOwner: owner,
+              tagged,
               timeStamp,
-              post
+              post,
+              editable
             }
           };
-          console.log('Feed Locals: ', locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
+    }
+  });
+});
+
+router.get('/edit-post-:pid', ensureAuthenticated, (req, res) => {
+  let post = req.params.pid;
+
+  Post.findOne({pid: post}).exec((err, post) => {
+    if (!post) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else if (post.owner !== req.user.uid && !post.tagged.includes(req.user.uid)) {
+      console.log('Cannot edit this post');
+      console.log(post.owner, post.tagged, req.user.uid);
+      res.redirect(`/account/post-${req.user.fid}-${post.pid}`);
+    } else {
+      api.getFamily(req.user.uid, req.user.fid)
+        .then((result) => {
+          let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+          familyMembers.forEach(member => {
+            member.relation =
+                (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+              : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+              : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+              : (member.relation === 'childinlaw') ? 'Child-in-Law'
+              : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+              : (member.relation === 'greatnibling') ? 'Great Nibling'
+              : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+          });
+          let locals = {
+            title: 'Afiye - Edit Post',
+            user: req.user,
+            data: {
+              family: familyMembers,
+              post,
+            }
+          };
+          res.render(path.resolve(__dirname, '../views/user/feed/edit-post'), locals);
+        });
+    }
+  });
+});
+
+router.post('/edit-post-:pid', ensureAuthenticated, fileUpload.array('post-media-upload'), async (req, res) => {
+  const post = req.params.pid,
+        { title, description, current_media, tagged_family} = req.body,
+        files = req.files;
+  let errors = [],
+      media_arr;
+  if (typeof(current_media) === 'string') {
+    media_arr = current_media.split();
+  } else {
+    media_arr = current_media;
+  }
+
+  console.log('Files: ', files);
+
+  Post.findOne({pid: post}).exec(async (err, post) => {
+    const media = post.media;
+    let newMedia = media,
+        urls = [];
+    if (media_arr) {
+      media_arr.forEach(img => {
+        urls.push(media[img]);
+      });
+    }
+    urls.forEach(url => {
+      newMedia = _.remove(newMedia, url);
+    });
+    if (files.length > 0) {
+      try {
+        let multiple = async (path) => await upload(path, `${post.owner}/${post.pid}`);
+        for (const file of files) {
+          const newPath = await multiple(file);
+          newMedia.push(newPath.secure_url);
+        }
+      } catch (e) {
+        console.log('err :', e);
+        return e;
+      }
+    }
+    console.log(newMedia);
+    if (!newMedia.length > 0) {
+      console.log('No media');
+      errors.push({msg: 'Memories must contain at least one image'});
+
+      api.getFamily(req.user.uid, req.user.fid)
+        .then((result) => {
+          console.log('After getFamily: ', post);
+          let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+          familyMembers.forEach(member => {
+            member.relation =
+                (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+              : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+              : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+              : (member.relation === 'childinlaw') ? 'Child-in-Law'
+              : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+              : (member.relation === 'greatnibling') ? 'Great Nibling'
+              : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+          });
+          let locals = {
+            title: 'Afiye - Edit Post',
+            user: req.user,
+            data: {
+              family: familyMembers,
+              post,
+              errors
+            }
+          };
+
+          console.log(locals.data);
+          res.render(path.resolve(__dirname, '../views/user/feed/edit-post'), locals);
+        });
+    } else {
+      Post.findOneAndUpdate({pid: post.pid}, {"$set": {'title': title, 'description': description, 'media': newMedia, 'tagged': tagged_family}}, {new: true}).exec(() => {
+        res.redirect(`/account/post-${req.user.fid}-${post.pid}`);
+      });
     }
   });
 });
@@ -283,7 +421,16 @@ router.get('/add-post', ensureAuthenticated, (req, res) => {
   api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
-
+      familyMembers.forEach(member => {
+        member.relation =
+            (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+          : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+          : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+          : (member.relation === 'childinlaw') ? 'Child-in-Law'
+          : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+          : (member.relation === 'greatnibling') ? 'Great Nibling'
+          : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+      });
       let locals = {
         title: 'Afiye - Create Post',
         user: req.user,
@@ -345,7 +492,23 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
       }).exec((err, posts) => {
         api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
-            let postData = [];
+            let postData = [],
+                tagged = [];
+
+            console.log('Album: ', album);
+
+            album.tagged.forEach(person => {
+              let member = _.find(result, {uid: person});
+              member.relation =
+                  (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                : (member.relation === 'greatnibling') ? 'Great Nibling'
+                : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+              tagged.push(member);
+            });
 
             const ownerData = _.find(result, {'uid': album.owner}),
                   timeStamp = timeDiff(album.date),
@@ -364,6 +527,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
               data: {
                 family: result,
                 albumData,
+                tagged,
                 postData
               }
             };
@@ -386,6 +550,16 @@ router.get('/add-album', ensureAuthenticated, (req, res) => {
         });
 
         let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+        familyMembers.forEach(member => {
+          member.relation =
+              (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+            : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+            : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+            : (member.relation === 'childinlaw') ? 'Child-in-Law'
+            : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+            : (member.relation === 'greatnibling') ? 'Great Nibling'
+            : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+        });
 
         let locals = {
           title: 'Afiye - Create Album',
@@ -1120,51 +1294,68 @@ router.post('/settings-account-change-password', ensureAuthenticated, (req, res)
   }
 });
 
-// user settings
-router.get('/settings-account-leave-tree', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Leave Tree',
-    user: req.user,
-  };
+router.post('/settings-account-deactivate-account', ensureAuthenticated, (req, res) => {
+  const { currentPassword, confirmLeave } = req.body;
+  let errors = [];
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-leave-tree'), locals);
-});
+  console.log(req.user);
 
-router.get('/settings-account-deactivate', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Deactivate Account',
-    user: req.user,
-  };
+  if (confirmLeave !== 'on') {
+    errors.push({msg: 'You must agree to the statement'});
+  }
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-account-deactivate'), locals);
-});
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+      errors: errors,
+      title: 'Afiye - Settings',
+      user: req.user,
+      section: 'deactivate',
+    });
+  } else {
+    User.findOne({uid: req.user.uid}).exec((err, user) => {
+      bcrypt.compare(currentPassword, user.password, (err, isMatch) => {
+        if (!isMatch) {
+          errors.push({msg: 'Password is incorrect'});
+          res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+            errors: errors,
+            title: 'Afiye - Settings',
+            user: req.user,
+            section: 'deactivate',
+          });
+        } else {
+          let message = {
+            name: req.user.firstName
+          };
 
-router.get('/settings-privacy', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Privacy Settings',
-    user: req.user,
-  };
+          ejs.renderFile(__dirname + '/../views/email/deactivate.ejs', { message }, (err, data) => {
+            if (err) {
+              console.log(err);
+            } else {
+              let mainOptions = {
+                from: '"noreply" <noreply@afiye.io>',
+                to: req.user.email,
+                subject: 'Afiye - Sorry to See You Go',
+                html: data
+              };
+              transporter.sendMail(mainOptions, (err, info) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  console.log('Message sent: ' + info.response);
+                }
+              });
+            }
+          });
 
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-privacy'), locals);
-});
-
-router.get('/settings-accessibility', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Accessibility Options',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-accessibility'), locals);
-});
-
-
-router.get('/settings-email', ensureAuthenticated, (req, res) => {
-  let locals = {
-    title: 'Afiye - Email Notifications',
-    user: req.user,
-  };
-
-  res.render(path.resolve(__dirname, '../views/user/settings/settings-email'), locals);
+          User.findOneAndDelete({uid: req.user.uid}).exec((err, user) => {
+            let query = `MATCH (p:Person {uid: '${user.uid}'}) SET p.claimed = false RETURN p`;
+            api.submitQuery(query);
+          });
+          res.redirect('/logout');
+        }
+      });
+    });
+  }
 });
 
 module.exports = router;

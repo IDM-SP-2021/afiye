@@ -1,4 +1,3 @@
-// const neo4j = require('neo4j-driver').v1;
 const neo4j = require('neo4j-driver');
 const _ = require('lodash');
 
@@ -45,59 +44,6 @@ const submitQuery = (query) => {
 };
 
 // GET /tree
-// const getData = (user) => {
-//   let session = driver.session();
-
-//   return session.run(
-//     `MATCH (p:Person)-[:MEMBER]->(:Family {fid: '${user.fid}'}) \
-//     WITH p \
-//     OPTIONAL MATCH (p)-[r:RELATED]->(t:Person) \
-//     WHERE r.relation = "parent" OR r.relation = "child" OR r.relation = "sibling" OR r.relation = "spouse" \
-//     RETURN p, ID(p) AS src_id, ID(t) AS tar_id, r.relation AS rel_type`
-//   )
-//   .then(results => {
-//     let nodes = [], rels = [];
-
-//     results.records.forEach(res => {
-//       let person = res.get('p'),
-//           id = person.identity.low.toString(),
-//           uid = person.properties.uid,
-//           fid = person.properties.fid,
-//           firstName = person.properties.firstName,
-//           prefName = person.properties.prefName,
-//           lastName = person.properties.lastName,
-//           gender = person.properties.gender,
-//           birthdate = person.properties.birthdate,
-//           avatar = person.properties.avatar,
-//           profileColor = person.properties.profileColor,
-//           member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor},
-//           relType = res.get('rel_type'),
-//           source = res.get('src_id'),
-//           target = res.get('tar_id');
-//       if (source !== null) {
-//         source = source.toString();
-//       }
-//       if (target !== null) {
-//         target = target.toString();
-//       }
-//       let link = {source, target, relType};
-//       if (!_.some(nodes, member)) {
-//         nodes.push(member);
-//       }
-//       if (!_.some(rels, link) && link.relType !== null && link.target !== null) {
-//         rels.push(link);
-//       }
-//     });
-//     return {nodes, links: rels};
-//   })
-//   .catch(err => {
-//     throw err;
-//   })
-//   .finally(() => {
-//     return session.close();
-//   });
-// };
-
 const getData = async (user) => {
   let session = driver.session();
   let txc = session.beginTransaction();
@@ -183,7 +129,6 @@ const getFamily = async (uid, fid) => {
           currentMem.relation = 'That\'s You!';
       family.push(currentMem);
     });
-    console.log('First query completed');
 
     const result2 = await txc.run(
       'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \
@@ -203,9 +148,6 @@ const getFamily = async (uid, fid) => {
           member.relation = res.get('relationship')[0].properties.relation;
       family.push(member);
     });
-    console.log('Second query completed');
-
-    console.log('Family: ', family);
     return family;
   } catch (error) {
     console.log(error);
@@ -216,13 +158,18 @@ const getFamily = async (uid, fid) => {
   }
 };
 
-const getNode = (node) => {
-  let session = driver.session();
+const getNode = (node, current) => {
+  let session = driver.session(),
+      query;
+
+  if (node === current) {
+    query = `MATCH (p:Person {uid:'${node}'}) RETURN p`;
+  } else {
+    query = `MATCH (p:Person {uid:'${node}'})-[r:RELATED]->(:Person {uid:'${current}'}) RETURN p, r`;
+  }
 
   return session
-    .run(
-      `MATCH (p:Person {uid:'${node}'}) RETURN p`
-    )
+    .run(query)
     .then(results => {
       let result;
 
@@ -239,7 +186,14 @@ const getNode = (node) => {
             birthdate = props.birthdate,
             avatar = props.avatar,
             profileColor = props.profileColor,
-            person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
+            relation;
+        if (node === current) {
+          relation = 'That\'s You!';
+        } else {
+          let rel = res.get('r');
+          relation = rel.properties.relation;
+        }
+        let person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor, relation};
         result = person;
       });
       return result;
@@ -275,11 +229,6 @@ const initFamily = (person) => {
       (${person.uid})-[:MEMBER {created: ${Date.now()}}]->(${person.fid})
       RETURN *`
     )
-    // .then(results => {
-    //   results.records.forEach(res => {
-    //     console.log(res);
-    //   });
-    // })
     .catch(err => {
       throw err;
     })

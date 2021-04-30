@@ -1,13 +1,16 @@
 // container for creating posts
 .create-new-post {
-  padding-bottom: 1rem;
+  padding: 1rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   width: 377px;
-  padding: 1rem;
   align-items: center;
   // background: #fff;
+}
+
+main.pageType-addPost {
+  display: flex;
 }
 
 #post-leveler {
@@ -58,7 +61,7 @@ div.imgname div:last-child span {
     right: 0;
     padding-left: 2rem;
     margin: 0 auto;
-    bottom: -5rem;
+    bottom: -5.5rem;
     width: 14rem;
     height: 80px;
     z-index: 20;
@@ -87,22 +90,34 @@ div.imgname div:last-child span {
   margin-bottom: 1rem;
   margin-top: 1rem;
   // border-radius: 10px;
+
+  > div:not(.user-info):not(.img):not(.post-container) {
+    padding: 0 1rem;
+  }
 }
 
 .user-info {
   display: flex;
   // width: 100vw;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #e7e7e7;
+  justify-content: space-between;
 }
 
 div.timestamp {
-  margin-top: 18px;
-  margin-left: 67px;
+  margin-top: 34px;
   font-size: 13px;
+  position: relative;
+
+  .edit-post {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 5rem;
+    text-align: right;
+    top: -22px;
+  }
 }
 
 div.timestamp img {
@@ -186,18 +201,25 @@ div.img {
   // z-index: -1000;
 }
 
-.title-tag-users {
-  grid-area: title;
-}
+#tagged {
+  overflow-x: scroll;
 
-// .tagged-users {
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   grid-template-rows: 1fr 1fr;
-//   grid-template-areas:
-//     "title"
-//     "avatar";
-// }
+  #tagged-members {
+    display: flex;
+    a {
+      color: $title-active;
+      padding: 0.25rem;
+      width: 6.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+        margin: 0.25rem 0;
+      }
+    }
+  }
+}
 
 .post-media {
   width: 100%;
@@ -262,24 +284,12 @@ div.img {
   }
 }
 
-// check this
-// .buttons {
-//   margin-left: 20px;
-// }
-
-// div.post-media img {
-//   width: 95%;
-//   max-height: 600px;
-//   object-fit: fill;
-//   border-radius: 10px;
-// }
-
 #user-posts {
   display: flex;
-  width: 100%;
+  width: 430px;
+  margin: 0 auto;
   overflow-x: scroll;
-  padding-bottom: 2rem;
-  justify-content: center;
+  padding-bottom: 1rem;
 
   .post-option {
     width: 10rem;
@@ -352,6 +362,91 @@ div.img {
   }
 }
 
+#post-media-preview {
+  & > div {
+    margin: 1rem auto 2rem;
+  }
+  img {
+    width: 100%;
+    max-width: 430px;
+    vertical-align: middle;
+  }
+}
+
+#post-media {
+  @extend #post-media-preview;
+
+  .img-check {
+    position: relative;
+
+    label {
+      cursor: pointer;
+      display: block;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: background 0.1s ease-in;
+      }
+
+      &::after {
+        font-family: $icon-font;
+        font-size: 1.5em;
+        content: "\e904";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        background: $red-dark;
+        color: $off-white;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        opacity: 0;
+        transition: opacity 0.1s ease-in;
+      }
+
+      &:hover {
+        &::before {
+          background: adjust-color($red-default, $alpha: -0.75);
+          background-size: contain;
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    input[type="checkbox"] {
+      position: absolute;
+      left: 0;
+      opacity: 0;
+
+      &:checked {
+        & + label {
+          &::before {
+            background: adjust-color($red-default, $alpha: -0.75);
+            background-size: contain;
+          }
+
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
 @include tablet {
   .description {
     margin: 0 auto;
@@ -374,10 +469,6 @@ div.img {
 
   .afiye-posts {
     width: 700px !important;
-  }
-
-  .timestamp {
-    margin-left: 175px !important;
   }
 
   .footer-box {
@@ -430,9 +521,8 @@ div.img {
   }
 }
 
-
-#add-post{
+#add-post {
   display: inline-block;
-  margin-top: .75em;
+  margin-top: 0.75em;
   color: black !important;
 }

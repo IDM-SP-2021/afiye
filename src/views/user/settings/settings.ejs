@@ -19,7 +19,7 @@
         <i class="icon icon-arrow"></i>
       </div>
 
-      <div id="menu-deactivate" class="item">
+      <div id="menu-deactivate" class="item <% if (section !== undefined && section === 'deactivate') { %>active<% } %>">
         <div class="sub-item">
           <i class="icon icon-delete"></i>
           <span>Deactivate Account</span>
@@ -118,11 +118,12 @@
             <div class="check-container">
               <input
                 type="checkbox"
-                name="confirm-leave"
+                name="confirmLeave"
                 class="checkbox"
-                id="confirm-leave"
+                id="confirmLeave"
+                required
               />
-              <label for="confirm-leave">This action cannot be undone, but an active family member may invite you later.</label>
+              <label for="confirmLeave">This action cannot be undone, but an active family member may invite you later.</label>
             </div>
             <input class="button primary" type="submit" value="Deactivate" disabled>
           </div>

@@ -31,7 +31,6 @@ h6 {
 }
 
 form {
-  width: 340px;
   margin: 0 auto;
 }
 
@@ -67,6 +66,10 @@ object.logo {
   justify-content: space-between;
   align-items: center;
   padding-top: 2rem;
+
+  .button {
+    margin: 0;
+  }
 }
 
 textarea {
@@ -95,7 +98,6 @@ textarea {
   }
 
   form {
-    width: 430px;
     margin: 0 auto;
   }
 }

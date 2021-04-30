@@ -26,7 +26,7 @@
       <p class="caption">This is how your name will appear to your family</p>
       <% } else if (title === 'Afiye - Add Family Member') { %>
       <!-- <p class="caption">This is how their name will appear to your family</p> -->
-      <% } %> <% if (title === 'Afiye - Add Family Member') { %>
+      <% } %>
         <div class="pickcolor">
           <fieldset id="profile-color-select" style="margin-top: 15px;">
             <legend>Select a profile color</legend>
@@ -44,7 +44,6 @@
             </div>
             <% } %>
           </fieldset>
-          
         </div>
       </div>
       
@@ -56,10 +55,10 @@
             name="firstName"
             class="input"
             id="firstName"
+            value="<% if (title === 'Afiye - Making a Tree' || title === 'Afiye - Edit Profile') { %><%- user.firstName %><% } %>"
             required
           />
         </div>
-        <% } %>
         <div class="input-container">
           <label for="prefName">Preferred First Name</label>
           <input
@@ -69,7 +68,6 @@
             class="input"
           />
         </div>
-        <% if (title === 'Afiye - Add Family Member') { %>
         <div class="input-container">
           <label for="lastName">Last Name</label>
           <input
@@ -81,7 +79,6 @@
             required
           />
         </div>
-        <% } %>
         <div class="input-container">
           <label for="gender">Gender</label>
           <select name="gender" id="gender" required>
