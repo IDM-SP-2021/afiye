@@ -158,13 +158,18 @@ const getFamily = async (uid, fid) => {
   }
 };
 
-const getNode = (node) => {
-  let session = driver.session();
+const getNode = (node, current) => {
+  let session = driver.session(),
+      query;
+
+  if (node === current) {
+    query = `MATCH (p:Person {uid:'${node}'}) RETURN p`;
+  } else {
+    query = `MATCH (p:Person {uid:'${node}'})-[r:RELATED]->(:Person {uid:'${current}'}) RETURN p, r`;
+  }
 
   return session
-    .run(
-      `MATCH (p:Person {uid:'${node}'}) RETURN p`
-    )
+    .run(query)
     .then(results => {
       let result;
 
@@ -181,7 +186,14 @@ const getNode = (node) => {
             birthdate = props.birthdate,
             avatar = props.avatar,
             profileColor = props.profileColor,
-            person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor};
+            relation;
+        if (node === current) {
+          relation = 'That\'s You!';
+        } else {
+          let rel = res.get('r');
+          relation = rel.properties.relation;
+        }
+        let person = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, profileColor, relation};
         result = person;
       });
       return result;

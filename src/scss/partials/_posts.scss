@@ -185,18 +185,25 @@ div.img {
   // z-index: -1000;
 }
 
-.title-tag-users {
-  grid-area: title;
-}
+#tagged {
+  overflow-x: scroll;
 
-// .tagged-users {
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   grid-template-rows: 1fr 1fr;
-//   grid-template-areas:
-//     "title"
-//     "avatar";
-// }
+  #tagged-members {
+    display: flex;
+    a {
+      color: $title-active;
+      padding: 0.25rem;
+      width: 6.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+        margin: 0.25rem 0;
+      }
+    }
+  }
+}
 
 .post-media {
   width: 100%;
@@ -415,9 +422,8 @@ div.img {
   }
 }
 
-
-#add-post{
+#add-post {
   display: inline-block;
-  margin-top: .75em;
+  margin-top: 0.75em;
   color: black !important;
 }
