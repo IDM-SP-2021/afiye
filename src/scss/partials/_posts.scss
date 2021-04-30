@@ -91,7 +91,7 @@ div.imgname div:last-child span {
   margin-top: 1rem;
   // border-radius: 10px;
 
-  > div:not(.user-info):not(.img) {
+  > div:not(.user-info):not(.img):not(.post-container) {
     padding: 0 1rem;
   }
 }

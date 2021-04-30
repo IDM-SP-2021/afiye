@@ -244,7 +244,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Posts: ', locals.data.posts);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
@@ -288,8 +287,6 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               post
             }
           };
-          console.log('Feed Locals: ', locals);
-          console.log('Tagged: ', tagged);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }
@@ -372,7 +369,23 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
       }).exec((err, posts) => {
         api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
-            let postData = [];
+            let postData = [],
+                tagged = [];
+
+            console.log('Album: ', album);
+
+            album.tagged.forEach(person => {
+              let member = _.find(result, {uid: person});
+              member.relation =
+                  (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                : (member.relation === 'greatnibling') ? 'Great Nibling'
+                : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+              tagged.push(member);
+            });
 
             const ownerData = _.find(result, {'uid': album.owner}),
                   timeStamp = timeDiff(album.date),
@@ -391,6 +404,7 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
               data: {
                 family: result,
                 albumData,
+                tagged,
                 postData
               }
             };
