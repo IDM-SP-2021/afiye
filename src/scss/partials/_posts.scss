@@ -5,7 +5,8 @@
   display: flex;
   justify-content: space-between;
   width: 377px;
-  padding-top: 1rem;
+  padding: 1rem;
+  align-items: center;
   // background: #fff;
 }
 
@@ -277,7 +278,8 @@ div.img {
   display: flex;
   width: 100%;
   overflow-x: scroll;
-  padding: 0 0.5rem;
+  padding-bottom: 2rem;
+  justify-content: center;
 
   .post-option {
     width: 10rem;
@@ -309,6 +311,19 @@ div.img {
         font: $mobile-text-small;
         margin: 0 0.5rem 0.5rem;
       }
+    }
+
+    .newalb {
+      display: flex;
+      margin: 0 auto;
+      max-width: 430px;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    .post-title:first-child {
+      padding-left: 2rem;
     }
 
     input[type="checkbox"] {
