@@ -1,13 +1,16 @@
 // container for creating posts
 .create-new-post {
-  padding-bottom: 1rem;
+  padding: 1rem;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   width: 377px;
-  padding: 1rem;
   align-items: center;
   // background: #fff;
+}
+
+main.pageType-addPost {
+  display: flex;
 }
 
 #post-leveler {
@@ -58,7 +61,7 @@ div.imgname div:last-child span {
     right: 0;
     padding-left: 2rem;
     margin: 0 auto;
-    bottom: -5rem;
+    bottom: -5.5rem;
     width: 14rem;
     height: 80px;
     z-index: 20;
@@ -87,6 +90,10 @@ div.imgname div:last-child span {
   margin-bottom: 1rem;
   margin-top: 1rem;
   // border-radius: 10px;
+
+  > div:not(.user-info):not(.img) {
+    padding: 0 1rem;
+  }
 }
 
 .user-info {
@@ -285,8 +292,7 @@ div.img {
   display: flex;
   width: 100%;
   overflow-x: scroll;
-  padding-bottom: 2rem;
-  justify-content: center;
+  padding-bottom: 1rem;
 
   .post-option {
     width: 10rem;

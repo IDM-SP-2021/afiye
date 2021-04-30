@@ -1,5 +1,5 @@
 <%- include('../../partials/user-header') %>
-<main class='pageType-addPost' style="padding: 0; margin: 0 auto; width: 300px;">
+<main class='pageType-addPost'>
 
   <form
     id="add-post"
@@ -11,7 +11,7 @@
   <div class="newalb">
 
     <h2>Create a New Memory</h2>
-    <button id="open-tag" class="button primary icon tag"></button>
+    <button id="open-tag" class="button primary icon tag open-modal"></button>
     </div>
 
     <div class="input-container">
@@ -45,13 +45,6 @@
       <div class="modal-inner">
         <h2>Tag Your Family</h2>
         <button class="button primary icon cross"></button>
-        <input
-          class="input"
-          type="search"
-          name="search_family"
-          id="search_family"
-          placeholder="Family member"
-        />
         <div id="family-list"></div>
         </select>
       </div>
