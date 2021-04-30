@@ -283,7 +283,16 @@ router.get('/add-post', ensureAuthenticated, (req, res) => {
   api.getFamily(req.user.uid, req.user.fid)
     .then((result) => {
       let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
-
+      familyMembers.forEach(member => {
+        member.relation =
+            (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+          : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+          : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+          : (member.relation === 'childinlaw') ? 'Child-in-Law'
+          : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+          : (member.relation === 'greatnibling') ? 'Great Nibling'
+          : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+      });
       let locals = {
         title: 'Afiye - Create Post',
         user: req.user,

@@ -127,7 +127,7 @@ $('#profile').on('change', () => { // get profile image upload
   $('#profile-upload').addClass('hidden');
 });
 $('input[name=profileColor]').on('change', () => { // change profile image ring on profile color change
-  $('#open-profile').attr('class', $('input[name=profileColor]:checked').prop('value'));
+  $('#open-profile').attr('class', `${$('input[name=profileColor]:checked').prop('value')} open-modal`);
 });
 $('#profile-setup input[type="submit"]').on('click', (event) => {
   if (!$('#profile').prop('value') && !$('#profile-setup input[type="submit"]').hasClass('warned') && !$('#open-profile img').length) {
@@ -233,9 +233,12 @@ const familyList = (family, option) => {
   // const container = $('#memberList');
   let ordered = _.sortBy(family, [member => member.firstName.toLowerCase()]);
   if (family.length == 0) {
-    $($.parseHTML(`<p>Hmm... It doesn't look like you have any family in your network yet.</p>`)).appendTo($('#memberList'));
+    $($.parseHTML(`<p>Hmm... It doesn't look like you have any family in your network yet.</p>`)).appendTo($('#family-list'));
   } else {
+    $('#family-list').append('<ul></ul>');
+    const container = $('#family-list ul');
     ordered.forEach(member => {
+      console.log(member);
       let name;
 
       if (member.prefName) {
@@ -260,18 +263,31 @@ const familyList = (family, option) => {
               : (color === 'color-black') ? '#1d1b2d'
               : color;
 
-      $($.parseHTML(`<div id='m-${member.uid}' class='member'></div>`)).appendTo($('#memberList'));
+      $($.parseHTML(`<li id='m-${member.uid}' class='member'></li>`)).appendTo($(container));
+      let item = $(`#family-list #m-${member.uid}`);
       if (option === 'check') {
-        $($.parseHTML(`<div class="check-container">
-                        <input class="checkbox" type="checkbox" name="tagged_family" id="option-${member.uid}" value="${member.uid}" />
-                        <label for="option-${member.uid}">${name} ${member.lastName}</label>
-                      </div>`)).appendTo(`#memberList #m-${member.uid}`);
+        $($.parseHTML(`<div class="family-check">
+                        <input type="checkbox" name="tagged_family" id="option-${member.uid}" value="${member.uid}" />
+                        <label class="user-info" for="option-${member.uid}">
+                          <div class="imgname">
+                            <div class="avatar ${member.profileColor}">
+                              <img src="${member.avatar}" alt="" />
+                            </div>
+                            <div>
+                              <h3>
+                                ${name} ${member.lastName}
+                              </h3>
+                              <span>${member.relation}</span>
+                            </div>
+                          </div>
+                        </label>
+                      </div>`)).appendTo($(item));
 
       } else {
         $($.parseHTML(`<img src='${member.avatar}' alt="${name}'s avatar">`))
           .attr('style', `box-shadow: 0 0 0 2px #fff, 0 0 0 4px ${strokeColor}`)
-          .appendTo(`#memberList #m-${member.uid}`);
-        $($.parseHTML(`<p>${name} ${member.lastName}</p>`)).appendTo(`#memberList #m-${member.uid}`);
+          .appendTo(`#family-list #m-${member.uid}`);
+        $($.parseHTML(`<p>${name} ${member.lastName}</p>`)).appendTo(`#family-list #m-${member.uid}`);
       }
     });
   }
