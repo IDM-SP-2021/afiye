@@ -263,7 +263,8 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
         .then((result) => {
           let owner = _.find(result, {uid: post.owner}),
               tagged = [],
-              timeStamp = timeDiff(post.date);
+              timeStamp = timeDiff(post.date),
+              editable = false;
 
           post.tagged.forEach(person => {
             let member = _.find(result, {uid: person});
@@ -277,6 +278,10 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
             tagged.push(member);
           });
+
+          if (post.owner === req.user.uid || post.tagged.includes(req.user.uid)) {
+            editable = true;
+          }
           let locals = {
             title: 'Afiye - Post',
             user: req.user,
@@ -284,9 +289,11 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               postOwner: owner,
               tagged,
               timeStamp,
-              post
+              post,
+              editable
             }
           };
+          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
     }

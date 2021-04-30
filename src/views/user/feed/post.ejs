@@ -20,12 +20,12 @@
       </div>
 
       <!-- timestamp -->
-      <div class="timestamp" style="float: right">
-        <img
-          style="padding-bottom: 10px"
-          src="../assets/icons/more-01.svg"
-          alt="more"
-        />
+      <div class="timestamp">
+        <% if (data.editable === true) { %>
+          <a class="edit-post" href="/account/edit-post-<%- data.post.pid %>">
+            <i class="icon icon-edit"></i> Edit Post
+          </a>
+        <% } %>
         <span><%- data.timeStamp %></span>
       </div>
     </div>

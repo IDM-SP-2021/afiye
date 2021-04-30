@@ -100,16 +100,24 @@ div.imgname div:last-child span {
   display: flex;
   // width: 100vw;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #e7e7e7;
+  justify-content: space-between;
 }
 
 div.timestamp {
-  margin-top: 18px;
-  margin-left: 67px;
+  margin-top: 34px;
   font-size: 13px;
+  position: relative;
+
+  .edit-post {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 5rem;
+    text-align: right;
+    top: -22px;
+  }
 }
 
 div.timestamp img {
@@ -387,10 +395,6 @@ div.img {
 
   .afiye-posts {
     width: 700px !important;
-  }
-
-  .timestamp {
-    margin-left: 175px !important;
   }
 
   .footer-box {
