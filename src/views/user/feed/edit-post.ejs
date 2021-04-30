@@ -1,0 +1,69 @@
+<%- include('../../partials/user-header') %>
+<main class='pageType-addPost'>
+  <%- include ('../../partials/messages') %>
+  <form
+    id="edit-post"
+    action="/account/edit-post-<%- data.post.pid %>"
+    method="post"
+    enctype="multipart/form-data"
+  >
+
+  <div class="newalb">
+
+    <h2>Edit a Memory</h2>
+    <button id="open-tag" class="button primary icon tag open-modal"></button>
+    </div>
+
+    <div class="input-container">
+      <label id="memory-title-tag" for="memory-title">Title</label>
+      <input type="text" name="title" id="memory-title" value="<%- data.post.title %>">
+    </div>
+
+<div class="input-container">    
+    <input
+      type="file"
+      name="post-media-upload"
+      id="post-media-upload"
+      accept="image/jpeg, image/png"
+      class="input"
+      multiple
+    />
+  </div>
+  <div id="post-media-preview"></div>
+    <div id="post-media">
+      <h3>Current Media</h3>
+      <p>Select media to remove.</p>
+      <% data.post.media.forEach((img, i) => { %>
+        <div class="img-check">
+          <input type="checkbox" name="currentedia" id="img-<%- i %>" value="<%- i %>">
+          <label for="img-<%- i %>">
+            <img src="<%- img %>" alt="">
+          </label>
+        </div>
+      <% }) %>
+    </div>
+    <div class="input-container">
+      <label for="album-description">Description</label>
+      <textarea
+        name="description"
+        id="album-description"
+        cols="30"
+        rows="10"
+        required
+      ><%- data.post.description %></textarea>
+    </div>
+    <div id="tag-family" class="modal hidden">
+      <div class="modal-inner">
+        <h2>Tag Your Family</h2>
+        <button class="button primary icon cross"></button>
+        <div id="family-list"></div>
+        </select>
+      </div>
+    </div>
+    <input id="add-bottom-button" class="button primary" type="submit" value="Save" />
+  </form>
+</main>
+<%- include('../../partials/user-mobile-nav') %>
+<script type="text/javascript">
+  const data = <%- JSON.stringify(data) %>;
+</script>

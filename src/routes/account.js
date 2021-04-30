@@ -293,9 +293,125 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
               editable
             }
           };
-          console.log(locals);
           res.render(path.resolve(__dirname, '../views/user/feed/post'), locals);
         });
+    }
+  });
+});
+
+router.get('/edit-post-:pid', ensureAuthenticated, (req, res) => {
+  let post = req.params.pid;
+
+  Post.findOne({pid: post}).exec((err, post) => {
+    if (!post) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else if (post.owner !== req.user.uid && !post.tagged.includes(req.user.uid)) {
+      console.log('Cannot edit this post');
+      console.log(post.owner, post.tagged, req.user.uid);
+      res.redirect(`/account/post-${req.user.fid}-${post.pid}`);
+    } else {
+      api.getFamily(req.user.uid, req.user.fid)
+        .then((result) => {
+          let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+          familyMembers.forEach(member => {
+            member.relation =
+                (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+              : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+              : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+              : (member.relation === 'childinlaw') ? 'Child-in-Law'
+              : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+              : (member.relation === 'greatnibling') ? 'Great Nibling'
+              : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+          });
+          let locals = {
+            title: 'Afiye - Edit Post',
+            user: req.user,
+            data: {
+              family: familyMembers,
+              post,
+            }
+          };
+          res.render(path.resolve(__dirname, '../views/user/feed/edit-post'), locals);
+        });
+    }
+  });
+});
+
+router.post('/edit-post-:pid', ensureAuthenticated, fileUpload.array('post-media-upload'), async (req, res) => {
+  const post = req.params.pid,
+        { title, description, current_media, tagged_family} = req.body,
+        files = req.files;
+  let errors = [],
+      media_arr;
+  if (typeof(current_media) === 'string') {
+    media_arr = current_media.split();
+  } else {
+    media_arr = current_media;
+  }
+
+  console.log('Files: ', files);
+
+  Post.findOne({pid: post}).exec(async (err, post) => {
+    const media = post.media;
+    let newMedia = media,
+        urls = [];
+    if (media_arr) {
+      media_arr.forEach(img => {
+        urls.push(media[img]);
+      });
+    }
+    urls.forEach(url => {
+      newMedia = _.remove(newMedia, url);
+    });
+    if (files.length > 0) {
+      try {
+        let multiple = async (path) => await upload(path, `${post.owner}/${post.pid}`);
+        for (const file of files) {
+          const newPath = await multiple(file);
+          newMedia.push(newPath.secure_url);
+        }
+      } catch (e) {
+        console.log('err :', e);
+        return e;
+      }
+    }
+    console.log(newMedia);
+    if (!newMedia.length > 0) {
+      console.log('No media');
+      errors.push({msg: 'Memories must contain at least one image'});
+
+      api.getFamily(req.user.uid, req.user.fid)
+        .then((result) => {
+          console.log('After getFamily: ', post);
+          let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+          familyMembers.forEach(member => {
+            member.relation =
+                (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+              : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+              : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+              : (member.relation === 'childinlaw') ? 'Child-in-Law'
+              : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+              : (member.relation === 'greatnibling') ? 'Great Nibling'
+              : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+          });
+          let locals = {
+            title: 'Afiye - Edit Post',
+            user: req.user,
+            data: {
+              family: familyMembers,
+              post,
+              errors
+            }
+          };
+
+          console.log(locals.data);
+          res.render(path.resolve(__dirname, '../views/user/feed/edit-post'), locals);
+        });
+    } else {
+      Post.findOneAndUpdate({pid: post.pid}, {"$set": {'title': title, 'description': description, 'media': newMedia, 'tagged': tagged_family}}, {new: true}).exec(() => {
+        res.redirect(`/account/post-${req.user.fid}-${post.pid}`);
+      });
     }
   });
 });
