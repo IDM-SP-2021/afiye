@@ -259,6 +259,7 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
     if (!post) {
       res.redirect('/account/feed');
     } else {
+      console.log('Post data: ', post);
       api.getFamily(req.user.uid, req.user.fid)
         .then((result) => {
           let owner = _.find(result, {uid: post.owner}),
@@ -409,8 +410,16 @@ router.post('/edit-post-:pid', ensureAuthenticated, fileUpload.array('post-media
           res.render(path.resolve(__dirname, '../views/user/feed/edit-post'), locals);
         });
     } else {
-      Post.findOneAndUpdate({pid: post.pid}, {"$set": {'title': title, 'description': description, 'media': newMedia, 'tagged': tagged_family}}, {new: true}).exec(() => {
+      post.title = title;
+      post.description = description;
+      post.media = newMedia;
+      post.tagged = tagged_family;
+
+      await post.save()
+      .then(() => {
         res.redirect(`/account/post-${req.user.fid}-${post.pid}`);
+      }).catch(error => {
+        return res.json(error);
       });
     }
   });
@@ -447,6 +456,7 @@ router.post('/add-post', ensureAuthenticated, fileUpload.array('post-media-uploa
   const { title, description, tagged_family} = req.body;
   const pid = 'p' + nanoid();
 
+  console.log('Tagged :', tagged_family);
   const files = req.files;
 
   try {

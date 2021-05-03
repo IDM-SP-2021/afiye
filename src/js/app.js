@@ -231,9 +231,12 @@ const readURL = (input, element) => {
 // Generate list of family members
 const familyList = (data, option) => {
   // const container = $('#memberList');
-  let family = data.family;
-  let tagged = data.post.tagged;
-  console.log(tagged);
+  let family = data.family, tagged = [];
+  // let tagged = data.post.tagged;
+  if (data.post !== undefined) {
+    tagged = data.post.tagged;
+  }
+  // console.log(tagged);
   let ordered = _.sortBy(family, [member => member.firstName.toLowerCase()]);
   if (family.length == 0) {
     $($.parseHTML(`<p>Hmm... It doesn't look like you have any family in your network yet.</p>`)).appendTo($('#family-list'));
@@ -268,8 +271,7 @@ const familyList = (data, option) => {
       $($.parseHTML(`<li id='m-${member.uid}' class='member'></li>`)).appendTo($(container));
       let item = $(`#family-list #m-${member.uid}`);
       if (option === 'check') {
-        let checked = tagged.includes(member.uid);
-        console.log(checked);
+        let checked = (tagged.includes(member.uid)) ? true : false;
 
         $($.parseHTML(`<div class="family-check"></div>`)).appendTo($(item));
         let container = $(`#family-list #m-${member.uid} .family-check`);
