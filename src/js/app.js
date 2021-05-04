@@ -16,6 +16,19 @@ $(() => {
   if ($('main').hasClass('pageType-addPost') || $('main').hasClass('pageType-addAlbum')) {
     familyList(data, 'check'); //eslint-disable-line
   }
+  if ($('main').hasClass('pageType-addAlbum')) {
+    postSelect(data); //eslint-disable-line
+    let requiredCheckboxes = $('#user-posts :checkbox[required]');
+    console.log(requiredCheckboxes);
+    requiredCheckboxes.on('click', 'post-check', function() {
+      console.log('clicked check');
+      if (requiredCheckboxes.is(':checked')) {
+        requiredCheckboxes.removeAttr('required');
+      } else {
+        requiredCheckboxes.attr('required', 'required');
+      }
+    });
+  }
 
   if ($('main').hasClass('pageType-settings')) {
     $('#deactivate-form input[type="submit"]').attr('disabled', true);
@@ -194,6 +207,36 @@ $('#post-media-upload').on('change', () => {
 });
 // * ------------------------------------------------------------------------------------
 
+// * Album creation form ----------------------------------------------------------------
+const postSelect = (data) => {
+  const container = $('#user-posts');
+  let tagged = [];
+  if (data.album.posts !== undefined) {
+    console.log('has posts');
+    tagged = data.album.posts;
+  }
+  data.postData.forEach(post => {
+    console.log(post);
+    let checked = (tagged.includes(post.post.pid)) ? true : false;
+    console.log(post.post.pid, checked);
+    container.append(`<div id="p-${post.post.pid}" class="post-option"></div>`);
+    let item = $(`#p-${post.post.pid}`);
+    if (checked) {
+      item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" checked />`);
+    } else {
+      item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" />`);
+    }
+    item.append(`
+      <label for="option-${post.post.pid}">
+        <img class="post-img" src="${post.post.media[0]}" alt="${post.post.title}" />
+        <h4 class="post-title">${post.post.title}</h4>
+        <p>Created by "${post.ownerData.firstName}"</p>
+      </label>
+    `);
+  });
+};
+// * ------------------------------------------------------------------------------------
+
 // * Settings forms ---------------------------------------------------------------------
 $('#open-confirmation').on('click', (event) => {
   console.log('Clicked deactivate');
@@ -235,6 +278,9 @@ const familyList = (data, option) => {
   // let tagged = data.post.tagged;
   if (data.post !== undefined) {
     tagged = data.post.tagged;
+  }
+  if (data.album !== undefined) {
+    tagged = data.album.tagged;
   }
   // console.log(tagged);
   let ordered = _.sortBy(family, [member => member.firstName.toLowerCase()]);

@@ -503,7 +503,8 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
         api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
             let postData = [],
-                tagged = [];
+                tagged = [],
+                editable = false;
 
             console.log('Album: ', album);
 
@@ -531,6 +532,10 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
               postData.push({ownerData, timeStamp, itemType, item});
             });
 
+            if (album.owner === req.user.uid || album.tagged.includes(req.user.uid)) {
+              editable = true;
+            }
+
             let locals = {
               title: 'Afiye - Album',
               user: req.user,
@@ -538,9 +543,11 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
                 family: result,
                 albumData,
                 tagged,
-                postData
+                postData,
+                editable
               }
             };
+            console.log('Album data: ', locals.data.albumData);
             res.render(path.resolve(__dirname, '../views/user/feed/album'), locals);
           });
       });
@@ -615,6 +622,124 @@ router.post('/add-album', ensureAuthenticated, (req, res) => {
       }).catch(error => {
         return res.json(error);
       });
+  });
+});
+
+// edit album
+router.get('/edit-album-:alid', ensureAuthenticated, (req, res) => {
+  const album = req.params.alid;
+
+  Album.findOne({alid: album}).exec((err, album) => {
+    if (!album) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else {
+      Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
+        api.getFamily(req.user.uid, req.user.fid)
+          .then((result) => {
+            let postData = [];
+            posts.forEach(post => {
+              const ownerData = _.find(result, {'uid': post.owner});
+                let timeStamp = timeDiff(post.date);
+                postData.push({ownerData, timeStamp, post});
+            });
+
+            let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+            familyMembers.forEach(member => {
+              member.relation =
+                  (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                : (member.relation === 'greatnibling') ? 'Great Nibling'
+                : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+            });
+
+            let locals = {
+              title: 'Afiye - Create Album',
+              user: req.user,
+              data: {
+                family: familyMembers,
+                postData,
+                album
+              }
+            };
+            res.render(path.resolve(__dirname, '../views/user/feed/edit-album'), locals);
+          });
+      });
+    }
+  });
+});
+
+router.post('/edit-album-:alid', ensureAuthenticated, (req, res) => {
+  const {title, description, posts, tagged_family} = req.body,
+        album = req.params.alid;
+  let post_arr = (typeof(posts) === 'string') ? posts.split()
+               : (posts === undefined) ? []
+               : posts,
+      errors = [];
+
+  console.log('Post array: ', post_arr);
+  console.log('Edited album: ', req.body);
+  Album.findOne({alid: album}).exec(async (err, album) => {
+    if (!album) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else {
+      if (!(post_arr.length > 0)) {
+        console.log('No posts!');
+        errors.push({msg: 'Albums must contain at least one memory'});
+
+        Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
+          api.getFamily(req.user.uid, req.user.fid)
+            .then((result) => {
+              let postData = [];
+              posts.forEach(post => {
+                const ownerData = _.find(result, {'uid': post.owner});
+                  let timeStamp = timeDiff(post.date);
+                  postData.push({ownerData, timeStamp, post});
+              });
+
+              let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+              familyMembers.forEach(member => {
+                member.relation =
+                    (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                  : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                  : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                  : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                  : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                  : (member.relation === 'greatnibling') ? 'Great Nibling'
+                  : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+              });
+
+              let locals = {
+                title: 'Afiye - Create Album',
+                user: req.user,
+                data: {
+                  family: familyMembers,
+                  postData,
+                  album,
+                  errors
+                }
+              };
+              res.render(path.resolve(__dirname, '../views/user/feed/edit-album'), locals);
+            });
+        });
+      } else {
+        album.title = title;
+        album.description = description;
+        album.posts = post_arr;
+        album.tagged = tagged_family;
+
+        await album.save()
+        .then(() => {
+          res.redirect(`/account/album-${req.user.fid}-${album.alid}`);
+        }).catch(error => {
+          return res.json(error);
+        });
+      }
+    }
   });
 });
 

@@ -5,14 +5,16 @@
     <div class="user-info">
       <!-- profile img -->
       <div class="imgname">
-        <%- include('../../partials/avatar', {person: data.albumData.ownerData}) %>
+        <%- include('../../partials/avatar', {person: data.albumData.ownerData})
+        %>
 
         <!-- username -->
         <div>
           <h2>
             <% if (data.albumData.ownerData.prefName !== '') { %><%=
-            data.albumData.ownerData.prefName %><% } else { %><%= data.albumData.ownerData.firstName
-            %><% } %> <%= data.albumData.ownerData.lastName %>
+            data.albumData.ownerData.prefName %><% } else { %><%=
+            data.albumData.ownerData.firstName %><% } %> <%=
+            data.albumData.ownerData.lastName %>
           </h2>
           <span><%- data.albumData.ownerData.relation %></span>
         </div>
@@ -20,6 +22,14 @@
 
       <!-- timestamp -->
       <div class="timestamp">
+        <% if (data.editable === true) { %>
+        <a
+          class="edit-post"
+          href="/account/edit-album-<%- data.albumData.album.alid %>"
+        >
+          <i class="icon icon-edit"></i> Edit Album
+        </a>
+        <% } %>
         <span><%- data.albumData.timeStamp %></span>
       </div>
     </div>
@@ -31,36 +41,31 @@
       <p><%- data.albumData.album.description %></p>
     </div>
 
-<div class="post-container">
-  <% data.postData.forEach(item => { %> <%- include('../../partials/feed-item',
-  {item: item}) %> <% }) %>
-</div>
-<div id="tagged">
-  <h3>Tagged Family</h3>
+    <div class="post-container">
+      <% data.postData.forEach(item => { %> <%-
+      include('../../partials/feed-item', {item: item}) %> <% }) %>
+    </div>
+    <div id="tagged">
+      <h3>Tagged Family</h3>
 
-  <div id="tagged-members">
-    <% if (data.tagged.length > 0) { %>
-      <% data.tagged.forEach(member => { %>
+      <div id="tagged-members">
+        <% if (data.tagged.length > 0) { %> <% data.tagged.forEach(member => {
+        %>
         <a href="/account/profile-<%- member.uid %>">
           <%- include('../../partials/avatar', {person: member}) %>
           <p>
-            <% if (member.prefName !== '') { %>
-              <%- member.prefName %>
-            <% } else { %>
-              <%- member.firstName %>
-            <% } %>
+            <% if (member.prefName !== '') { %> <%- member.prefName %> <% } else
+            { %> <%- member.firstName %> <% } %>
           </p>
         </a>
-      <% }) %>
-    <% } else { %>
-      <p>No one is tagged in this memory.</p>
-    <% } %>
+        <% }) %> <% } else { %>
+        <p>No one is tagged in this memory.</p>
+        <% } %>
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </div>
 <%- include('../../partials/user-mobile-nav') %>
 <div class="footer-box">
   <p class="footer-title">© afiye 2020</p>
 </div>
-
