@@ -85,6 +85,186 @@ function timeDiff(start) {
   }
 }
 
+router.get('/test', ensureAuthenticated, (req, res) => {
+  const fakeData = {
+    family: [
+      {
+        uid: "uMvpyb1d1FZ",
+        firstName: "Merle",
+        lastName: "Favian",
+        gender: "M",
+        birthdate: "07/17/2020",
+        location: "NC",
+        avatar: "https://cdn.fakercloud.com/avatars/daykiine_128.jpg",
+        related: req.user.uid,
+        relationship: "parent"
+      },
+      {
+        uid: "uvRM0o3GMMk",
+        firstName: "Estell",
+        lastName: "Mortimer",
+        gender: "F",
+        birthdate: "10/30/2020",
+        location: "KS",
+        avatar: "https://cdn.fakercloud.com/avatars/bistrianiosip_128.jpg",
+        related: "uMvpyb1d1FZ",
+        relationship: "spouse"
+      },
+      {
+        uid: "uY37aMiKkeA",
+        firstName: "Angelo",
+        lastName: "Drew",
+        gender: "M",
+        birthdate: "05/04/2021",
+        location: "TN",
+        avatar: "https://cdn.fakercloud.com/avatars/oskarlevinson_128.jpg",
+        related: "uMvpyb1d1FZ",
+        relationship: "sibling"
+      },
+      {
+        uid: "ukvFelkp5Lb",
+        firstName: "Vance",
+        lastName: "Jamaal",
+        gender: "M",
+        birthdate: "07/29/2020",
+        location: "NJ",
+        avatar: "https://cdn.fakercloud.com/avatars/mattbilotti_128.jpg",
+        related: "uMvpyb1d1FZ",
+        relationship: "sibling"
+      },
+      {
+        uid: "uaQyOZy8fEn",
+        firstName: "Ashlee",
+        lastName: "Callie",
+        gender: "F",
+        birthdate: "01/21/2021",
+        location: "ID",
+        avatar: "https://cdn.fakercloud.com/avatars/unterdreht_128.jpg",
+        related: "uMvpyb1d1FZ",
+        relationship: "parent"
+      },
+      {
+        uid: "uphXLVN5uAJ",
+        firstName: "Harold",
+        lastName: "Abdullah",
+        gender: "M",
+        birthdate: "09/02/2020",
+        location: "VA",
+        avatar: "https://cdn.fakercloud.com/avatars/meelford_128.jpg",
+        related: "uMvpyb1d1FZ",
+        relationship: "parent"
+      },
+      {
+        uid: "uLKLVWWsWnA",
+        firstName: "Aglae",
+        lastName: "Camylle",
+        gender: "F",
+        birthdate: "08/19/2020",
+        location: "DE",
+        avatar: "https://cdn.fakercloud.com/avatars/brandonmorreale_128.jpg",
+        related: "uvRM0o3GMMk",
+        relationship: "parent"
+      },
+      {
+        uid: "u9X1vbsZZ7Q",
+        firstName: "Florence",
+        lastName: "Shanon",
+        gender: "F",
+        birthdate: "08/11/2020",
+        location: "OH",
+        avatar: "https://cdn.fakercloud.com/avatars/abdots_128.jpg",
+        related: "uY37aMiKkeA",
+        relationship: "spouse"
+      },
+      {
+        uid: "uBwHalH88Sj",
+        firstName: "Barney",
+        lastName: "Garrison",
+        gender: "M",
+        birthdate: "07/04/2020",
+        location: "RI",
+        avatar: "https://cdn.fakercloud.com/avatars/themrdave_128.jpg",
+        related: "u9X1vbsZZ7Q",
+        relationship: "child"
+      },
+      {
+        uid: "uQb3B552iNL",
+        firstName: "Ayden",
+        lastName: "Hattie",
+        gender: "M",
+        birthdate: "11/17/2020",
+        location: "WV",
+        avatar: "https://cdn.fakercloud.com/avatars/serefka_128.jpg",
+        related: "u9X1vbsZZ7Q",
+        relationship: "child"
+      },
+      {
+        uid: "uRQKKly4WV7",
+        firstName: "Mark",
+        lastName: "Mollie",
+        gender: "M",
+        birthdate: "12/27/2020",
+        location: "PA",
+        avatar: "https://cdn.fakercloud.com/avatars/cofla_128.jpg",
+        related: req.user.uid,
+        relationship: "sibling"
+      },
+      {
+        uid: "u4XVfzSrhpx",
+        firstName: "Delta",
+        lastName: "Cleveland",
+        gender: "F",
+        birthdate: "06/11/2020",
+        location: "FL",
+        avatar: "https://cdn.fakercloud.com/avatars/harry_sistalam_128.jpg",
+        related: req.user.uid,
+        relationship: "sibling"
+      }
+    ]
+  };
+
+  // const colors = [
+  //   'profileColor-pink',
+  //   'profileColor-magenta',
+  //   'profileColor-red',
+  //   'profileColor-orange',
+  //   'profileColor-yellow',
+  //   'profileColor-green',
+  //   'profileColor-teal',
+  //   'profileColor-light-blue',
+  //   'profileColor-dark-blue',
+  //   'profileColor-purple',
+  //   'profileColor-brown',
+  //   'profileColor-gray',
+  //   'profileColor-black'
+  // ];
+
+  // let match = `MATCH (${req.user.uid}:Person {uid: '${req.user.uid}', fid: '${req.user.fid}'}) WITH (${req.user.uid}) CREATE `,
+  //     crPeople = '',
+  //     crRels = '';
+  // let numbers = [];
+  // fakeData.family.forEach((person, i) => {
+  //   let rel = person.relationship,
+  //       revRel = (person.relationship === 'parent') ? 'child'
+  //              : (person.relationship === 'child') ? 'parent'
+  //              : rel;
+  //   crPeople += `(${person.uid}:Person {uid: '${person.uid}', fid: '${req.user.fid}', firstName: '${person.firstName}', prefName: '', lastName: '${person.lastName}', avatar: '${person.avatar}', gender: '${person.gender}', location: '${person.location}', profileColor: '${_.sample(colors)}', claimed: 'false', created: ${Date.now()}, type: 'fakeData'}), `;
+
+  //   crRels += `(${person.uid})-[:RELATED {relation: '${rel}'}]->(${person.related}), `;
+  //   crRels += `(${person.uid})<-[:RELATED {relation: '${revRel}'}]-(${person.related}), `;
+  //   if (i === fakeData.family.length - 1) {
+  //     crRels = crRels.slice(0, -2) + ' ';
+  //   }
+
+  //   numbers.push(i);
+  // });
+  // console.log(crPeople);
+  // let query = match + crPeople + crRels + 'RETURN *';
+  // console.log(query);
+  api.fakeData(req.user);
+  res.json(fakeData);
+});
+
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
   if (req.user.node === true) {
@@ -125,7 +305,7 @@ router.get('/welcome-make', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
-  const { prefName, birthdate, gender, location, profileColor } = req.body;
+  const { prefName, birthdate, gender, location, profileColor, fakeData } = req.body;
   const user = req.user;
   const fid = 'f' + nanoid();
   let errors = [];
@@ -185,7 +365,7 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
           claimed: true,
         };
 
-        api.initFamily(person)
+        api.initFamily(person, fakeData)
           .then(() => {
             res.redirect('/account/feed');
           });
@@ -244,6 +424,8 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
+          console.log('Current: ', locals.data.current);
+          console.log('getFamily result: ', result);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });

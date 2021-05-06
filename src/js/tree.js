@@ -13,6 +13,7 @@ $(function() {
 
 const renderGraph = (data) => {
   let width = $('#graph').width(), height = $('#graph').height();
+  console.log('Graph data: ', data);
 
   const svg = d3.select('#graph').append('svg')
     .attr('width', '100%')
