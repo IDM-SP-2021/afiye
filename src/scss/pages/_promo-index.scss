@@ -234,6 +234,33 @@
 
   .member-img {
     width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+
+    &#profile-fidel {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-yellow,
+        0 2px 8px 8px $profile-yellow;
+    }
+
+    &#profile-arpit {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-orange,
+        0 2px 8px 8px $profile-orange;
+    }
+
+    &#profile-brianna {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-red,
+        0 2px 8px 8px $profile-red;
+    }
+
+    &#profile-ben {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-dark-blue,
+        0 2px 8px 8px $profile-dark-blue;
+    }
+
+    &#profile-erik {
+      box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-purple,
+        0 2px 8px 8px $profile-purple;
+    }
   }
 
   // Footer
@@ -361,6 +388,7 @@
 
       .member-img {
         width: 8.75rem;
+        height: 8.75rem;
       }
 
       #team-container {

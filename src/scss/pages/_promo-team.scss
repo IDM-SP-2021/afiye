@@ -75,8 +75,8 @@
       .profile-card-portrait {
         width: 12.5rem;
         border-radius: 50%;
-        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $purple-default,
-          0 2px 8px 8px $purple-dark;
+        box-shadow: 0 0 0 5px #fff, 0 0 0 10px $profile-purple,
+          0 2px 8px 8px $profile-purple;
         z-index: 10;
 
         & + .profile-card-contents {
