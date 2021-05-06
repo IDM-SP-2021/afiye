@@ -180,16 +180,16 @@
 
   footer {
     width: 100%;
-    display: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
   }
 
   #copyright {
     font: $promo-heading-bold-mobile;
+    color: $main-purple-default;
     text-align: left;
-    background: $gradient-one;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: rgba(0, 0, 0, 0.09);
   }
 }

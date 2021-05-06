@@ -240,8 +240,11 @@
 
   footer {
     width: 100%;
-    display: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
   }
 
   #copyright {
