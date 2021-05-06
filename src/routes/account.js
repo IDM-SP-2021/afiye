@@ -86,183 +86,66 @@ function timeDiff(start) {
 }
 
 router.get('/test', ensureAuthenticated, (req, res) => {
-  const fakeData = {
-    family: [
-      {
-        uid: "uMvpyb1d1FZ",
-        firstName: "Merle",
-        lastName: "Favian",
-        gender: "M",
-        birthdate: "07/17/2020",
-        location: "NC",
-        avatar: "https://cdn.fakercloud.com/avatars/daykiine_128.jpg",
-        related: req.user.uid,
-        relationship: "parent"
-      },
-      {
-        uid: "uvRM0o3GMMk",
-        firstName: "Estell",
-        lastName: "Mortimer",
-        gender: "F",
-        birthdate: "10/30/2020",
-        location: "KS",
-        avatar: "https://cdn.fakercloud.com/avatars/bistrianiosip_128.jpg",
-        related: "uMvpyb1d1FZ",
-        relationship: "spouse"
-      },
-      {
-        uid: "uY37aMiKkeA",
-        firstName: "Angelo",
-        lastName: "Drew",
-        gender: "M",
-        birthdate: "05/04/2021",
-        location: "TN",
-        avatar: "https://cdn.fakercloud.com/avatars/oskarlevinson_128.jpg",
-        related: "uMvpyb1d1FZ",
-        relationship: "sibling"
-      },
-      {
-        uid: "ukvFelkp5Lb",
-        firstName: "Vance",
-        lastName: "Jamaal",
-        gender: "M",
-        birthdate: "07/29/2020",
-        location: "NJ",
-        avatar: "https://cdn.fakercloud.com/avatars/mattbilotti_128.jpg",
-        related: "uMvpyb1d1FZ",
-        relationship: "sibling"
-      },
-      {
-        uid: "uaQyOZy8fEn",
-        firstName: "Ashlee",
-        lastName: "Callie",
-        gender: "F",
-        birthdate: "01/21/2021",
-        location: "ID",
-        avatar: "https://cdn.fakercloud.com/avatars/unterdreht_128.jpg",
-        related: "uMvpyb1d1FZ",
-        relationship: "parent"
-      },
-      {
-        uid: "uphXLVN5uAJ",
-        firstName: "Harold",
-        lastName: "Abdullah",
-        gender: "M",
-        birthdate: "09/02/2020",
-        location: "VA",
-        avatar: "https://cdn.fakercloud.com/avatars/meelford_128.jpg",
-        related: "uMvpyb1d1FZ",
-        relationship: "parent"
-      },
-      {
-        uid: "uLKLVWWsWnA",
-        firstName: "Aglae",
-        lastName: "Camylle",
-        gender: "F",
-        birthdate: "08/19/2020",
-        location: "DE",
-        avatar: "https://cdn.fakercloud.com/avatars/brandonmorreale_128.jpg",
-        related: "uvRM0o3GMMk",
-        relationship: "parent"
-      },
-      {
-        uid: "u9X1vbsZZ7Q",
-        firstName: "Florence",
-        lastName: "Shanon",
-        gender: "F",
-        birthdate: "08/11/2020",
-        location: "OH",
-        avatar: "https://cdn.fakercloud.com/avatars/abdots_128.jpg",
-        related: "uY37aMiKkeA",
-        relationship: "spouse"
-      },
-      {
-        uid: "uBwHalH88Sj",
-        firstName: "Barney",
-        lastName: "Garrison",
-        gender: "M",
-        birthdate: "07/04/2020",
-        location: "RI",
-        avatar: "https://cdn.fakercloud.com/avatars/themrdave_128.jpg",
-        related: "u9X1vbsZZ7Q",
-        relationship: "child"
-      },
-      {
-        uid: "uQb3B552iNL",
-        firstName: "Ayden",
-        lastName: "Hattie",
-        gender: "M",
-        birthdate: "11/17/2020",
-        location: "WV",
-        avatar: "https://cdn.fakercloud.com/avatars/serefka_128.jpg",
-        related: "u9X1vbsZZ7Q",
-        relationship: "child"
-      },
-      {
-        uid: "uRQKKly4WV7",
-        firstName: "Mark",
-        lastName: "Mollie",
-        gender: "M",
-        birthdate: "12/27/2020",
-        location: "PA",
-        avatar: "https://cdn.fakercloud.com/avatars/cofla_128.jpg",
-        related: req.user.uid,
-        relationship: "sibling"
-      },
-      {
-        uid: "u4XVfzSrhpx",
-        firstName: "Delta",
-        lastName: "Cleveland",
-        gender: "F",
-        birthdate: "06/11/2020",
-        location: "FL",
-        avatar: "https://cdn.fakercloud.com/avatars/harry_sistalam_128.jpg",
-        related: req.user.uid,
-        relationship: "sibling"
-      }
-    ]
-  };
-
-  // const colors = [
-  //   'profileColor-pink',
-  //   'profileColor-magenta',
-  //   'profileColor-red',
-  //   'profileColor-orange',
-  //   'profileColor-yellow',
-  //   'profileColor-green',
-  //   'profileColor-teal',
-  //   'profileColor-light-blue',
-  //   'profileColor-dark-blue',
-  //   'profileColor-purple',
-  //   'profileColor-brown',
-  //   'profileColor-gray',
-  //   'profileColor-black'
-  // ];
-
-  // let match = `MATCH (${req.user.uid}:Person {uid: '${req.user.uid}', fid: '${req.user.fid}'}) WITH (${req.user.uid}) CREATE `,
-  //     crPeople = '',
-  //     crRels = '';
-  // let numbers = [];
-  // fakeData.family.forEach((person, i) => {
-  //   let rel = person.relationship,
-  //       revRel = (person.relationship === 'parent') ? 'child'
-  //              : (person.relationship === 'child') ? 'parent'
-  //              : rel;
-  //   crPeople += `(${person.uid}:Person {uid: '${person.uid}', fid: '${req.user.fid}', firstName: '${person.firstName}', prefName: '', lastName: '${person.lastName}', avatar: '${person.avatar}', gender: '${person.gender}', location: '${person.location}', profileColor: '${_.sample(colors)}', claimed: 'false', created: ${Date.now()}, type: 'fakeData'}), `;
-
-  //   crRels += `(${person.uid})-[:RELATED {relation: '${rel}'}]->(${person.related}), `;
-  //   crRels += `(${person.uid})<-[:RELATED {relation: '${revRel}'}]-(${person.related}), `;
-  //   if (i === fakeData.family.length - 1) {
-  //     crRels = crRels.slice(0, -2) + ' ';
-  //   }
-
-  //   numbers.push(i);
-  // });
-  // console.log(crPeople);
-  // let query = match + crPeople + crRels + 'RETURN *';
-  // console.log(query);
-  api.fakeData(req.user);
-  res.json(fakeData);
+  const fkPosts = [
+    {
+      owner: 'uMvpyb1d1FZ',
+      family: req.user.fid,
+      pid: 'p9Aj8a2KpNG',
+      title: 'Island Vacation 2019',
+      description: 'Trip to tropical island with my family. We had lots of fun at the beach and being away hustle and bustle of home.',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620272415/fakeData/posts/p9Aj8a2KpNG/jimmy-conover-3CTuFxZBra0-unsplash_hcvbeo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272409/fakeData/posts/p9Aj8a2KpNG/s-migaj-b2qszO9C7sw-unsplash_azvo1g.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272395/fakeData/posts/p9Aj8a2KpNG/tron-le-JsuBKjHGDMM-unsplash_eufcvo.jpg'],
+      tagged: [req.user.uid, 'uvRM0o3GMMk'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'ukvFelkp5Lb',
+      family: req.user.fid,
+      pid: 'pSmW6PkiXyl',
+      title: 'Happy Gotcha Day!',
+      description: 'Everyone meet my new pup, Riley!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620273328/fakeData/posts/pSmW6PkiXyl/parttime-portraits-atOlntWcO4k-unsplash_v7qozz.jpg'],
+      tagged: [],
+      type: 'fakeData'
+    },
+    {
+      owner: 'ukvFelkp5Lb',
+      family: req.user.fid,
+      pid: 'py6YMNbCh1i',
+      title: 'Grand Canyon Trip',
+      description: 'Amazing trip off the bucket list with my brother. We all can\'t wait to go back and explore what we couldn\'t get to this year!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sitting_Dangerous_fjcizf.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sarah_enjoying_the_view_qazejm.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Dead_tree_at_the_canyon_ngsgqh.jpg'],
+      tagged: ['uvRM0o3GMMk','uMvpyb1d1FZ'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'uphXLVN5uAJ',
+      family: req.user.fid,
+      pid: 'psbn0D15CEX',
+      title: 'Catching up with the grandkids',
+      description: 'Had a wonderful lunch with my grandkids near their college',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620274135/fakeData/posts/psbn0D15CEX/mason-dahl--7AxXbZekDE-unsplash_fwviwo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620274130/fakeData/posts/psbn0D15CEX/krisztina-papp-ND5zJAxKRqo-unsplash_wkwr6f.jpg'],
+      tagged: [req.user.uid,'uRQKKly4WV7'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'uvRM0o3GMMk',
+      family: req.user.fid,
+      pid: 'p8wBZqMukLy',
+      title: 'Mark\'s High-School Graduation',
+      description: 'Hard to believe he is finally graduating. We are such proud parents to see him walk across the stage. Time for college and another adventure!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620276258/fakeData/posts/p8wBZqMukLy/good-free-photos-YZsvNs2GCPU-unsplash_zdonny.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276252/fakeData/posts/p8wBZqMukLy/ali-abdelbari-hFLVc7d73j8-unsplash_odc0z1.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276245/fakeData/posts/p8wBZqMukLy/wout-vanacker-l4HBYkURqvE-unsplash_rcjh6q.jpg'],
+      tagged: ['uMvpyb1d1FZ','uRQKKly4WV7'],
+      type: 'fakeData'
+    },
+  ];
+  Post.collection.insertMany(fkPosts, function(err, docs) {
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log('Inserted multiple posts');
+    }
+  });
+  res.json(fkPosts);
 });
 
 // * user onboarding
@@ -367,7 +250,70 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
 
         api.initFamily(person, fakeData)
           .then(() => {
-            res.redirect('/account/feed');
+            if (fakeData === 'on') {
+              const fkPosts = [
+                {
+                  owner: 'uMvpyb1d1FZ',
+                  family: fid,
+                  pid: 'p9Aj8a2KpNG',
+                  title: 'Island Vacation 2019',
+                  description: 'Trip to tropical island with my family. We had lots of fun at the beach and being away hustle and bustle of home.',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620272415/fakeData/posts/p9Aj8a2KpNG/jimmy-conover-3CTuFxZBra0-unsplash_hcvbeo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272409/fakeData/posts/p9Aj8a2KpNG/s-migaj-b2qszO9C7sw-unsplash_azvo1g.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272395/fakeData/posts/p9Aj8a2KpNG/tron-le-JsuBKjHGDMM-unsplash_eufcvo.jpg'],
+                  tagged: [req.user.uid, 'uvRM0o3GMMk'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'ukvFelkp5Lb',
+                  family: fid,
+                  pid: 'pSmW6PkiXyl',
+                  title: 'Happy Gotcha Day!',
+                  description: 'Everyone meet my new pup, Riley!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620273328/fakeData/posts/pSmW6PkiXyl/parttime-portraits-atOlntWcO4k-unsplash_v7qozz.jpg'],
+                  tagged: [],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'ukvFelkp5Lb',
+                  family: fid,
+                  pid: 'py6YMNbCh1i',
+                  title: 'Grand Canyon Trip',
+                  description: 'Amazing trip off the bucket list with my brother. We all can\'t wait to go back and explore what we couldn\'t get to this year!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sitting_Dangerous_fjcizf.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sarah_enjoying_the_view_qazejm.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Dead_tree_at_the_canyon_ngsgqh.jpg'],
+                  tagged: ['uvRM0o3GMMk','uMvpyb1d1FZ'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'uphXLVN5uAJ',
+                  family: fid,
+                  pid: 'psbn0D15CEX',
+                  title: 'Catching up with the grandkids',
+                  description: 'Had a wonderful lunch with my grandkids near their college',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620274135/fakeData/posts/psbn0D15CEX/mason-dahl--7AxXbZekDE-unsplash_fwviwo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620274130/fakeData/posts/psbn0D15CEX/krisztina-papp-ND5zJAxKRqo-unsplash_wkwr6f.jpg'],
+                  tagged: [req.user.uid,'uRQKKly4WV7'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'uvRM0o3GMMk',
+                  family: fid,
+                  pid: 'p8wBZqMukLy',
+                  title: 'Mark\'s High-School Graduation',
+                  description: 'Hard to believe he is finally graduating. We are such proud parents to see him walk across the stage. Time for college and another adventure!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620276258/fakeData/posts/p8wBZqMukLy/good-free-photos-YZsvNs2GCPU-unsplash_zdonny.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276252/fakeData/posts/p8wBZqMukLy/ali-abdelbari-hFLVc7d73j8-unsplash_odc0z1.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276245/fakeData/posts/p8wBZqMukLy/wout-vanacker-l4HBYkURqvE-unsplash_rcjh6q.jpg'],
+                  tagged: ['uMvpyb1d1FZ','uRQKKly4WV7'],
+                  type: 'fakeData'
+                },
+              ];
+              Post.collection.insertMany(fkPosts, function(err, docs) {
+                if (err) {
+                  return console.log(err);
+                } else {
+                  console.log('Inserted multiple posts');
+                  res.redirect('/account/feed');
+                }
+              });
+            } else {
+              res.redirect('/account/feed');
+            }
           });
       });
     }
@@ -424,8 +370,6 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               posts: sorted
             }
           };
-          console.log('Current: ', locals.data.current);
-          console.log('getFamily result: ', result);
           res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
