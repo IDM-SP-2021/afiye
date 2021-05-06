@@ -85,6 +85,69 @@ function timeDiff(start) {
   }
 }
 
+router.get('/test', ensureAuthenticated, (req, res) => {
+  const fkPosts = [
+    {
+      owner: 'uMvpyb1d1FZ',
+      family: req.user.fid,
+      pid: 'p9Aj8a2KpNG',
+      title: 'Island Vacation 2019',
+      description: 'Trip to tropical island with my family. We had lots of fun at the beach and being away hustle and bustle of home.',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620272415/fakeData/posts/p9Aj8a2KpNG/jimmy-conover-3CTuFxZBra0-unsplash_hcvbeo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272409/fakeData/posts/p9Aj8a2KpNG/s-migaj-b2qszO9C7sw-unsplash_azvo1g.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272395/fakeData/posts/p9Aj8a2KpNG/tron-le-JsuBKjHGDMM-unsplash_eufcvo.jpg'],
+      tagged: [req.user.uid, 'uvRM0o3GMMk'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'ukvFelkp5Lb',
+      family: req.user.fid,
+      pid: 'pSmW6PkiXyl',
+      title: 'Happy Gotcha Day!',
+      description: 'Everyone meet my new pup, Riley!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620273328/fakeData/posts/pSmW6PkiXyl/parttime-portraits-atOlntWcO4k-unsplash_v7qozz.jpg'],
+      tagged: [],
+      type: 'fakeData'
+    },
+    {
+      owner: 'ukvFelkp5Lb',
+      family: req.user.fid,
+      pid: 'py6YMNbCh1i',
+      title: 'Grand Canyon Trip',
+      description: 'Amazing trip off the bucket list with my brother. We all can\'t wait to go back and explore what we couldn\'t get to this year!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sitting_Dangerous_fjcizf.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sarah_enjoying_the_view_qazejm.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Dead_tree_at_the_canyon_ngsgqh.jpg'],
+      tagged: ['uvRM0o3GMMk','uMvpyb1d1FZ'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'uphXLVN5uAJ',
+      family: req.user.fid,
+      pid: 'psbn0D15CEX',
+      title: 'Catching up with the grandkids',
+      description: 'Had a wonderful lunch with my grandkids near their college',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620274135/fakeData/posts/psbn0D15CEX/mason-dahl--7AxXbZekDE-unsplash_fwviwo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620274130/fakeData/posts/psbn0D15CEX/krisztina-papp-ND5zJAxKRqo-unsplash_wkwr6f.jpg'],
+      tagged: [req.user.uid,'uRQKKly4WV7'],
+      type: 'fakeData'
+    },
+    {
+      owner: 'uvRM0o3GMMk',
+      family: req.user.fid,
+      pid: 'p8wBZqMukLy',
+      title: 'Mark\'s High-School Graduation',
+      description: 'Hard to believe he is finally graduating. We are such proud parents to see him walk across the stage. Time for college and another adventure!',
+      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620276258/fakeData/posts/p8wBZqMukLy/good-free-photos-YZsvNs2GCPU-unsplash_zdonny.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276252/fakeData/posts/p8wBZqMukLy/ali-abdelbari-hFLVc7d73j8-unsplash_odc0z1.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276245/fakeData/posts/p8wBZqMukLy/wout-vanacker-l4HBYkURqvE-unsplash_rcjh6q.jpg'],
+      tagged: ['uMvpyb1d1FZ','uRQKKly4WV7'],
+      type: 'fakeData'
+    },
+  ];
+  Post.collection.insertMany(fkPosts, function(err, docs) {
+    if (err) {
+      return console.log(err);
+    } else {
+      console.log('Inserted multiple posts');
+    }
+  });
+  res.json(fkPosts);
+});
+
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
   if (req.user.node === true) {
@@ -125,7 +188,7 @@ router.get('/welcome-make', ensureAuthenticated, (req, res) => {
 });
 
 router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
-  const { prefName, birthdate, gender, location, profileColor } = req.body;
+  const { prefName, birthdate, gender, location, profileColor, fakeData } = req.body;
   const user = req.user;
   const fid = 'f' + nanoid();
   let errors = [];
@@ -185,9 +248,72 @@ router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), 
           claimed: true,
         };
 
-        api.initFamily(person)
+        api.initFamily(person, fakeData)
           .then(() => {
-            res.redirect('/account/feed');
+            if (fakeData === 'on') {
+              const fkPosts = [
+                {
+                  owner: 'uMvpyb1d1FZ',
+                  family: fid,
+                  pid: 'p9Aj8a2KpNG',
+                  title: 'Island Vacation 2019',
+                  description: 'Trip to tropical island with my family. We had lots of fun at the beach and being away hustle and bustle of home.',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620272415/fakeData/posts/p9Aj8a2KpNG/jimmy-conover-3CTuFxZBra0-unsplash_hcvbeo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272409/fakeData/posts/p9Aj8a2KpNG/s-migaj-b2qszO9C7sw-unsplash_azvo1g.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272395/fakeData/posts/p9Aj8a2KpNG/tron-le-JsuBKjHGDMM-unsplash_eufcvo.jpg'],
+                  tagged: [req.user.uid, 'uvRM0o3GMMk'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'ukvFelkp5Lb',
+                  family: fid,
+                  pid: 'pSmW6PkiXyl',
+                  title: 'Happy Gotcha Day!',
+                  description: 'Everyone meet my new pup, Riley!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620273328/fakeData/posts/pSmW6PkiXyl/parttime-portraits-atOlntWcO4k-unsplash_v7qozz.jpg'],
+                  tagged: [],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'ukvFelkp5Lb',
+                  family: fid,
+                  pid: 'py6YMNbCh1i',
+                  title: 'Grand Canyon Trip',
+                  description: 'Amazing trip off the bucket list with my brother. We all can\'t wait to go back and explore what we couldn\'t get to this year!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sitting_Dangerous_fjcizf.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sarah_enjoying_the_view_qazejm.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Dead_tree_at_the_canyon_ngsgqh.jpg'],
+                  tagged: ['uvRM0o3GMMk','uMvpyb1d1FZ'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'uphXLVN5uAJ',
+                  family: fid,
+                  pid: 'psbn0D15CEX',
+                  title: 'Catching up with the grandkids',
+                  description: 'Had a wonderful lunch with my grandkids near their college',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620274135/fakeData/posts/psbn0D15CEX/mason-dahl--7AxXbZekDE-unsplash_fwviwo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620274130/fakeData/posts/psbn0D15CEX/krisztina-papp-ND5zJAxKRqo-unsplash_wkwr6f.jpg'],
+                  tagged: [req.user.uid,'uRQKKly4WV7'],
+                  type: 'fakeData'
+                },
+                {
+                  owner: 'uvRM0o3GMMk',
+                  family: fid,
+                  pid: 'p8wBZqMukLy',
+                  title: 'Mark\'s High-School Graduation',
+                  description: 'Hard to believe he is finally graduating. We are such proud parents to see him walk across the stage. Time for college and another adventure!',
+                  media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620276258/fakeData/posts/p8wBZqMukLy/good-free-photos-YZsvNs2GCPU-unsplash_zdonny.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276252/fakeData/posts/p8wBZqMukLy/ali-abdelbari-hFLVc7d73j8-unsplash_odc0z1.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276245/fakeData/posts/p8wBZqMukLy/wout-vanacker-l4HBYkURqvE-unsplash_rcjh6q.jpg'],
+                  tagged: ['uMvpyb1d1FZ','uRQKKly4WV7'],
+                  type: 'fakeData'
+                },
+              ];
+              Post.collection.insertMany(fkPosts, function(err, docs) {
+                if (err) {
+                  return console.log(err);
+                } else {
+                  console.log('Inserted multiple posts');
+                  res.redirect('/account/feed');
+                }
+              });
+            } else {
+              res.redirect('/account/feed');
+            }
           });
       });
     }
@@ -503,7 +629,8 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
         api.getFamily(req.user.uid, req.user.fid)
           .then((result) => {
             let postData = [],
-                tagged = [];
+                tagged = [],
+                editable = false;
 
             console.log('Album: ', album);
 
@@ -531,6 +658,10 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
               postData.push({ownerData, timeStamp, itemType, item});
             });
 
+            if (album.owner === req.user.uid || album.tagged.includes(req.user.uid)) {
+              editable = true;
+            }
+
             let locals = {
               title: 'Afiye - Album',
               user: req.user,
@@ -538,9 +669,11 @@ router.get('/album-:family-:alid', ensureAuthenticated, (req, res) => {
                 family: result,
                 albumData,
                 tagged,
-                postData
+                postData,
+                editable
               }
             };
+            console.log('Album data: ', locals.data.albumData);
             res.render(path.resolve(__dirname, '../views/user/feed/album'), locals);
           });
       });
@@ -615,6 +748,124 @@ router.post('/add-album', ensureAuthenticated, (req, res) => {
       }).catch(error => {
         return res.json(error);
       });
+  });
+});
+
+// edit album
+router.get('/edit-album-:alid', ensureAuthenticated, (req, res) => {
+  const album = req.params.alid;
+
+  Album.findOne({alid: album}).exec((err, album) => {
+    if (!album) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else {
+      Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
+        api.getFamily(req.user.uid, req.user.fid)
+          .then((result) => {
+            let postData = [];
+            posts.forEach(post => {
+              const ownerData = _.find(result, {'uid': post.owner});
+                let timeStamp = timeDiff(post.date);
+                postData.push({ownerData, timeStamp, post});
+            });
+
+            let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+            familyMembers.forEach(member => {
+              member.relation =
+                  (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                : (member.relation === 'greatnibling') ? 'Great Nibling'
+                : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+            });
+
+            let locals = {
+              title: 'Afiye - Create Album',
+              user: req.user,
+              data: {
+                family: familyMembers,
+                postData,
+                album
+              }
+            };
+            res.render(path.resolve(__dirname, '../views/user/feed/edit-album'), locals);
+          });
+      });
+    }
+  });
+});
+
+router.post('/edit-album-:alid', ensureAuthenticated, (req, res) => {
+  const {title, description, posts, tagged_family} = req.body,
+        album = req.params.alid;
+  let post_arr = (typeof(posts) === 'string') ? posts.split()
+               : (posts === undefined) ? []
+               : posts,
+      errors = [];
+
+  console.log('Post array: ', post_arr);
+  console.log('Edited album: ', req.body);
+  Album.findOne({alid: album}).exec(async (err, album) => {
+    if (!album) {
+      console.log('Cannot find post to edit');
+      res.redirect('/account/feed');
+    } else {
+      if (!(post_arr.length > 0)) {
+        console.log('No posts!');
+        errors.push({msg: 'Albums must contain at least one memory'});
+
+        Post.find({family: req.user.fid, owner: req.user.uid}).exec((err, posts) => {
+          api.getFamily(req.user.uid, req.user.fid)
+            .then((result) => {
+              let postData = [];
+              posts.forEach(post => {
+                const ownerData = _.find(result, {'uid': post.owner});
+                  let timeStamp = timeDiff(post.date);
+                  postData.push({ownerData, timeStamp, post});
+              });
+
+              let familyMembers = _.pull(result, _.find(result, {'uid': req.user.uid}));
+              familyMembers.forEach(member => {
+                member.relation =
+                    (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+                  : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+                  : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+                  : (member.relation === 'childinlaw') ? 'Child-in-Law'
+                  : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+                  : (member.relation === 'greatnibling') ? 'Great Nibling'
+                  : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+              });
+
+              let locals = {
+                title: 'Afiye - Create Album',
+                user: req.user,
+                data: {
+                  family: familyMembers,
+                  postData,
+                  album,
+                  errors
+                }
+              };
+              res.render(path.resolve(__dirname, '../views/user/feed/edit-album'), locals);
+            });
+        });
+      } else {
+        album.title = title;
+        album.description = description;
+        album.posts = post_arr;
+        album.tagged = tagged_family;
+
+        await album.save()
+        .then(() => {
+          res.redirect(`/account/album-${req.user.fid}-${album.alid}`);
+        }).catch(error => {
+          return res.json(error);
+        });
+      }
+    }
   });
 });
 
