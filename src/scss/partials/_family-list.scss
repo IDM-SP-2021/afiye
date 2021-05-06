@@ -9,6 +9,7 @@
     padding: 0.875em;
     cursor: pointer;
     text-align: center;
+    margin-top: -15px;
 
     .bar {
       display: block;
@@ -26,7 +27,7 @@
 
     &.open {
       height: calc(100vh - 3.75rem - 4.5rem - 2rem);
-      padding: 1.875em 1.25em 0.5em;
+      padding: 1.875em 1.5em 0.5em;
       overflow-y: scroll;
     }
 
