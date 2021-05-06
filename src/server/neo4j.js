@@ -1,6 +1,5 @@
 const neo4j = require('neo4j-driver');
 const _ = require('lodash');
-const { text } = require('body-parser');
 
 let driver = neo4j.driver(process.env.N4J_HOST, neo4j.auth.basic(process.env.N4J_USER, process.env.N4J_PASS));
 
