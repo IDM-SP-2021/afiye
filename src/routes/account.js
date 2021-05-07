@@ -441,6 +441,16 @@ router.get('/welcome', ensureAuthenticated, (req, res) => {
   res.render(path.resolve(__dirname, '../views/user/onboarding/welcome'), locals);
 });
 
+// testing
+router.get('/testing', ensureAuthenticated, (req, res) => {
+  let locals = {
+    title: 'Afiye - Modal Test',
+    user: req.user,
+  };
+
+  res.render(path.resolve(__dirname, '../views/user/onboarding/testing'), locals);
+});
+
 // profile-color
 router.get('/pcok', ensureAuthenticated, (req, res) => {
   let locals = {
