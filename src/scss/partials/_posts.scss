@@ -36,8 +36,8 @@ main.pageType-addPost {
 }
 
 div.imgname div:last-child {
-  margin-top: 12px;
-  margin-left: 16px;
+  margin-top: 19px;
+  margin-left: 5px;
 }
 
 div.imgname div:last-child h2 {
@@ -184,6 +184,7 @@ div.img {
   width: 70px;
   overflow: hidden;
   height: 64px;
+  margin-right: 5px;
 }
 
 .story img {
@@ -475,6 +476,7 @@ div.img {
   .imgname {
     display: flex;
     width: 475px;
+    align-items: center;
   }
 
   .afiye-posts {
