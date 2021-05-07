@@ -1,11 +1,33 @@
 <%- include('../partials/front-header') %>
 
 <div id="desktop-register">
+  <!-- <img class="login-bubble" src="../assets/blob-promo-index-kf.svg"> -->
+
   <div class="left">
+    <img
+      class="login-bubble"
+      src="../assets/blob-promo-index-kf.svg"
+      style="
+        width: 809px;
+        left: -134px;
+        transform: rotate(133deg);
+        opacity: 20%;
+        top: 1%;
+      "
+    />
+
     <img src="../../assets/imgs/afiye-desktopIntro.svg" />
   </div>
 
   <div class="right" style="margin: 0 auto; text-align: center; width: 400px">
+    <div class="login-logo-section">
+      <img
+        class="login-logo"
+        src="assets\imgs\afiye-icon.png"
+        style="width: 80px"
+      />
+    </div>
+
     <h1 style="text-align: center; color: #000000; margin-bottom: 0rem">
       Sign Up
     </h1>
@@ -13,7 +35,7 @@
 
     <%- include ('../partials/messages') %>
 
-    <form action="/register" method="post">
+    <form action="/register" method="post" style="width: 300px">
       <div class="input-container">
         <label for="name">First Name</label>
         <input
@@ -73,6 +95,8 @@
       Already have an account? <a href="/login">Sign in</a>
     </p>
   </div>
+
+  <div class="bottom" style="height: 50px"></div>
 </div>
 
 <div
