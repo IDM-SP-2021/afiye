@@ -85,69 +85,6 @@ function timeDiff(start) {
   }
 }
 
-router.get('/test', ensureAuthenticated, (req, res) => {
-  const fkPosts = [
-    {
-      owner: 'uMvpyb1d1FZ',
-      family: req.user.fid,
-      pid: 'p9Aj8a2KpNG',
-      title: 'Island Vacation 2019',
-      description: 'Trip to tropical island with my family. We had lots of fun at the beach and being away hustle and bustle of home.',
-      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620272415/fakeData/posts/p9Aj8a2KpNG/jimmy-conover-3CTuFxZBra0-unsplash_hcvbeo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272409/fakeData/posts/p9Aj8a2KpNG/s-migaj-b2qszO9C7sw-unsplash_azvo1g.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620272395/fakeData/posts/p9Aj8a2KpNG/tron-le-JsuBKjHGDMM-unsplash_eufcvo.jpg'],
-      tagged: [req.user.uid, 'uvRM0o3GMMk'],
-      type: 'fakeData'
-    },
-    {
-      owner: 'ukvFelkp5Lb',
-      family: req.user.fid,
-      pid: 'pSmW6PkiXyl',
-      title: 'Happy Gotcha Day!',
-      description: 'Everyone meet my new pup, Riley!',
-      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620273328/fakeData/posts/pSmW6PkiXyl/parttime-portraits-atOlntWcO4k-unsplash_v7qozz.jpg'],
-      tagged: [],
-      type: 'fakeData'
-    },
-    {
-      owner: 'ukvFelkp5Lb',
-      family: req.user.fid,
-      pid: 'py6YMNbCh1i',
-      title: 'Grand Canyon Trip',
-      description: 'Amazing trip off the bucket list with my brother. We all can\'t wait to go back and explore what we couldn\'t get to this year!',
-      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sitting_Dangerous_fjcizf.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Sarah_enjoying_the_view_qazejm.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620275170/fakeData/posts/py6YMNbCh1i/Dead_tree_at_the_canyon_ngsgqh.jpg'],
-      tagged: ['uvRM0o3GMMk','uMvpyb1d1FZ'],
-      type: 'fakeData'
-    },
-    {
-      owner: 'uphXLVN5uAJ',
-      family: req.user.fid,
-      pid: 'psbn0D15CEX',
-      title: 'Catching up with the grandkids',
-      description: 'Had a wonderful lunch with my grandkids near their college',
-      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620274135/fakeData/posts/psbn0D15CEX/mason-dahl--7AxXbZekDE-unsplash_fwviwo.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620274130/fakeData/posts/psbn0D15CEX/krisztina-papp-ND5zJAxKRqo-unsplash_wkwr6f.jpg'],
-      tagged: [req.user.uid,'uRQKKly4WV7'],
-      type: 'fakeData'
-    },
-    {
-      owner: 'uvRM0o3GMMk',
-      family: req.user.fid,
-      pid: 'p8wBZqMukLy',
-      title: 'Mark\'s High-School Graduation',
-      description: 'Hard to believe he is finally graduating. We are such proud parents to see him walk across the stage. Time for college and another adventure!',
-      media: ['https://res.cloudinary.com/afiye-io/image/upload/v1620276258/fakeData/posts/p8wBZqMukLy/good-free-photos-YZsvNs2GCPU-unsplash_zdonny.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276252/fakeData/posts/p8wBZqMukLy/ali-abdelbari-hFLVc7d73j8-unsplash_odc0z1.jpg','https://res.cloudinary.com/afiye-io/image/upload/v1620276245/fakeData/posts/p8wBZqMukLy/wout-vanacker-l4HBYkURqvE-unsplash_rcjh6q.jpg'],
-      tagged: ['uMvpyb1d1FZ','uRQKKly4WV7'],
-      type: 'fakeData'
-    },
-  ];
-  Post.collection.insertMany(fkPosts, function(err, docs) {
-    if (err) {
-      return console.log(err);
-    } else {
-      console.log('Inserted multiple posts');
-    }
-  });
-  res.json(fkPosts);
-});
-
 // * user onboarding
 router.get('/welcome', ensureAuthenticated, (req, res) => {
   if (req.user.node === true) {

@@ -1,9 +1,14 @@
 <% let colorOptions = [ 'pink', 'magenta', 'red', 'orange', 'yellow', 'green',
 'teal', 'light-blue', 'dark-blue', 'purple', 'brown', 'gray', 'black' ] %>
-<div class="container">
+<div class="profile-form">
   <section class="image" id="split-form" style="margin: 3rem auto;">
       <img class="login-bubble1" src="../assets/imgs/blob.png">
       <img class="login-bubble2" src="../assets/imgs/blob.png">
+      <% if (title === 'Afiye - Making a Tree') { %>
+        <a href="/account/welcome" class="button primary icon back">
+          <i class="icon icon-arrow"></i>
+        </a>
+      <% } %>
     <% if (title === 'Afiye - Making a Tree') { %><h2 id="h2-ob1">Create a Profile</h2><% } else if (title === 'Afiye - Add Family Member') { %><h2 id="h2-ob1">Add a Family Member</h2><% } %>
     <form
       id="profile-setup"
