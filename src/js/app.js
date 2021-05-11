@@ -260,6 +260,11 @@ $('#open-confirmation').on('click', (event) => {
   event.preventDefault();
   $('#deactivate-confirmation').removeClass('hidden');
 });
+$('#open-data-confirmation').on('click', (event) => {
+  console.log('Clicked deactivate');
+  event.preventDefault();
+  $('#data-confirmation').removeClass('hidden');
+});
 // * ------------------------------------------------------------------------------------
 
 // Append image preview to page element

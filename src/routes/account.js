@@ -111,17 +111,17 @@ router.post('/welcome', ensureAuthenticated, (req, res) => {
 
 // * user onboarding - make a tree
 router.get('/welcome-make', ensureAuthenticated, (req, res) => {
-  // if (req.user.node === true) {
-  //   console.log('User already has an active node');
-  //   res.redirect('/account/feed');
-  // } else {
-  // }
-  let locals = {
-    title: 'Afiye - Making a Tree',
-    user: req.user
-  };
+  if (req.user.node === true) {
+    console.log('User already has an active node');
+    res.redirect('/account/feed');
+  } else {
+    let locals = {
+      title: 'Afiye - Making a Tree',
+      user: req.user
+    };
 
-  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
+    res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
+  }
 });
 
 router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {
@@ -288,26 +288,26 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
                   itemType = 'memory';
             postData.push({ownerData, timeStamp, itemType, item});
           });
+          Album.find({family: req.user.fid}).exec((err, albums) => {
+            albums.forEach(item => {
+              const ownerData = _.find(result, {'uid': item.owner}),
+                    timeStamp = timeDiff(item.date),
+                    itemType = 'album';
+              postData.push({ownerData, timeStamp, itemType, item});
+            });
+            let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
+            let current = _.find(result, {'uid': req.user.uid});
+            let locals = {
+              title: 'Afiye - Memory Feed',
+              user: req.user,
+              data: {
+                current,
+                family: result,
+                posts: sorted
+              }
+            };
+            res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
-        Album.find({family: req.user.fid}).exec((err, albums) => {
-          albums.forEach(item => {
-            const ownerData = _.find(result, {'uid': item.owner}),
-                  timeStamp = timeDiff(item.date),
-                  itemType = 'album';
-            postData.push({ownerData, timeStamp, itemType, item});
-          });
-          let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
-          let current = _.find(result, {'uid': req.user.uid});
-          let locals = {
-            title: 'Afiye - Memory Feed',
-            user: req.user,
-            data: {
-              current,
-              family: result,
-              posts: sorted
-            }
-          };
-          res.render(path.resolve(__dirname, '../views/user/feed/feed'), locals);
         });
     });
   }
@@ -322,7 +322,6 @@ router.get('/post-:family-:pid', ensureAuthenticated, (req, res) => {
     if (!post) {
       res.redirect('/account/feed');
     } else {
-      console.log('Post data: ', post);
       api.getFamily(req.user.uid, req.user.fid)
         .then((result) => {
           let owner = _.find(result, {uid: post.owner}),
@@ -1553,6 +1552,41 @@ router.post('/settings-account-deactivate-account', ensureAuthenticated, (req, r
         }
       });
     });
+  }
+});
+
+router.post('/settings-account-placeholder', ensureAuthenticated, (req, res) => {
+  const { confirmDelete } = req.body;
+  let errors = [];
+
+  if (confirmDelete !== 'on') {
+    errors.push({msg: 'You must agree to the statement'});
+  }
+
+  if (errors.length > 0) {
+    res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+      errors: errors,
+      title: 'Afiye - Settings',
+      user: req.user,
+      section: 'placeholder',
+    });
+  } else {
+    const query = `MATCH (p:Person {fid: '${req.user.fid}', type: 'fakeData'}) DETACH DELETE p`;
+    api.submitQuery(query)
+      .then(() => {
+        Post.deleteMany({family: req.user.fid, type: /fakeData/}).exec((err, post) => {
+          if (err) {
+            console.log(err);
+          }
+
+          res.render(path.resolve(__dirname, '../views/user/settings/settings'), {
+            success_msg: 'Placeholder data removed from your family tree',
+            title: 'Afiye - Settings',
+            user: req.user,
+            section: 'placeholder'
+          });
+        });
+      });
   }
 });
 
