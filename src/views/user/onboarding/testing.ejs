@@ -1,0 +1,82 @@
+<div class="button">
+
+  <details>
+    <summary>
+      <div class="button primary icon plus">
+        Show me the modal
+      </div>
+      <div class="details-modal-overlay"></div>
+    </summary>
+    <div class="details-modal">
+      <div class="details-modal-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711Z" fill="black" />
+        </svg>
+      </div>
+      <div class="details-modal-title">
+        <h1>Share</h1>
+      </div>
+      <div class="details-modal-content">
+
+        <div class="upload" style=" background: #d1d1d1; text-align: center; height: 175px; border-radius: 10px; align-items: center; justify-content: center;">
+<!-- 
+            <div class="upload-btn-wrapper">
+              <button class="btn">Upload a file
+                <input type="file" name="myfile" accept="image/jpeg, image/png" id="upload"/>
+              </button>
+            </div> -->
+  
+        </div>
+
+        <form
+        id="add-post"
+        action="/account/add-post"
+        method="post"
+        enctype="multipart/form-data"
+        style="width: 100%; text-align: center;"
+      >
+<!-- Uploader info -->    
+      <div class="newalb" style="width: 100%;">
+        <div class="input-container" style="width: 100%;">
+          <label id="memory-title-tag" for="memory-title">Title</label>
+          <input type="text" name="title" id="memory-title" style="width: 100%;">
+        </div>
+      </div>
+    
+
+        <div id="post-media-preview" ></div>
+        <div class="input-container" style="width: 100%;">
+          <label for="album-description">Description</label>
+          <textarea
+            name="description"
+            id="album-description"
+            cols="30"
+            rows="10"
+            required
+            style="width: 100%; height: 130px;"
+          ></textarea>
+        </div>
+
+        <div id="tag-family" class="modal hidden">
+          <div class="modal-inner">
+            <h2>Tag Your Family</h2>
+            <button class="button primary icon cross"></button>
+            <input
+              class="input"
+              type="search"
+              name="search_family"
+              id="search_family"
+              placeholder="Family member"
+            />
+            <div id="memberList"></div>
+            </select>
+          </div>
+        </div>
+        <input id="add-bottom-button" class="button primary" type="submit" value="Create New Album" style="width: 100%; margin-bottom: 1rem; width: 100%; background: none; border: 1px solid #922aff; color: #922aff; margin-bottom: 1rem;">
+        <input id="add-bottom-button" class="button primary" type="submit" value="Share" style="width: 100%;" />
+      </form>
+
+      </div>
+    </div>
+  </details>
+</div>

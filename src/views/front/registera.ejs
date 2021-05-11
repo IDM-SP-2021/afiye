@@ -1,33 +1,49 @@
 <%- include('../partials/front-header') %>
 
-<!-- <main style="    width: 360px; margin: 4rem auto; padding-top: 4rem; text-align: center; border-radius: 15px; background-color: white;"> -->
-
-<div id="desktop-register" style="padding-top: 5rem;">
+<div id="desktop-register">
+  <!-- <img class="login-bubble" src="../assets/blob-promo-index-kf.svg"> -->
 
   <div class="left">
-    <!-- background -->
-    <img class="login-bubble" src="../assets/blob-promo-index-kf.svg">
-    <!-- image -->
-    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg"/>
+    <img
+      class="login-bubble"
+      src="../assets/blob-promo-index-kf.svg"
+      style="
+        width: 809px;
+        left: -134px;
+        transform: rotate(133deg);
+        opacity: 20%;
+        top: 1%;
+      "
+    />
+
+    <img src="../../assets/imgs/afiye-desktopIntro.svg" />
+    <img class="login-bubble" src="../assets/blob-promo-index-kf.svg" style=" width: 1010px; left: -134px; transform: rotate(133deg); opacity: 20%; top: 1%;">
+
+    <img src="../../assets/imgs/afiye-desktopIntro.svg">
   </div>
 
-  <div class="right" style="height: 56rem;">
-
+  <div class="right" style="margin: 0 auto; text-align: center; width: 400px">
     <div class="login-logo-section">
-      <img class="login-logo" src="assets\imgs\afiye-icon.png" style="width: 80px"/>
-      <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
-      <p style="margin-bottom: 3rem">Your whole family in one place</p>
+      <img
+        class="login-logo"
+        src="assets\imgs\afiye-icon.png"
+        style="width: 80px"
+      />
     </div>
+
+    <h1 style="text-align: center; color: #000000; margin-bottom: 0rem">
+      Sign Up
+    </h1>
+    <p style="margin-bottom: 4rem; color: #4e4b66">Create your account</p>
 
     <%- include ('../partials/messages') %>
 
-    <form action="/login" method="post" style="width: 100%;">
-
+    <form action="/register" method="post" style="width: 300px">
       <div class="input-container">
         <label for="name">First Name</label>
         <input
-          style="width: 100%;"
-          class="input"
+          style="height: 50px"
+          class="input mobile"
           type="name"
           name="firstName"
           value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
@@ -36,8 +52,8 @@
       <div class="input-container">
         <label for="name">Last Name</label>
         <input
-         style="width: 100%;"
-          class="input"
+          style="height: 50px"
+          class="input mobile"
           type="name"
           name="lastName"
           value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
@@ -46,8 +62,8 @@
       <div class="input-container">
         <label for="email">Email</label>
         <input
-          style="width: 100%;"
-          class="input"
+          style="height: 50px"
+          class="input mobile"
           type="email"
           name="email"
           value="<%= typeof email != 'undefined' ? email : '' %>"
@@ -56,8 +72,8 @@
       <div class="input-container">
         <label for="password">Password</label>
         <input
-          style="width: 100%;"
-          class="input"
+          style="height: 50px"
+          class="input mobile"
           type="password"
           name="password"
           value="<%= typeof password != 'undefined' ? password : '' %>"
@@ -66,27 +82,24 @@
       <div class="input-container">
         <label for="password2">Confirm Password</label>
         <input
-          style="width: 100%;"
-          class="input"
+          style="height: 50px"
+          class="input mobile"
           type="password"
           name="password2"
           value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
         />
       </div>
-
-      <!-- Login button -->
-      <button type="submit" class="button primary">
-        Login
+      <button type="submit" class="button primary" style="width: 300px">
+        Register
       </button>
-
     </form>
 
-    <!-- Below Login -->
-    <p class="center-header">
-      Already have an account? <a href="/register">Sign in</a>
+    <p style="padding-top: 3rem" class="center-header">
+      Already have an account? <a href="/login">Sign in</a>
     </p>
-
   </div>
+
+  <div class="bottom" style="height: 50px"></div>
 </div>
 
 <div
@@ -96,6 +109,13 @@
   <img class="login-bubble1" src="assets/blob-promo-index-hero.svg" />
   <img class="login-bubble2" src="assets/blob-promo-index-hero.svg" />
 
+  <h1 style="text-align: center; color: #000000; margin-bottom: 0rem">
+    Sign Up
+  </h1>
+  <p style="margin-bottom: 4rem; color: #4e4b66">Create your account</p>
+  <img class="login-bubble1" src="assets/blob-promo-index-hero.svg">
+  <img class="login-bubble2" src="assets/blob-promo-index-hero.svg">
+
   <div class="login-logo-section">
     <img
       class="login-logo"
@@ -104,8 +124,9 @@
     />
   </div>
 
-  <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
-  <p style="margin-bottom: 3rem">Your whole family in one place</p>
+
+  <h1 style="text-align: center; color: #000000; margin-bottom: 0rem;">Sign Up</h1>
+  <p style="margin-bottom: 4rem; color: #4e4b66;"> Create your account</p>
 
   <%- include ('../partials/messages') %>
 
@@ -164,9 +185,8 @@
       Register
     </button>
   </form>
-  <p class="center-header">
-    <a href="/password-reset">Forgot password?</a> |
-    <a href="/register">Sign Up for Afiye</a>
+
+  <p style="padding-top: 3rem" class="center-header">
+    Already have an account? <a href="/login">Sign in</a>
   </p>
 </div>
-<!-- </main> -->

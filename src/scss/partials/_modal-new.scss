@@ -55,9 +55,10 @@
     transform: translate(-50%, -50%);
     width: 30em;
     text-align: left;
-    max-height: 60vh;
+    max-height: 80vh;
     display: flex;
     flex-direction: column;
+    z-index: 2000;
 
   // -------------- CLOSE
 

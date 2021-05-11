@@ -35,6 +35,17 @@ main.pageType-addPost {
   // margin: 0 auto;
 }
 
+div.end {
+  margin: 0 auto;
+  width: 500px;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+div.end img {
+  width:10%;
+}
+
 div.imgname div:last-child {
   margin-top: 19px;
   margin-left: 5px;
@@ -471,6 +482,7 @@ div.img {
 
   .create-new-post {
     width: 700px !important;
+    padding-top: 6rem;
   }
 
   .imgname {

@@ -4,9 +4,12 @@
 
 .left {
   grid-area: img;
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
   // background-color: blueviolet;
   // height: 100%;
-  margin: 0 auto;
+  // margin: 0 auto;
   // width: 100%;
   // text-align: center;
   // justify-content: center;
@@ -19,11 +22,14 @@
 
 .right {
   grid-area: form;
-  margin: 2rem auto;
   border: 1px solid #0000002b;
-  padding: 3rem;
+  padding: 2.5rem;
   border-radius: 18px;
   background-color: white;
+  text-align: center;
+  margin-right: 3rem;
+  height: 46rem;
+  width: 450px;
 }
 
 .new {
@@ -83,6 +89,20 @@ div.login-mobile {
 }
 
 @media only screen and (min-width: 1024px) {
+
+  .login-bubble {
+    width: 67%;
+    left: -134px;
+    opacity: 20%;
+    top: 8%;
+  }
+
+  .afiye-img {
+    z-index: -5;
+    max-width: 50rem;
+    margin: 0 auto;
+  }
+
   .order {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -96,12 +116,11 @@ div.login-mobile {
 
   #desktop-register {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
     grid-template-areas: "img form";
     height: 100%;
-    padding: 8rem 2rem;
-    // background-image: url(../assets/imgs/blob.png);
+    padding-top: 7rem;
   }
 
   .login-bubble {
@@ -109,10 +128,9 @@ div.login-mobile {
     z-index: -10;
   }
 
-  div.left img {
-    width: 675px;
-    padding: 0.75em;
-  }
+  // div.left img {
+  //   width: 675px;
+  // }
 
   .mobile-register {
     display: none;
@@ -139,4 +157,31 @@ div.login-mobile {
   div.login-mobile {
     padding-top: 5rem !important;
   }
+}
+
+@media only screen and (min-width: 1150px) {
+  #desktop-register {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    grid-template-areas: "img form";
+    height: 100%;
+    padding-top: 7rem;
+  }
+
+  // div.left img {
+  //   width: 70rem;
+  // }
+
+  div.left {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  div.right {
+    margin-right: 3rem;
+  }
+
+
 }
