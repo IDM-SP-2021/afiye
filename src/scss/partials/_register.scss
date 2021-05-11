@@ -89,12 +89,13 @@ div.login-mobile {
 }
 
 @media only screen and (min-width: 1024px) {
-
   .login-bubble {
     width: 67%;
     left: -134px;
     opacity: 20%;
     top: 8%;
+    position: fixed;
+    z-index: -10;
   }
 
   .afiye-img {
@@ -119,13 +120,7 @@ div.login-mobile {
     grid-template-columns: 2fr 1fr;
     align-items: center;
     grid-template-areas: "img form";
-    height: 100%;
-    padding-top: 7rem;
-  }
-
-  .login-bubble {
-    position: fixed;
-    z-index: -10;
+    height: calc(100% - 4.25em);
   }
 
   // div.left img {
@@ -160,15 +155,6 @@ div.login-mobile {
 }
 
 @media only screen and (min-width: 1150px) {
-  #desktop-register {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    align-items: center;
-    grid-template-areas: "img form";
-    height: 100%;
-    padding-top: 7rem;
-  }
-
   // div.left img {
   //   width: 70rem;
   // }
@@ -182,6 +168,4 @@ div.login-mobile {
   div.right {
     margin-right: 3rem;
   }
-
-
 }

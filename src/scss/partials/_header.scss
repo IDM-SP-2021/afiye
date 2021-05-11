@@ -15,7 +15,6 @@ header {
     align-items: center;
     height: $header-height;
     overflow: hidden;
-    
 
     .nav-link-home {
       display: flex;
@@ -167,8 +166,6 @@ header {
   $header-height: 4.25em;
 
   header {
-    position: fixed;
-
     .header-nav {
       display: grid;
       height: $header-height;

@@ -2,31 +2,32 @@
 
 <!-- <main style="    width: 360px; margin: 4rem auto; padding-top: 4rem; text-align: center; border-radius: 15px; background-color: white;"> -->
 
-<div id="desktop-register" style="padding-top: 5rem;">
-
+<div id="desktop-register">
   <div class="left">
     <!-- background -->
-    <img class="login-bubble" src="../assets/blob-promo-index-kf.svg">
+    <img class="login-bubble" src="../assets/blob-promo-index-kf.svg" />
     <!-- image -->
-    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg"/>
+    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg" />
   </div>
 
-  <div class="right" style="height: 56rem;">
-
+  <div class="right" style="height: 56rem">
     <div class="login-logo-section">
-      <img class="login-logo" src="assets\imgs\afiye-icon.png" style="width: 80px"/>
+      <img
+        class="login-logo"
+        src="assets\imgs\afiye-icon.png"
+        style="width: 80px"
+      />
       <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
       <p style="margin-bottom: 3rem">Your whole family in one place</p>
     </div>
 
     <%- include ('../partials/messages') %>
 
-    <form action="/login" method="post" style="width: 100%;">
-
+    <form action="/login" method="post" style="width: 100%">
       <div class="input-container">
         <label for="name">First Name</label>
         <input
-          style="width: 100%;"
+          style="width: 100%"
           class="input"
           type="name"
           name="firstName"
@@ -36,7 +37,7 @@
       <div class="input-container">
         <label for="name">Last Name</label>
         <input
-         style="width: 100%;"
+          style="width: 100%"
           class="input"
           type="name"
           name="lastName"
@@ -46,7 +47,7 @@
       <div class="input-container">
         <label for="email">Email</label>
         <input
-          style="width: 100%;"
+          style="width: 100%"
           class="input"
           type="email"
           name="email"
@@ -56,7 +57,7 @@
       <div class="input-container">
         <label for="password">Password</label>
         <input
-          style="width: 100%;"
+          style="width: 100%"
           class="input"
           type="password"
           name="password"
@@ -66,7 +67,7 @@
       <div class="input-container">
         <label for="password2">Confirm Password</label>
         <input
-          style="width: 100%;"
+          style="width: 100%"
           class="input"
           type="password"
           name="password2"
@@ -75,17 +76,13 @@
       </div>
 
       <!-- Login button -->
-      <button type="submit" class="button primary">
-        Login
-      </button>
-
+      <button type="submit" class="button primary">Login</button>
     </form>
 
     <!-- Below Login -->
     <p class="center-header">
       Already have an account? <a href="/register">Sign in</a>
     </p>
-
   </div>
 </div>
 
