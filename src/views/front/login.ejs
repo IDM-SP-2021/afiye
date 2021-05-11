@@ -3,61 +3,51 @@
 <!-- <main style="    width: 360px; margin: 4rem auto; padding-top: 4rem; text-align: center; border-radius: 15px; background-color: white;"> -->
 
 <div id="desktop-register">
-
   <div class="left">
-    <!-- background -->
-    <img class="login-bubble" src="../assets/blob-promo-index-kf.svg">
     <!-- image -->
-    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg"/>
+    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg" />
   </div>
 
   <div class="right">
-
     <div class="login-logo-section">
-      <img class="login-logo" src="assets\imgs\afiye-icon.png" style="width: 80px"/>
+      <img
+        class="login-logo"
+        src="assets\imgs\afiye-icon.png"
+        style="width: 80px"
+      />
       <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
       <p style="margin-bottom: 3rem">Your whole family in one place</p>
     </div>
 
     <%- include ('../partials/messages') %>
 
-    <form action="/login" method="post" style="width: 100%;">
-
+    <form action="/login" method="post" style="width: 100%">
       <!-- Email input -->
       <div class="input-container">
         <label for="email">Email</label>
-        <input
-          class="input"
-          type="email"
-          name="email"
-          style="width: 100%;"
-        />
+        <input class="input" type="email" name="email" style="width: 100%" />
       </div>
 
       <!-- Password input -->
-      <div class="input-container" style="margin-bottom: 40px;">
+      <div class="input-container" style="margin-bottom: 40px">
         <label for="passord">Password</label>
         <input
           class="input"
           type="password"
           name="password"
-          style="width: 100%;"
+          style="width: 100%"
         />
         <a href="/password-reset">Forgot password?</a>
       </div>
 
       <!-- Login button -->
-      <button type="submit" class="button primary">
-        Login
-      </button>
-
+      <button type="submit" class="button primary">Login</button>
     </form>
 
     <!-- Below Login -->
     <p class="center-header">
       <a href="/register">Create an account</a>
     </p>
-
   </div>
 </div>
 
@@ -81,7 +71,7 @@
 
   <%- include ('../partials/messages') %>
 
-  <form action="/login" method="post" style="width: 300px;">
+  <form action="/login" method="post" style="width: 300px">
     <div class="input-container">
       <label for="email">Email</label>
       <input class="input mobile" type="email" name="email" />

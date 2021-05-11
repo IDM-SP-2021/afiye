@@ -121,6 +121,9 @@ div.login-mobile {
     align-items: center;
     grid-template-areas: "img form";
     height: calc(100% - 4.25em);
+    background-image: url("../assets/imgs/blob.png");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
   }
 
   // div.left img {
