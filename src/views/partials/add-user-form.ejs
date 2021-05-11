@@ -1,9 +1,14 @@
 <% let colorOptions = [ 'pink', 'magenta', 'red', 'orange', 'yellow', 'green',
 'teal', 'light-blue', 'dark-blue', 'purple', 'brown', 'gray', 'black' ] %>
-<div class="container">
+<div class="profile-form">
   <section class="image" id="split-form" style="margin: 3rem auto;">
       <img class="login-bubble1" src="../assets/imgs/blob.png">
       <img class="login-bubble2" src="../assets/imgs/blob.png">
+      <% if (title === 'Afiye - Making a Tree') { %>
+        <a href="/account/welcome" class="button primary icon back">
+          <i class="icon icon-arrow"></i>
+        </a>
+      <% } %>
     <% if (title === 'Afiye - Making a Tree') { %><h2 id="h2-ob1">Create a Profile</h2><% } else if (title === 'Afiye - Add Family Member') { %><h2 id="h2-ob1">Add a Family Member</h2><% } %>
     <form
       id="profile-setup"
@@ -141,7 +146,8 @@
                 class="checkbox"
                 id="fakeData"
             />
-            <label for="fakeData">Generate fake family data (optional)</label>
+            <label for="fakeData">Create placeholder family members and memories (optional)</label>
+            <button id="open-info" class="button primary icon help open-modal"></button>
           </div>
           <% } %>
 
@@ -154,10 +160,18 @@
               id="profile"
               accept="image/jpeg image/png"
             />
-            <!-- <button id="open-profile"><img src="" alt="" srcset="" /></button> -->
             <label for="profile">Upload</label>
           </div>
           <p>Please upload a picture for your profile</p>
+        </div>
+      </div>
+
+      <div id="data-info" class="modal hidden">
+        <div class="modal-inner">
+          <h2>About Placeholder Data</h2>
+          <button class="button primary icon cross"></button>
+          <p>By opting to create placeholder family members and memories you will create 12 family members along with yourself, as well as 5 memories on your family's feed. This data is intended to get you familiar with Afiye and make it so that you have items to interact with without having to go through the process of manually creating the items yourself.</p>
+          <p>This data can be removed at any point from your <strong>Settings</strong> page and naviagting to the <strong>Placeholder Data</strong> section.</p>
         </div>
       </div>
       <input id="userform-bottom" class="button primary" type="submit" value="Save">

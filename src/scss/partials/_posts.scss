@@ -96,15 +96,14 @@ div.imgname div:last-child span {
   }
 }
 
-#no-posts>h2{
+#no-posts > h2 {
   padding-right: 10px;
   padding-left: 10px;
 }
-#no-posts>a{
+#no-posts > a {
   padding-right: 10px;
   padding-left: 10px;
 }
-
 
 .user-info {
   display: flex;
@@ -301,6 +300,10 @@ div.img {
   margin: 0 auto;
   overflow-x: scroll;
   padding-bottom: 1rem;
+
+  p:only-child {
+    margin: 0 auto;
+  }
 
   .post-option {
     width: 10rem;
