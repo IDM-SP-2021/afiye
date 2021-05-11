@@ -111,17 +111,17 @@ router.post('/welcome', ensureAuthenticated, (req, res) => {
 
 // * user onboarding - make a tree
 router.get('/welcome-make', ensureAuthenticated, (req, res) => {
-  if (req.user.node === true) {
-    console.log('User already has an active node');
-    res.redirect('/account/feed');
-  } else {
-    let locals = {
-      title: 'Afiye - Making a Tree',
-      user: req.user
-    };
+  // if (req.user.node === true) {
+  //   console.log('User already has an active node');
+  //   res.redirect('/account/feed');
+  // } else {
+  // }
+  let locals = {
+    title: 'Afiye - Making a Tree',
+    user: req.user
+  };
 
-    res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
-  }
+  res.render(path.resolve(__dirname, '../views/user/onboarding/onboarding-make'), locals);
 });
 
 router.post('/welcome-make', ensureAuthenticated, fileUpload.single('profile'), (req, res) => {

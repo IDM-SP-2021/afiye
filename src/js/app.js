@@ -135,6 +135,10 @@ $('#open-profile').on('click', (event) => { // open profile upload modal
   event.preventDefault();
   $('#profile-upload').removeClass('hidden');
 });
+$('#open-info').on('click', (event) => {
+  event.preventDefault();
+  $('#data-info').removeClass('hidden');
+});
 $('#profile').on('change', () => { // get profile image upload
   readURL($('#profile'), $('#open-profile'));
   $('#profile-upload').addClass('hidden');
