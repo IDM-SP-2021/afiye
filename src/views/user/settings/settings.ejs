@@ -27,6 +27,14 @@
         <i class="icon icon-arrow"></i>
       </div>
 
+      <div id="menu-placeholder" class="item <% if (section !== undefined && section === 'placeholder') { %>active<% } %>">
+        <div class="sub-item">
+          <i class="icon icon-user"></i>
+          <span>Placeholder Data</span>
+        </div>
+        <i class="icon icon-arrow"></i>
+      </div>
+
       <a href="https://forms.gle/prEqHtih4CTgEbwa9" id="menu-report" class="item" target="_blank">
         <div class="sub-item">
           <i class="icon icon-alert"></i>
@@ -134,6 +142,41 @@
               <label for="confirmLeave">This action cannot be undone, but an active family member may invite you later.</label>
             </div>
             <input class="button primary" type="submit" value="Deactivate" disabled>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section id="section-placeholder">
+      <button class="button primary icon back">
+        <i class="icon icon-arrow"></i>
+      </button>
+
+      <h2>Placholder Data</h2>
+
+      <%- include ('../../partials/messages') %>
+
+      <div style="text-align: center; margin: 20px auto;">
+        <p class="mobile-text-small">
+          If you opted to create placeholder family members and memories during your profile setup, you can remove that data here.
+        </p>
+      </div>
+      <form id="placeholder-form" action="/account/settings-account-placeholder" method="post">
+        <button id="open-data-confirmation" class="button primary open-modal">Remove Data</button>
+        <div id="data-confirmation" class="modal hidden">
+          <div class="modal-inner">
+            <h2>Are you sure?</h2>
+            <div class="check-container">
+              <input
+                type="checkbox"
+                name="confirmDelete"
+                class="checkbox"
+                id="confirmDelete"
+                required
+              />
+              <label for="confirmDelete">This action cannot be undone and will affect everyone in your family tree.</label>
+            </div>
+            <input class="button primary" type="submit" value="Remove Data" disabled>
           </div>
         </div>
       </form>

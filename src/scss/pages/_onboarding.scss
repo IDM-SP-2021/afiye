@@ -1,3 +1,33 @@
+.profile-form {
+  text-align: center;
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+
+  a.button.back {
+    position: absolute;
+    left: 0;
+    top: 2rem;
+
+    @include tablet {
+      top: 1.25rem;
+    }
+  }
+}
+
+.container {
+  padding-top: 1.75em;
+
+  &.join-tree {
+    position: relative;
+
+    a.button.back {
+      position: absolute;
+      left: 0;
+    }
+  }
+}
+
 #profile-setup {
   #full-name {
     padding: 0 1.5em 0.5em;
@@ -21,6 +51,10 @@
     justify-content: center;
     width: 22.625em;
     margin: 1em auto;
+
+    legend {
+      margin: 0 auto;
+    }
 
     .check-container {
       position: relative;
@@ -303,6 +337,12 @@
   }
 }
 
-.container{
-  padding-top: 1.75em;
+#data-info {
+  .modal-inner {
+    max-width: 430px;
+
+    p {
+      text-align: left;
+    }
+  }
 }
