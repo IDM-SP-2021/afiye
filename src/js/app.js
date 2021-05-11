@@ -211,29 +211,42 @@ $('#post-media-upload').on('change', () => {
 const postSelect = (data) => {
   const container = $('#user-posts');
   let tagged = [];
-  if (data.album.posts !== undefined) {
-    console.log('has posts');
+
+  if (!data.album) {
+    console.log('No album data');
+  } else if (!data.album.posts) {
+    console.log('Album has no posts');
+  } else {
+    console.log('Album has posts');
     tagged = data.album.posts;
   }
-  data.postData.forEach(post => {
-    console.log(post);
-    let checked = (tagged.includes(post.post.pid)) ? true : false;
-    console.log(post.post.pid, checked);
-    container.append(`<div id="p-${post.post.pid}" class="post-option"></div>`);
-    let item = $(`#p-${post.post.pid}`);
-    if (checked) {
-      item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" checked />`);
-    } else {
-      item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" />`);
-    }
-    item.append(`
-      <label for="option-${post.post.pid}">
-        <img class="post-img" src="${post.post.media[0]}" alt="${post.post.title}" />
-        <h4 class="post-title">${post.post.title}</h4>
-        <p>Created by "${post.ownerData.firstName}"</p>
-      </label>
-    `);
-  });
+
+  if (data.postData.length === 0) {
+    console.log('User has no posts');
+    container.append('<p class="center-header">Please <a href="/account/add-post">create a memory</a> before creating an album</p>');
+    $('#add-album input[type="submit"]').attr('disabled', 'disabled');
+
+  } else {
+    data.postData.forEach(post => {
+      console.log(post);
+      let checked = (tagged.includes(post.post.pid)) ? true : false;
+      console.log(post.post.pid, checked);
+      container.append(`<div id="p-${post.post.pid}" class="post-option"></div>`);
+      let item = $(`#p-${post.post.pid}`);
+      if (checked) {
+        item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" checked />`);
+      } else {
+        item.append(`<input type="checkbox" name="posts" id="option-${post.post.pid}" class="post-check" value="${post.post.pid}" />`);
+      }
+      item.append(`
+        <label for="option-${post.post.pid}">
+          <img class="post-img" src="${post.post.media[0]}" alt="${post.post.title}" />
+          <h4 class="post-title">${post.post.title}</h4>
+          <p>Created by "${post.ownerData.firstName}"</p>
+        </label>
+      `);
+    });
+  }
 };
 // * ------------------------------------------------------------------------------------
 
