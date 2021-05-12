@@ -23,10 +23,6 @@
     </div>
   </div>
 
-  <div class="post-title">
-    <h3><%- item.item.title %></h3>
-  </div>
-
   <% if (item.itemType === 'album') { %>
   <a href="/account/album-<%= item.item.family %>-<%= item.item.alid %>">
     <div class="post-media">
@@ -59,5 +55,9 @@
     </div>
     <% } %>
   </a>
+
+  <div class="post-title">
+    <h3><%- item.item.title %></h3>
+  </div>
   <% } %>
 </div>
