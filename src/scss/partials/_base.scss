@@ -81,11 +81,12 @@ textarea {
 }
 
 .input-container textarea {
-  width: 345px;
+  width: 430px;
+  resize: vertical;
 }
 
 .input-container input {
-  width: 345px;
+  width: 430px;
 }
 
 @include tablet {
