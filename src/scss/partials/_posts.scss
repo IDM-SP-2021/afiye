@@ -43,7 +43,7 @@ div.end {
 }
 
 div.end img {
-  width:10%;
+  width: 10%;
 }
 
 div.imgname div:last-child {
@@ -265,7 +265,7 @@ div.img {
     display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, 6.5rem);
+    grid-template-rows: repeat(2, 10rem);
     grid-template-areas:
       "one two"
       "one three";
