@@ -48,8 +48,8 @@
     display: inline-block;
   }
 
-  #team-description>p {
-    font: 1em "Rubik",Arial,sans-serif;
+  #team-description > p {
+    font: 1em "Rubik", Arial, sans-serif;
   }
 
   //Member Container
@@ -139,6 +139,11 @@
         p:not(.role) {
           height: 54px;
           text-align: center;
+        }
+
+        .button {
+          margin: 0 auto;
+          display: block;
         }
       }
     }
