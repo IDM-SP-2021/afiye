@@ -281,11 +281,23 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
+        let current = _.find(result, {'uid': req.user.uid});
+        result.forEach(member => {
+          member.relation =
+              (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+            : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+            : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+            : (member.relation === 'childinlaw') ? 'Child-in-Law'
+            : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+            : (member.relation === 'greatnibling') ? 'Great Nibling'
+            : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+        });
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
                   timeStamp = timeDiff(item.date),
                   itemType = 'memory';
+                  console.log(ownerData);
             postData.push({ownerData, timeStamp, itemType, item});
           });
           Album.find({family: req.user.fid}).exec((err, albums) => {
@@ -293,10 +305,11 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               const ownerData = _.find(result, {'uid': item.owner}),
                     timeStamp = timeDiff(item.date),
                     itemType = 'album';
+                    console.log(ownerData);
               postData.push({ownerData, timeStamp, itemType, item});
             });
             let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
-            let current = _.find(result, {'uid': req.user.uid});
+            console.log(sorted);
             let locals = {
               title: 'Afiye - Memory Feed',
               user: req.user,
