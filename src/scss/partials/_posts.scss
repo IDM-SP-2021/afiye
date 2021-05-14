@@ -28,7 +28,6 @@ main.pageType-addPost {
   border-radius: 50%;
 }
 
-
 // Image + Username and title for creating posts
 .imgname {
   display: flex;
@@ -39,7 +38,7 @@ main.pageType-addPost {
 
 div.end {
   margin: 0 auto;
-  width: 500px;
+  width: 380px;
   text-align: center;
   padding: 3rem 0;
 }
@@ -69,19 +68,42 @@ div.end img {
   display: flex;
   position: relative;
 
-  #add-options {
+  #add-options,
+  #add-options:focus {
+    display: inline-block;
+    outline: 0;
     position: absolute;
     right: 0;
-    padding-left: 2rem;
     margin: 0 auto;
     bottom: -5.5rem;
     width: 14rem;
     height: 80px;
     z-index: 20;
+    text-align: justify;
     background: white;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
   }
+
+  .add-option {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    padding-left: 2rem;
+    padding-top: 10px;
+    color: #922aff !important;
+    border-radius: 15px;
+
+    &:hover,
+    &:focus {
+      color: white !important;
+      background-color: #922aff;
+    }
+  }
+}
+#add-options:hover {
+  background-color: $purple-default;
+  color: white;
 }
 
 .buttons {
@@ -123,11 +145,11 @@ div.end img {
   // box-shadow: 0px 0px 8px 10px #8888882b;
 }
 
-#plus-new {
-  display: inline-block;
-  margin-top: 0.75em;
-  color: #922aff !important;
-}
+// #plus-new {
+//   display: inline-block;
+//   margin-top: 0.75em;
+//   color: #922aff !important;
+// }
 
 #cnm-bck {
   background-image: url(../../../assets/imgs/cnm-mobile.png);
@@ -135,7 +157,6 @@ div.end img {
   background-position: center;
   height: 93%;
 }
-
 
 #no-posts > h2 {
   padding-right: 10px;
@@ -388,7 +409,7 @@ div.img {
     }
 
     .newalb h2 {
-      font-weight: 500 !important; 
+      font-weight: 500 !important;
       color: black !important;
       text-align: center !important;
       font-size: 25px !important;
@@ -521,7 +542,7 @@ div.img {
 
   #add-post {
     display: inline-block;
-    margin-top: 0.75em;
+    // margin-top: 0.75em;
     color: #922aff !important;
     border: 1px solid #00000029;
     padding: 3rem;
@@ -533,11 +554,9 @@ div.img {
     box-shadow: 0px 0px 8px 10px #8888882b;
   }
 
-
-
   .create-new-post {
     width: 700px !important;
-    padding-top: 2rem;
+    padding-top: 1rem;
   }
 
   .imgname {
@@ -589,7 +608,7 @@ div.img {
 
   #add-post {
     display: inline-block;
-    margin-top: 0.75em;
+    // margin-top: 0.75em;
     color: #922aff !important;
     border: 1px solid #00000029;
     padding: 3rem;
@@ -627,12 +646,3 @@ div.img {
     background-position: center;
   }
 }
-
-// @media only screen and (min-width: 1200px) {
-//   #cnm-bck {
-//     height: 93%;
-//     background-image: url(../../../assets/imgs/cnm-1200-1.png);
-//     background-repeat: no-repeat;
-//     background-position: center;
-//   }
-// }

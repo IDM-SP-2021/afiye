@@ -5,15 +5,15 @@
     <div class="inner">
       <%- include('../../partials/avatar', {person: data.profile}) %>
       <div class="profile-info">
-        <h2>
+        <h2 style="margin-left: 20px;">
           <% if (data.profile.prefName !== '') { %> <%- data.profile.prefName %>
           <%- data.profile.lastName %><% } else { %> <%- data.profile.firstName
           %> <%- data.profile.lastName %><% } %>
         </h2>
-        <a class="button primary" href="/account/tree">View in Tree</a>
+        <a class="button primary" href="/account/tree" style="margin-left:5px;">View in Tree</a>
       </div>
       <div class="personal-info">
-        <div class="birthdate">
+        <div class="birthdate" style="margin-left:20px;">
           <p>Birth Date</p>
           <span
             ><i class="icon icon-cake"></i> <%- data.profile.birthdate %></span
