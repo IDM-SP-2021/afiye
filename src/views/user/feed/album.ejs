@@ -4,7 +4,7 @@
   <div class="afiye-posts">
     <div class="user-info">
       <!-- profile img -->
-      <div class="imgname">
+      <a href="/account/profile-<%- data.albumData.ownerData.uid %>" class="imgname">
         <%- include('../../partials/avatar', {person: data.albumData.ownerData})
         %>
 
@@ -18,7 +18,7 @@
           </h2>
           <span><%- data.albumData.ownerData.relation %></span>
         </div>
-      </div>
+      </a>
 
       <!-- timestamp -->
       <div class="timestamp">

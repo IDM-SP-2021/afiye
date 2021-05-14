@@ -32,6 +32,7 @@ main.pageType-addPost {
 .imgname {
   display: flex;
   width: 250px;
+  align-items: center;
   // margin: 0 auto;
 }
 
@@ -43,21 +44,21 @@ div.end {
 }
 
 div.end img {
-  width:10%;
+  width: 10%;
 }
 
-div.imgname div:last-child {
-  margin-top: 19px;
+.imgname div:last-child {
   margin-left: 5px;
 }
 
-div.imgname div:last-child h2 {
+.imgname div:last-child h2 {
   padding: 0;
   margin: 0;
   font-weight: 400;
+  color: $body;
 }
 
-div.imgname div:last-child span {
+.imgname div:last-child span {
   font-weight: 400;
   font-size: 12px;
   color: #6e7191;
@@ -265,7 +266,7 @@ div.img {
     display: grid;
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, 6.5rem);
+    grid-template-rows: repeat(2, 10rem);
     grid-template-areas:
       "one two"
       "one three";

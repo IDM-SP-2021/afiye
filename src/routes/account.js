@@ -68,18 +68,30 @@ function timeDiff(start) {
       dDay = dMillis/day,
       dMn = dMillis/mn,
       dYr = dMillis/yr;
-  if (dYr > 1) {
-    return Math.floor(dYr) + ' year';
+  if (dYr === 1) {
+    return Math.floor(dYr) + ' year ago';
+  } else if (dYr > 1) {
+    return Math.floor(dYr) + ' years ago';
+  } else if (dMn === 1) {
+    return Math.floor(dMn) + ' month ago';
   } else if (dMn > 1) {
-    return Math.floor(dMn) + ' month';
+    return Math.floor(dMn) + ' months ago';
+  } else if (dDay === 1) {
+    return Math.floor(dDay) + ' day ago';
   } else if (dDay > 1) {
-    return Math.floor(dDay) + ' day';
+    return Math.floor(dDay) + ' days ago';
+  } else if (dHr === 1) {
+    return Math.floor(dHr) + ' hour ago';
   } else if (dHr > 1) {
-    return Math.floor(dHr) + ' hour';
+    return Math.floor(dHr) + ' hours ago';
+  } else if (dMin === 1) {
+    return Math.floor(dMin) + ' minute ago';
   } else if (dMin > 1) {
-    return Math.floor(dMin) + ' minute';
+    return Math.floor(dMin) + ' minutes ago';
+  } else if (dSec === 1) {
+    return Math.floor(dDay) + ' second ago';
   } else if (dSec > 1) {
-    return Math.floor(dSec) + ' second';
+    return Math.floor(dSec) + ' seconds ago';
   } else {
     return 'Just Now';
   }
@@ -281,11 +293,23 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
     let postData = [];
     api.getFamily(req.user.uid, req.user.fid)
       .then((result) => {
+        let current = _.find(result, {'uid': req.user.uid});
+        result.forEach(member => {
+          member.relation =
+              (member.relation === 'greatgrandchild') ? 'Great Grandchild'
+            : (member.relation === 'greatgrandparent') ? 'Great Grandparent'
+            : (member.relation === 'siblinginlaw') ? 'Sibling-in-Law'
+            : (member.relation === 'childinlaw') ? 'Child-in-Law'
+            : (member.relation === 'parentinlaw') ? 'Parent-in-Law'
+            : (member.relation === 'greatnibling') ? 'Great Nibling'
+            : member.relation.charAt(0).toUpperCase() + member.relation.slice(1);
+        });
         Post.find({family: req.user.fid}).exec((err, posts) => {
           posts.forEach(item => {
             const ownerData = _.find(result, {'uid': item.owner}),
                   timeStamp = timeDiff(item.date),
                   itemType = 'memory';
+                  console.log(ownerData);
             postData.push({ownerData, timeStamp, itemType, item});
           });
           Album.find({family: req.user.fid}).exec((err, albums) => {
@@ -293,10 +317,11 @@ router.get('/feed', ensureAuthenticated, (req, res) => {
               const ownerData = _.find(result, {'uid': item.owner}),
                     timeStamp = timeDiff(item.date),
                     itemType = 'album';
+                    console.log(ownerData);
               postData.push({ownerData, timeStamp, itemType, item});
             });
             let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse();
-            let current = _.find(result, {'uid': req.user.uid});
+            console.log(sorted);
             let locals = {
               title: 'Afiye - Memory Feed',
               user: req.user,
@@ -1198,8 +1223,15 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
 
         let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse(); // sort post data by most recently modified
 
+        let name = '';
+        if (profile.prefName !== '') {
+          name = profile.prefName;
+        } else {
+          name = profile.firstName;
+        }
+
         let locals = {
-          title: `Afiye - ${profile.firstName}'s Profile`,
+          title: `Afiye - ${name}'s Profile`,
           user: req.user,
           data: {
             profile,

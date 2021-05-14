@@ -2,7 +2,7 @@
   <!-- header for user's name and timestamp -->
   <div class="user-info">
     <!-- profile img -->
-    <div class="imgname">
+    <a href="/account/profile-<%- item.ownerData.uid %>" class="imgname">
       <%- include('./avatar', {person: item.ownerData}) %>
 
       <!-- username -->
@@ -15,7 +15,7 @@
         </h2>
         <span><%- item.ownerData.relation %></span>
       </div>
-    </div>
+    </a>
 
     <!-- timestamp -->
     <div class="timestamp">
