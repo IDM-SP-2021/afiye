@@ -28,6 +28,7 @@ main.pageType-addPost {
   border-radius: 50%;
 }
 
+
 // Image + Username and title for creating posts
 .imgname {
   display: flex;
@@ -107,6 +108,34 @@ div.end img {
     padding: 0 1rem;
   }
 }
+
+#add-post {
+  // display: inline-block;
+  // margin-top: 0.75em;
+  // color: #922aff !important;
+  // border: 1px solid #00000029;
+  // padding: 3rem;
+  // border-radius: 1rem;
+  // margin-top: 4rem;
+  background: white;
+  width: 300px;
+  height: 200px;
+  // box-shadow: 0px 0px 8px 10px #8888882b;
+}
+
+#plus-new {
+  display: inline-block;
+  margin-top: 0.75em;
+  color: #922aff !important;
+}
+
+#cnm-bck {
+  background-image: url(../../../assets/imgs/cnm-mobile.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 93%;
+}
+
 
 #no-posts > h2 {
   padding-right: 10px;
@@ -358,6 +387,12 @@ div.img {
       padding-top: 2rem;
     }
 
+    .newalb h2 {
+      font-weight: 500 !important; 
+      color: black !important;
+      text-align: center !important;
+      font-size: 25px !important;
+    }
     .post-title:first-child {
       padding-left: 2rem;
     }
@@ -484,9 +519,25 @@ div.img {
 
   //    }
 
+  #add-post {
+    display: inline-block;
+    margin-top: 0.75em;
+    color: #922aff !important;
+    border: 1px solid #00000029;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-top: 4rem;
+    background: white;
+    height: 700px;
+    width: 500px;
+    box-shadow: 0px 0px 8px 10px #8888882b;
+  }
+
+
+
   .create-new-post {
     width: 700px !important;
-    padding-top: 6rem;
+    padding-top: 2rem;
   }
 
   .imgname {
@@ -518,6 +569,13 @@ div.img {
     row-gap: 10px;
     width: 100%;
   }
+
+  // #cnm-bck {
+  //   background-image: url(../../../assets/imgs/cnm-1200-2.png);
+  //   background-repeat: no-repeat;
+  //   background-position: center;
+  //   height: 93%;
+  // }
 }
 
 @include desktop {
@@ -527,6 +585,20 @@ div.img {
 
   #post-leveler {
     margin-top: 12px;
+  }
+
+  #add-post {
+    display: inline-block;
+    margin-top: 0.75em;
+    color: #922aff !important;
+    border: 1px solid #00000029;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-top: 4rem;
+    background: white;
+    height: 700px;
+    width: 500px;
+    box-shadow: 0px 0px 8px 10px #8888882b;
   }
 }
 
@@ -547,10 +619,20 @@ div.img {
     // grid-area: avatar;
     display: flex !important;
   }
+
+  #cnm-bck {
+    background-image: url(../../../assets/imgs/cnm-1200-2.png);
+    height: 93%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
-#add-post {
-  display: inline-block;
-  margin-top: 0.75em;
-  color: #922aff !important;
-}
+// @media only screen and (min-width: 1200px) {
+//   #cnm-bck {
+//     height: 93%;
+//     background-image: url(../../../assets/imgs/cnm-1200-1.png);
+//     background-repeat: no-repeat;
+//     background-position: center;
+//   }
+// }

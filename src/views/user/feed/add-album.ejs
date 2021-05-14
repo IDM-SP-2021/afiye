@@ -1,16 +1,16 @@
 <%- include('../../partials/user-header') %>
 
-<main class="pageType-addAlbum">
+<main class="pageType-addAlbum" id="cnm-bck" style="text-align: center;">
   <form method="post" action="/account/add-album" id="add-album">
 
     <div class="newalb">
-      <h2>Create a New Album</h2>
+      <h2 style="font-weight: 400; font-size: 22px;">Create a New Album</h2>
       <button id="open-tag" class="button primary icon tag open-modal" style="margin: 0;"></button>
     </div>
 
     <div class="input-container">
       <label for="album-title">Title</label>
-      <input type="text" name="title" id="album-title" required/>
+      <input type="text" name="title" id="album-title" style="width: 100%;" required/>
     </div>
     <div class="input-container">
       <label for="album-description">Description</label>
@@ -19,6 +19,7 @@
         id="album-description"
         cols="30"
         rows="10"
+        style="width: 100%;"
         required
       ></textarea>
     </div>
@@ -32,7 +33,7 @@
         </select>
       </div>
     </div>
-    <input id="add-album-button" class="button primary" type="submit" value="Share" />
+    <input id="add-album-button" class="button primary" type="submit"  value="Share" />
   </form>
 </main>
 <script type="text/javascript">

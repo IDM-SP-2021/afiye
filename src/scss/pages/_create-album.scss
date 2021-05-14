@@ -6,6 +6,20 @@
     margin-top: 4em;
     margin-left: 0em;
   }
+
+  #add-album{
+    // display: inline-block;
+    // margin-top: 0.75em;
+    // color: #922aff !important;
+    // border: 1px solid #00000029;
+    // padding: 3rem;
+    // border-radius: 1rem;
+    // margin-top: 2.5rem;
+    background: white;
+    width: 300px;
+    height: 200px;
+    // box-shadow: 0px 0px 8px 10px #8888882b;
+  }
 }
 
 /* (tablet screens, 377px and up) */
@@ -223,6 +237,20 @@
     letter-spacing: 0px;
     text-align: left;
   }
+
+  #add-album{
+    display: inline-block;
+    margin-top: 0.75em;
+    color: #922aff !important;
+    border: 1px solid #00000029;
+    padding: 3rem;
+    border-radius: 1rem;
+    margin-top: 2.5rem;
+    background: white;
+    width: 500px;
+    height: 780px;
+    box-shadow: 0px 0px 8px 10px #8888882b;
+  }
 }
 
 /* IMPORTANT, PLEASE READ
@@ -330,6 +358,7 @@ DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
   letter-spacing: 0px;
   text-align: left;
   margin-top: 15px;
+  
 }
 
 .album-addition {
@@ -348,6 +377,16 @@ DO NOT DELETE EXCEPT TO BE MOVED INTO THE .ejs or .scss FILES
   top: 48px;
 }
 
-#add-album{
-  padding-bottom: 6em;
-}
+// #add-album{
+//   // display: inline-block;
+//   // margin-top: 0.75em;
+//   // color: #922aff !important;
+//   // border: 1px solid #00000029;
+//   // padding: 3rem;
+//   // border-radius: 1rem;
+//   // margin-top: 2.5rem;
+//   background: white;
+//   width: 300px;
+//   height: 200px;
+//   // box-shadow: 0px 0px 8px 10px #8888882b;
+// }
