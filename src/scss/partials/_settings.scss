@@ -1,9 +1,9 @@
 .pageType-settings {
+  padding: 2rem;
   padding-bottom: 4.5em;
   max-width: 500px;
   margin: 0 auto;
   background: white;
-  padding: 2rem;
   border-radius: 2rem;
   margin-top: 2rem;
   border: 1px solid #00000029;
@@ -100,11 +100,11 @@
       "menu content";
     column-gap: 1rem;
     grid-template-columns: 20rem auto;
+    padding: 2rem;
     padding-bottom: 4.5em;
     max-width: 768px !important;
     border: 1px solid #00000029;
     margin-top: 4rem;
-    padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0px 0px 8px 10px #8888880f;
 
@@ -121,16 +121,13 @@
       margin: 0;
     }
 
-    #settings-items section {
-      position: relative;
-        width: 100%;
-    }
-
     #settings-items {
       grid-area: content;
       text-align: center;
 
       section {
+        position: relative;
+        width: 100%;
         & > h2,
         button.back {
           display: none;
@@ -141,7 +138,6 @@
 }
 
 //here
-
 
 // min width 768px
 
