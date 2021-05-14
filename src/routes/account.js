@@ -68,18 +68,30 @@ function timeDiff(start) {
       dDay = dMillis/day,
       dMn = dMillis/mn,
       dYr = dMillis/yr;
-  if (dYr > 1) {
-    return Math.floor(dYr) + ' year';
+  if (dYr === 1) {
+    return Math.floor(dYr) + ' year ago';
+  } else if (dYr > 1) {
+    return Math.floor(dYr) + ' years ago';
+  } else if (dMn === 1) {
+    return Math.floor(dMn) + ' month ago';
   } else if (dMn > 1) {
-    return Math.floor(dMn) + ' month';
+    return Math.floor(dMn) + ' months ago';
+  } else if (dDay === 1) {
+    return Math.floor(dDay) + ' day ago';
   } else if (dDay > 1) {
-    return Math.floor(dDay) + ' day';
+    return Math.floor(dDay) + ' days ago';
+  } else if (dHr === 1) {
+    return Math.floor(dHr) + ' hour ago';
   } else if (dHr > 1) {
-    return Math.floor(dHr) + ' hour';
+    return Math.floor(dHr) + ' hours ago';
+  } else if (dMin === 1) {
+    return Math.floor(dMin) + ' minute ago';
   } else if (dMin > 1) {
-    return Math.floor(dMin) + ' minute';
+    return Math.floor(dMin) + ' minutes ago';
+  } else if (dSec === 1) {
+    return Math.floor(dDay) + ' second ago';
   } else if (dSec > 1) {
-    return Math.floor(dSec) + ' second';
+    return Math.floor(dSec) + ' seconds ago';
   } else {
     return 'Just Now';
   }
