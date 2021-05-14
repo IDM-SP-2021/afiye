@@ -1,5 +1,7 @@
 <%- include('../../partials/user-header') %>
 <main class="pageType-settings">
+  <img class="login-bubble1" src="../../../assets/blob-promo-index-hero.svg">
+  <img class="login-bubble2" src="../../../assets/blob-promo-index-hero.svg">
   <h1>Settings</h1>
   <div id="settings-menu">
     <div class="menu">
@@ -43,7 +45,7 @@
         <i class="icon icon-arrow"></i>
       </a>
 
-      <a href="/logout" id="menu-logout" class="item">
+      <a href="/logout" id="menu-logout" class="item" style="position: unset;">
         <div class="sub-item">
           <i class="icon icon-cross"></i>
           <span>Sign Out</span>
@@ -71,7 +73,7 @@
       <form id="change-email" action="/account/settings-account-change-email" method="post">
         <div class="input-container">
           <label for="newEmail">New Email</label>
-          <input id="newEmail" class="input" type="email" name="newEmail" placeholder="New Email" required></input>
+          <input id="newEmail" class="input" type="email" name="newEmail" placeholder="New Email" required style="width:100%"></input>
         </div>
         <input type="submit" class="button primary" value="Update"></input>
       </form>
@@ -94,15 +96,15 @@
       <form id="change-pass" action="/account/settings-account-change-password" method="post">
         <div class="input-container">
           <label for="currentPassword">Current Password</label>
-          <input id="currentPassword" class="input" type="password" name="currentPassword" placeholder="Current Password" required></input>
+          <input id="currentPassword" class="input" type="password" name="currentPassword" required style="width:100%"></input>
         </div>
         <div class="input-container">
           <label for="newPassword">New Password</label>
-          <input id="newPassword" class="input" type="password" name="newPassword" placeholder="New Password" required value="<%= typeof newPassword != 'undefined' ? newPassword : '' %>"></input>
+          <input id="newPassword" class="input" type="password" name="newPassword" style="width:100%" required value="<%= typeof newPassword != 'undefined' ? newPassword : '' %>"></input>
         </div>
         <div class="input-container">
           <label for="newPassword2">Confirm New Password</label>
-          <input id="newPassword2" class="input" type="password" name="newPassword2" placeholder="Confirm New Password" required value="<%= typeof newPassword2 != 'undefined' ? newPassword2 : '' %>"></input>
+          <input id="newPassword2" class="input" type="password" name="newPassword2" style="width:100%" required value="<%= typeof newPassword2 != 'undefined' ? newPassword2 : '' %>"></input>
         </div>
         <input type="submit" class="button primary" value="Update"></input>
       </form>
@@ -122,10 +124,10 @@
           Your login and member profile will be deactivated. If there are other active family members in your tree, your post and profile data will be maintained, otherwise your data will not be recoverable.
         </p>
       </div>
-      <form id="deactivate-form" action="/account/settings-account-deactivate-account" method="post">
+      <form id="deactivate-form" action="/account/settings-account-deactivate-account" method="post" style="width: 350px;">
         <div class="input-container">
           <label for="password">Password</label>
-          <input id="currentPassword" class="input" type="password" name="currentPassword" placeholder="Current Password" required></input>
+          <input id="currentPassword" class="input" type="password" name="currentPassword" style="width:100%" required></input>
         </div>
         <button id="open-confirmation" class="button primary open-modal">Deactivate Account</button>
         <div id="deactivate-confirmation" class="modal hidden">
