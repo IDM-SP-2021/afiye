@@ -2,8 +2,12 @@
 
 <main class="pageType-addAlbum">
   <form method="post" action="/account/add-album" id="add-album">
-    <h2>Create a New Album</h2>
-    <button id="open-tag" class="button primary icon tag"></button>
+
+    <div class="newalb">
+      <h2>Create a New Album</h2>
+      <button id="open-tag" class="button primary icon tag open-modal" style="margin: 0;"></button>
+    </div>
+
     <div class="input-container">
       <label for="album-title">Title</label>
       <input type="text" name="title" id="album-title" required/>
@@ -19,25 +23,16 @@
       ></textarea>
     </div>
     <div id="user-posts">
-      <% data.postData.forEach(post => { %> <%-
-      include('../../partials/post-option-card', { post: post }) %> <% }) %>
     </div>
     <div id="tag-family" class="modal hidden">
       <div class="modal-inner">
         <h2>Tag Your Family</h2>
         <button class="button primary icon cross"></button>
-        <input
-          class="input"
-          type="search"
-          name="search_family"
-          id="search_family"
-          placeholder="Family member"
-        />
-        <div id="memberList"></div>
+        <div id="family-list"></div>
         </select>
       </div>
     </div>
-    <input class="button primary" type="submit" value="Share" />
+    <input id="add-album-button" class="button primary" type="submit" value="Share" />
   </form>
 </main>
 <script type="text/javascript">

@@ -1,7 +1,7 @@
 <%- include('../partials/front-header') %>
 
 <main>
-	<h1>Email has been sent</h1>
+	<h1 style="text-align: center;">Email has been sent</h1>
 
 	<% if (typeof success_msg !== 'undefined') { %>
 		<p style="
@@ -22,12 +22,13 @@
 			you spam folder!
 		<% } %>
 	</p>
-	<a class="button primary" href="/login">Login</a>
+	<a style="margin: 0 auto; display: block;" class="button primary" href="/login">Login</a>
 	<form action="/register/confirmation-<%- uid %> " method="post" style="
 		text-align: center;
 		padding-top: 2em;
 	">
-		<label>Didn't recieve the message?</label
-		><input class="button text-only" type="submit" value="Resend" style="margin-top: 1.25em;" />
+		<label>Didn't recieve the message?</label>
+		<br>
+		<input class="button1 text-only" type="submit" value="Resend" style="margin-top: 1.25em;" />
 	</form>
 </main>

@@ -1,0 +1,41 @@
+<%- include('../../partials/user-header') %>
+
+<main class="pageType-addAlbum">
+  <%- include('../../partials/messages') %>
+  <form method="post" action="/account/edit-album-<%- data.album.alid %> " id="edit-album">
+
+    <div class="newalb">
+      <h2>Edit Album</h2>
+      <button id="open-tag" class="button primary icon tag open-modal" style="margin: 0;"></button>
+    </div>
+
+    <div class="input-container">
+      <label for="album-title">Title</label>
+      <input type="text" name="title" id="album-title" value="<%- data.album.title %>" required />
+    </div>
+    <div class="input-container">
+      <label for="album-description">Description</label>
+      <textarea
+        name="description"
+        id="album-description"
+        cols="30"
+        rows="10"
+        required
+      ><%- data.album.description %></textarea>
+    </div>
+    <div id="user-posts"></div>
+    <div id="tag-family" class="modal hidden">
+      <div class="modal-inner">
+        <h2>Tag Your Family</h2>
+        <button class="button primary icon cross"></button>
+        <div id="family-list"></div>
+        </select>
+      </div>
+    </div>
+    <input class="button primary" type="submit" value="Share" />
+  </form>
+</main>
+<script type="text/javascript">
+  const data = <%- JSON.stringify(data) %>;
+</script>
+<%- include('../../partials/user-mobile-nav') %>

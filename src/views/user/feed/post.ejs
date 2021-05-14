@@ -6,33 +6,26 @@
     <div class="user-info">
       <!-- profile img -->
       <div class="imgname">
-        <div class="story">
-          <img src="<%- data.postOwner.avatar %>" alt="" />
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" />
-          </svg>
-        </div>
+        <%- include('../../partials/avatar', {person: data.postOwner}) %>
 
         <!-- username -->
-        <div class="description">
+        <div>
           <h2>
             <% if (data.postOwner.prefName !== '') { %><%=
             data.postOwner.prefName %><% } else { %><%= data.postOwner.firstName
             %><% } %> <%= data.postOwner.lastName %>
           </h2>
-          <span> TBD </span>
+          <span><%- data.postOwner.relation %></span>
         </div>
       </div>
 
       <!-- timestamp -->
-      <div class="timestamp" style="float: right">
-        <a href="/account/modal"
-          ><img
-            style="padding-bottom: 10px"
-            src="../assets/icons/more-01.svg"
-            alt="more"
-          />
-        </a>
+      <div class="timestamp">
+        <% if (data.editable === true) { %>
+          <a class="edit-post" href="/account/edit-post-<%- data.post.pid %>">
+            <i class="icon icon-edit"></i> Edit Post
+          </a>
+        <% } %>
         <span><%- data.timeStamp %></span>
       </div>
     </div>
@@ -54,22 +47,27 @@
 
     <!-- Tagged users -->
 
-    <div class="tagged-users" style="display: grid">
-      <div class="title-tag-users">
-        <h2>Tagged Family</h2>
-      </div>
+    <div id="tagged">
+      <h3>Tagged Family</h3>
 
-      <% if (data.post.tagged.length > 0) { %>
-      <div class="avatars">
-        <% data.post.tagged.forEach(person => { %>
-        <div class="story">
-          <p><%- person %></p>
-        </div>
-        <% }) %>
+      <div id="tagged-members">
+        <% if (data.tagged.length > 0) { %>
+          <% data.tagged.forEach(member => { %>
+            <a href="/account/profile-<%- member.uid %>">
+              <%- include('../../partials/avatar', {person: member}) %>
+              <p>
+                <% if (member.prefName !== '') { %>
+                  <%- member.prefName %>
+                <% } else { %>
+                  <%- member.firstName %>
+                <% } %>
+              </p>
+            </a>
+          <% }) %>
+        <% } else { %>
+          <p>No one is tagged in this memory.</p>
+        <% } %>
       </div>
-      <% } else { %>
-      <p>No one is tagged in this memory.</p>
-      <% } %>
     </div>
   </div>
 </div>

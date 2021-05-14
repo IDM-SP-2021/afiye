@@ -7,15 +7,13 @@ $(function() {
   $('#container-toggle').on('click', () => {
     console.log('toggled');
     $('#inner-container').toggleClass('open');
-  });
-
-  $('#add-user').on('click', () => {
-    console.log('add user');
+    $('#arrow-down').toggleClass('arrow-up');
   });
 });
 
 const renderGraph = (data) => {
   let width = $('#graph').width(), height = $('#graph').height();
+  console.log('Graph data: ', data);
 
   const svg = d3.select('#graph').append('svg')
     .attr('width', '100%')
@@ -45,7 +43,6 @@ const renderGraph = (data) => {
       target: i * 2 + 1
     });
     let split = d.avatar.split('upload/');
-    console.log('Avatar split: ', split);
     d.tAvatar = split[0] + 'upload/w_200,h_200,c_scale,r_max/w_200/' + split[1];
     d.tAvatar = d.tAvatar.substr(0, d.tAvatar.lastIndexOf('.')) + '.png';
   });
@@ -83,7 +80,6 @@ const renderGraph = (data) => {
     .attr('r', 40)
     .attr('stroke', d => {
       let color = d.profileColor;
-      console.log(color);
       let strokeColor =
           (color === 'profileColor-pink') ? '#fe66b8'
         : (color === 'profileColor-magenta') ? '#f83a74'

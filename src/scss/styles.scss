@@ -5,10 +5,10 @@
 @import "./foundation/_icons";
 
 @import "./partials/_base";
+@import "./partials/_textInput";
 @import "./partials/_button";
 @import "./partials/_checkbox";
 @import "./partials/_cardStyle";
-@import "./partials/_textInput";
 @import "./partials/_header";
 @import "./partials/_mobile-nav";
 @import "./partials/_footer";
@@ -38,3 +38,4 @@
 @import "./pages/_create-memory";
 @import "./pages/_create-profile";
 @import "./pages/_create-memory-tag";
+@import "./partials/_modal-new";

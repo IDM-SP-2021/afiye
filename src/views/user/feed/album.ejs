@@ -3,33 +3,33 @@
 <div class="album-container" style="padding-top: 4rem">
   <div class="afiye-posts">
     <div class="user-info">
+      <!-- profile img -->
       <div class="imgname">
-        <div class="story">
-          <img src="<%- data.albumData.ownerData.avatar %>" alt="" />
-          <svg viewbox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" />
-          </svg>
+        <%- include('../../partials/avatar', {person: data.albumData.ownerData})
+        %>
+
+        <!-- username -->
+        <div>
+          <h2>
+            <% if (data.albumData.ownerData.prefName !== '') { %><%=
+            data.albumData.ownerData.prefName %><% } else { %><%=
+            data.albumData.ownerData.firstName %><% } %> <%=
+            data.albumData.ownerData.lastName %>
+          </h2>
+          <span><%- data.albumData.ownerData.relation %></span>
         </div>
       </div>
 
-      <div class="description">
-        <h2>
-          <% if (data.albumData.ownerData.prefName !== '') { %><%=
-          data.albumData.ownerData.prefName %><% } else { %><%=
-          data.albumData.ownerData.firstName %><% } %> <%=
-          data.albumData.ownerData.lastName %>
-        </h2>
-        <span> TBD </span>
-      </div>
-
-      <div class="timestap" style="float: right">
-        <a href="/account/modal"
-          ><img
-            style="padding-bottom: 10px"
-            src="../assets/icons/more-01.svg"
-            alt="more"
-          />
+      <!-- timestamp -->
+      <div class="timestamp">
+        <% if (data.editable === true) { %>
+        <a
+          class="edit-post"
+          href="/account/edit-album-<%- data.albumData.album.alid %>"
+        >
+          <i class="icon icon-edit"></i> Edit Album
         </a>
+        <% } %>
         <span><%- data.albumData.timeStamp %></span>
       </div>
     </div>
@@ -40,26 +40,32 @@
     <div>
       <p><%- data.albumData.album.description %></p>
     </div>
-  </div>
-</div>
-<div class="post-container">
-  <% data.postData.forEach(item => { %> <%- include('../../partials/feed-item',
-  {item: item}) %> <% }) %>
-</div>
-<div class="tagged-users" style="display: grid">
-  <div class="title-tag-users">
-    <h2>Tagged Family</h2>
-  </div>
 
-  <% if (data.post.tagged.length > 0) { %>
-  <div class="avatars">
-    <% data.post.tagged.forEach(person => { %>
-    <div class="story">
-      <p><%- person %></p>
+    <div class="post-container">
+      <% data.postData.forEach(item => { %> <%-
+      include('../../partials/feed-item', {item: item}) %> <% }) %>
     </div>
-    <% }) %>
+    <div id="tagged">
+      <h3>Tagged Family</h3>
+
+      <div id="tagged-members">
+        <% if (data.tagged.length > 0) { %> <% data.tagged.forEach(member => {
+        %>
+        <a href="/account/profile-<%- member.uid %>">
+          <%- include('../../partials/avatar', {person: member}) %>
+          <p>
+            <% if (member.prefName !== '') { %> <%- member.prefName %> <% } else
+            { %> <%- member.firstName %> <% } %>
+          </p>
+        </a>
+        <% }) %> <% } else { %>
+        <p>No one is tagged in this memory.</p>
+        <% } %>
+      </div>
+    </div>
   </div>
-  <% } else { %>
-  <p>No one is tagged in this memory.</p>
-  <% } %>
+</div>
+<%- include('../../partials/user-mobile-nav') %>
+<div class="footer-box">
+  <p class="footer-title">© afiye 2020</p>
 </div>

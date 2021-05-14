@@ -1,12 +1,16 @@
 // container for creating posts
 .create-new-post {
-  padding-bottom: 1rem;
+  padding: 1rem 1rem 0;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   width: 377px;
-  padding-top: 1rem;
+  align-items: center;
   // background: #fff;
+}
+
+main.pageType-addPost {
+  display: flex;
 }
 
 #post-leveler {
@@ -31,9 +35,20 @@
   // margin: 0 auto;
 }
 
+div.end {
+  margin: 0 auto;
+  width: 380px;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+div.end img {
+  width:10%;
+}
+
 div.imgname div:last-child {
-  margin-top: 12px;
-  margin-left: 16px;
+  margin-top: 2px;
+  margin-left: 5px;
 }
 
 div.imgname div:last-child h2 {
@@ -52,19 +67,25 @@ div.imgname div:last-child span {
   display: flex;
   position: relative;
 
-  #add-options {
+  #add-options, #add-options:focus {
+    display: inline-block;
+    outline: 0;
     position: absolute;
     right: 0;
-    padding-left: 2rem;
     margin: 0 auto;
-    bottom: -5rem;
+    bottom: -5.5rem;
     width: 14rem;
     height: 80px;
     z-index: 20;
-    background: #c48cff8a;
+    text-align:justify;
+    background: white;
     border-radius: 15px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
   }
+}
+#add-options:hover { 
+  background-color: $purple-default;
+  color: white;
 }
 
 .buttons {
@@ -85,23 +106,44 @@ div.imgname div:last-child span {
   background-color: white;
   margin-bottom: 1rem;
   margin-top: 1rem;
-  border-radius: 10px;
+  // border-radius: 10px;
+
+  > div:not(.user-info):not(.img):not(.post-container) {
+    padding: 0 1rem;
+  }
+}
+
+#no-posts > h2 {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+#no-posts > a {
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .user-info {
   display: flex;
   // width: 100vw;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 1rem;
   border-bottom: 1px solid #e7e7e7;
+  justify-content: space-between;
 }
 
 div.timestamp {
-  margin-top: 18px;
-  margin-left: 67px;
+  margin-top: 34px;
   font-size: 13px;
+  position: relative;
+
+  .edit-post {
+    position: absolute;
+    right: 0;
+    display: block;
+    width: 6rem;
+    text-align: right;
+    top: -22px;
+  }
 }
 
 div.timestamp img {
@@ -158,6 +200,7 @@ div.img {
   width: 70px;
   overflow: hidden;
   height: 64px;
+  margin-right: 5px;
 }
 
 .story img {
@@ -185,18 +228,25 @@ div.img {
   // z-index: -1000;
 }
 
-.title-tag-users {
-  grid-area: title;
-}
+#tagged {
+  overflow-x: scroll;
 
-// .tagged-users {
-//   display: grid;
-//   grid-template-columns: 1fr;
-//   grid-template-rows: 1fr 1fr;
-//   grid-template-areas:
-//     "title"
-//     "avatar";
-// }
+  #tagged-members {
+    display: flex;
+    a {
+      color: $title-active;
+      padding: 0.25rem;
+      width: 6.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      p {
+        margin: 0.25rem 0;
+      }
+    }
+  }
+}
 
 .post-media {
   width: 100%;
@@ -205,7 +255,7 @@ div.img {
   .media-item {
     width: 100%;
     height: 100%;
-    border-radius: 10px;
+    // border-radius: 10px;
     overflow: hidden;
     position: relative;
 
@@ -213,6 +263,7 @@ div.img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      vertical-align: middle;
     }
   }
 
@@ -260,23 +311,16 @@ div.img {
   }
 }
 
-// check this
-// .buttons {
-//   margin-left: 20px;
-// }
-
-// div.post-media img {
-//   width: 95%;
-//   max-height: 600px;
-//   object-fit: fill;
-//   border-radius: 10px;
-// }
-
 #user-posts {
   display: flex;
-  width: 100%;
+  width: 430px;
+  margin: 0 auto;
   overflow-x: scroll;
-  padding: 0 0.5rem;
+  padding-bottom: 1rem;
+
+  p:only-child {
+    margin: 0 auto;
+  }
 
   .post-option {
     width: 10rem;
@@ -302,15 +346,25 @@ div.img {
         color: $title-active;
         margin: 0.5rem;
         transition: inherit;
-
       }
-
-
 
       p {
         font: $mobile-text-small;
         margin: 0 0.5rem 0.5rem;
       }
+    }
+
+    .newalb {
+      display: flex;
+      margin: 0 auto;
+      max-width: 430px;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+    }
+
+    .post-title:first-child {
+      padding-left: 2rem;
     }
 
     input[type="checkbox"] {
@@ -339,6 +393,91 @@ div.img {
   }
 }
 
+#post-media-preview {
+  & > div {
+    margin: 1rem auto 2rem;
+  }
+  img {
+    width: 100%;
+    max-width: 430px;
+    vertical-align: middle;
+  }
+}
+
+#post-media {
+  @extend #post-media-preview;
+
+  .img-check {
+    position: relative;
+
+    label {
+      cursor: pointer;
+      display: block;
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: background 0.1s ease-in;
+      }
+
+      &::after {
+        font-family: $icon-font;
+        font-size: 1.5em;
+        content: "\e904";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        background: $red-dark;
+        color: $off-white;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        opacity: 0;
+        transition: opacity 0.1s ease-in;
+      }
+
+      &:hover {
+        &::before {
+          background: adjust-color($red-default, $alpha: -0.75);
+          background-size: contain;
+        }
+
+        &::after {
+          opacity: 1;
+        }
+      }
+    }
+
+    input[type="checkbox"] {
+      position: absolute;
+      left: 0;
+      opacity: 0;
+
+      &:checked {
+        & + label {
+          &::before {
+            background: adjust-color($red-default, $alpha: -0.75);
+            background-size: contain;
+          }
+
+          &::after {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
 @include tablet {
   .description {
     margin: 0 auto;
@@ -352,19 +491,17 @@ div.img {
 
   .create-new-post {
     width: 700px !important;
+    padding-top: 1rem;
   }
 
   .imgname {
     display: flex;
     width: 475px;
+    align-items: center;
   }
 
   .afiye-posts {
     width: 700px !important;
-  }
-
-  .timestamp {
-    margin-left: 175px !important;
   }
 
   .footer-box {
@@ -416,82 +553,23 @@ div.img {
     display: flex !important;
   }
 }
-
-#memory-title{
-  max-width: 90vw;
-    margin: 8px auto;
-    display: block
+#add-option { 
+  width: 100%;
 }
-
-#post-media-preview{
-  max-width: 85%;
-  margin-left: auto;
-  margin-right: auto;
+#add-option:hover { 
+  background-color: #922aff;
 }
+#add-post { 
+  display: inline-block;
+  width: 100%;
+  height: 40px;
+  padding-left: 2rem;
+  padding-top: 10px;
+  color: #922aff !important;
+  border-radius:15px;
 
-#post-media-upload{
-  max-width: 90vw;
-  margin: 8px auto;
-  display: block;
-}
-
-#description{
-  margin-top: 8px;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  max-width: 90vw;
-}
-
-
-#post-media-preview>img{
-  max-width: 100%;
-  margin-top: 10px;
-}
-
-#search_family{
-  max-width: 100%;
-}
-
-#add-bottom-button{
-  margin-bottom: 10em;
-}
-
-@media only screen and (min-width: 1px) {
-#memory-title-tag{
-text-align: center;
-display: block;
-margin-left: -74vw
-}
-}
-
-@media only screen and (max-width: 499px) {
-#open-tag{
-  margin-right: 0em;
-}
-}
-
-
-@media only screen and (min-width: 500px) {
-  #memory-title-tag{
-  text-align: center;
-  display: block;
-  margin-left: -24em
+  &:hover, &:focus { 
+  color: white !important;
+  background-color: #922aff;
   }
-
-  #open-tag{
-    left: 14em;
-  }
-  }
-
-  .post-title>h3{
-    padding: 0 5px;
-  }
-
-#feed-bottom-message{
-  text-align: center;
-  max-width: 275px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 6em;
 }

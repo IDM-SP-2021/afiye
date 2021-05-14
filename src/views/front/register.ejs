@@ -1,161 +1,167 @@
 <%- include('../partials/front-header') %>
 
+<!-- <main style="    width: 360px; margin: 4rem auto; padding-top: 4rem; text-align: center; border-radius: 15px; background-color: white;"> -->
+
 <div id="desktop-register">
-  <img class="login-bubble" src="../assets/imgs/blob.png">
-
   <div class="left">
-    <img src="../assets/imgs/welcome.png">
+    <!-- image -->
+    <img class="afiye-img" src="../../assets/imgs/afiye-desktopIntro.svg" />
   </div>
 
-  <div class="right">
-      <h1 style="text-align: left; color: #922bfe; padding-bottom: 1rem;">Sign Up</h1>
+  <div class="right" style="height: 56rem">
+    <div class="login-logo-section">
+      <img
+        class="login-logo"
+        src="assets\imgs\afiye-icon.png"
+        style="width: 80px"
+      />
+      <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
+      <p style="margin-bottom: 3rem">Your whole family in one place</p>
+    </div>
 
-      <%- include ('../partials/messages') %>
+    <%- include ('../partials/messages') %>
 
-      <form action="/register" method="post">
-        <div class="input-container">
-          <!-- <label for="name">First Name</label> -->
-          <input
-            style="height: 50px;"
-            class="input mobile"
-            type="name"
-            name="firstName"
-            placeholder="First Name"
-            value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
-          />
-        </div>
-        <div class="input-container">
-          <!-- <label for="name">Last Name</label> -->
-          <input
-          style="height: 50px;"
+    <form action="/register" method="post" style="width: 100%">
+      <div class="input-container">
+        <label for="name">First Name</label>
+        <input
+          style="width: 100%"
+          class="input"
+          type="name"
+          name="firstName"
+          value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
+        />
+      </div>
+      <div class="input-container">
+        <label for="name">Last Name</label>
+        <input
+          style="width: 100%"
+          class="input"
+          type="name"
+          name="lastName"
+          value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
+        />
+      </div>
+      <div class="input-container">
+        <label for="email">Email</label>
+        <input
+          style="width: 100%"
+          class="input"
+          type="email"
+          name="email"
+          value="<%= typeof email != 'undefined' ? email : '' %>"
+        />
+      </div>
+      <div class="input-container">
+        <label for="password">Password</label>
+        <input
+          style="width: 100%"
+          class="input"
+          type="password"
+          name="password"
+          value="<%= typeof password != 'undefined' ? password : '' %>"
+        />
+      </div>
+      <div class="input-container">
+        <label for="password2">Confirm Password</label>
+        <input
+          style="width: 100%"
+          class="input"
+          type="password"
+          name="password2"
+          value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
+        />
+      </div>
 
-            class="input mobile"
-            type="name"
-            name="lastName"
-            placeholder="Last Name"
-            value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
-          />
-        </div>
-        <div class="input-container">
-          <!-- <label for="email">Email</label> -->
-          <input
-          style="height: 50px;"
+      <!-- Login button -->
+      <button type="submit" class="button primary">Login</button>
+    </form>
 
-            class="input mobile"
-            type="email"
-            name="email"
-            placeholder="Email"
-            value="<%= typeof email != 'undefined' ? email : '' %>"
-          />
-        </div>
-        <div class="input-container">
-          <!-- <label for="password">Password</label> -->
-          <input
-          style="height: 50px;"
-
-            class="input mobile"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value="<%= typeof password != 'undefined' ? password : '' %>"
-          />
-        </div>
-        <div class="input-container">
-          <!-- <label for="password2">Confirm Password</label> -->
-          <input
-          style="height: 50px;"
-
-            class="input mobile"
-            type="password"
-            name="password2"
-            placeholder="Confirm Password"
-            value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-          />
-        </div>
-        <button type="submit" class="button primary" style="width: 300px;">Register</button>
-      </form>
-
-      <p style="padding-top: 3rem;" class="center-header">Already have an account? <a href="/login">Sign in</a></p>
-      
+    <!-- Below Login -->
+    <p class="center-header">
+      Already have an account? <a href="/register">Sign in</a>
+    </p>
   </div>
-
 </div>
 
-<div class="mobile-register" style=" padding-top: 5rem; margin: 0 auto; width: 300px;">
+<div
+  class="mobile-register"
+  style="padding-top: 5rem; margin: 0 auto; width: 300px; text-align: center"
+>
+  <img class="login-bubble1" src="assets/blob-promo-index-hero.svg" />
+  <img class="login-bubble2" src="assets/blob-promo-index-hero.svg" />
 
-  <img class="login-bubble1" src="assets/blob-promo-index-hero.svg">
-  <img class="login-bubble2" src="assets/blob-promo-index-hero.svg">
+  <div class="login-logo-section">
+    <img
+      class="login-logo"
+      src="assets\imgs\afiye-icon.png"
+      style="width: 80px"
+    />
+  </div>
 
-  <h1 style="text-align: left; color: #922bfe; padding-bottom: 1rem;">Sign Up</h1>
+  <h1 style="margin-bottom: 0" class="center-header">Afiye</h1>
+  <p style="margin-bottom: 3rem">Your whole family in one place</p>
 
   <%- include ('../partials/messages') %>
 
-  <form action="/register" method="post">
+  <form action="/register" method="post" style="width: 344px">
     <div class="input-container">
-      <!-- <label for="name">First Name</label> -->
+      <label for="name">First Name</label>
       <input
-        style="height: 50px;"
+        style="height: 50px"
         class="input mobile"
         type="name"
         name="firstName"
-        placeholder="First Name"
         value="<%= typeof firstName != 'undefined' ? firstName : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="name">Last Name</label> -->
+      <label for="name">Last Name</label>
       <input
-      style="height: 50px;"
-
+        style="height: 50px"
         class="input mobile"
         type="name"
         name="lastName"
-        placeholder="Last Name"
         value="<%= typeof lastName != 'undefined' ? lastName : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="email">Email</label> -->
+      <label for="email">Email</label>
       <input
-      style="height: 50px;"
-
+        style="height: 50px"
         class="input mobile"
         type="email"
         name="email"
-        placeholder="Email"
         value="<%= typeof email != 'undefined' ? email : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="password">Password</label> -->
+      <label for="password">Password</label>
       <input
-      style="height: 50px;"
-
+        style="height: 50px"
         class="input mobile"
         type="password"
         name="password"
-        placeholder="Password"
         value="<%= typeof password != 'undefined' ? password : '' %>"
       />
     </div>
     <div class="input-container">
-      <!-- <label for="password2">Confirm Password</label> -->
+      <label for="password2">Confirm Password</label>
       <input
-      style="height: 50px;"
-
+        style="height: 50px"
         class="input mobile"
         type="password"
         name="password2"
-        placeholder="Confirm Password"
         value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
       />
     </div>
-    <button type="submit" class="button primary" style="width: 300px;">Register</button>
+    <button type="submit" class="button primary" style="width: 300px">
+      Register
+    </button>
   </form>
-
-  <p style="padding-top: 3rem;" class="center-header">Already have an account? <a href="/login">Sign in</a></p>
+  <p class="center-header">
+    <a href="/password-reset">Forgot password?</a> |
+    <a href="/register">Sign Up for Afiye</a>
+  </p>
 </div>
-<!-- 
-<main style=" padding-top: 5rem; margin: 0 auto; width: 330px;">
-
-</main> -->
+<!-- </main> -->

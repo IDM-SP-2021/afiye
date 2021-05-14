@@ -1,133 +1,138 @@
 .footer-box {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: 999;
-	width: 100%;
-	height: 2.8em;
-	background: $main-purple-default;
-	text-align: left;
-	z-index: 99;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 2.8em;
+  background: $main-purple-default;
+  text-align: left;
 }
 
 .footer-title {
-	font-family: $desktop-text-large;
+  font-family: $desktop-text-large;
 
-	color: #ffffff;
-	font-size: $desktop-text-large;
-	margin-left: 0.9em;
-	margin-top: 0.625em;
+  color: #ffffff;
+  font-size: $desktop-text-large;
+  margin-left: 0.9em;
+  margin-top: 0.625em;
 }
 
 /* (phone screens, 376px and down) */
 @media only screen and (max-width: 376px) {
-	.feed-nav {
-		position: fixed;
-		margin-left: 14%;
-	}
+  .feed-nav {
+    position: fixed;
+    margin-left: 14%;
+  }
 
-	.tree-nav {
-		position: fixed;
-		margin-left: 35%;
-	}
+  .tree-nav {
+    position: fixed;
+    margin-left: 35%;
+  }
 
-	.profile-nav {
-		position: fixed;
-		margin-left: 55%;
-	}
+  .profile-nav {
+    position: fixed;
+    margin-left: 55%;
+  }
 
-	.settings-nav {
-		position: fixed;
-		margin-left: 75%;
-	}
+  .settings-nav {
+    position: fixed;
+    margin-left: 75%;
+  }
 }
 
 /* (tablet screens, 377px and up) */
 @media tablet {
-	.feed-nav {
-		position: fixed;
-		margin-left: 20%;
-		margin-top: 3.7em;
-	}
+  .feed-nav {
+    position: fixed;
+    margin-left: 20%;
+    margin-top: 3.7em;
+  }
 
-	.tree-nav {
-		position: fixed;
-		margin-left: 38%;
-		margin-top: 3.7em;
-	}
+  .tree-nav {
+    position: fixed;
+    margin-left: 38%;
+    margin-top: 3.7em;
+  }
 
-	.profile-nav {
-		position: fixed;
-		margin-left: 55%;
-		margin-top: 3.7em;
-	}
+  .profile-nav {
+    position: fixed;
+    margin-left: 55%;
+    margin-top: 3.7em;
+  }
 
-	.settings-nav {
-		position: fixed;
-		margin-left: 72%;
-		margin-top: 3.7em;
-	}
+  .settings-nav {
+    position: fixed;
+    margin-left: 72%;
+    margin-top: 3.7em;
+  }
 
-	.feed-nav-top {
-		display: none;
-	}
+  .feed-nav-top {
+    display: none;
+  }
 
-	.tree-nav-top {
-		display: none;
-	}
+  .tree-nav-top {
+    display: none;
+  }
 
-	.settings-nav-top {
-		display: none;
-	}
+  .settings-nav-top {
+    display: none;
+  }
 
-	.footer-title {
-		display: none;
-	}
+  .footer-title {
+    display: none;
+  }
 
-	.footer-box {
-		display: none;
-	}
+  .footer-box {
+    display: none;
+  }
 }
 
 /* desktop screens (laptops/desktops, 769px and up) */
 @media desktop {
-	.header-box {
-		height: 6.25em;
-		background: #ffffff;
-		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
-		text-align: left;
-	}
+  .header-box {
+    height: 6.25em;
+    background: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+    text-align: left;
+  }
 
-	.feed-nav-top {
-		position: fixed;
-		margin-left: 70%;
-		margin-top: -2.5em;
-		display: block;
-	}
+  .feed-nav-top {
+    position: fixed;
+    margin-left: 70%;
+    margin-top: -2.5em;
+    display: block;
+  }
 
-	.tree-nav-top {
-		position: fixed;
-		margin-left: 78%;
-		margin-top: -2.5em;
-		display: block;
-	}
+  .tree-nav-top {
+    position: fixed;
+    margin-left: 78%;
+    margin-top: -2.5em;
+    display: block;
+  }
 
-	.settings-nav-top {
-		position: fixed;
-		margin-left: 86%;
-		margin-top: -2.5em;
-		display: block;
-	}
+  .settings-nav-top {
+    position: fixed;
+    margin-left: 86%;
+    margin-top: -2.5em;
+    display: block;
+  }
 
-	.header-title {
-		margin-top: 2.2em;
-	}
+  .header-title {
+    margin-top: 2.2em;
+  }
 
-	.footer-title {
-		display: block;
-	}
+  .footer-title {
+    display: block;
+  }
 
-	.footer-box {
-		display: block;
-	}
+  .footer-box {
+    display: block;
+  }
+}
+
+
+.footer-force-bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }

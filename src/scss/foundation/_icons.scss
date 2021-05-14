@@ -7,7 +7,7 @@
     filter: hue-rotate(269deg) saturate(1) brightness(1);
   }
 }
-.arrow-white { 
+.arrow-white {
   @extend .accessibility;
 
   &:after {
@@ -110,18 +110,18 @@
   }
 }
 
-.node-view { 
+.node-view {
   @extend .accessibility;
 
-  &:after { 
+  &:after {
     content: url("../assets/icons/node-view.svg");
   }
 }
 
-.node-view-gray { 
+.node-view-gray {
   @extend .accessibility;
 
-  &:after { 
+  &:after {
     content: url("../assets/icons/node-view-gray.svg");
   }
 }
@@ -190,18 +190,18 @@
   }
 }
 
-.tree-view { 
+.tree-view {
   @extend .accessibility;
 
-  &:after { 
+  &:after {
     content: url("../assets/icons/tree-view.svg");
   }
 }
 
-.tree-view-gray { 
+.tree-view-gray {
   @extend .accessibility;
 
-  &:after { 
+  &:after {
     content: url("../assets/icons/tree-view-gray.svg");
   }
 }
@@ -332,6 +332,10 @@ i.icon {
     // usage: <i class="icon icon-tick"></i>
     content: "\e916";
   }
+  &.icon-tree:before {
+    // usage: <i class="icon icon-tree"></i>
+    content: "\e91a";
+  }
   &.icon-upload:before {
     // usage: <i class="icon icon-upload"></i>
     content: "\e917";
@@ -340,9 +344,4 @@ i.icon {
     // usage: <i class="icon icon-user"></i>
     content: "\e918";
   }
-}
-
-.icon-edit:before {
-  // usage: <i class="icon icon-edit"></i>
-  content: "\e906";
 }

@@ -10,6 +10,7 @@ body {
   margin: 0;
   color: #000;
   overflow-x: hidden;
+  position: relative;
   // background: #f0f0f0;
 }
 
@@ -21,9 +22,26 @@ h1 {
   color: black;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-variant-ligatures: no-common-ligatures;
+}
+
+form {
+  margin: 0 auto;
+}
+
 a {
   color: $purple-default;
   text-decoration: none;
+}
+
+a:hover {
+  color: #550ea1;
 }
 
 .center-header {
@@ -44,4 +62,54 @@ a {
 object.logo {
   background-image: url(../assets/imgs/logo.png); // fallback if svg fails to load
   background-size: cover;
+}
+
+.post-title {
+  padding-left: 1rem;
+  font-family: "Rubik", Arial, sans-serif !important;
+  font-weight: 500 !important;
+}
+
+.newalb {
+  display: flex;
+  margin: 0 auto;
+  max-width: 430px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+
+  .button {
+    margin: 0;
+  }
+}
+
+textarea {
+  border: 1px solid #eff0f5;
+}
+
+.post-title:first-child {
+  padding-left: 2rem;
+}
+
+.input-container textarea {
+  width: 430px;
+  resize: vertical;
+}
+
+.input-container input {
+  width: 430px;
+}
+
+@include tablet {
+  .input-container textarea {
+    width: 430px;
+  }
+
+  .input-container input {
+    width: 100%;
+  }
+
+  form {
+    margin: 0 auto;
+  }
 }

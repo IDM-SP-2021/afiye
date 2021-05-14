@@ -1,15 +1,25 @@
 <%- include('../../partials/user-header') %>
 <main class='pageType-addPost'>
+
   <form
     id="add-post"
     action="/account/add-post"
     method="post"
     enctype="multipart/form-data"
   >
+
+  <div class="newalb">
+
     <h2>Create a New Memory</h2>
-    <button id="open-tag" class="button primary icon tag"></button>
-    <label id="memory-title-tag" for="memory-title">Title</label>
-    <input type="text" name="title" id="memory-title">
+    <button id="open-tag" class="button primary icon tag open-modal"></button>
+    </div>
+
+    <div class="input-container">
+      <label id="memory-title-tag" for="memory-title">Title</label>
+      <input type="text" name="title" id="memory-title">
+    </div>
+
+<div class="input-container">    
     <input
       type="file"
       name="post-media-upload"
@@ -19,26 +29,23 @@
       class="input"
       multiple
     />
+  </div>
     <div id="post-media-preview"></div>
-    <textarea
-      id="description"
-      name="description"
-      cols="30"
-      rows="10"
-      required
-    ></textarea>
+    <div class="input-container">
+      <label for="album-description">Description</label>
+      <textarea
+        name="description"
+        id="album-description"
+        cols="30"
+        rows="10"
+        required
+      ></textarea>
+    </div>
     <div id="tag-family" class="modal hidden">
       <div class="modal-inner">
         <h2>Tag Your Family</h2>
         <button class="button primary icon cross"></button>
-        <input
-          class="input"
-          type="search"
-          name="search_family"
-          id="search_family"
-          placeholder="Family member"
-        />
-        <div id="memberList"></div>
+        <div id="family-list"></div>
         </select>
       </div>
     </div>

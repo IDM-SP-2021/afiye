@@ -4,7 +4,7 @@
   
   <div id="graph-container" class="full-height-content">
     <div id="graph"></div>
-    <button id="open-tutorial" class="button primary icon help"></button>
+    <button id="open-tutorial" class="button primary icon help open-modal"></button>
     <div id="tree-tutorial-modal" class="modal hidden">
       <div id="tree-tutorial-1" class="modal-inner">
         <button class="button primary icon cross"></button>
@@ -47,20 +47,20 @@
 
             <div style="margin: 0 auto; text-align: center">
             <h1 class="header-title-mobile" style="text-align: center">Family Profiles</h1>
-            <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px;  width: 55ch;">
+            <p class="mobile-text-small prime">
               From your Family Wall, you are able to see the connections between everyone that has been added.  
               Each profile represents a family member!  
             </p>
-            <img src="../assets/imgs/tutorial.svg" style="margin: 10px auto;" width="300px" height="200px"/>
-            <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;">
+            <img src="../assets/imgs/tutorial.svg" class="svg"/>
+            <p class="mobile-text-small prime">
             You can select anyone’s node to view their profile in the Family Tree.
             </p>
             </div>
-            <div style="height: 70px; margin-top: 20px; margin-bottom: px;">
-            <button class="button primary" id="tutorial-first":disabled style="margin: 0 auto;">
+            
+            <button class="button primary" id="tutorial-first":disabled style="margin: 20px auto 0;">
             Next
             </button>
-            </div>
+            
       </div>
       <div id="tree-tutorial-2" class="modal-inner hidden">
         <button class="button primary icon cross"></button>
@@ -106,13 +106,13 @@
         </div>
         <div style="margin: 0 auto; text-align: center">
         <h1 class="header-title-mobile" style="text-align: center">Family Network</h1>
-          <p class="mobile-text-small" style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;">
+          <p class="mobile-text-small prime">
               While your Family Wall continues to grow, you can pinch and zoom out to see more of your family’s nodes!
           </p>
-          <img src="../assets/imgs/network.svg" style="margin: 10px auto;" width="300px" height="300px"/>
+          <img src="../assets/imgs/network.svg" class="svg" style="height: 200px;"/>
         </div>
         
-           <button class="button primary" id="tutorial-second" :disabled style="margin: 20px auto;"
+           <button class="button primary" id="tutorial-second" :disabled style="margin: 40px auto 0;"
             >
             Next
             </button>
@@ -162,10 +162,7 @@
         </div>
         <div style="margin: 0 auto; text-align: center">
           <h1 class="header-title-mobile" style="text-align: center">Network View</h1>
-          <p
-            class="mobile-text-small"
-            style="text-align: center; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
-          >
+          <p class="mobile-text-small prime">
           This is the Network view, you can view all your  family connections. You can drag and interact with the profiles.
           </p>
         </div>
@@ -187,15 +184,13 @@
           >
           </button>
         </div>
-        <p class="mobile-text-small" style="text-align: center; margin-top: 30px">
-          Network View
-        </p>
-        <img src="../assets/imgs/network.svg" style="margin: 20px auto;" width="300px" height="300px"/>
+      
+        <img src="../assets/imgs/network.svg" class="svg" height="170px"/>
         
             <button id="tutorial-third"
               class="button primary"
               :disabled
-              style="margin: 0 auto 10px;"
+              style="margin: 30px auto 10px;"
             >
               Next
             </button>
@@ -228,8 +223,7 @@
         <div style="margin: 0 auto; text-align: center">
           <h1 class="header-title-mobile" style="text-align: center">Tree View</h1>
           <p
-            class="mobile-text-small"
-            style="text-align: center; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+            class="mobile-text-small prime"
           >
           This is the Tree view, to see your family in a more traditional way!
           </p>
@@ -252,15 +246,13 @@
           >
           </button>
         </div>
-        <p class="mobile-text-small" style="text-align: center; margin-top: 20px">
-          Tree View
-        </p>
-        <img src="../assets/imgs/heirarchy.svg" style="margin: 10px auto;" width="250px" height="250px"/>
+        
+        <img src="../assets/imgs/heirarchy.svg" class="svg"/>
         
             <button id="tutorial-fourth"
               class="button primary"
               :disabled
-              style="margin: 10px auto;"
+              style="margin: 40px auto 0;"
             >
               Next
             </button>
@@ -310,8 +302,8 @@
         <div style="margin: 0 auto; text-align: center">
           <h1 class="header-title-mobile" style="text-align: center">Add a Profile</h1>
           <p
-            class="mobile-text-small"
-            style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+            class="mobile-text-small prime"
+           
           >
           If you notice that your Family Wall is missing someone, be sure to add their profile with the Add Button.
           </p>
@@ -325,8 +317,8 @@
             "
           />
           <p
-            class="mobile-text-small"
-            style="text-align: left; margin: 0 auto; padding: 10px 40px; line-height: 24px; width: 55ch;"
+            class="mobile-text-small prime"
+            
           >
           In a person’s profile node, you can add their name, birthday, profile picture!  
           </p>
@@ -335,7 +327,7 @@
           <button id="tutorial-fifth"
               class="button primary"
               :disabled
-              style="margin: 10px auto;"
+              style="margin: 80px auto 0;"
             >
               Next
             </button>
@@ -389,8 +381,8 @@
               <div style="margin: 0 auto; text-align: center">
                 <h1 class="header-title-mobile" style="text-align: center">Send a Code</h1>
                 <p
-                  class="mobile-text-small"
-                  style="text-align: center; margin: 0 auto; padding: 10px 40px; width: 55ch;"
+                  class="mobile-text-small prime"
+                 
                 >
                   Some profiles in your family tree may still be empty! You can help get your
                   family members into your tree.
@@ -399,8 +391,8 @@
                   ### ###
                 </h1>
                 <p
-                  class="mobile-text-small"
-                  style="text-align: center; margin: 0 auto; padding: 10px 40px; width: 55ch;"
+                  class="mobile-text-small prime"
+                  
                 >
                   Select an empty profile to generate and send an invite code to them to join!
                 </p>
@@ -410,7 +402,7 @@
                   <button id="tutorial-sixth"
                     class="button primary"
                     :disabled
-                    style="margin: 30px auto;"
+                    style="margin: 110px auto 0;"
                   >
                     Finish
                   </button>
@@ -431,23 +423,39 @@
 
   <div id="family-container">
     <div id="inner-container">
-      <input
+      <!-- <input
         class="input"
         id="family-search"
         type="search"
         name="family-search"
         placeholder="Search"
-      />
+      /> -->
       <h2>Family Members</h2>
       <div id="family-list">
         <ul>
-          <% data.graph.nodes.forEach(member => { %>
-          <li><%- member.firstName %> <%- member.lastName %></li>
+          <% data.family.forEach(member => { %>
+          <li>
+            <a href="/account/profile-<%- member.uid %> " class="user-info">
+              <!-- profile img -->
+              <div class="imgname">
+          
+                <%- include('../../partials/avatar', {person: member}) %>
+          
+                <!-- username -->
+                <div>
+                  <h3>
+                    <% if (member.prefName !== '') { %><%= member.prefName %><% } else { %><%= member.firstName %><% } %> <%= member.lastName %>
+                  </h3>
+                  <span><%- member.relation %></span>
+                </div>
+              </div>
+            </a>
+          </li>
           <% }); %>
         </ul>
       </div>
     </div>
-    <div id="container-toggle"><span class="bar"></span></div>
+    <div id="container-toggle"><span id="arrow-down"></span></div>
   </div>
 
   <%- include('../../partials/user-mobile-nav') %>

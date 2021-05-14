@@ -1,18 +1,12 @@
+<div class="afiye-posts">
   <!-- header for user's name and timestamp -->
   <div class="user-info">
     <!-- profile img -->
     <div class="imgname">
-      <!-- <div class="story">
-        <img src="<%= item.ownerData.avatar %>" alt="" />
-        <svg viewbox="0 0 100 100">
-          <circle cx="50" cy="50" r="40" />
-        </svg>
-      </div> -->
-
       <%- include('./avatar', {person: item.ownerData}) %>
 
       <!-- username -->
-      <div id="post-leveler">
+      <div>
         <h2>
           <% if (item.ownerData.prefName !== '') { %><%= item.ownerData.prefName
           %><% } else { %><%= item.ownerData.firstName %><% } %> <%=
@@ -20,22 +14,13 @@
           + item.itemType.slice(1) %>
         </h2>
         <span><%- item.ownerData.relation %></span>
-        <span><%- item.timeStamp %> ago</span>
       </div>
     </div>
 
     <!-- timestamp -->
-    <div class="timestamp" style="float: right">
-      <img src="../assets/imgs/more-feed.png" alt="more" />
-      <!-- <span><%- item.timeStamp %> ago</span> -->
+    <div class="timestamp">
+      <span><%- item.timeStamp %></span>
     </div>
-  </div>
-
-  <div
-    class="post-title"
-    style="padding-left: 1rem; padding-top: 1rem; padding-bottom: 1rem"
-  >
-    <p><%- item.item.title %></p>
   </div>
 
   <% if (item.itemType === 'album') { %>
@@ -70,5 +55,9 @@
     </div>
     <% } %>
   </a>
+
+  <div class="post-title">
+    <h3><%- item.item.title %></h3>
+  </div>
   <% } %>
 </div>

@@ -23,15 +23,22 @@
 
   #presskit-heading {
     position: relative;
+    background-image: url("../assets/blob-promo-presskit-hero.svg");
+    padding: 3rem 0.875rem 17rem;
+    margin: 0 -0.875rem;
+    background-position-y: bottom;
+    background-size: cover;
+    background-position-x: center;
+
+    @include desktop {
+      padding-bottom: 25rem;
+    }
 
     h1 {
       font: $mobile-display-large-bold;
       color: white;
       margin: 0 auto;
       text-align: center;
-
-      position: relative;
-      top: 3rem;
     }
 
     .promo-heading {
@@ -51,41 +58,20 @@
     }
   }
 
-  #hero {
-    position: absolute;
-    width: 110%;
-    z-index: -10;
-    left: -1em;
-    top: -8.5em;
-  }
-
-  @include tablet {
-    #hero {
-      position: absolute;
-      width: 110%;
-      z-index: -10;
-      left: -1em;
-      top: -29.5em;
-    }
-  }
-
-  @include desktop {
-    #hero {
-      position: absolute;
-      width: 110%;
-      z-index: -10;
-      left: -1em;
-      top: -50.5em;
-    }
-  }
-
   // About
 
   #about {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 20rem;
+    gap: 2rem;
+    margin-top: 6rem;
+    text-align: center;
+
+    .promo-text {
+      font: $mobile-text-medium;
+      width: 18rem;
+    }
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -124,10 +110,7 @@
 
   #media-gallery {
     margin-top: 6rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 3rem 1.5rem;
 
     .promo-heading {
       font: $promo-heading-mobile;
@@ -136,9 +119,10 @@
       -webkit-background-clip: text;
       color: rgba(0, 0, 0, 0.09);
       text-transform: uppercase;
+      text-align: center;
     }
     #download-media-zip {
-      margin: 0.5rem auto;
+      margin: 3rem auto 0;
       display: block;
     }
   }
@@ -151,48 +135,61 @@
     align-items: center;
   }
 
+  /* First the Grid */
+  .gallery-grid {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 1.5rem;
+    justify-items: center;
+    margin: 0;
+    padding: 0;
 
-/* First the Grid */
-.gallery-grid {
-  display: -ms-grid;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 1.5rem;
-  justify-items: center;
-  margin: 0;
-  padding: 0;
-}
+    @include tablet {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
 
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+    }
 
-/* The Images */
-.gallery-img {
-  max-width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform .2s ease-in-out;
-}
+    .gallery-frame {
+      background-color: $input-background;
+      margin: 0;
+      padding: 1rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 
-.gallery-img:hover {
-  transform: scale(1.15);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3)
-}
+  /* The Images */
+  .gallery-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.2s ease-in-out;
+  }
 
-
+  //   .gallery-img:hover {
+  //     transform: scale(1.15);
+  //     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  //   }
 
   // Footer
 
   footer {
     width: 100%;
-    display: absolute;
     bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
   }
 
   #copyright {
     font: $promo-heading-bold-mobile;
+    color: $main-purple-default;
     text-align: left;
-    background: $gradient-one;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: rgba(0, 0, 0, 0.09);
   }
 }

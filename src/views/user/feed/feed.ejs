@@ -1,56 +1,53 @@
 <%- include('../../partials/user-header') %>
-<body style="background-color: #fafafa;">
-<div id="top" class="create-new-post" style="padding-left: 1rem;">
-    <!-- profile img -->
-        <div class="imgname">
+<div id="top" class="create-new-post">
+  <!-- profile img -->
+  <div class="imgname">
+    <%- include('../../partials/avatar', {person: data.current}) %>
 
-            <!-- <div class="story">
-                <img src="https://picsum.photos/45/45?random=1" alt="">
-                <svg viewbox="0 0 100 100">
-                    <circle cx="50" cy="50" r="40"/>
-                </svg>
-            </div> -->
-            <%- include('../../partials/avatar', {person: data.current}) %>
-
-            <!-- username -->
-            <div>
-                <h2 style="margin: 0; font-weight: 400;"><%- user.firstName %> <%- user.lastName %> </h2>
-                <span style="font-size: 12px; font-weight: 400;">That's you!</span>
-            </div>
-
-        </div>
-
-        <!-- buttons -->
-        <div id="add-post-control" class="buttons">
-            <button class="button primary icon plus"></button>
-            <div id="add-options" class="hidden">
-              <br>
-              <a href="/account/add-post" id="add-post" class="add-option">Create a New Memory</a>
-              <br>
-              <a href="/account/add-album" id="add-post" class="add-option">Create a New Album</a>
-            </div>
-        </div>
+    <!-- username -->
+    <div>
+      <h2 style="margin: 0; font-weight: 400">
+        <%- user.firstName %> <%- user.lastName %>
+      </h2>
+      <span style="font-size: 12px; font-weight: 400">That's you!</span>
     </div>
+  </div>
 
+  <!-- buttons -->
+  <div id="add-post-control" class="buttons">
+    <div class="button primary icon plus"></div>
+    <div id="add-options" class="hidden">
+      <a href="/account/add-post" id="add-post" class="add-option"
+        >Create a New Memory</a
+      >
+      <a href="/account/add-album" id="add-post" class="add-option"
+        >Create a New Album</a
+      >
+    </div>
+  </div>
 </div>
-
 
 <div class="post-container">
   <% if (data.posts.length === 0) { %>
-    <div id="no-posts" class="afiye-posts">
-      <h2>Hmm... It doesn't look like you or your family have shared any memories yet.
-      </h2>
-      <a href="/account/add-post">Create a memory and share it with your family!</a>
-    </div>
-  <% } else { %>
-    <% data.posts.forEach(item => { %>
-    <%- include('../../partials/feed-item', {item: item}) %>
-    <% }) %>
-    <p id="feed-bottom-message">You've reached the end of your family's memories. <a href="#top">Back to the top!</a></p>
+  <div id="no-posts" class="afiye-posts">
+    <h2>
+      Hmm... It doesn't look like you or your family have shared any memories
+      yet.
+    </h2>
+    <a href="/account/add-post"
+      >Create a memory and share it with your family!</a
+    >
+  </div>
+  <% } else { %> <% data.posts.forEach(item => { %> <%-
+  include('../../partials/feed-item', {item: item}) %> <% }) %>
+  <div class="end">
+    <img src="../../../assets/imgs/feed-end.png" />
+
+    <p id="feed-bottom-message" style="text-align: center; line-height:22px; margin-top: 20px;">
+      You've reached the end of your family's memories. <br> 
+      <a href="#top">Back to the top!</a>
+    </p>
+  </div>
   <% } %>
 </div>
-<div class="footer-box">
-    <p class="footer-title">© afiye 2020</p>
-</div>
 <%- include('../../partials/user-mobile-nav') %>
-</body>
