@@ -1211,8 +1211,15 @@ router.get('/profile-:uid', ensureAuthenticated, (req, res) => {
 
         let sorted = _.sortBy(postData, [(o) => {return o.item.modified; }]).reverse(); // sort post data by most recently modified
 
+        let name = '';
+        if (profile.prefName !== '') {
+          name = profile.prefName;
+        } else {
+          name = profile.firstName;
+        }
+
         let locals = {
-          title: `Afiye - ${profile.firstName}'s Profile`,
+          title: `Afiye - ${name}'s Profile`,
           user: req.user,
           data: {
             profile,
