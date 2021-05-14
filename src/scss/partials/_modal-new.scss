@@ -1,26 +1,25 @@
 .upload-btn-wrapper {
-    position: relative;
-    overflow: hidden;
-    display: inline-block;
-  }
-  
-  .btn {
-    border: 2px solid #b774ff;
-    color: #b774ff;
-    background-color: #ffffff;
-    padding: 8px 20px;
-    border-radius: 8px;
-    font-size: 15px;
-  }
-  
-  .upload-btn-wrapper input[type=file] {
-    font-size: 100px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    opacity: 0;
-  }
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
 
+.btn {
+  border: 2px solid #b774ff;
+  color: #b774ff;
+  background-color: #ffffff;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
 
 // -------------- BUTTON
 
@@ -30,7 +29,7 @@
   border-radius: 0.25em;
   color: white;
   cursor: pointer;
-  display: inline-block;
+  // display: inline-block;
   font-weight: 500;
   height: 3em;
   line-height: 3em;
@@ -44,21 +43,21 @@
 // -------------- DETAILS MODAL
 
 .details-modal {
-    background: #ffffff;
-    border-radius: 0.5em;
-    box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
-    left: 50%;
-    max-width: 90%;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 30em;
-    text-align: left;
-    max-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    z-index: 2000;
+  background: #ffffff;
+  border-radius: 0.5em;
+  box-shadow: 0 10px 20px rgb(0 0 0 / 20%);
+  left: 50%;
+  max-width: 90%;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 30em;
+  text-align: left;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
 
   // -------------- CLOSE
 
@@ -129,7 +128,7 @@
 details {
   summary {
     list-style: none;
-      
+
     &:focus {
       outline: none;
     }
