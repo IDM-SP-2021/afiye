@@ -16,13 +16,14 @@ const nodeObj = (node) => {
       avatar = props.avatar,
       claimed = props.claimed,
       profileColor = props.profileColor,
+      location = props.location,
       member;
 
   if (avatar === undefined) {
     avatar = '../assets/icons/user.svg';
   }
 
-  member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor};
+  member = {id, uid, fid, firstName, prefName, lastName, gender, birthdate, avatar, claimed, profileColor, location};
   return member;
 };
 
@@ -112,7 +113,6 @@ const getData = async (user) => {
 };
 
 const getFamily = async (uid, fid) => {
-  console.log('Get family: ', uid, fid);
   let session = driver.session();
   const txc = session.beginTransaction();
   try {
@@ -128,11 +128,8 @@ const getFamily = async (uid, fid) => {
     result1.records.forEach(res => {
       let currentMem = nodeObj(res.get('curr'));
           currentMem.relation = 'That\'s You!';
-          console.log('Current member: ', currentMem);
       family.push(currentMem);
     });
-
-    console.log('After current: ', family);
 
     const result2 = await txc.run(
       'MATCH (p:Person)-[:MEMBER]->(:Family {fid: $fid}) \

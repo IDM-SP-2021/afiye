@@ -182,6 +182,8 @@
 
     .personal-info {
       grid-area: personal-info;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
 
       .birthdate {
         font: $mobile-text-x-small;
