@@ -67,7 +67,7 @@
 
       <div style="text-align: center; margin: 20px auto; height: 70px;">
         <p class="mobile-text-small">
-          You can change your account's email address here.
+          You can change your account's <br> email address here.
         </p>
       </div>
       <form id="change-email" action="/account/settings-account-change-email" method="post">
@@ -119,13 +119,13 @@
 
       <%- include ('../../partials/messages') %>
 
-      <div style="text-align: center; margin: 20px auto; height: 70px;">
+      <div style="text-align: left; margin: 20px 10px; height: 70px;">
         <p class="mobile-text-small">
           Your login and member profile will be deactivated. If there are other active family members in your tree, your post and profile data will be maintained, otherwise your data will not be recoverable.
         </p>
       </div>
       <form id="deactivate-form" action="/account/settings-account-deactivate-account" method="post" style="width: 350px;">
-        <div class="input-container">
+        <div class="input-container" style="padding-top: 2em;">
           <label for="password">Password</label>
           <input id="currentPassword" class="input" type="password" name="currentPassword" style="width:100%" required></input>
         </div>
