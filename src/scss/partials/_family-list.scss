@@ -92,6 +92,18 @@
   }
 }
 
+// Tag family modal
+#tag-family {
+  .modal-inner {
+    display: flex;
+    flex-direction: column;
+
+    #family-list {
+      overflow-y: scroll;
+    }
+  }
+}
+
 @include tablet {
   #family-container {
     top: 4.6875em;
