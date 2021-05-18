@@ -9,7 +9,6 @@ const { Email } = require('../models/email.js');
 const { customAlphabet } = require('nanoid');
 const ejs = require('ejs');
 const nodemailer = require('nodemailer');
-const { local } = require('d3-selection');
 
 require('dotenv').config();
 
