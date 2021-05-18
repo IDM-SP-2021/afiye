@@ -14,7 +14,7 @@ header {
     grid-template-columns: 1fr 3fr;
     align-items: center;
     height: $header-height;
-    overflow: hidden;
+    // overflow: hidden;
 
     .nav-link-home {
       display: flex;
@@ -58,6 +58,54 @@ header {
 
           a {
             color: $purple-default;
+          }
+        }
+
+        .nav-drop-header {
+          color: $body;
+          font: $mobile-link-medium;
+          width: 100%;
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+
+          #arrow-down {
+            position: absolute;
+            right: 0;
+            margin: 0;
+            border-color: $body;
+            transition: transform 0.2s ease-in-out;
+          }
+        }
+
+        .nav-drop {
+          display: flex;
+          flex-direction: column;
+          height: 0;
+          overflow: hidden;
+          transition: height 0.2s ease-in-out;
+        }
+
+        .nav-drop-header.is-active {
+          & ~ .nav-drop {
+            height: 102px;
+          }
+
+          #arrow-down {
+            transform: rotate(-135deg);
+          }
+        }
+
+        .nav-drop-link {
+          @extend .nav-link;
+
+          &:first-child {
+            margin-top: 0 !important;
+            padding-top: 2rem !important;
+          }
+
+          &:last-child {
+            padding-bottom: 0 !important;
           }
         }
       }
@@ -114,7 +162,7 @@ header {
       height: calc(100vh - 3.75em);
       transform: translate(101%);
       text-align: left;
-      overflow: hidden;
+      // overflow: hidden;
       transition: transform 0.3s ease-in-out;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
       padding: 0 2em;
@@ -159,6 +207,12 @@ header {
     .header-nav {
       height: $header-height;
     }
+
+    &.front-header {
+      .nav-link-group {
+        top: 4.6875em;
+      }
+    }
   }
 }
 
@@ -191,13 +245,58 @@ header {
         .nav-link {
           padding: 0.5em 0.75em;
           margin: 0 0.5em;
+          position: relative;
 
           &:first-child {
             margin-top: 0;
           }
 
-          a {
+          * {
             font: $desktop-text-medium !important;
+          }
+
+          .nav-drop-header {
+            padding-right: 1.25rem;
+
+            #arrow-down {
+              border: solid $body;
+              border-width: 0 4px 4px 0;
+              display: inline-block;
+              padding: 3px;
+              transform: rotate(45deg);
+              -webkit-transform: rotate(45deg);
+              width: 0.01px;
+              margin-top: 5px;
+            }
+          }
+
+          .nav-drop {
+            background: $off-white;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 15px);
+            width: 14rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.09);
+
+            .nav-drop-link {
+              &:first-child {
+                padding-top: 1em !important;
+              }
+
+              &:last-child {
+                padding-bottom: 1em !important;
+              }
+
+              a {
+                width: 100%;
+              }
+            }
+          }
+
+          .nav-drop-header.is-active {
+            & ~ .nav-drop {
+              height: 116px;
+            }
           }
         }
       }

@@ -106,6 +106,11 @@ $('.nav-toggle').on('click', () => {
   $('.nav-toggle').toggleClass('is-active');
 });
 
+$('.nav-drop-header').on('click', function() {
+  console.log('clicked nav drop header');
+  $(this).toggleClass('is-active');
+});
+
 // * Onboarding -------------------------------------------------------------------------
 $('input[name=mode]').on('click', () => {
   $('#mode-select input[type=submit]').removeAttr('disabled');

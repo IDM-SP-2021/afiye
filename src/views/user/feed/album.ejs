@@ -49,23 +49,20 @@
       <h3>Tagged Family</h3>
 
       <div id="tagged-members">
-        <% if (data.tagged.length > 0) { %> <% data.tagged.forEach(member => {
-        %>
-        <a href="/account/profile-<%- member.uid %>">
-          <%- include('../../partials/avatar', {person: member}) %>
-          <p>
-            <% if (member.prefName !== '') { %> <%- member.prefName %> <% } else
-            { %> <%- member.firstName %> <% } %>
-          </p>
-        </a>
-        <% }) %> <% } else { %>
-        <p>No one is tagged in this memory.</p>
-        <% } %>
+        <% if (data.tagged.length > 0) { %> <% data.tagged.forEach(member => { %>
+          <a href="/account/profile-<%- member.uid %>">
+            <%- include('../../partials/avatar', {person: member}) %>
+            <p>
+              <% if (member.prefName !== '') { %>
+                <%- member.prefName %> <% } else { %> <%- member.firstName %> <% } %>
+            </p>
+          </a>
+        <% }) %><% } else { %><p>No one is tagged in this memory.</p><% } %>
       </div>
     </div>
   </div>
 </div>
-<%- include('../../partials/user-mobile-nav') %>
+<!-- <%- include('../../partials/user-mobile-nav') %> -->
 <div class="footer-box">
   <p class="footer-title">© afiye 2020</p>
 </div>

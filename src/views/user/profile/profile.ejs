@@ -28,8 +28,7 @@
         </div>
         <% } %>
       </div>
-      <% if (data.profile.claimed === false || data.profile.uid === user.uid) {
-      %>
+      <% if (data.profile.claimed === false || data.profile.uid === user.uid) { %>
       <div class="profile-actions">
         <a
           class="edit-profile"
@@ -58,8 +57,7 @@
           <a href="/account/profile-<%- member.uid %>">
             <%- include('../../partials/avatar', {person: member}) %>
             <p>
-              <% if (member.prefName !== '') { %> <%- member.prefName %> <% }
-              else { %> <%- member.firstName %> <% } %>
+              <% if (member.prefName !== '') { %> <%- member.prefName %> <% } else { %> <%- member.firstName %> <% } %>
             </p>
           </a>
           <% }); %>
@@ -79,9 +77,7 @@
         <% } else { %> <% data.posts.forEach(item => { %> <%-
         include('../../partials/feed-item', {item: item}) %> <% }) %>
         <p>
-          You've reached the end of <% if (data.profile.prefName !== '') { %>
-          <%- data.profile.prefName %> <% } else { %> <%- data.profile.firstName
-          %> <% } %>'s recent activity. <a href="#top">Back to the top!</a>
+          You've reached the end of <% if (data.profile.prefName !== '') { %><%- data.profile.prefName %> <% } else { %> <%- data.profile.firstName %> <% } %>'s recent activity. <a href="#top">Back to the top!</a>
         </p>
         <% } %>
       </div>
@@ -89,4 +85,4 @@
   </section>
 </main>
 
-<%- include('../../partials/user-mobile-nav') %>
+<!-- <%- include('../../partials/user-mobile-nav') %> -->

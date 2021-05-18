@@ -52,6 +52,13 @@ router.get('/press-kit', (req, res) => {
     title: 'Afiye - Press Kit',
   };
 
+  if (req.isAuthenticated()) {
+    locals.auth = true;
+    locals.user = req.user;
+  } else {
+    locals.auth = false;
+  }
+
   res.render(path.resolve(__dirname, '../views/front/press-kit'), locals);
 });
 
@@ -61,6 +68,13 @@ router.get('/case-study', (req, res) => {
     title: 'Afiye - Case Study',
   };
 
+  if (req.isAuthenticated()) {
+    locals.auth = true;
+    locals.user = req.user;
+  } else {
+    locals.auth = false;
+  }
+
   res.render(path.resolve(__dirname, '../views/front/case-study'), locals);
 });
 
@@ -69,6 +83,13 @@ router.get('/team', (req, res) => {
   let locals = {
     title: 'Afiye - Meet the Team'
   };
+
+  if (req.isAuthenticated()) {
+    locals.auth = true;
+    locals.user = req.user;
+  } else {
+    locals.auth = false;
+  }
 
   res.render(path.resolve(__dirname, '../views/front/team'), locals);
 });
