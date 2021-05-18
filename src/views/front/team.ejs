@@ -1,4 +1,8 @@
-<%- include('../partials/front-header') %>
+<% if (auth === true) { %>
+  <%- include('../partials/user-header') %>
+<% } else { %>
+  <%- include('../partials/front-header') %>
+<% } %> 
 
 <main id="team-container">
   <div id="team">

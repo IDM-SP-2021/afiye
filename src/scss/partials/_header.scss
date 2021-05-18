@@ -60,6 +60,54 @@ header {
             color: $purple-default;
           }
         }
+
+        .nav-drop-header {
+          color: $body;
+          font: $mobile-link-medium;
+          width: 100%;
+          display: inline-block;
+          position: relative;
+          cursor: pointer;
+
+          #arrow-down {
+            position: absolute;
+            right: 0;
+            margin: 0;
+            border-color: $body;
+            transition: transform 0.2s ease-in-out;
+          }
+        }
+
+        .nav-drop {
+          display: flex;
+          flex-direction: column;
+          height: 0;
+          overflow: hidden;
+          transition: height 0.2s ease-in-out;
+        }
+
+        .nav-drop-header.is-active {
+          & ~ .nav-drop {
+            height: 102px;
+          }
+
+          #arrow-down {
+            transform: rotate(-135deg);
+          }
+        }
+
+        .nav-drop-link {
+          @extend .nav-link;
+
+          &:first-child {
+            margin-top: 0 !important;
+            padding-top: 2rem !important;
+          }
+
+          &:last-child {
+            padding-bottom: 0 !important;
+          }
+        }
       }
     }
   }
@@ -196,7 +244,7 @@ header {
             margin-top: 0;
           }
 
-          a {
+          * {
             font: $desktop-text-medium !important;
           }
         }

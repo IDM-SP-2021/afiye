@@ -1,4 +1,8 @@
-<%- include('../partials/front-header') %>
+<% if (auth === true) { %>
+  <%- include('../partials/user-header') %>
+<% } else { %>
+  <%- include('../partials/front-header') %>
+<% } %> 
 
 <div id="caseStudy-container">
 <h1 id="caseStudy-header">Case Study <br> Coming Soon</h1>
