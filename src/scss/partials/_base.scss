@@ -14,6 +14,16 @@ body {
   // background: #f0f0f0;
 }
 
+body {
+  padding-bottom: 5rem;
+}
+
+@include desktop {
+  body {
+    padding-bottom: 0;
+  }
+}
+
 main {
   padding: 0 0.875rem;
 }
