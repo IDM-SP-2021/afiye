@@ -12,12 +12,12 @@ $(function() {
 });
 
 const renderGraph = (data) => {
-  let width = $('#graph').width(), height = $('#graph').height();
+  let width = $('#graph').width(), height = $('#graph-container').height();
   console.log('Graph data: ', data);
 
   const svg = d3.select('#graph').append('svg')
     .attr('width', '100%')
-    .attr('height', '100%')
+    .attr('height', height)
     .attr('pointer-events', 'all')
     .style('cursor', 'move')
     .style('font', '1.5rem "Rubik", Arial, sans-serif')

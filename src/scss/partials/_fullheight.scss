@@ -1,7 +1,7 @@
 .full-height {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100%;
 
   header {
     flex: 0 1 auto;
@@ -9,11 +9,6 @@
 
   .full-height-content {
     flex: 1 1 auto;
-  }
-
-  #mobile-nav-container {
-    flex: 0 1 auto;
-    position: static;
   }
 }
 

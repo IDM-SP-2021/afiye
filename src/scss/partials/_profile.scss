@@ -1,6 +1,7 @@
 .pageType-profile {
   #profile-overview {
     margin: 0 -0.875rem;
+    padding: 0 0.875rem;
 
     &.profileColor-pink {
       background-image: linear-gradient(
@@ -183,7 +184,7 @@
     .personal-info {
       grid-area: personal-info;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 2fr 1fr;
 
       .birthdate {
         font: $mobile-text-x-small;
@@ -290,6 +291,11 @@
 
       p:last-child {
         text-align: center;
+      }
+
+      .afiye-posts {
+        margin-left: -0.875rem;
+        margin-right: -0.875rem;
       }
     }
   }

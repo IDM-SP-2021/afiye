@@ -13,6 +13,7 @@ requireAll(require.context('../fonts/', true, /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\
 
 $(() => {
   $('input[type="submit"]').attr('disabled', false);
+
   if ($('main').hasClass('pageType-addPost') || $('main').hasClass('pageType-addAlbum')) {
     familyList(data, 'check'); //eslint-disable-line
   }
@@ -384,6 +385,35 @@ $('.tab-bar a').on('click', (event) => {
     $($(event.target).attr('href')).removeClass('hidden');
   }
 });
+
+$( '.inputfile' ).each( function()
+	{
+		var $input	 = $( this ),
+			$label	 = $input.next( 'label' ),
+			labelVal = $label.html();
+
+		$input.on( 'change', function( e )
+		{
+			var fileName = '';
+
+			if ( this.files && this.files.length > 1 ) {
+				fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+      } else if( e.target.value ) {
+				fileName = e.target.value.split( '\\' ).pop();
+      }
+
+			if ( fileName ) {
+				$label.find( 'span' ).html( fileName );
+      } else {
+				$label.html( labelVal );
+      }
+		});
+
+		// Firefox bug fix
+		$input
+		.on( 'focus', function(){ $input.addClass( 'has-focus' ); })
+		.on( 'blur', function(){ $input.removeClass( 'has-focus' ); });
+	});
 
 if(typeof(module.hot) !== 'undefined') {
   module.hot.accept(); // eslint-disable-line no-undef

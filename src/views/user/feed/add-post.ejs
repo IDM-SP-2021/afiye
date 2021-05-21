@@ -1,61 +1,64 @@
-<%- include('../../partials/user-header') %>
-<main class='pageType-addPost' id="cnm-bck">
+<div class="full-height">
+  <%- include('../../partials/user-header') %>
+  <main class='pageType-addPost full-height-content' id="cnm-bck">
 
-  <form
-    id="add-post"
-    action="/account/add-post"
-    method="post"
-    enctype="multipart/form-data"
-    class="cnm-form"
-  >
+    <form
+      id="add-post"
+      action="/account/add-post"
+      method="post"
+      enctype="multipart/form-data"
+      class="cnm-form"
+    >
 
-  <div class="newalb">
+    <div class="newalb">
 
-    <h2 style="font-weight: 400; font-size: 22px;">Create a New Memory</h2>
-    <button id="open-tag" class="button primary icon tag open-modal"></button>
-    </div>
-
-    <div class="input-container">
-      <label id="memory-title-tag" for="memory-title">Title</label>
-      <input type="text" name="title" id="memory-title" style="width: 100%;">
-    </div>
-
-<div class="input-container">    
-    <input
-      type="file"
-      name="post-media-upload"
-      id="post-media-upload"
-      accept="image/jpeg, image/png"
-      required
-      class="input"
-      multiple
-      style="width: 100%;"
-    />
-  </div>
-    <div id="post-media-preview"></div>
-    <div class="input-container">
-      <label for="album-description">Description</label>
-      <textarea
-        name="description"
-        id="album-description"
-        cols="30"
-        rows="10"
-        required
-        style="width: 100%;"
-      ></textarea>
-    </div>
-    <div id="tag-family" class="modal hidden">
-      <div class="modal-inner">
-        <h2>Tag Your Family</h2>
-        <button class="button primary icon cross"></button>
-        <div id="family-list"></div>
-        </select>
+      <h2 style="font-weight: 400; font-size: 22px;">Create a New Memory</h2>
+      <button id="open-tag" class="button primary icon tag open-modal"></button>
       </div>
+
+      <div class="input-container">
+        <label id="memory-title-tag" for="memory-title">Title</label>
+        <input type="text" name="title" id="memory-title" style="width: 100%;">
+      </div>
+
+  <div class="input-container">
+      <input
+        type="file"
+        name="post-media-upload"
+        id="post-media-upload"
+        accept="image/jpeg, image/png"
+        required
+        class="input inputfile"
+        data-multiple-caption="{count} files selected"
+        multiple
+      />
+      <label for="post-media-upload"><i class="icon icon-upload"></i><span>Choose a file...</span></label>
     </div>
-    <input id="add-bottom-button" class="button primary" type="submit" value="Share" />
-  </form>
-</main>
-<%- include('../../partials/user-mobile-nav') %>
+      <div id="post-media-preview"></div>
+      <div class="input-container">
+        <label for="album-description">Description</label>
+        <textarea
+          name="description"
+          id="album-description"
+          cols="30"
+          rows="10"
+          required
+          style="width: 100%;"
+        ></textarea>
+      </div>
+      <div id="tag-family" class="modal hidden">
+        <div class="modal-inner">
+          <h2>Tag Your Family</h2>
+          <button class="button primary icon cross"></button>
+          <div id="family-list"></div>
+          </select>
+        </div>
+      </div>
+      <input id="add-bottom-button" class="button primary" type="submit" value="Share" />
+    </form>
+  </main>
+  <%- include('../../partials/user-mobile-nav') %>
+</div>
 <script type="text/javascript">
   const data = <%- JSON.stringify(data) %>;
 </script>
