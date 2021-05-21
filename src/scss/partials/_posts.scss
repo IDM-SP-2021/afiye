@@ -11,6 +11,7 @@
 
 main.pageType-addPost {
   display: flex;
+  width: 100%;
 }
 
 #post-leveler {
@@ -119,7 +120,7 @@ div.end img {
   margin: 0 auto;
   border: 1px solid #e7e7e7;
   // border-bottom: 1px solid #c1bcbc;
- border-radius: 20px;
+  border-radius: 20px;
   width: 377px;
   background-color: white;
   margin-bottom: 1rem;
@@ -154,8 +155,9 @@ div.end img {
 #cnm-bck {
   // background-image: url(../../../assets/imgs/cnm-mobile.png);
   background-repeat: no-repeat;
-  background-position: center;
-  // height: 93%;
+  background-position: center bottom;
+
+  min-height: calc(100% - 4.6875rem - 4.5rem);
 }
 
 #no-posts > h2 {
@@ -547,11 +549,11 @@ div.img {
     border: 1px solid #00000029;
     padding: 3rem;
     border-radius: 1rem;
-    margin-top: 4rem;
+    margin: 4rem auto;
     background: white;
-    height: 700px;
     width: 500px;
     box-shadow: 0px 0px 8px 10px #8888882b;
+    flex-grow: 0;
   }
 
   .create-new-post {
@@ -613,9 +615,9 @@ div.img {
     border: 1px solid #00000029;
     padding: 3rem;
     border-radius: 1rem;
-    margin-top: 4rem;
+    // margin-top: 4rem;
+    margin: 4rem auto;
     background: white;
-    height: 700px;
     width: 500px;
     box-shadow: 0px 0px 8px 10px #8888882b;
   }
@@ -641,8 +643,6 @@ div.img {
 
   #cnm-bck {
     background-image: url(../../../assets/imgs/cnm-1200-2.png);
-    height: 93%;
-    background-repeat: no-repeat;
-    background-position: center;
+    min-height: calc(100% - 4.25rem);
   }
 }

@@ -21,13 +21,16 @@
 
 <div class="input-container">    
     <input
-      type="file"
-      name="post-media-upload"
-      id="post-media-upload"
-      accept="image/jpeg, image/png"
-      class="input"
-      multiple
-    />
+    type="file"
+    name="post-media-upload"
+    id="post-media-upload"
+    accept="image/jpeg, image/png"
+    required
+    class="input inputfile"
+    data-multiple-caption="{count} files selected"
+    multiple
+  />
+  <label for="post-media-upload"><i class="icon icon-upload"></i><span>Choose a file...</span></label>
   </div>
   <div id="post-media-preview"></div>
     <div id="post-media">
