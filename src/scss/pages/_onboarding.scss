@@ -1,16 +1,35 @@
 .profile-form {
   text-align: center;
   position: relative;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
 
   a.button.back {
     position: absolute;
     left: 0;
-    top: 2rem;
+    top: 2rem;}
 
     @include tablet {
       top: 1.25rem;
+
+      #profile-color-select {
+        border: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 20.625em;
+        margin: 1em auto;
+    }
+  }
+
+    @include desktop {
+      #profile-color-select {
+        border: none;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 22.625em;
+        margin: 1em auto;
     }
   }
 }
@@ -49,7 +68,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 22.625em;
+    width: 18.625em;
     margin: 1em auto;
 
     legend {

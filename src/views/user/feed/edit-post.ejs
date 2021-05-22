@@ -1,16 +1,17 @@
 <%- include('../../partials/user-header') %>
-<main class='pageType-addPost'>
+<main class='pageType-addPost' id="cnm-bck">
   <%- include ('../../partials/messages') %>
   <form
     id="edit-post"
     action="/account/edit-post-<%- data.post.pid %>"
     method="post"
     enctype="multipart/form-data"
+    class="cnm-form"
   >
 
   <div class="newalb">
 
-    <h2>Edit a Memory</h2>
+    <h2 style="font-weight: 400; font-size: 22px;">Edit a Memory</h2>
     <button id="open-tag" class="button primary icon tag open-modal"></button>
     </div>
 
@@ -53,6 +54,7 @@
         cols="30"
         rows="10"
         required
+        style="width: 100%;"
       ><%- data.post.description %></textarea>
     </div>
     <div id="tag-family" class="modal hidden">

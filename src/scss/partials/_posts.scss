@@ -65,6 +65,11 @@ div.end img {
   color: #6e7191;
 }
 
+#edit-post {
+  background: white;
+  width: 300px;
+}
+
 #add-post-control {
   display: flex;
   position: relative;
@@ -118,13 +123,14 @@ div.end img {
   // padding-bottom: 0.5rem;
   // width: 100vw;
   margin: 0 auto;
-  border: 1px solid #e7e7e7;
+  // border: 1px solid #e7e7e7;
   // border-bottom: 1px solid #c1bcbc;
   border-radius: 20px;
   width: 377px;
   background-color: white;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  border-top: 1px solid #e7e7e7;
   // border-radius: 10px;
 
   > div:not(.user-info):not(.img):not(.post-container) {
@@ -156,8 +162,6 @@ div.end img {
   // background-image: url(../../../assets/imgs/cnm-mobile.png);
   background-repeat: no-repeat;
   background-position: center bottom;
-
-  min-height: calc(100% - 4.6875rem - 4.5rem);
 }
 
 #no-posts > h2 {
@@ -556,6 +560,18 @@ div.img {
     flex-grow: 0;
   }
 
+  #edit-post {
+    display: inline-block;
+    color: #922aff !important;
+    border: 1px solid #00000029;
+    padding: 0 2rem;
+    border-radius: 1rem;
+    margin: 4rem auto;
+    background: white;
+    width: 500px;
+    box-shadow: 0px 0px 8px 10px #8888882b;
+  }
+
   .create-new-post {
     width: 700px !important;
     padding-top: 1rem;
@@ -569,6 +585,8 @@ div.img {
 
   .afiye-posts {
     width: 700px !important;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
   }
 
   .footer-box {
@@ -608,6 +626,19 @@ div.img {
     margin-top: 12px;
   }
 
+  #edit-post {
+    display: inline-block;
+    color: #922aff !important;
+    border: 1px solid #00000029;
+    padding: 0 2rem;
+    border-radius: 1rem;
+    margin: 4rem auto;
+    background: white;
+    height: 900px;
+    width: 500px;
+    box-shadow: 0px 0px 8px 10px #8888882b;
+  }
+
   #add-post {
     display: inline-block;
     // margin-top: 0.75em;
@@ -620,6 +651,19 @@ div.img {
     background: white;
     width: 500px;
     box-shadow: 0px 0px 8px 10px #8888882b;
+  }
+
+  .afiye-posts {
+    width: 700px !important;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
+  }
+}
+
+@media only screen and (min-width: 380px) {
+  .afiye-posts {
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
   }
 }
 
@@ -643,6 +687,11 @@ div.img {
 
   #cnm-bck {
     background-image: url(../../../assets/imgs/cnm-1200-2.png);
-    min-height: calc(100% - 4.25rem);
+  }
+
+  .afiye-posts {
+    width: 700px !important;
+    border: 1px solid #e7e7e7;
+    border-radius: 20px;
   }
 }
