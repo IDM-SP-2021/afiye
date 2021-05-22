@@ -2,6 +2,7 @@ $header-height: 3.75em;
 
 header {
   width: 100%;
+  height: $header-height;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -156,6 +157,8 @@ header {
   $header-height: 4.6875em;
 
   header {
+    height: $header-height;
+
     .header-nav {
       height: $header-height;
     }
@@ -166,6 +169,8 @@ header {
   $header-height: 4.25em;
 
   header {
+    height: $header-height;
+
     .header-nav {
       display: grid;
       height: $header-height;

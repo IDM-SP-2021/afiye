@@ -123,3 +123,9 @@ textarea {
     margin: 0 auto;
   }
 }
+
+@include desktop {
+  .flex-row {
+    display: flex;
+  }
+}

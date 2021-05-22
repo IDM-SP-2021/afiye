@@ -11,10 +11,3 @@
     flex: 1 1 auto;
   }
 }
-
-@include desktop {
-  .full-height {
-    flex-flow: row wrap;
-    align-items: stretch;
-  }
-}

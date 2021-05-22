@@ -12,7 +12,10 @@ $(function() {
 });
 
 const renderGraph = (data) => {
-  let width = $('#graph').width(), height = $('#graph-container').height();
+  let width = $('#graph').width(),
+      height = ($(window).width() > 1024) ? $(window).height() - 68
+            : ($(window).width() > 768) ? $(window).height() - 75 - 72
+            : $(window).height() - 60 - 72;
   console.log('Graph data: ', data);
 
   const svg = d3.select('#graph').append('svg')
